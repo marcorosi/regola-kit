@@ -15,7 +15,8 @@
 	* tutorial/how-to/getting-started
 	* articoli (con approfondimenti sui concetti)
 	* demo flash: creazione di un'applicazione con client web2.0, rcp e con
-	   creazione di un client .net dei servizi soap
+	* creazione di un client .net dei servizi soap
+
 4. esempi
 	* progetti di esempio
 	* progetti scheletro/vuoti/blank
