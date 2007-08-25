@@ -1,0 +1,28 @@
+#appunti sulle ultime modifiche
+
+= Revisione 9 (Marco) =
+
+-Aggiunti gli handler che mancavano è portato qualche metodo su FilterAnnotationHandler.
+Gli handler hanno tra loro una struttura molto simile
+  * applicare template method?
+  * estrarre la logica ripetuta e portarla in DefaultFilterBuilder?
+
+-Aggiunto DefaultFilterBuilderTest per testare l'integrazione tra DefaultFilterBuilder e gli handler di default.
+
+-Le annotazioni sulle property funzionavano solo se la property era pubblica quindi ho cambiato questa riga in AbstractFilterBuilder:
+
+`Field field = filter.getClass().getField(property.getName());`
+
+in 
+
+`Field field = filter.getClass().getDeclaredField(property.getName());`
+
+era un comportamento voluto?
+
+
+
+
+
+
+
+
