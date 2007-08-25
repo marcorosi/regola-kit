@@ -1,0 +1,84 @@
+package org.regola;
+
+import java.util.List;
+
+import org.regola.annotation.Equals;
+import org.regola.annotation.GreatherThan;
+import org.regola.annotation.In;
+import org.regola.annotation.LessThan;
+import org.regola.annotation.Like;
+import org.regola.annotation.NotEquals;
+
+class MockModelFilter extends ModelFilter
+{
+	@Equals(value="modelName")
+	String name;
+	String surname;
+	String nickname;
+	Integer age;
+	Integer weight;
+	String hairColor;
+	List<String> hobbies;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Equals
+	public String getSurname() {
+		return surname;
+	}
+
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	@Like
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	@GreatherThan
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	@LessThan
+	public Integer getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Integer weight) {
+		this.weight = weight;
+	}
+
+	@NotEquals
+	public String getHairColor() {
+		return hairColor;
+	}
+
+	public void setHairColor(String hairColor) {
+		this.hairColor = hairColor;
+	}
+
+	@In
+	public List<String> getHobbies() {
+		return hobbies;
+	}
+
+	public void setHobbies(List<String> hobbies) {
+		this.hobbies = hobbies;
+	}
+}

@@ -69,4 +69,13 @@ public class Criterion {
 		this.value = value;
 	}
 
+	@Override
+	public String toString()
+	{
+		StringBuilder sb = new StringBuilder();
+		sb.append(getProperty())
+			.append(" ").append(getOperator()).append(" ")
+			.append("'").append(getValue()).append("'");
+		return sb.toString();
+	}	
 }
