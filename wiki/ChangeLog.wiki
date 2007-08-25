@@ -1,4 +1,4 @@
-#appunti sulle ultime modifiche
+#summary appunti sulle ultime modifiche
 
 = Revisione 9 (Marco) =
 
@@ -18,7 +18,6 @@ in
 `Field field = filter.getClass().getDeclaredField(property.getName());`
 
 era un comportamento voluto?
-
 
 
 
