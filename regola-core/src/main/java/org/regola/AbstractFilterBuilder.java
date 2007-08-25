@@ -32,7 +32,8 @@ public abstract class AbstractFilterBuilder implements FilterBuilder {
 	protected void handleFieldAnnotations(PropertyDescriptor property,
 			Criteria criteria, ModelFilter filter) {
 		try {
-			Field field = filter.getClass().getField(property.getName());
+			//Field field = filter.getClass().getField(property.getName());
+			Field field = filter.getClass().getDeclaredField(property.getName());
 			handleAnnotations(field.getAnnotations(), property, criteria,
 					filter);
 		} catch (NoSuchFieldException e) {
