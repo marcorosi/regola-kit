@@ -1,5 +1,7 @@
 package org.regola.criterion;
 
+import java.util.Collection;
+
 import org.regola.Criterion;
 import org.regola.Criterion.Operator;
 
@@ -21,15 +23,15 @@ public class Restrictions {
 		return new Criterion(Operator.LT, property, value);
 	}
 
-	public static Criterion like(String property, Object value) {
+	public static Criterion like(String property, String value) {
 		return new Criterion(Operator.LIKE, property, value);
 	}
 
-	public static Criterion ilike(String property, Object value) {
+	public static Criterion ilike(String property, String value) {
 		return new Criterion(Operator.ILIKE, property, value);
 	}
 
-	public static Criterion in(String property, Object value) {
+	public static Criterion in(String property, Collection<?> value) {
 		return new Criterion(Operator.IN, property, value);
 	}
 

@@ -2,10 +2,15 @@ package org.regola;
 
 import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.regola.annotation.FilterAnnotationHandler;
 import org.regola.annotation.FilterHandler;
 
 public class DefaultFilterBuilder extends AbstractFilterBuilder {
+
+	private Map<Class<Annotation>, FilterAnnotationHandler> handlers = new HashMap<Class<Annotation>, FilterAnnotationHandler>();
 
 	@Override
 	protected void handleAnnotation(Annotation annotation,
@@ -20,6 +25,15 @@ public class DefaultFilterBuilder extends AbstractFilterBuilder {
 		} catch (IllegalAccessException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public Map<Class<Annotation>, FilterAnnotationHandler> getHandlers() {
+		return handlers;
+	}
+
+	public void setHandlers(
+			Map<Class<Annotation>, FilterAnnotationHandler> handlers) {
+		this.handlers = handlers;
 	}
 
 }

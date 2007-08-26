@@ -7,8 +7,8 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})
-@FilterHandler(GreatherThanHandler.class)
-public @interface GreatherThan
+@FilterHandler(GreaterThanHandler.class)
+public @interface GreaterThan
 {
 	String value() default "";
 }

@@ -4,17 +4,12 @@ import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
 
-import org.regola.annotation.FilterAnnotationHandler;
 import org.regola.annotation.FilterHandler;
 import org.regola.criterion.Projections;
 import org.springframework.beans.BeanUtils;
 
 public abstract class AbstractFilterBuilder implements FilterBuilder {
-
-	private Map<Class<Annotation>, FilterAnnotationHandler> handlers = new HashMap<Class<Annotation>, FilterAnnotationHandler>();
 
 	public void createCountFilter(Criteria criteria, ModelFilter filter) {
 		createFilter(criteria, filter);
@@ -62,14 +57,5 @@ public abstract class AbstractFilterBuilder implements FilterBuilder {
 
 	protected abstract void handleAnnotation(Annotation annotation,
 			PropertyDescriptor property, Criteria criteria, ModelFilter filter);
-
-	public Map<Class<Annotation>, FilterAnnotationHandler> getHandlers() {
-		return handlers;
-	}
-
-	public void setHandlers(
-			Map<Class<Annotation>, FilterAnnotationHandler> handlers) {
-		this.handlers = handlers;
-	}
 
 }

@@ -16,21 +16,22 @@ public class LikeHandler extends FilterAnnotationHandler {
 		Like like = (Like) annotation;
 		Object value = getFilterValue(property, filter);
 
-		if(!isSet(value))
+		if (!isSet(value))
 			return;
-		
+
 		if (!(value instanceof String)) {
 			throw new IllegalArgumentException(
-					"L'operatore like è applicabile soltanto a valori di tipo String");
+					"L'annotazione @Like è applicabile soltanto a valori di tipo String");
 		}
-		
-		String propertyPath = StringUtils.hasLength(like.value()) ? like.value() : property.getName();  
-		
+
+		String propertyPath = StringUtils.hasLength(like.value()) ? like
+				.value() : property.getName();
+
 		if (StringUtils.hasLength((String) value)) {
 			if (like.caseSensitive()) {
-				criteria.add(Restrictions.like(propertyPath, value));
+				criteria.add(Restrictions.like(propertyPath, (String) value));
 			} else {
-				criteria.add(Restrictions.ilike(propertyPath, value));
+				criteria.add(Restrictions.ilike(propertyPath, (String) value));
 			}
 		}
 	}

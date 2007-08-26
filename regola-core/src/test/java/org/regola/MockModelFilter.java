@@ -3,7 +3,7 @@ package org.regola;
 import java.util.List;
 
 import org.regola.annotation.Equals;
-import org.regola.annotation.GreatherThan;
+import org.regola.annotation.GreaterThan;
 import org.regola.annotation.In;
 import org.regola.annotation.LessThan;
 import org.regola.annotation.Like;
@@ -46,7 +46,7 @@ class MockModelFilter extends ModelFilter
 		this.nickname = nickname;
 	}
 
-	@GreatherThan
+	@GreaterThan
 	public Integer getAge() {
 		return age;
 	}
