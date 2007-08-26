@@ -10,7 +10,6 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-
 	<artifactId>regola-hibernate</artifactId>
 	<packaging>jar</packaging>
 	<name>REGOLA Framework :: Hibernate integration module</name>
@@ -22,6 +21,10 @@
 		<dependency>
 			<groupId>org.unitils</groupId>
 			<artifactId>unitils</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>${groupId}</groupId>
