@@ -5,7 +5,7 @@ import org.regola.Projection;
 public class Projections {
 
 	public static Projection rowCount() {
-		return Projection.ROW_COUNT;
+		return new RowCountProjection();
 	}
 
 }
