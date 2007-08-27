@@ -21,10 +21,7 @@
 	* progetti di esempio
 	* progetti scheletro/vuoti/blank
 
-5. analisi comparativa con U-GOV fwk
-	* funzionale e architetturale
-	* produttività 
-	* confronto delle applicazioni prototipo o esempi
+5. [omissis]
 
 6. implementazioni alternative di dao/ModelFilter:
 	* JPA
@@ -32,6 +29,6 @@
 	* iBATIS
 	* JDBC
 
-7. RCP client
+7. [surprise!]
 
 8. sito/gruppo di discussione/infrastruttura x la collaborazione e supporto al lavoro di gruppo (TRAC)
