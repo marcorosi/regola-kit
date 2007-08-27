@@ -21,7 +21,7 @@
 	* progetti di esempio
 	* progetti scheletro/vuoti/blank
 
-5. [omissis]
+5. ![omissis]
 
 6. implementazioni alternative di dao/ModelFilter:
 	* JPA
