@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.regola.DefaultFilterBuilder;
-import org.regola.FilterBuilder;
-import org.regola.GenericDao;
-import org.regola.ModelFilter;
+import org.regola.dao.GenericDao;
+import org.regola.filter.FilterBuilder;
+import org.regola.filter.ModelFilter;
+import org.regola.filter.builder.DefaultFilterBuilder;
 import org.regola.filter.criteria.hibernate.HibernateCriteria;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.orm.hibernate3.HibernateCallback;
