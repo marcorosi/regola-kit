@@ -4,9 +4,9 @@ import java.util.Collection;
 
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.regola.AbstractCriteriaBuilder;
-import org.regola.Criteria;
-import org.regola.criterion.Order;
+import org.regola.filter.criteria.Criteria;
+import org.regola.filter.criteria.Order;
+import org.regola.filter.criteria.impl.AbstractCriteriaBuilder;
 
 public class HibernateCriteria extends AbstractCriteriaBuilder {
 
