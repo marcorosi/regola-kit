@@ -34,6 +34,18 @@ public class RestrictionsTest {
 	}
 
 	@Test
+	public void ge() {
+		Criterion criterion = Restrictions.ge("property", null);
+		assertSame(Operator.GE, criterion.getOperator());
+	}
+
+	@Test
+	public void le() {
+		Criterion criterion = Restrictions.le("property", null);
+		assertSame(Operator.LE, criterion.getOperator());
+	}
+
+	@Test
 	public void like() {
 		Criterion criterion = Restrictions.like("property", null);
 		assertSame(Operator.LIKE, criterion.getOperator());

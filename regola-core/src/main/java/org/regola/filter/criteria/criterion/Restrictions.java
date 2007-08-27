@@ -23,6 +23,14 @@ public class Restrictions {
 		return new Criterion(Operator.LT, property, value);
 	}
 
+	public static Criterion ge(String property, Object value) {
+		return new Criterion(Operator.GE, property, value);
+	}
+
+	public static Criterion le(String property, Object value) {
+		return new Criterion(Operator.LE, property, value);
+	}
+
 	public static Criterion like(String property, String value) {
 		return new Criterion(Operator.LIKE, property, value);
 	}
