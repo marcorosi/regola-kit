@@ -14,7 +14,7 @@
 	<licenses>
 		<license>
 			<name>General Public License 3.0</name>
-			<url>http://www.gnu.org/licenses/gpl.html</url>
+			<url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
 		</license>
 	</licenses>
 	<developers>
@@ -44,7 +44,18 @@
 		<system>Google Code Issue</system>
 		<url>http://code.google.com/p/regola-framework/issues/list</url>
 	</issueManagement>
-
+	<mailingLists>
+		<mailingList>
+			<name>Developers List</name>
+			<subscribe>regola-dev-subscribe@googlegroups.com</subscribe>
+			<unsubscribe>
+				regola-dev-unsubscribe@googlegroups.com
+			</unsubscribe>
+			<post>regola-dev@googlegroups.com</post>
+			<archive>http://groups.google.com/group/regola-dev</archive>
+		</mailingList>
+	</mailingLists>
+	
 	<modules>
 		<module>regola-core</module>
 		<module>regola-hibernate</module>
