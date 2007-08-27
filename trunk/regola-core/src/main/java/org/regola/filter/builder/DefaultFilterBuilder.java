@@ -15,15 +15,23 @@ public class DefaultFilterBuilder extends AbstractFilterBuilder {
 	@Override
 	protected void handleAnnotation(Annotation annotation,
 			PropertyDescriptor property, Criteria criteria, ModelFilter filter) {
-		FilterHandler handler = annotation.annotationType().getAnnotation(
-				FilterHandler.class);
-		try {
-			handler.value().newInstance().handleAnnotation(annotation,
-					property, criteria, filter);
-		} catch (InstantiationException e) {
-			throw new RuntimeException(e);
-		} catch (IllegalAccessException e) {
-			throw new RuntimeException(e);
+		FilterHandler filterHandler = annotation.annotationType()
+				.getAnnotation(FilterHandler.class);
+
+		FilterAnnotationHandler handler = handlers.get(annotation);
+		if (handler != null) {
+			handler.handleAnnotation(annotation, property, criteria, filter);
+		} else {
+			try {
+				handler = filterHandler.value().newInstance();
+				handler
+						.handleAnnotation(annotation, property, criteria,
+								filter);
+			} catch (InstantiationException e) {
+				throw new RuntimeException(e);
+			} catch (IllegalAccessException e) {
+				throw new RuntimeException(e);
+			}
 		}
 	}
 

@@ -22,7 +22,7 @@ public class Criterion {
 					"Indicare l'operatore nella creazione di un nuovo criterio");
 		}
 		this.operator = operator;
-		if (property == null) {
+		if (property == null || property.trim().length() == 0) {
 			throw new RuntimeException(
 					"Indicare la proprietà nella creazione di un nuovo criterio");
 		}
