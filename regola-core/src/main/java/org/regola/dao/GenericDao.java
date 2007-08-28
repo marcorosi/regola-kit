@@ -14,11 +14,13 @@ public interface GenericDao<T, ID extends Serializable> {
 	void update(T object);
 
 	void delete(T object);
-	
+
 	void save(T object);
 
 	List<T> find(ModelFilter filter);
 
 	int count(ModelFilter filter);
+
+	List<T> getAll();
 
 }
