@@ -4,10 +4,12 @@ import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.regola.filter.ModelFilter;
 import org.regola.filter.criteria.Criteria;
 
+/**
+ * @author   nicola
+ */
 public class DefaultFilterBuilder extends AbstractFilterBuilder {
 
 	private Map<Class<Annotation>, FilterAnnotationHandler> handlers = new HashMap<Class<Annotation>, FilterAnnotationHandler>();
