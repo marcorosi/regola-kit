@@ -4,11 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * Criterio di filtro
- * <p>
- * Rappresenta il tipo di criterio (operatore), la propriet&agrave; interessata
- * e il valore di filtraggio.
- * 
+ * Criterio di filtro <p> Rappresenta il tipo di criterio (operatore), la propriet&agrave; interessata e il valore di filtraggio.
  */
 public class Criterion {
 
