@@ -84,4 +84,9 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 		this.filterBuilder = filterBuilder;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<T> getAll() {
+		return super.getHibernateTemplate().loadAll(this.persistentClass);
+	}
+
 }
