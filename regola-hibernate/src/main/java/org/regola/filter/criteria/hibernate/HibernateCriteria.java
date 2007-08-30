@@ -1,13 +1,15 @@
 package org.regola.filter.criteria.hibernate;
 
 import java.util.Collection;
-
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.Order;
 import org.regola.filter.criteria.impl.AbstractCriteriaBuilder;
 
+/**
+ * @author  nicola
+ */
 public class HibernateCriteria extends AbstractCriteriaBuilder {
 
 	private org.hibernate.Criteria criteria;

@@ -1,7 +1,6 @@
 package org.regola.filter.builder;
 
 import java.util.List;
-
 import org.regola.filter.ModelFilter;
 import org.regola.filter.annotation.Equals;
 import org.regola.filter.annotation.GreaterThan;
@@ -10,6 +9,9 @@ import org.regola.filter.annotation.LessThan;
 import org.regola.filter.annotation.Like;
 import org.regola.filter.annotation.NotEquals;
 
+/**
+ * @author  nicola
+ */
 class MockModelFilter extends ModelFilter
 {
 	@Equals(value="modelName")

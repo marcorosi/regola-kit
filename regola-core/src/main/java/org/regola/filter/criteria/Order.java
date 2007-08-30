@@ -1,7 +1,7 @@
 package org.regola.filter.criteria;
 
 /**
- * @author  nicola
+ * @author   nicola
  */
 public class Order {
 	

@@ -9,9 +9,9 @@ import org.springframework.util.StringUtils;
 
 /** 
  * FilterAnnotationHandler fornisce i metodi di base per la creazione di handler (gestori) per le annotazioni 
- * delle proprietà di ModelFilter. Basata sul pattern Template Method [GoF96] con un 
- * unico medoto da implementare nella classi di derivate: handleAnnotation()
- * 
+ * delle proprietà di ModelFilter. <br> Basata sul pattern Template Method [GoF96] con un 
+ * unico medoto da implementare nella classi di derivate: handleAnnotation() <br> Con riferimento alla classe
+ * AbstractFilterBuilder partecipa al pattern Builder [GoF96] nel ruolo di ConcreteBuilder.
  * @author nicola
  */
 public abstract class FilterAnnotationHandler {
