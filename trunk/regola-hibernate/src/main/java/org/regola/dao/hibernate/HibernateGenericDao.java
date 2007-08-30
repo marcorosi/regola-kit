@@ -2,7 +2,6 @@ package org.regola.dao.hibernate;
 
 import java.io.Serializable;
 import java.util.List;
-
 import org.hibernate.Session;
 import org.regola.dao.GenericDao;
 import org.regola.filter.FilterBuilder;
@@ -13,6 +12,9 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+/**
+ * @author  nicola
+ */
 public class HibernateGenericDao<T, ID extends Serializable> extends
 		HibernateDaoSupport implements GenericDao<T, ID> {
 
