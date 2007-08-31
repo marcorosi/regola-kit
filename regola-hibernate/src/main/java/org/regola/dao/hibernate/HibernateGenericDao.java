@@ -22,6 +22,10 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 
 	private FilterBuilder filterBuilder = new DefaultFilterBuilder();
 
+	public HibernateGenericDao(Class<T> persistentClass) {
+		this.persistentClass = persistentClass;
+	}
+
 	@SuppressWarnings("unchecked")
 	public ID create(T entity) {
 		return (ID) getHibernateTemplate().save(entity);
@@ -52,20 +56,18 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 
 	@SuppressWarnings("unchecked")
 	public List<T> find(final ModelFilter filter) {
-		return (List<T>) getHibernateTemplate().executeFind(
-				new HibernateCallback() {
-					public Object doInHibernate(Session session) {
-						HibernateCriteria criteriaBuilder = new HibernateCriteria(
-								session.createCriteria(persistentClass));
-						getFilterBuilder()
-								.createFilter(criteriaBuilder, filter);
-						return criteriaBuilder.getCriteria().list();
-					}
-				});
+		return getHibernateTemplate().executeFind(new HibernateCallback() {
+			public Object doInHibernate(Session session) {
+				HibernateCriteria criteriaBuilder = new HibernateCriteria(
+						session.createCriteria(persistentClass));
+				getFilterBuilder().createFilter(criteriaBuilder, filter);
+				return criteriaBuilder.getCriteria().list();
+			}
+		});
 	}
 
 	public int count(final ModelFilter filter) {
-		// TODO controllare null result
+		// TODO controllare null result?
 		return (Integer) getHibernateTemplate().execute(
 				new HibernateCallback() {
 					public Object doInHibernate(Session session) {
@@ -88,7 +90,7 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 
 	@SuppressWarnings("unchecked")
 	public List<T> getAll() {
-		return super.getHibernateTemplate().loadAll(this.persistentClass);
+		return getHibernateTemplate().loadAll(persistentClass);
 	}
 
 }
