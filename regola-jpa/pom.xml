@@ -17,7 +17,41 @@
 		REGOLA Framework :: JPA integration module
 	</description>
 
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>generate-test-resources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<tasks unless="maven.test.skip">
+						<unjar
+							src="${settings.localRepository}/org/regola/regola-core/${version}/regola-core-${version}-tests.jar"
+							dest="${basedir}">
+							<patternset>
+								<include name="dbscripts/*sql" />
+							</patternset>
+						</unjar>
+					</tasks>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 	<dependencies>
+			<dependency>
+			<groupId>${groupId}</groupId>
+			<artifactId>regola-core</artifactId>
+			<version>${version}</version>
+			<scope>test</scope>
+			<type>test-jar</type>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
