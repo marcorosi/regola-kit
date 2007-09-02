@@ -22,7 +22,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class JpaGenericDaoImpl<T, ID extends Serializable> implements
+public class JpaGenericDao<T, ID extends Serializable> implements
 		GenericDao<T, ID> {
 
 	private EntityManager entityManager;
@@ -38,7 +38,7 @@ public class JpaGenericDaoImpl<T, ID extends Serializable> implements
 		this.entityManager = entityManager;
 	}
 
-	public JpaGenericDaoImpl(Class<T> clazz) {
+	public JpaGenericDao(Class<T> clazz) {
 		this.persistentClass = clazz;
 		initId();
 	}

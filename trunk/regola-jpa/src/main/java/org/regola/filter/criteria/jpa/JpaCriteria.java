@@ -23,7 +23,7 @@ public class JpaCriteria extends AbstractCriteriaBuilder {
 	public JpaCriteria(Class<?> persistentClass, EntityManager entityManager) {
 		this.entityManager = entityManager;
 		this.criteria = CriteriaFactory.createCriteria(persistentClass
-				.getName());
+				.getSimpleName());
 	}
 
 	@Override

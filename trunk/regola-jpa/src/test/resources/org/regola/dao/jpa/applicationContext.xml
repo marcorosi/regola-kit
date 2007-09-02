@@ -3,20 +3,33 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
+	<bean id="dataSource"
+		class="org.unitils.database.UnitilsDataSourceFactoryBean" />
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter">
+			<bean name="jpaVendorAdapter"
+				class="org.springframework.orm.jpa.vendor.TopLinkJpaVendorAdapter">
+				<property name="database" value="HSQL" />
+				<property name="showSql" value="true" />
+			</bean>
+		</property>
+		<property name="loadTimeWeaver">
+			<bean id="loadTimeWeaver"
+				class="org.springframework.instrument.classloading.SimpleLoadTimeWeaver" />
+		</property>
+	</bean>
+
+	<bean id="customerDao" class="org.regola.dao.jpa.JpaGenericDao">
+		<constructor-arg value="org.regola.model.Customer" />
+	</bean>
+
 	<bean
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
 	<bean
 		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean" />
-
-	<bean id="dataSource"
-		class="org.unitils.database.UnitilsDataSourceFactoryBean" />
-
-	<bean id="customerDao"
-		class="org.regola.dao.jpa.JpaGenericDaoImpl">
-		<constructor-arg value="org.regola.model.Customer" />
-	</bean>
 </beans>
