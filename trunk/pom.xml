@@ -134,6 +134,12 @@
 				<version>3.2.1.ga</version>
 				<scope>test</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.apache.openjpa</groupId>
+				<artifactId>openjpa</artifactId>
+				<version>1.0.0</version>
+				<scope>test</scope>
+			</dependency>
 			<!-- Dipendenze esterne -->
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -169,6 +175,7 @@
 				<groupId>javax.persistence</groupId>
 				<artifactId>persistence-api</artifactId>
 				<version>1.0.2</version>
+				<scope>provided</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
