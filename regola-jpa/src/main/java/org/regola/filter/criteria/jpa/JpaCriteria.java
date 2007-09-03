@@ -17,8 +17,8 @@ public class JpaCriteria extends AbstractCriteriaBuilder {
 
 	private net.bzdyl.ejb3.criteria.Criteria criteria;
 	private EntityManager entityManager;
-	private int firstResult;
-	private int maxResults;
+	private Integer firstResult;
+	private Integer maxResults;
 
 	public JpaCriteria(Class<?> persistentClass, EntityManager entityManager) {
 		this.entityManager = entityManager;
@@ -102,8 +102,13 @@ public class JpaCriteria extends AbstractCriteriaBuilder {
 
 	public Query getQuery() {
 		Query query = criteria.prepareQuery(entityManager);
-		query.setFirstResult(firstResult);
-		query.setMaxResults(maxResults);
+
+		if (firstResult != null) {
+			query.setFirstResult(firstResult);
+		}
+		if (maxResults != null) {
+			query.setMaxResults(maxResults);
+		}
 
 		return query;
 	}
