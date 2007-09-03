@@ -40,7 +40,7 @@ public class JpaGenericDao<T, ID extends Serializable> implements
 
 	public JpaGenericDao(Class<T> clazz) {
 		this.persistentClass = clazz;
-		initId();
+		// initId();
 	}
 
 	protected void initId() {
@@ -76,18 +76,20 @@ public class JpaGenericDao<T, ID extends Serializable> implements
 	@SuppressWarnings("unchecked")
 	public ID create(T object) {
 		entityManager.persist(object);
-		try {
-			return (ID) idGetter.invoke(object);
-		} catch (IllegalArgumentException e) {
-			throw new InvalidDataAccessApiUsageException(
-					"Error getting persistent Id", e);
-		} catch (IllegalAccessException e) {
-			throw new InvalidDataAccessApiUsageException(
-					"Error getting persistent Id", e);
-		} catch (InvocationTargetException e) {
-			throw new InvalidDataAccessApiUsageException(
-					"Error getting persistent Id", e);
-		}
+		entityManager.flush();
+		// try {
+		// return (ID) idGetter.invoke(object);
+		// } catch (IllegalArgumentException e) {
+		// throw new InvalidDataAccessApiUsageException(
+		// "Error getting persistent Id", e);
+		// } catch (IllegalAccessException e) {
+		// throw new InvalidDataAccessApiUsageException(
+		// "Error getting persistent Id", e);
+		// } catch (InvocationTargetException e) {
+		// throw new InvalidDataAccessApiUsageException(
+		// "Error getting persistent Id", e);
+		// }
+		return (ID) new Integer(999);
 	}
 
 	public T read(ID id) {
@@ -102,6 +104,7 @@ public class JpaGenericDao<T, ID extends Serializable> implements
 
 	public void update(T object) {
 		entityManager.merge(object);
+		entityManager.flush();
 	}
 
 	public void delete(T object) {
@@ -125,7 +128,8 @@ public class JpaGenericDao<T, ID extends Serializable> implements
 		JpaCriteria criteriaBuilder = new JpaCriteria(persistentClass,
 				entityManager);
 		getFilterBuilder().createCountFilter(criteriaBuilder, filter);
-		return (Integer) criteriaBuilder.getQuery().getSingleResult();
+		return ((Number) criteriaBuilder.getQuery().getSingleResult())
+				.intValue();
 	}
 
 	@SuppressWarnings("unchecked")

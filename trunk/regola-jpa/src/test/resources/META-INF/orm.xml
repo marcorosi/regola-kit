@@ -6,6 +6,9 @@
 	<entity class="org.regola.model.Customer">
 		<attributes>
 			<id name="id" />
+			<basic name="firstName" />
+			<basic name="lastName" />
+			<embedded name="address" />
 		</attributes>
 	</entity>
 

@@ -23,23 +23,39 @@
 				<artifactId>maven-antrun-plugin</artifactId>
 				<executions>
 					<execution>
+						<id>test data extraction</id>
 						<phase>generate-test-resources</phase>
 						<goals>
 							<goal>run</goal>
 						</goals>
+						<configuration>
+							<tasks unless="maven.test.skip">
+								<unjar
+									src="${settings.localRepository}/org/regola/regola-core/${version}/regola-core-${version}-tests.jar"
+									dest="${basedir}">
+									<patternset>
+										<include name="dbscripts/*sql" />
+									</patternset>
+								</unjar>
+							</tasks>
+						</configuration>
 					</execution>
+<!--					<execution>-->
+<!--						<id>openjpa enhancement</id>-->
+<!--						<phase>process-test-classes</phase>-->
+<!--						<goals>-->
+<!--							<goal>run</goal>-->
+<!--						</goals>-->
+<!--						<configuration>-->
+<!--							<tasks>-->
+<!--								<java-->
+<!--									classname="org.apache.openjpa.enhance.PCEnhancer"-->
+<!--									classpathref="maven.test.classpath" dir="target/test-classes"-->
+<!--									fork="true" />-->
+<!--							</tasks>-->
+<!--						</configuration>-->
+<!--					</execution>-->
 				</executions>
-				<configuration>
-					<tasks unless="maven.test.skip">
-						<unjar
-							src="${settings.localRepository}/org/regola/regola-core/${version}/regola-core-${version}-tests.jar"
-							dest="${basedir}">
-							<patternset>
-								<include name="dbscripts/*sql" />
-							</patternset>
-						</unjar>
-					</tasks>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -75,7 +91,10 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.openjpa</groupId>
+			<artifactId>openjpa</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>${groupId}</groupId>

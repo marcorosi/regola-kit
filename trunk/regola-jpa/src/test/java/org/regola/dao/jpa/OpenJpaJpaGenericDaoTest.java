@@ -6,7 +6,7 @@ import org.unitils.UnitilsJUnit4TestClassRunner;
 import org.unitils.spring.annotation.SpringApplicationContext;
 
 @RunWith(UnitilsJUnit4TestClassRunner.class)
-@SpringApplicationContext("classpath:**/applicationContext-toplink.xml")
-public class ToplinkJpaGenericDaoTest extends BaseGenericDaoTest {
+@SpringApplicationContext("classpath:**/applicationContext-openjpa.xml")
+public class OpenJpaJpaGenericDaoTest extends BaseGenericDaoTest {
 
 }
