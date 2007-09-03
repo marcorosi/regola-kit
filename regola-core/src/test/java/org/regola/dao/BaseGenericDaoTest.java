@@ -1,6 +1,6 @@
 package org.regola.dao;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -56,19 +56,22 @@ public class BaseGenericDaoTest {
 		getCustomerDao().update(laura);
 	}
 
+	@Ignore
 	@Test
 	public void delete() {
-		// fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
+	@Ignore
 	@Test
 	public void save_insert() {
-		// fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
+	@Ignore
 	@Test
 	public void save_update() {
-		// fail("Not yet implemented");
+		fail("Not yet implemented");
 	}
 
 	@Test
