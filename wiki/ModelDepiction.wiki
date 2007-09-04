@@ -1,13 +1,15 @@
-#summary Model Depiction: identify and represent objects
+#summary Model Pattern
 
-= Introduction =
+= Introduzione =
 
-Add your content here.
+Risolve il problema di rappresentare (1) e descrivere in forma sintetica (2) un sottoinsieme ordinato di oggetti del modello (o di una loro proiezione).
 
 
-= Details =
+= Dettagli =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+* i criteri di restrizione per individuare solo alcuni degli oggetti del modello 
+* l'ordine degli oggetti del modello
+* la proiezione delle proprietà degli oggetti del modello da estrarre
+* un ulteriore suddivisione del sottoinsieme in segmenti continui  (paginazione)
+
+
