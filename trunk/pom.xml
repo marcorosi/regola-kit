@@ -33,6 +33,11 @@
 			<name>Lorenzo Bragaglia</name>
 			<email>l.bragaglia@gmail.com</email>
 		</developer>
+		<developer>
+			<id>davide</id>
+			<name>Davide Romanini</name>
+			<email>davide.romanini@gmail.com</email>
+		</developer>
 	</developers>
 	<scm>
 		<connection>
@@ -129,6 +134,22 @@
 				<scope>test</scope>
 			</dependency>
 			<dependency>
+			    <groupId>jpox</groupId>
+			    <artifactId>jpox</artifactId>
+			    <version>1.1.7</version>
+			    <scope>test</scope>
+			    <exclusions>
+			    	<exclusion>
+			    		<groupId>oracle</groupId>
+			    		<artifactId>ojdbc</artifactId>
+			    	</exclusion>
+			    	<exclusion>
+			    		<groupId>db4o</groupId>
+			    		<artifactId>db4o</artifactId>
+			    	</exclusion>
+			    </exclusions>
+			</dependency>
+			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
 				<version>3.2.1.ga</version>
@@ -140,6 +161,7 @@
 				<version>1.0.0</version>
 				<scope>test</scope>
 			</dependency>
+
 			<!-- Dipendenze esterne -->
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -167,6 +189,21 @@
 				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdo</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+    			<groupId>javax.jdo</groupId>
+    			<artifactId>jdo2-api</artifactId>
+    			<version>2.0</version>
+    		</dependency>
+    		<dependency>
+				<groupId>javax.persistence</groupId>
+				<artifactId>persistence-api</artifactId>
+				<version>1.0</version>
+			</dependency>
+			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate</artifactId>
 				<version>3.2.5.ga</version>
@@ -180,6 +217,7 @@
 		</dependencies>
 	</dependencyManagement>
 
+	
 	<profiles>
 		<profile>
 			<id>siteEnablement</id>
@@ -376,10 +414,21 @@
 		</profile>
 	</profiles>
 
+    <pluginRepositories>
+    	<pluginRepository>
+			<id>jpox</id>
+			<url>http://www.jpox.org/downloads/maven2/</url>
+		</pluginRepository>
+    </pluginRepositories>
 	<repositories>
 		<repository>
 			<id>java.net</id>
 			<url>http://download.java.net/maven/1</url>
+			<layout>legacy</layout>
+		</repository>
+		<repository>
+			<id>jpox</id>
+			<url>http://www.jpox.org/downloads/maven</url>
 			<layout>legacy</layout>
 		</repository>
 	</repositories>

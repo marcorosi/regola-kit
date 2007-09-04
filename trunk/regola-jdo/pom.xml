@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.regola</groupId>
+		<artifactId>regola-framework</artifactId>
+		<version>1.0-M1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>regola-jdo</artifactId>
+	<packaging>jar</packaging>
+	<name>REGOLA Framework :: JDO integration module</name>
+	<description>
+		REGOLA Framework :: JDO integration module
+	</description>
+
+	<build>
+		<plugins>
+			<plugin>
+                <groupId>jpox</groupId>
+                <artifactId>jpox-maven-plugin</artifactId>
+                <version>1.1.7</version>
+                <configuration>
+                    <verbose>true</verbose>
+                    <classes>${project.build.testOutputDirectory}</classes>
+                    <classpathElements>${project.testClasspathElements}</classpathElements>
+                </configuration>
+                <executions>
+                    <execution>                    	
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>enhance</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>            
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>generate-test-resources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<tasks unless="maven.test.skip">
+						<unjar
+							src="${settings.localRepository}/org/regola/regola-core/${version}/regola-core-${version}-tests.jar"
+							dest="${basedir}">
+							<patternset>
+								<include name="dbscripts/*sql" />
+							</patternset>
+						</unjar>
+					</tasks>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>${groupId}</groupId>
+			<artifactId>regola-core</artifactId>
+			<version>${version}</version>
+			<scope>test</scope>
+			<type>test-jar</type>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.unitils</groupId>
+			<artifactId>unitils</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${groupId}</groupId>
+			<artifactId>regola-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdo</artifactId>
+		</dependency>
+		<dependency>
+    		<groupId>javax.jdo</groupId>
+    		<artifactId>jdo2-api</artifactId>
+    	</dependency>
+    	<dependency>
+		    <groupId>jpox</groupId>
+		    <artifactId>jpox</artifactId>		    
+		</dependency>
+	
+	</dependencies>
+</project>
