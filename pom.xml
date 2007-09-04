@@ -134,20 +134,20 @@
 				<scope>test</scope>
 			</dependency>
 			<dependency>
-			    <groupId>jpox</groupId>
-			    <artifactId>jpox</artifactId>
-			    <version>1.1.7</version>
-			    <scope>test</scope>
-			    <exclusions>
-			    	<exclusion>
-			    		<groupId>oracle</groupId>
-			    		<artifactId>ojdbc</artifactId>
-			    	</exclusion>
-			    	<exclusion>
-			    		<groupId>db4o</groupId>
-			    		<artifactId>db4o</artifactId>
-			    	</exclusion>
-			    </exclusions>
+				<groupId>jpox</groupId>
+				<artifactId>jpox</artifactId>
+				<version>1.1.7</version>
+				<scope>test</scope>
+				<exclusions>
+					<exclusion>
+						<groupId>oracle</groupId>
+						<artifactId>ojdbc</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>db4o</groupId>
+						<artifactId>db4o</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
@@ -194,11 +194,11 @@
 				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
-    			<groupId>javax.jdo</groupId>
-    			<artifactId>jdo2-api</artifactId>
-    			<version>2.0</version>
-    		</dependency>
-    		<dependency>
+				<groupId>javax.jdo</groupId>
+				<artifactId>jdo2-api</artifactId>
+				<version>2.0</version>
+			</dependency>
+			<dependency>
 				<groupId>javax.persistence</groupId>
 				<artifactId>persistence-api</artifactId>
 				<version>1.0</version>
@@ -217,7 +217,7 @@
 		</dependencies>
 	</dependencyManagement>
 
-	
+
 	<profiles>
 		<profile>
 			<id>siteEnablement</id>
@@ -414,17 +414,24 @@
 		</profile>
 	</profiles>
 
-    <pluginRepositories>
-    	<pluginRepository>
+	<pluginRepositories>
+		<pluginRepository>
 			<id>jpox</id>
 			<url>http://www.jpox.org/downloads/maven2/</url>
 		</pluginRepository>
-    </pluginRepositories>
+	</pluginRepositories>
+
 	<repositories>
+		<!--		<repository>-->
+		<!--			<id>java.net</id>-->
+		<!--			<url>http://download.java.net/maven/1</url>-->
+		<!--			<layout>legacy</layout>-->
+		<!--		</repository>-->
 		<repository>
-			<id>java.net</id>
-			<url>http://download.java.net/maven/1</url>
-			<layout>legacy</layout>
+			<id>maven2-repository.dev.java.net</id>
+			<name>Java.net Repository for Maven</name>
+			<url>http://download.java.net/maven/2/</url>
+			<layout>default</layout>
 		</repository>
 		<repository>
 			<id>jpox</id>
