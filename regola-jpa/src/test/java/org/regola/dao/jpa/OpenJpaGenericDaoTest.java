@@ -7,6 +7,6 @@ import org.unitils.spring.annotation.SpringApplicationContext;
 
 @RunWith(UnitilsJUnit4TestClassRunner.class)
 @SpringApplicationContext("classpath:**/applicationContext-openjpa.xml")
-public class OpenJpaJpaGenericDaoTest extends BaseGenericDaoTest {
+public class OpenJpaGenericDaoTest extends BaseGenericDaoTest {
 
 }
