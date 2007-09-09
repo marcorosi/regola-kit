@@ -21,6 +21,10 @@ public class Customer {
 			this.city = city;
 		}
 
+		public Address(Address address) {
+			this(address.getStreet(), address.getCity());
+		}
+
 		public String getStreet() {
 			return street;
 		}
@@ -88,6 +92,11 @@ public class Customer {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
+	}
+
+	public Customer(Customer customer) {
+		this(customer.getId(), customer.getFirstName(), customer.getLastName(),
+				new Address(customer.getAddress()));
 	}
 
 	@Override

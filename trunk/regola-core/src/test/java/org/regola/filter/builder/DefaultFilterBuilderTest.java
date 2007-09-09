@@ -4,7 +4,6 @@ package org.regola.filter.builder;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
-import org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.regola.filter.FilterBuilder;

@@ -3,13 +3,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-	<bean name="jpaVendorAdapter"
-		class="org.springframework.orm.jpa.vendor.OpenJpaVendorAdapter">
-		<property name="showSql" value="true" />
-		<property name="database" value="HSQL" />
-	</bean>
+	<bean id="dataSource"
+		class="org.unitils.database.UnitilsDataSourceFactoryBean" />
 
-	<bean name="entityManagerFactory"
-		parent="abstractEntityManagerFactory" />
+	<bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
+		<constructor-arg ref="dataSource" />
+	</bean>
 
 </beans>

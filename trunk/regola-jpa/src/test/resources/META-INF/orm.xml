@@ -12,6 +12,11 @@
 		</attributes>
 	</entity>
 
-	<embeddable class="org.regola.model.Customer$Address" />
+	<embeddable class="org.regola.model.Customer$Address">
+		<attributes>
+			<basic name="street" />
+			<basic name="city" />
+		</attributes>
+	</embeddable>
 
 </entity-mappings>

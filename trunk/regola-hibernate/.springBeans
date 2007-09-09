@@ -10,7 +10,7 @@
 		<configSet>
 			<name><![CDATA[Hibernate test beans]]></name>
 			<allowBeanDefinitionOverriding>true</allowBeanDefinitionOverriding>
-			<incomplete>false</incomplete>
+			<incomplete>true</incomplete>
 			<configs>
 				<config>src/test/resources/org/regola/dao/hibernate/applicationContext.xml</config>
 			</configs>
