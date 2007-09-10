@@ -9,7 +9,20 @@
 		<property name="database" value="HSQL" />
 	</bean>
 
+	<bean id="loadTimeWeaver"
+		class="org.springframework.instrument.classloading.SimpleLoadTimeWeaver" />
+
 	<bean name="entityManagerFactory"
-		parent="abstractEntityManagerFactory" />
+		parent="abstractEntityManagerFactory">
+		<property name="loadTimeWeaver" ref="loadTimeWeaver" />
+		<property name="jpaProperties">
+			<value>
+				<![CDATA[
+				openjpa.Log=DefaultLevel=WARN,Runtime=TRACE,Tool=INFO,SQL=TRACE
+				openjpa.ConnectionFactoryProperties=PrettyPrint=true,PrettyPrintLineLength=72
+				]]>
+			</value>
+		</property>
+	</bean>
 
 </beans>

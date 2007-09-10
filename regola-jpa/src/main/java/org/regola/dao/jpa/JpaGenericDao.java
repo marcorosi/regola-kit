@@ -25,7 +25,7 @@ import org.springframework.stereotype.Repository;
 public class JpaGenericDao<T, ID extends Serializable> implements
 		GenericDao<T, ID> {
 
-	private EntityManager entityManager;
+	protected EntityManager entityManager;
 
 	private Class<T> persistentClass;
 
@@ -76,7 +76,7 @@ public class JpaGenericDao<T, ID extends Serializable> implements
 	@SuppressWarnings("unchecked")
 	public ID create(T object) {
 		entityManager.persist(object);
-		entityManager.flush();
+		// entityManager.flush();
 		// try {
 		// return (ID) idGetter.invoke(object);
 		// } catch (IllegalArgumentException e) {
@@ -104,11 +104,12 @@ public class JpaGenericDao<T, ID extends Serializable> implements
 
 	public void update(T object) {
 		entityManager.merge(object);
-		entityManager.flush();
+		// entityManager.flush();
 	}
 
 	public void delete(T object) {
 		entityManager.remove(object);
+		// entityManager.flush();
 	}
 
 	@SuppressWarnings("unchecked")

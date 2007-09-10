@@ -49,11 +49,13 @@ public class BaseGenericDaoTest {
 
 		assertEquals(999, id);
 
+		onDbVerify();
+
 		Customer miguelDb = jdbcTemplate.queryForObject(
 				"SELECT * FROM CUSTOMER WHERE ID = ?", new CustomerRowMapper(),
 				999);
 
-		assertEquals(miguel, miguelDb);
+		assertEqualsCustomers(miguel, miguelDb);
 	}
 
 	@Test
@@ -62,18 +64,7 @@ public class BaseGenericDaoTest {
 				"429 Seventh Av.", "Dallas"));
 		Customer lauraDb = getCustomerDao().read(0);
 
-		// assertEquals(laura, new Customer(lauraDb));
-
-		assertTrue(Customer.class.isAssignableFrom(lauraDb.getClass()));
-		ReflectionAssert.assertPropertyRefEquals("id", laura.getId(), lauraDb);
-		ReflectionAssert.assertPropertyRefEquals("firstName", laura
-				.getFirstName(), lauraDb);
-		ReflectionAssert.assertPropertyRefEquals("lastName", laura
-				.getLastName(), lauraDb);
-		ReflectionAssert.assertPropertyRefEquals("address.street", laura
-				.getAddress().getStreet(), lauraDb);
-		ReflectionAssert.assertPropertyRefEquals("address.city", laura
-				.getAddress().getCity(), lauraDb);
+		assertEqualsCustomers(laura, lauraDb);
 	}
 
 	@Test
@@ -88,21 +79,13 @@ public class BaseGenericDaoTest {
 
 		getCustomerDao().update(laura);
 
+		onDbVerify();
+
 		Customer lauraDb = jdbcTemplate.queryForObject(
 				"SELECT * FROM CUSTOMER WHERE ID = ?", new CustomerRowMapper(),
 				0);
 
-		// assertEquals(new Customer(laura), lauraDb);
-
-		ReflectionAssert.assertPropertyRefEquals("id", laura.getId(), lauraDb);
-		ReflectionAssert.assertPropertyRefEquals("firstName", laura
-				.getFirstName(), lauraDb);
-		ReflectionAssert.assertPropertyRefEquals("lastName", laura
-				.getLastName(), lauraDb);
-		ReflectionAssert.assertPropertyRefEquals("address.street", laura
-				.getAddress().getStreet(), lauraDb);
-		ReflectionAssert.assertPropertyRefEquals("address.city", laura
-				.getAddress().getCity(), lauraDb);
+		assertEqualsCustomers(laura, lauraDb);
 	}
 
 	@Test
@@ -110,6 +93,8 @@ public class BaseGenericDaoTest {
 		Customer laura = getCustomerDao().read(0);
 
 		getCustomerDao().delete(laura);
+
+		onDbVerify();
 
 		assertEquals(49, jdbcTemplate
 				.queryForInt("SELECT COUNT(*) FROM CUSTOMER"));
@@ -136,7 +121,6 @@ public class BaseGenericDaoTest {
 
 		List<Customer> customers = getCustomerDao().find(pattern);
 
-		// System.out.println(customers);
 		assertEquals(5, customers.size());
 	}
 
@@ -144,7 +128,6 @@ public class BaseGenericDaoTest {
 	public void findByModelPattern_emptyFilter() {
 		List<Customer> customers = getCustomerDao().find(new CustomerPattern());
 
-		// System.out.println(customers);
 		assertEquals(50, customers.size());
 	}
 
@@ -162,16 +145,31 @@ public class BaseGenericDaoTest {
 	public void getAll() {
 		List<Customer> customers = getCustomerDao().getAll();
 
-		// System.out.println(customers);
 		assertEquals(50, customers.size());
+	}
+
+	protected void assertEqualsCustomers(Customer expected, Customer actual) {
+		ReflectionAssert
+				.assertPropertyRefEquals("id", expected.getId(), actual);
+		ReflectionAssert.assertPropertyRefEquals("firstName", expected
+				.getFirstName(), actual);
+		ReflectionAssert.assertPropertyRefEquals("lastName", expected
+				.getLastName(), actual);
+		ReflectionAssert.assertPropertyRefEquals("address.street", expected
+				.getAddress().getStreet(), actual);
+		ReflectionAssert.assertPropertyRefEquals("address.city", expected
+				.getAddress().getCity(), actual);
+	}
+
+	protected void onDbVerify() {
 	}
 
 	public GenericDao<Customer, Integer> getCustomerDao() {
 		return customerDao;
 	}
 
-	public void setCustomerDao(GenericDao<Customer, Integer> customerDao) {
-		this.customerDao = customerDao;
+	public SimpleJdbcTemplate getJdbcTemplate() {
+		return jdbcTemplate;
 	}
 
 }
