@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_1_0.xsd"
 	version="1.0">
 
-	<entity class="org.regola.model.Customer">
+	<entity class="org.regola.model.Customer" access="PROPERTY">
 		<attributes>
 			<id name="id" />
 			<basic name="firstName" />
@@ -12,7 +12,8 @@
 		</attributes>
 	</entity>
 
-	<embeddable class="org.regola.model.Customer$Address">
+	<embeddable class="org.regola.model.Customer$Address"
+		access="PROPERTY">
 		<attributes>
 			<basic name="street" />
 			<basic name="city" />
