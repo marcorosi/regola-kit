@@ -33,21 +33,75 @@ public class BaseGenericDaoTest {
 	class CustomerRowMapper implements ParameterizedRowMapper<Customer> {
 
 		public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
-			return new Customer(rs.getInt("ID"), rs.getString("FIRSTNAME"), rs
-					.getString("LASTNAME"), new Address(rs.getString("STREET"),
-					rs.getString("CITY")));
+			return newCustomer(rs.getInt("ID"), rs.getString("FIRSTNAME"), rs
+					.getString("LASTNAME"), rs.getString("STREET"), rs
+					.getString("CITY"));
 		}
 
 	}
 
 	@Test
-	public void create() {
-		Customer miguel = new Customer(999, "Miguel", "de Icaza", new Address(
-				"unknown", "n/a"));
+	public void get() {
+		Customer laura = newCustomer(0, "Laura", "Steel", "429 Seventh Av.",
+				"Dallas");
+		Customer lauraDb = getCustomerDao().get(0);
 
-		Integer id = getCustomerDao().create(miguel);
+		assertEqualsCustomers(laura, lauraDb);
+	}
 
-		assertEquals(999, id);
+	@Test
+	public void get_invalidId() {
+
+		assertNull(getCustomerDao().get(50));
+	}
+
+	@Test
+	public void exists() {
+		assertTrue(getCustomerDao().exists(0));
+	}
+
+	@Test
+	public void exists_invalidId() {
+		assertFalse(getCustomerDao().exists(50));
+	}
+
+	@Test
+	public void remove() {
+		getCustomerDao().remove(0);
+
+		onDbVerify();
+
+		assertEquals(49, jdbcTemplate
+				.queryForInt("SELECT COUNT(*) FROM CUSTOMER"));
+		assertEquals(0, jdbcTemplate
+				.queryForInt("SELECT COUNT(*) FROM CUSTOMER WHERE ID = 0"));
+	}
+
+	@Test
+	public void remove_invalidId() {
+		getCustomerDao().remove(50);
+	}
+
+	@Test
+	public void removeEntity() {
+		Customer laura = getCustomerDao().get(0);
+
+		getCustomerDao().removeEntity(laura);
+
+		onDbVerify();
+
+		assertEquals(49, jdbcTemplate
+				.queryForInt("SELECT COUNT(*) FROM CUSTOMER"));
+		assertEquals(0, jdbcTemplate
+				.queryForInt("SELECT COUNT(*) FROM CUSTOMER WHERE ID = 0"));
+	}
+
+	@Test
+	public void save_insert() {
+		Customer miguel = newCustomer(999, "Miguel", "de Icaza", "unknown",
+				"n/a");
+
+		getCustomerDao().save(miguel);
 
 		onDbVerify();
 
@@ -59,17 +113,8 @@ public class BaseGenericDaoTest {
 	}
 
 	@Test
-	public void read() {
-		Customer laura = new Customer(0, "Laura", "Steel", new Address(
-				"429 Seventh Av.", "Dallas"));
-		Customer lauraDb = getCustomerDao().read(0);
-
-		assertEqualsCustomers(laura, lauraDb);
-	}
-
-	@Test
-	public void update() {
-		Customer laura = getCustomerDao().read(0);
+	public void save_update() {
+		Customer laura = getCustomerDao().get(0);
 
 		// Cambio sesso
 		laura.setFirstName("Miguel");
@@ -77,7 +122,7 @@ public class BaseGenericDaoTest {
 		laura.getAddress().setStreet("unknown");
 		laura.getAddress().setCity("n/a");
 
-		getCustomerDao().update(laura);
+		getCustomerDao().save(laura);
 
 		onDbVerify();
 
@@ -86,32 +131,6 @@ public class BaseGenericDaoTest {
 				0);
 
 		assertEqualsCustomers(laura, lauraDb);
-	}
-
-	@Test
-	public void delete() {
-		Customer laura = getCustomerDao().read(0);
-
-		getCustomerDao().delete(laura);
-
-		onDbVerify();
-
-		assertEquals(49, jdbcTemplate
-				.queryForInt("SELECT COUNT(*) FROM CUSTOMER"));
-		assertEquals(0, jdbcTemplate
-				.queryForInt("SELECT COUNT(*) FROM CUSTOMER WHERE ID = 0"));
-	}
-
-	@Ignore
-	@Test
-	public void save_insert() {
-		fail("Not yet implemented");
-	}
-
-	@Ignore
-	@Test
-	public void save_update() {
-		fail("Not yet implemented");
 	}
 
 	@Test
@@ -142,10 +161,20 @@ public class BaseGenericDaoTest {
 	}
 
 	@Test
+	public void count_emptyFilter() {
+		assertEquals(50, getCustomerDao().count(new CustomerPattern()));
+	}
+
+	@Test
 	public void getAll() {
 		List<Customer> customers = getCustomerDao().getAll();
 
 		assertEquals(50, customers.size());
+	}
+
+	protected Customer newCustomer(Integer id, String firstName,
+			String lastName, String street, String city) {
+		return new Customer(id, firstName, lastName, new Address(street, city));
 	}
 
 	protected void assertEqualsCustomers(Customer expected, Customer actual) {

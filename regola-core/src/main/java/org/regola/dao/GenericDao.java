@@ -7,15 +7,15 @@ import org.regola.filter.ModelFilter;
 
 public interface GenericDao<T, ID extends Serializable> {
 
-	ID create(T object);
+	T get(ID id);
 
-	T read(ID id);
+	boolean exists(ID id);
 
-	void update(T object);
+	void remove(ID id);
 
-	void delete(T object);
+	void removeEntity(T entity);
 
-	void save(T object);
+	T save(T object);
 
 	List<T> find(ModelFilter filter);
 
