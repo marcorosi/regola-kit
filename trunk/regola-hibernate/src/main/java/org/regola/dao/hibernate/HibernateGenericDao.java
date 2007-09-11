@@ -2,18 +2,18 @@ package org.regola.dao.hibernate;
 
 import java.io.Serializable;
 import java.util.List;
+
 import org.hibernate.Session;
 import org.regola.dao.GenericDao;
 import org.regola.filter.FilterBuilder;
 import org.regola.filter.ModelFilter;
 import org.regola.filter.builder.DefaultFilterBuilder;
 import org.regola.filter.criteria.hibernate.HibernateCriteria;
-import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
- * @author  nicola
+ * @author nicola
  */
 public class HibernateGenericDao<T, ID extends Serializable> extends
 		HibernateDaoSupport implements GenericDao<T, ID> {
@@ -27,31 +27,24 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 	}
 
 	@SuppressWarnings("unchecked")
-	public ID create(T entity) {
-		return (ID) getHibernateTemplate().save(entity);
+	public T get(ID id) {
+		return (T) getHibernateTemplate().get(persistentClass, id);
 	}
 
-	public T read(ID id) {
-		@SuppressWarnings("unchecked")
-		T entity = (T) getHibernateTemplate().get(persistentClass, id);
-
-		if (entity == null) {
-			throw new ObjectRetrievalFailureException(persistentClass, id);
-		}
-
-		return entity;
-	}
-
-	public void update(T entity) {
-		getHibernateTemplate().update(entity);
-	}
-
-	public void delete(T entity) {
+	public void removeEntity(T entity) {
 		getHibernateTemplate().delete(entity);
 	}
 
-	public void save(T entity) {
+	public void remove(ID id) {
+		T entity = get(id);
+		if (entity != null) {
+			getHibernateTemplate().delete(entity);
+		}
+	}
+
+	public T save(T entity) {
 		getHibernateTemplate().saveOrUpdate(entity);
+		return entity;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -91,6 +84,10 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 	@SuppressWarnings("unchecked")
 	public List<T> getAll() {
 		return getHibernateTemplate().loadAll(persistentClass);
+	}
+
+	public boolean exists(ID id) {
+		return get(id) == null ? false : true;
 	}
 
 }

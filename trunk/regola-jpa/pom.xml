@@ -40,21 +40,21 @@
 							</tasks>
 						</configuration>
 					</execution>
-<!--					<execution>-->
-<!--						<id>openjpa enhancement</id>-->
-<!--						<phase>process-test-classes</phase>-->
-<!--						<goals>-->
-<!--							<goal>run</goal>-->
-<!--						</goals>-->
-<!--						<configuration>-->
-<!--							<tasks>-->
-<!--								<java-->
-<!--									classname="org.apache.openjpa.enhance.PCEnhancer"-->
-<!--									classpathref="maven.test.classpath" dir="target/test-classes"-->
-<!--									fork="true" />-->
-<!--							</tasks>-->
-<!--						</configuration>-->
-<!--					</execution>-->
+					<!--					<execution>-->
+					<!--						<id>openjpa enhancement</id>-->
+					<!--						<phase>process-test-classes</phase>-->
+					<!--						<goals>-->
+					<!--							<goal>run</goal>-->
+					<!--						</goals>-->
+					<!--						<configuration>-->
+					<!--							<tasks>-->
+					<!--								<java-->
+					<!--									classname="org.apache.openjpa.enhance.PCEnhancer"-->
+					<!--									classpathref="maven.test.classpath" dir="target/test-classes"-->
+					<!--									fork="true" />-->
+					<!--							</tasks>-->
+					<!--						</configuration>-->
+					<!--					</execution>-->
 				</executions>
 			</plugin>
 		</plugins>

@@ -107,7 +107,7 @@ public class JdoGenericDao<T, ID extends Serializable> extends JdoDaoSupport
 	}
 
 	@SuppressWarnings(value = "unchecked")
-	public T read(ID id) {
+	public T get(ID id) {
 		T instance = (T) getJdoTemplate().getObjectById(persistentClass, id);
 		// TODO: check if it is useless (JdoTemplate throws ORFException or not)
 		if (instance == null) {

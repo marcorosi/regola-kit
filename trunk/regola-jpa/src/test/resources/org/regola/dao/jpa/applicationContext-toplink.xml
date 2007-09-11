@@ -5,8 +5,8 @@
 
 	<bean name="jpaVendorAdapter"
 		class="org.springframework.orm.jpa.vendor.TopLinkJpaVendorAdapter">
-		<property name="database" value="HSQL" />
 		<property name="showSql" value="true" />
+		<property name="database" value="HSQL" />
 	</bean>
 
 	<bean id="loadTimeWeaver"
@@ -15,6 +15,21 @@
 	<bean name="entityManagerFactory"
 		parent="abstractEntityManagerFactory">
 		<property name="loadTimeWeaver" ref="loadTimeWeaver" />
+		<property name="jpaProperties">
+			<value>
+				<![CDATA[
+				#toplink.weaving=true
+				#toplink.weaving.lazy=true
+				#toplink.weaving.changetracking=true
+				#toplink.orm.throw.exceptions=true
+				toplink.logging.exceptions=true
+				#toplink.logging.level=ALL
+				toplink.logging.level.ejb_or_metadata=FINEST
+				toplink.logging.level.weaver=FINEST
+				#toplink.logging.level.properties=FINEST
+				]]>
+			</value>
+		</property>
 	</bean>
 
 </beans>
