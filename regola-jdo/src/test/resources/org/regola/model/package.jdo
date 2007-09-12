@@ -8,7 +8,7 @@
     		<field name="id" primary-key="true" column="ID" />
     		<field name="firstName" column="FIRSTNAME" />
     		<field name="lastName" column="LASTNAME" />
-    		<field name="address">
+    		<field name="address" default-fetch-group="true">
     			<embedded>
     				<field name="street" column="STREET" />
     				<field name="city" column="CITY" />

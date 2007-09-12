@@ -4,10 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-import javax.jdo.identity.SingleFieldIdentity;
 
 import org.regola.dao.GenericDao;
 import org.regola.filter.FilterBuilder;
@@ -50,7 +48,7 @@ public class JdoGenericDao<T, ID extends Serializable> extends JdoDaoSupport
 	}
 
 	public int count(final ModelFilter filter) {
-		Long count = (Long)getJdoTemplate().execute(new JdoCallback() {
+		Long count = (Long) getJdoTemplate().execute(new JdoCallback() {
 			public Object doInJdo(PersistenceManager pm) {
 				JdoCriteria criteriaBuilder = new JdoCriteria(persistentClass,
 						pm);
@@ -60,19 +58,6 @@ public class JdoGenericDao<T, ID extends Serializable> extends JdoDaoSupport
 			}
 		});
 		return count.intValue();
-	}
-
-	@SuppressWarnings(value = "unchecked")
-	public ID create(T object) {
-		// TODO: Check that object is in transient state, otherwise throw a
-		// DataAccessException (of type??)
-		getJdoTemplate().makePersistent(object);
-		Object id = JDOHelper.getObjectId(object);
-		if (id instanceof SingleFieldIdentity) {
-			return (ID) ((SingleFieldIdentity) id).getKeyAsObject();
-		}
-		// ... and if it is *not* a SingleFieldIdentity??
-		return (ID) id;
 	}
 
 	public void delete(T object) {
@@ -108,20 +93,42 @@ public class JdoGenericDao<T, ID extends Serializable> extends JdoDaoSupport
 
 	@SuppressWarnings(value = "unchecked")
 	public T get(ID id) {
-		T instance = (T) getJdoTemplate().getObjectById(persistentClass, id);
-		// TODO: check if it is useless (JdoTemplate throws ORFException or not)
-		if (instance == null) {
-			throw new ObjectRetrievalFailureException(persistentClass, id);
+		try {
+			T instance = (T) getJdoTemplate()
+					.getObjectById(persistentClass, id);
+			return instance;
+		} catch (ObjectRetrievalFailureException e) {
+			return null;
 		}
-		return instance;
 	}
 
-	public void save(T object) {
+	public T save(T object) {
 		getJdoTemplate().makePersistent(object);
+		return object;
 	}
 
-	public void update(T object) {
-		getJdoTemplate().makePersistent(object);
+	public boolean exists(ID id) {
+		try {
+			getJdoTemplate().getObjectById(persistentClass, id);
+			return true;
+		} catch (ObjectRetrievalFailureException e) {
+			return false;
+		}
+	}
+
+	public void remove(ID id) {
+		try {
+			Object toRemove = getJdoTemplate().getObjectById(persistentClass,
+					id);
+			getJdoTemplate().deletePersistent(toRemove);
+		} catch (ObjectRetrievalFailureException e) {
+			// nothing
+		}
+	}
+
+	public void removeEntity(T entity) {
+		getJdoTemplate().deletePersistent(entity);
+
 	}
 
 }
