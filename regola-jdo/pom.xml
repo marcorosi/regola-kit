@@ -20,47 +20,53 @@
 	<build>
 		<plugins>
 			<plugin>
-                <groupId>jpox</groupId>
-                <artifactId>jpox-maven-plugin</artifactId>
-                <version>1.1.7</version>
-                <configuration>
-                    <verbose>true</verbose>
-                    <classes>${project.build.testOutputDirectory}</classes>
-                    <classpathElements>${project.testClasspathElements}</classpathElements>
-                </configuration>
-                <executions>
-                    <execution>                    	
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>enhance</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>            
+				<groupId>jpox</groupId>
+				<artifactId>jpox-maven-plugin</artifactId>
+				<version>${jpox.version}</version>
+				<configuration>
+					<verbose>true</verbose>
+					<classes>
+						${project.build.testOutputDirectory}
+					</classes>
+					<classpathElements>
+						${project.testClasspathElements}
+					</classpathElements>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>enhance</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<executions>
 					<execution>
+						<id>test data extraction</id>
 						<phase>generate-test-resources</phase>
 						<goals>
 							<goal>run</goal>
 						</goals>
+						<configuration>
+							<tasks unless="maven.test.skip">
+								<unjar
+									src="${settings.localRepository}/org/regola/regola-core/${version}/regola-core-${version}-tests.jar"
+									dest="${basedir}">
+									<patternset>
+										<include name="dbscripts/*sql" />
+									</patternset>
+								</unjar>
+							</tasks>
+						</configuration>
 					</execution>
 				</executions>
-				<configuration>
-					<tasks unless="maven.test.skip">
-						<unjar
-							src="${settings.localRepository}/org/regola/regola-core/${version}/regola-core-${version}-tests.jar"
-							dest="${basedir}">
-							<patternset>
-								<include name="dbscripts/*sql" />
-							</patternset>
-						</unjar>
-					</tasks>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+
 	<dependencies>
 		<dependency>
 			<groupId>${groupId}</groupId>
@@ -94,13 +100,12 @@
 			<artifactId>spring-jdo</artifactId>
 		</dependency>
 		<dependency>
-    		<groupId>javax.jdo</groupId>
-    		<artifactId>jdo2-api</artifactId>
-    	</dependency>
-    	<dependency>
-		    <groupId>jpox</groupId>
-		    <artifactId>jpox</artifactId>		    
+			<groupId>javax.jdo</groupId>
+			<artifactId>jdo2-api</artifactId>
 		</dependency>
-	
+		<dependency>
+			<groupId>jpox</groupId>
+			<artifactId>jpox</artifactId>
+		</dependency>
 	</dependencies>
 </project>

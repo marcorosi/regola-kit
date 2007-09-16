@@ -22,10 +22,10 @@ public class InHandler extends FilterAnnotationHandler {
 			return;
 
 		Collection<?> collectionValue;
-		if (value instanceof Collection) {
+		if (Collection.class.isAssignableFrom(value.getClass())) {
 			collectionValue = (Collection<?>) value;
 		} else if (value.getClass().isArray()) {
-			collectionValue = Arrays.asList(value);
+			collectionValue = Arrays.asList((Object[]) value);
 		} else {
 			throw new IllegalArgumentException(
 					"L'annotazione @In è applicabile soltanto a valori di tipo Collection o Array");

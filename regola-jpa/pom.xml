@@ -40,21 +40,6 @@
 							</tasks>
 						</configuration>
 					</execution>
-					<!--					<execution>-->
-					<!--						<id>openjpa enhancement</id>-->
-					<!--						<phase>process-test-classes</phase>-->
-					<!--						<goals>-->
-					<!--							<goal>run</goal>-->
-					<!--						</goals>-->
-					<!--						<configuration>-->
-					<!--							<tasks>-->
-					<!--								<java-->
-					<!--									classname="org.apache.openjpa.enhance.PCEnhancer"-->
-					<!--									classpathref="maven.test.classpath" dir="target/test-classes"-->
-					<!--									fork="true" />-->
-					<!--							</tasks>-->
-					<!--						</configuration>-->
-					<!--					</execution>-->
 				</executions>
 			</plugin>
 		</plugins>
@@ -95,6 +80,12 @@
 		<dependency>
 			<groupId>org.apache.openjpa</groupId>
 			<artifactId>openjpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-agent</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>${groupId}</groupId>

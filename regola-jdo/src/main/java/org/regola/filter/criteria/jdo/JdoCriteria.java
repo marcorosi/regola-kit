@@ -33,26 +33,33 @@ public class JdoCriteria extends AbstractCriteriaBuilder {
 	}
 
 	private void and(String property, String op, Object param) {
-		and(property, op, param, false);
+		and(expr(property, op, param, false));
 	}
 
-	private void and(String property, String op, Object param,
+	private String expr(String property, String op, Object param,
 			boolean functionCall) {
+		StringBuilder expression = new StringBuilder();
+		expression.append(property);
+		if (functionCall) {
+			expression.append("." + op + "(");
+		} else {
+			expression.append(op);
+		}
+		expression.append(PARAM_PREFIX + params.size());
+		if (functionCall) {
+			expression.append(")");
+		}
+		params.put(PARAM_PREFIX + params.size(), param);
+		return expression.toString();
+	}
+
+	private void and(String expression) {
 		if (filter.length() > 0) {
 			filter.append(" && ");
 		}
-		filter.append("(").append(property);
-		if (functionCall) {
-			filter.append("." + op + "(");
-		} else {
-			filter.append(op);
-		}
-		filter.append(PARAM_PREFIX + params.size());
-		if (functionCall) {
-			filter.append(")");
-		}
+		filter.append("(");
+		filter.append(expression);
 		filter.append(")");
-		params.put("p_" + params.size(), param);
 	}
 
 	public Map<String, Object> getParametersMap() {
@@ -79,15 +86,15 @@ public class JdoCriteria extends AbstractCriteriaBuilder {
 			declaredParams.append(params.get(paramName).getClass().getName())
 					.append(" ").append(paramName);
 		}
-		first= true;
-		for(String order : orders) {
-			if(!first) {
+		first = true;
+		for (String order : orders) {
+			if (!first) {
 				ordering.append(",");
 			}
-			first=false;
+			first = false;
 			ordering.append(order);
 		}
-		
+
 		jdoQuery.setFilter(filter.toString());
 		jdoQuery.declareParameters(declaredParams.toString());
 		jdoQuery.setRange(from, to);
@@ -114,15 +121,25 @@ public class JdoCriteria extends AbstractCriteriaBuilder {
 
 	@Override
 	public void addIlike(String property, String value) {
-		// TODO: using matches() but not sure how it works...
+		// TODO using matches() but not sure how it works...
 		and(property, "matches", value + "(?i)");
 	}
 
 	@Override
-	public void addIn(String property, Collection<?> value) {
-		// TODO:
-		throw new UnsupportedOperationException("Not implemented yet");
-
+	public void addIn(String property, Collection<?> values) {
+		// TODO check for native JDOQL "in" operator
+		StringBuilder orExpr = new StringBuilder();
+		boolean first = true;
+		for (Object value : values) {
+			if (!first) {
+				orExpr.append(" || ");
+			}
+			first = false;
+			orExpr.append("(");
+			orExpr.append(expr(property, "==", value, false));
+			orExpr.append(")");
+		}
+		and(orExpr.toString());
 	}
 
 	@Override
