@@ -4,7 +4,10 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * Criterio di filtro <p> Rappresenta il tipo di criterio (operatore), la propriet&agrave; interessata e il valore di filtraggio.
+ * Criterio di filtro
+ * <p>
+ * Rappresenta il tipo di criterio (operatore), la propriet&agrave; interessata
+ * e il valore di filtraggio.
  */
 public class Criterion {
 
@@ -80,15 +83,14 @@ public class Criterion {
 		},
 		IN("IN") {
 			public void dispatch(Builder builder, String property, Object value) {
-				if (value instanceof Collection) {
+				if (Collection.class.isAssignableFrom(value.getClass())) {
 					builder.addIn(property, (Collection<?>) value);
+				} else if (value != null && value.getClass().isArray()) {
+					builder.addIn(property, Arrays.asList((Object[]) value));
+				} else {
+					throw new RuntimeException(
+							"L'operatore IN supporta solo valori di tipo Collection o Array");
 				}
-				if (value != null && value.getClass().isArray()) {
-					builder.addIn(property, Arrays.asList(value));
-				}
-				throw new RuntimeException(
-						"L'operatore IN supporta solo valori di tipo Collection o Array");
-
 			}
 		};
 

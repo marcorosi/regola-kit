@@ -18,7 +18,7 @@
 		<property name="jpaProperties">
 			<value>
 				<![CDATA[
-				#toplink.weaving=true
+				#toplink.weaving=static
 				#toplink.weaving.lazy=true
 				#toplink.weaving.changetracking=true
 				#toplink.orm.throw.exceptions=true

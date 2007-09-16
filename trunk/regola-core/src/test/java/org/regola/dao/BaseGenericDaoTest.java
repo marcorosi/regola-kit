@@ -134,13 +134,23 @@ public class BaseGenericDaoTest {
 	}
 
 	@Test
-	public void findByModelPattern() {
+	public void findByModelPattern_equals() {
 		CustomerPattern pattern = new CustomerPattern();
 		pattern.setFirstName("Laura");
 
 		List<Customer> customers = getCustomerDao().find(pattern);
 
 		assertEquals(5, customers.size());
+	}
+
+	@Test
+	public void findByModelPattern_in() {
+		CustomerPattern pattern = new CustomerPattern();
+		pattern.setLastNames(new String[] { "Clancy", "Fuller", "Ott" });
+
+		List<Customer> customers = getCustomerDao().find(pattern);
+
+		assertEquals(16, customers.size());
 	}
 
 	@Test
