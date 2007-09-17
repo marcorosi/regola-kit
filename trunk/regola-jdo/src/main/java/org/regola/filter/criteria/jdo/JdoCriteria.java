@@ -9,11 +9,15 @@ import java.util.Map;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.Order;
 import org.regola.filter.criteria.impl.AbstractCriteriaBuilder;
 
 public class JdoCriteria extends AbstractCriteriaBuilder {
+
+	protected static final Log log = LogFactory.getLog(JdoCriteria.class);
 
 	protected static final String PARAM_PREFIX = "p_";
 
@@ -100,6 +104,9 @@ public class JdoCriteria extends AbstractCriteriaBuilder {
 		jdoQuery.setRange(from, to);
 		jdoQuery.setOrdering(ordering.toString());
 		jdoQuery.compile();
+		if (log.isDebugEnabled()) {
+			log.debug("Generated JDOQL query: " + jdoQuery.toString());
+		}
 		return jdoQuery;
 	}
 
@@ -127,19 +134,14 @@ public class JdoCriteria extends AbstractCriteriaBuilder {
 
 	@Override
 	public void addIn(String property, Collection<?> values) {
-		// TODO check for native JDOQL "in" operator
-		StringBuilder orExpr = new StringBuilder();
-		boolean first = true;
-		for (Object value : values) {
-			if (!first) {
-				orExpr.append(" || ");
-			}
-			first = false;
-			orExpr.append("(");
-			orExpr.append(expr(property, "==", value, false));
-			orExpr.append(")");
-		}
-		and(orExpr.toString());
+		// JDOQL "in" syntax -> :values.contains(property)
+		// TODO: clean up the code here...
+		StringBuilder in = new StringBuilder();
+		in.append(PARAM_PREFIX).append(params.size()).append(".contains(")
+				.append(property).append(")");
+		// must create a new JDO-friendly array here, don't trust the caller
+		params.put(PARAM_PREFIX + params.size(), new ArrayList(values));
+		and(in.toString());
 	}
 
 	@Override
