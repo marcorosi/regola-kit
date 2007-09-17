@@ -154,6 +154,26 @@ public class BaseGenericDaoTest {
 	}
 
 	@Test
+	public void findByModelPattern_like() {
+		CustomerPattern pattern = new CustomerPattern();
+		pattern.setAddressStreet("5");
+
+		List<Customer> customers = getCustomerDao().find(pattern);
+
+		assertEquals(8, customers.size());
+	}
+
+	@Test
+	public void findByModelPattern_ilike() {
+		CustomerPattern pattern = new CustomerPattern();
+		pattern.setAddressCity("o");
+
+		List<Customer> customers = getCustomerDao().find(pattern);
+
+		assertEquals(11, customers.size());
+	}
+
+	@Test
 	public void findByModelPattern_emptyFilter() {
 		List<Customer> customers = getCustomerDao().find(new CustomerPattern());
 
