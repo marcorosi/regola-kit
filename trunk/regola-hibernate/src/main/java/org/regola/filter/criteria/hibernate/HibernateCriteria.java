@@ -8,7 +8,7 @@ import org.regola.filter.criteria.Order;
 import org.regola.filter.criteria.impl.AbstractCriteriaBuilder;
 
 /**
- * @author  nicola
+ * @author nicola
  */
 public class HibernateCriteria extends AbstractCriteriaBuilder {
 
@@ -40,12 +40,12 @@ public class HibernateCriteria extends AbstractCriteriaBuilder {
 
 	@Override
 	public void addLike(String property, String value) {
-		criteria.add(Restrictions.like(property, value));
+		criteria.add(Restrictions.like(property, value + "%"));
 	}
 
 	@Override
 	public void addIlike(String property, String value) {
-		criteria.add(Restrictions.ilike(property, value));
+		criteria.add(Restrictions.ilike(property, value + "%"));
 	}
 
 	@Override
