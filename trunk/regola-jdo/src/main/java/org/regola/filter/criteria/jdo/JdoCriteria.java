@@ -37,7 +37,12 @@ public class JdoCriteria extends AbstractCriteriaBuilder {
 	}
 
 	private void and(String property, String op, Object param) {
-		and(expr(property, op, param, false));
+		and(property, op, param, false);
+	}
+
+	private void and(String property, String op, Object param,
+			boolean functionCall) {
+		and(expr(property, op, param, functionCall));
 	}
 
 	private String expr(String property, String op, Object param,
@@ -49,12 +54,17 @@ public class JdoCriteria extends AbstractCriteriaBuilder {
 		} else {
 			expression.append(op);
 		}
-		expression.append(PARAM_PREFIX + params.size());
+		expression.append(addParameter(param));
 		if (functionCall) {
 			expression.append(")");
 		}
-		params.put(PARAM_PREFIX + params.size(), param);
 		return expression.toString();
+	}
+
+	protected String addParameter(Object paramValue) {
+		String paramName = PARAM_PREFIX + params.size();
+		params.put(paramName, paramValue);
+		return paramName;
 	}
 
 	private void and(String expression) {
@@ -87,8 +97,8 @@ public class JdoCriteria extends AbstractCriteriaBuilder {
 			}
 			first = false;
 			// java type
-			declaredParams.append(params.get(paramName).getClass().getName())
-					.append(" ").append(paramName);
+			declaredParams.append(parameterClass(paramName)).append(" ")
+					.append(paramName);
 		}
 		first = true;
 		for (String order : orders) {
@@ -110,6 +120,14 @@ public class JdoCriteria extends AbstractCriteriaBuilder {
 		return jdoQuery;
 	}
 
+	protected String parameterClass(String paramName) {
+		Class<?> clazz = params.get(paramName).getClass();
+		if (Collection.class.isAssignableFrom(clazz)) {
+			clazz = Collection.class;
+		}
+		return clazz.getName();
+	}
+
 	@Override
 	public void addEquals(String property, Object value) {
 		and(property, "==", value);
@@ -127,21 +145,8 @@ public class JdoCriteria extends AbstractCriteriaBuilder {
 	}
 
 	@Override
-	public void addIlike(String property, String value) {
-		// TODO using matches() but not sure how it works...
-		and(property, "matches", value + "(?i)");
-	}
-
-	@Override
 	public void addIn(String property, Collection<?> values) {
-		// JDOQL "in" syntax -> :values.contains(property)
-		// TODO: clean up the code here...
-		StringBuilder in = new StringBuilder();
-		in.append(PARAM_PREFIX).append(params.size()).append(".contains(")
-				.append(property).append(")");
-		// must create a new JDO-friendly array here, don't trust the caller
-		params.put(PARAM_PREFIX + params.size(), new ArrayList(values));
-		and(in.toString());
+		and(addParameter(values) + ".contains(" + property + ")");
 	}
 
 	@Override
@@ -158,8 +163,12 @@ public class JdoCriteria extends AbstractCriteriaBuilder {
 
 	@Override
 	public void addLike(String property, String value) {
-		// TODO: wildcards for like and ilike??
-		and(property, "matches", value + "(?i)");
+		and(property, "matches", value + ".*", true);
+	}
+
+	@Override
+	public void addIlike(String property, String value) {
+		and(property, "matches", "(?i)" + value + ".*", true);
 	}
 
 	@Override
@@ -191,7 +200,6 @@ public class JdoCriteria extends AbstractCriteriaBuilder {
 	public void setRowCount() {
 		jdoQuery.setUnique(true);
 		jdoQuery.setResult("count(this)");
-
 	}
 
 }
