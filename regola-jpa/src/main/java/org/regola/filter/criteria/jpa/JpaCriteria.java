@@ -48,12 +48,12 @@ public class JpaCriteria extends AbstractCriteriaBuilder {
 
 	@Override
 	public void addLike(String property, String value) {
-		criteria.add(Restrictions.like(property, value));
+		criteria.add(Restrictions.like(property, value + "%"));
 	}
 
 	@Override
 	public void addIlike(String property, String value) {
-		criteria.add(Restrictions.ilike(property, value));
+		criteria.add(Restrictions.like(property, value + "%").ignoreCase());
 	}
 
 	@Override
