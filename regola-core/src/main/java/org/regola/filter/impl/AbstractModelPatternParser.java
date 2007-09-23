@@ -1,24 +1,25 @@
-package org.regola.filter.builder;
+package org.regola.filter.impl;
 
 import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import org.regola.filter.FilterBuilder;
-import org.regola.filter.ModelFilter;
+import org.regola.filter.ModelPatternParser;
+import org.regola.filter.annotation.ModelPatternCriterion;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.criterion.Projections;
+import org.regola.model.ModelPattern;
 import org.springframework.beans.BeanUtils;
 
-public abstract class AbstractFilterBuilder implements FilterBuilder {
+public abstract class AbstractModelPatternParser implements ModelPatternParser {
 
-	public void createCountFilter(Criteria criteria, ModelFilter filter) {
-		createFilter(criteria, filter);
+	public void createCountQuery(Criteria criteria, ModelPattern filter) {
+		createQuery(criteria, filter);
 		criteria.setProjection(Projections.rowCount());
 	}
 
-	public void createFilter(Criteria criteria, ModelFilter filter) {
+	public void createQuery(Criteria criteria, ModelPattern filter) {
 		for (PropertyDescriptor property : BeanUtils
 				.getPropertyDescriptors(filter.getClass())) {
 			handleFieldAnnotations(property, criteria, filter);
@@ -27,9 +28,8 @@ public abstract class AbstractFilterBuilder implements FilterBuilder {
 	}
 
 	protected void handleFieldAnnotations(PropertyDescriptor property,
-			Criteria criteria, ModelFilter filter) {
+			Criteria criteria, ModelPattern filter) {
 		try {
-			//Field field = filter.getClass().getField(property.getName());
 			Field field = filter.getClass().getDeclaredField(property.getName());
 			handleAnnotations(field.getAnnotations(), property, criteria,
 					filter);
@@ -39,7 +39,7 @@ public abstract class AbstractFilterBuilder implements FilterBuilder {
 	}
 
 	protected void handleMethodAnnotations(PropertyDescriptor property,
-			Criteria criteria, ModelFilter filter) {
+			Criteria criteria, ModelPattern filter) {
 		Method method = property.getReadMethod();
 		if (method != null) {
 			handleAnnotations(method.getAnnotations(), property, criteria,
@@ -48,16 +48,16 @@ public abstract class AbstractFilterBuilder implements FilterBuilder {
 	}
 
 	protected void handleAnnotations(Annotation[] annotations,
-			PropertyDescriptor property, Criteria criteria, ModelFilter filter) {
+			PropertyDescriptor property, Criteria criteria, ModelPattern filter) {
 		for (Annotation annotation : annotations) {
 			if (annotation.annotationType().isAnnotationPresent(
-					FilterHandler.class)) {
+					ModelPatternCriterion.class)) {
 				handleAnnotation(annotation, property, criteria, filter);
 			}
 		}
 	}
 
 	protected abstract void handleAnnotation(Annotation annotation,
-			PropertyDescriptor property, Criteria criteria, ModelFilter filter);
+			PropertyDescriptor property, Criteria criteria, ModelPattern filter);
 
 }

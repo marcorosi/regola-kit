@@ -8,10 +8,10 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import org.regola.dao.GenericDao;
-import org.regola.filter.FilterBuilder;
-import org.regola.filter.ModelFilter;
-import org.regola.filter.builder.DefaultFilterBuilder;
+import org.regola.filter.ModelPatternParser;
 import org.regola.filter.criteria.jdo.JdoCriteria;
+import org.regola.filter.impl.DefaultModelPatternParser;
+import org.regola.model.ModelPattern;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.orm.jdo.JdoCallback;
 import org.springframework.orm.jdo.support.JdoDaoSupport;
@@ -33,13 +33,13 @@ public class JdoGenericDao<T, ID extends Serializable> extends JdoDaoSupport
 	 */
 	private Class<T> persistentClass;
 
-	private FilterBuilder filterBuilder = new DefaultFilterBuilder();
+	private ModelPatternParser filterBuilder = new DefaultModelPatternParser();
 
-	public FilterBuilder getFilterBuilder() {
+	public ModelPatternParser getFilterBuilder() {
 		return filterBuilder;
 	}
 
-	public void setFilterBuilder(FilterBuilder filterBuilder) {
+	public void setFilterBuilder(ModelPatternParser filterBuilder) {
 		this.filterBuilder = filterBuilder;
 	}
 
@@ -47,12 +47,12 @@ public class JdoGenericDao<T, ID extends Serializable> extends JdoDaoSupport
 		this.persistentClass = persistentClass;
 	}
 
-	public int count(final ModelFilter filter) {
+	public int count(final ModelPattern filter) {
 		Long count = (Long) getJdoTemplate().execute(new JdoCallback() {
 			public Object doInJdo(PersistenceManager pm) {
 				JdoCriteria criteriaBuilder = new JdoCriteria(persistentClass,
 						pm);
-				getFilterBuilder().createCountFilter(criteriaBuilder, filter);
+				getFilterBuilder().createCountQuery(criteriaBuilder, filter);
 				Query q = criteriaBuilder.getJdoQuery();
 				return q.executeWithMap(criteriaBuilder.getParametersMap());
 			}
@@ -73,12 +73,12 @@ public class JdoGenericDao<T, ID extends Serializable> extends JdoDaoSupport
 	 * at PersistenceManager shutdown.
 	 */
 	@SuppressWarnings(value = "unchecked")
-	public List<T> find(final ModelFilter filter) {
+	public List<T> find(final ModelPattern filter) {
 		return new ArrayList<T>(getJdoTemplate().executeFind(new JdoCallback() {
 			public Object doInJdo(PersistenceManager pm) {
 				JdoCriteria criteriaBuilder = new JdoCriteria(persistentClass,
 						pm);
-				getFilterBuilder().createFilter(criteriaBuilder, filter);
+				getFilterBuilder().createQuery(criteriaBuilder, filter);
 				Query q = criteriaBuilder.getJdoQuery();
 				return q.executeWithMap(criteriaBuilder.getParametersMap());
 

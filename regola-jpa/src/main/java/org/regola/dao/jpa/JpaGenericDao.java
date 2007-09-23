@@ -11,11 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.regola.dao.AbstractGenericDao;
-import org.regola.filter.FilterBuilder;
-import org.regola.filter.ModelFilter;
-import org.regola.filter.builder.DefaultFilterBuilder;
+import org.regola.dao.impl.AbstractGenericDao;
+import org.regola.filter.ModelPatternParser;
 import org.regola.filter.criteria.jpa.JpaCriteria;
+import org.regola.filter.impl.DefaultModelPatternParser;
+import org.regola.model.ModelPattern;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.stereotype.Repository;
@@ -112,19 +112,19 @@ public class JpaGenericDao<T, ID extends Serializable> extends
 		return getPersistentClass().getSimpleName() + "." + query;
 	}
 
-	public int count(ModelFilter filter) {
+	public int count(ModelPattern filter) {
 		JpaCriteria criteriaBuilder = new JpaCriteria(getPersistentClass(),
 				entityManager);
-		getFilterBuilder().createCountFilter(criteriaBuilder, filter);
+		getFilterBuilder().createCountQuery(criteriaBuilder, filter);
 		return ((Number) criteriaBuilder.getQuery().getSingleResult())
 				.intValue();
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> find(ModelFilter filter) {
+	public List<T> find(ModelPattern filter) {
 		JpaCriteria criteriaBuilder = new JpaCriteria(getPersistentClass(),
 				entityManager);
-		getFilterBuilder().createFilter(criteriaBuilder, filter);
+		getFilterBuilder().createQuery(criteriaBuilder, filter);
 		return criteriaBuilder.getQuery().getResultList();
 	}
 

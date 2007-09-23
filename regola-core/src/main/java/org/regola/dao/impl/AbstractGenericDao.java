@@ -1,22 +1,23 @@
-package org.regola.dao;
+package org.regola.dao.impl;
 
 import java.io.Serializable;
 import java.util.List;
 
-import org.regola.filter.FilterBuilder;
-import org.regola.filter.ModelFilter;
-import org.regola.filter.builder.DefaultFilterBuilder;
+import org.regola.dao.GenericDao;
+import org.regola.filter.ModelPatternParser;
+import org.regola.filter.impl.DefaultModelPatternParser;
+import org.regola.model.ModelPattern;
 
 public abstract class AbstractGenericDao<T, ID extends Serializable> implements
 		GenericDao<T, ID> {
 
 	private Class<T> persistentClass;
 
-	private FilterBuilder filterBuilder = new DefaultFilterBuilder();
+	private ModelPatternParser filterBuilder = new DefaultModelPatternParser();
 
-	public abstract List<T> find(ModelFilter filter);
+	public abstract List<T> find(ModelPattern filter);
 
-	public int count(ModelFilter pattern) {
+	public int count(ModelPattern pattern) {
 		return find(pattern).size();
 	}
 
@@ -27,7 +28,7 @@ public abstract class AbstractGenericDao<T, ID extends Serializable> implements
 	}
 
 	public List<T> getAll() {
-		return find(new ModelFilter() {
+		return find(new ModelPattern() {
 		});
 	}
 
@@ -50,11 +51,11 @@ public abstract class AbstractGenericDao<T, ID extends Serializable> implements
 		this.persistentClass = persistentClass;
 	}
 
-	public FilterBuilder getFilterBuilder() {
+	public ModelPatternParser getFilterBuilder() {
 		return filterBuilder;
 	}
 
-	public void setFilterBuilder(FilterBuilder filterBuilder) {
+	public void setFilterBuilder(ModelPatternParser filterBuilder) {
 		this.filterBuilder = filterBuilder;
 	}
 
