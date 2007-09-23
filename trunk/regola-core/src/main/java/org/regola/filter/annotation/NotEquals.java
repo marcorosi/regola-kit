@@ -5,12 +5,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.regola.filter.builder.FilterHandler;
-
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.METHOD})
-@FilterHandler(NotEqualsHandler.class)
-public @interface NotEquals
-{
+@Target( { ElementType.FIELD, ElementType.METHOD })
+@ModelPatternCriterion
+public @interface NotEquals {
+
 	String value() default "";
+
 }

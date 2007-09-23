@@ -1,11 +1,10 @@
 package org.regola.model;
 
-import org.regola.filter.ModelFilter;
 import org.regola.filter.annotation.Equals;
 import org.regola.filter.annotation.In;
 import org.regola.filter.annotation.Like;
 
-public class CustomerPattern extends ModelFilter {
+public class CustomerPattern extends ModelPattern {
 
 	@Equals
 	private String firstName;

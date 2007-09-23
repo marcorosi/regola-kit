@@ -5,12 +5,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.regola.filter.builder.FilterHandler;
-
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.METHOD})
-@FilterHandler(GreaterThanHandler.class)
-public @interface GreaterThan
-{
+@Target( { ElementType.FIELD, ElementType.METHOD })
+@ModelPatternCriterion
+public @interface GreaterThan {
+
 	String value() default "";
+
 }

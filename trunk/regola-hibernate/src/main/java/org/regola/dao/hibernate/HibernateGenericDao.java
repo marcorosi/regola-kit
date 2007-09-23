@@ -5,10 +5,10 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.regola.dao.GenericDao;
-import org.regola.filter.FilterBuilder;
-import org.regola.filter.ModelFilter;
-import org.regola.filter.builder.DefaultFilterBuilder;
+import org.regola.filter.ModelPatternParser;
 import org.regola.filter.criteria.hibernate.HibernateCriteria;
+import org.regola.filter.impl.DefaultModelPatternParser;
+import org.regola.model.ModelPattern;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -20,7 +20,7 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 
 	private Class<T> persistentClass;
 
-	private FilterBuilder filterBuilder = new DefaultFilterBuilder();
+	private ModelPatternParser filterBuilder = new DefaultModelPatternParser();
 
 	public HibernateGenericDao(Class<T> persistentClass) {
 		this.persistentClass = persistentClass;
@@ -48,36 +48,36 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> find(final ModelFilter filter) {
+	public List<T> find(final ModelPattern filter) {
 		return getHibernateTemplate().executeFind(new HibernateCallback() {
 			public Object doInHibernate(Session session) {
 				HibernateCriteria criteriaBuilder = new HibernateCriteria(
 						session.createCriteria(persistentClass));
-				getFilterBuilder().createFilter(criteriaBuilder, filter);
+				getFilterBuilder().createQuery(criteriaBuilder, filter);
 				return criteriaBuilder.getCriteria().list();
 			}
 		});
 	}
 
-	public int count(final ModelFilter filter) {
+	public int count(final ModelPattern filter) {
 		// TODO controllare null result?
 		return (Integer) getHibernateTemplate().execute(
 				new HibernateCallback() {
 					public Object doInHibernate(Session session) {
 						HibernateCriteria criteriaBuilder = new HibernateCriteria(
 								session.createCriteria(persistentClass));
-						getFilterBuilder().createCountFilter(criteriaBuilder,
+						getFilterBuilder().createCountQuery(criteriaBuilder,
 								filter);
 						return criteriaBuilder.getCriteria().uniqueResult();
 					}
 				});
 	}
 
-	public FilterBuilder getFilterBuilder() {
+	public ModelPatternParser getFilterBuilder() {
 		return filterBuilder;
 	}
 
-	public void setFilterBuilder(FilterBuilder filterBuilder) {
+	public void setFilterBuilder(ModelPatternParser filterBuilder) {
 		this.filterBuilder = filterBuilder;
 	}
 

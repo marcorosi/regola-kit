@@ -7,7 +7,7 @@ import org.regola.filter.criteria.Criterion;
 import org.regola.filter.criteria.Order;
 import org.regola.filter.criteria.Projection;
 
-public abstract class AbstractCriteriaBuilder implements Criteria,
+public abstract class AbstractQueryBuilder implements Criteria,
 		Criterion.Builder, Projection.Builder {
 
 	public Criteria add(Criterion criterion) {

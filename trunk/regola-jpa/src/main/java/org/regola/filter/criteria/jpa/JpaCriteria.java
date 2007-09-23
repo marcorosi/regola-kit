@@ -11,9 +11,9 @@ import net.bzdyl.ejb3.criteria.restrictions.Restrictions;
 
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.Order;
-import org.regola.filter.criteria.impl.AbstractCriteriaBuilder;
+import org.regola.filter.criteria.impl.AbstractQueryBuilder;
 
-public class JpaCriteria extends AbstractCriteriaBuilder {
+public class JpaCriteria extends AbstractQueryBuilder {
 
 	private net.bzdyl.ejb3.criteria.Criteria criteria;
 	private EntityManager entityManager;

@@ -5,12 +5,12 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.Order;
-import org.regola.filter.criteria.impl.AbstractCriteriaBuilder;
+import org.regola.filter.criteria.impl.AbstractQueryBuilder;
 
 /**
  * @author nicola
  */
-public class HibernateCriteria extends AbstractCriteriaBuilder {
+public class HibernateCriteria extends AbstractQueryBuilder {
 
 	private org.hibernate.Criteria criteria;
 
