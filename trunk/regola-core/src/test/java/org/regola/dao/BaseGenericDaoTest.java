@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.unitils.database.annotations.Transactional;
 import org.unitils.database.util.TransactionMode;
-import org.unitils.reflectionassert.ReflectionAssert;
+import static org.unitils.reflectionassert.ReflectionAssert.*;
 import org.unitils.spring.annotation.SpringApplicationContext;
 import org.unitils.spring.annotation.SpringBeanByName;
 
@@ -51,7 +51,6 @@ public class BaseGenericDaoTest {
 
 	@Test
 	public void get_invalidId() {
-
 		assertNull(getCustomerDao().get(50));
 	}
 
@@ -80,6 +79,11 @@ public class BaseGenericDaoTest {
 	@Test
 	public void remove_invalidId() {
 		getCustomerDao().remove(50);
+
+		onDbVerify();
+
+		assertEquals(50, jdbcTemplate
+				.queryForInt("SELECT COUNT(*) FROM CUSTOMER"));
 	}
 
 	@Test
@@ -116,7 +120,6 @@ public class BaseGenericDaoTest {
 	public void save_update() {
 		Customer laura = getCustomerDao().get(0);
 
-		// Cambio sesso
 		laura.setFirstName("Miguel");
 		laura.setLastName("de Icaza");
 		laura.getAddress().setStreet("unknown");
@@ -143,6 +146,36 @@ public class BaseGenericDaoTest {
 		assertEquals(5, customers.size());
 	}
 
+	@Test
+	public void findByModelPattern_notEquals() {
+		CustomerPattern pattern = new CustomerPattern();
+		pattern.setNotEqualsFirstName("Laura");
+
+		List<Customer> customers = getCustomerDao().find(pattern);
+
+		assertEquals(45, customers.size());
+	}
+	
+	@Test
+	public void findByModelPattern_greaterThan() {
+		CustomerPattern pattern = new CustomerPattern();
+		pattern.setId(5);
+
+		List<Customer> customers = getCustomerDao().find(pattern);
+
+		assertEquals(44, customers.size());
+	}
+	
+	@Test
+	public void findByModelPattern_lessThan() {
+		CustomerPattern pattern = new CustomerPattern();
+		pattern.setLessThanId(5);
+
+		List<Customer> customers = getCustomerDao().find(pattern);
+
+		assertEquals(5, customers.size());
+	}
+	
 	@Test
 	public void findByModelPattern_in() {
 		CustomerPattern pattern = new CustomerPattern();
@@ -181,7 +214,7 @@ public class BaseGenericDaoTest {
 	}
 
 	@Test
-	public void count() {
+	public void count_equals() {
 		CustomerPattern pattern = new CustomerPattern();
 		pattern.setFirstName("Laura");
 
@@ -190,6 +223,67 @@ public class BaseGenericDaoTest {
 		assertEquals(5, count);
 	}
 
+
+	@Test
+	public void count_notEquals() {
+		CustomerPattern pattern = new CustomerPattern();
+		pattern.setNotEqualsFirstName("Laura");
+
+		int count = getCustomerDao().count(pattern);
+
+		assertEquals(45, count);
+	}
+	
+	@Test
+	public void count_greaterThan() {
+		CustomerPattern pattern = new CustomerPattern();
+		pattern.setId(5);
+
+		int count = getCustomerDao().count(pattern);
+
+		assertEquals(44, count);
+	}
+	
+	@Test
+	public void count_lessThan() {
+		CustomerPattern pattern = new CustomerPattern();
+		pattern.setLessThanId(5);
+
+		int count = getCustomerDao().count(pattern);
+
+		assertEquals(5, count);
+	}
+	
+	@Test
+	public void count_in() {
+		CustomerPattern pattern = new CustomerPattern();
+		pattern.setLastNames(new String[] { "Clancy", "Fuller", "Ott" });
+
+		int count = getCustomerDao().count(pattern);
+
+		assertEquals(16, count);
+	}
+
+	@Test
+	public void count_like() {
+		CustomerPattern pattern = new CustomerPattern();
+		pattern.setAddressStreet("5");
+
+		int count = getCustomerDao().count(pattern);
+
+		assertEquals(8, count);
+	}
+
+	@Test
+	public void count_ilike() {
+		CustomerPattern pattern = new CustomerPattern();
+		pattern.setAddressCity("o");
+
+		int count = getCustomerDao().count(pattern);
+
+		assertEquals(11, count);
+	}
+	
 	@Test
 	public void count_emptyFilter() {
 		assertEquals(50, getCustomerDao().count(new CustomerPattern()));
@@ -208,16 +302,14 @@ public class BaseGenericDaoTest {
 	}
 
 	protected void assertEqualsCustomers(Customer expected, Customer actual) {
-		ReflectionAssert
-				.assertPropertyRefEquals("id", expected.getId(), actual);
-		ReflectionAssert.assertPropertyRefEquals("firstName", expected
-				.getFirstName(), actual);
-		ReflectionAssert.assertPropertyRefEquals("lastName", expected
-				.getLastName(), actual);
-		ReflectionAssert.assertPropertyRefEquals("address.street", expected
-				.getAddress().getStreet(), actual);
-		ReflectionAssert.assertPropertyRefEquals("address.city", expected
-				.getAddress().getCity(), actual);
+		assertPropertyRefEquals("id", expected.getId(), actual);
+		assertPropertyRefEquals("firstName", expected.getFirstName(), actual);
+		assertPropertyRefEquals("lastName", expected.getLastName(), actual);
+
+		Address address = expected.getAddress();
+
+		assertPropertyRefEquals("address.street", address.getStreet(), actual);
+		assertPropertyRefEquals("address.city", address.getCity(), actual);
 	}
 
 	protected void onDbVerify() {
