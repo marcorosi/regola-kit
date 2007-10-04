@@ -100,7 +100,7 @@ public abstract class AbstractCriteriaAnnotationHandler implements
 			return ((String) value).length() == 0;
 		}
 		if (value instanceof Collection) {
-			return ((Collection<?>) value).size() == 0;
+			return ((Collection<?>) value).isEmpty();
 		}
 		if (value.getClass().isArray()) {
 			return ((Object[]) value).length == 0;

@@ -4,12 +4,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.regola</groupId>
-	<artifactId>regola-framework</artifactId>
+	<artifactId>regola-kit</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0-M1-SNAPSHOT</version>
-	<name>REGOLA Framework</name>
+	<name>REGOLA Toolkit</name>
 	<description>Regola conventional framework</description>
-	<url>http://code.google.com/p/regola-framework/</url>
+	<url>http://code.google.com/p/regola-kit/</url>
 	<inceptionYear>2007</inceptionYear>
 	<licenses>
 		<license>
@@ -41,13 +41,13 @@
 	</developers>
 	<scm>
 		<connection>
-			scm:svn:http://regola-framework.googlecode.com/svn/trunk
+			scm:svn:http://regola-kit.googlecode.com/svn/trunk
 		</connection>
-		<url>http://regola-framework.googlecode.com/svn/</url>
+		<url>http://regola-kit.googlecode.com/svn/</url>
 	</scm>
 	<issueManagement>
 		<system>Google Code Issue</system>
-		<url>http://code.google.com/p/regola-framework/issues/list</url>
+		<url>http://code.google.com/p/regola-kit/issues/list</url>
 	</issueManagement>
 	<mailingLists>
 		<mailingList>
@@ -58,6 +58,15 @@
 			</unsubscribe>
 			<post>regola-dev@googlegroups.com</post>
 			<archive>http://groups.google.com/group/regola-dev</archive>
+		</mailingList>
+		<mailingList>
+			<name>Notifications List</name>
+			<subscribe>regola-notifications-subscribe@googlegroups.com</subscribe>
+			<unsubscribe>
+				regola-notifications-unsubscribe@googlegroups.com
+			</unsubscribe>
+			<post>regola-notifications@googlegroups.com</post>
+			<archive>http://groups.google.com/group/regola-notifications</archive>
 		</mailingList>
 	</mailingLists>
 
