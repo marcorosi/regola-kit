@@ -5,15 +5,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.regola</groupId>
-		<artifactId>regola-framework</artifactId>
+		<artifactId>regola-kit</artifactId>
 		<version>1.0-M1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>regola-core</artifactId>
 	<packaging>jar</packaging>
-	<name>REGOLA Framework :: Core module</name>
-	<description>REGOLA Framework :: Core module</description>
+	<name>REGOLA Toolkit :: Core module</name>
+	<description>REGOLA Toolkit :: Core module</description>
 
 	<build>
 		<plugins>

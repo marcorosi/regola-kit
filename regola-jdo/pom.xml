@@ -5,17 +5,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.regola</groupId>
-		<artifactId>regola-framework</artifactId>
+		<artifactId>regola-kit</artifactId>
 		<version>1.0-M1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>regola-jdo</artifactId>
 	<packaging>jar</packaging>
-	<name>REGOLA Framework :: JDO integration module</name>
-	<description>
-		REGOLA Framework :: JDO integration module
-	</description>
+	<name>REGOLA Toolkit :: JDO integration module</name>
+	<description>REGOLA Toolkit :: JDO integration module</description>
 
 	<build>
 		<plugins>
