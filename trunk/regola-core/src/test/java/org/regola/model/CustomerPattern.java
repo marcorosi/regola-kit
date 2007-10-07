@@ -86,4 +86,9 @@ public class CustomerPattern extends ModelPattern {
 		this.addressCity = addressCity;
 	}
 
+	public CustomerPattern() {
+		addProperty("id", null);
+		addProperty("firstName", null);
+		addProperty("lastName", null);
+	}
 }

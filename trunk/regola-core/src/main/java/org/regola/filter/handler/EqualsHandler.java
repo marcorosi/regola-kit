@@ -5,9 +5,9 @@ import java.lang.annotation.Annotation;
 import org.regola.filter.annotation.Equals;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.criterion.Restrictions;
-import org.regola.filter.impl.AbstractCriteriaAnnotationHandler;
+import org.regola.filter.impl.AbstractFilterAnnotationHandler;
 
-public class EqualsHandler extends AbstractCriteriaAnnotationHandler {
+public class EqualsHandler extends AbstractFilterAnnotationHandler {
 
 	public EqualsHandler() {
 		super(Equals.class);
@@ -19,8 +19,8 @@ public class EqualsHandler extends AbstractCriteriaAnnotationHandler {
 	}
 
 	@Override
-	protected void handleCriterion(Annotation annotation, String propertyPath,
-			Object criterionValue, Criteria criteria) {
-		criteria.add(Restrictions.eq(propertyPath, criterionValue));
+	protected void handleFilter(Annotation annotation, String propertyPath,
+			Object filterValue, Criteria criteria) {
+		criteria.add(Restrictions.eq(propertyPath, filterValue));
 	}
 }

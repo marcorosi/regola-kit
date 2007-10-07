@@ -55,7 +55,7 @@ public class JpaGenericDao<T, ID extends Serializable> extends
 	public int count(ModelPattern filter) {
 		JpaCriteria criteriaBuilder = new JpaCriteria(getPersistentClass(),
 				entityManager);
-		getFilterBuilder().createCountQuery(criteriaBuilder, filter);
+		getParser().createCountQuery(criteriaBuilder, filter);
 		return ((Number) criteriaBuilder.getQuery().getSingleResult())
 				.intValue();
 	}
@@ -64,7 +64,7 @@ public class JpaGenericDao<T, ID extends Serializable> extends
 	public List<T> find(ModelPattern filter) {
 		JpaCriteria criteriaBuilder = new JpaCriteria(getPersistentClass(),
 				entityManager);
-		getFilterBuilder().createQuery(criteriaBuilder, filter);
+		getParser().createQuery(criteriaBuilder, filter);
 		return criteriaBuilder.getQuery().getResultList();
 	}
 

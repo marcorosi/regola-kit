@@ -68,7 +68,7 @@ public class JpaCriteria extends AbstractQueryBuilder {
 
 	@Override
 	public void addIn(String property, Collection<?> value) {
-		criteria.add(Restrictions.in(property, value));
+		criteria.add(Restrictions.in(property, value.toArray()));
 	}
 
 	@Override

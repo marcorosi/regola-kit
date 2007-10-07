@@ -17,9 +17,9 @@ public interface GenericDao<T, ID extends Serializable> {
 
 	T save(T object);
 
-	List<T> find(ModelPattern filter);
+	List<T> find(ModelPattern pattern);
 
-	int count(ModelPattern filter);
+	int count(ModelPattern pattern);
 
 	List<T> getAll();
 

@@ -1,10 +1,6 @@
 package org.regola.dao.jdo;
 
-import org.junit.runner.RunWith;
-import org.regola.dao.BaseGenericDaoTest;
-import org.unitils.UnitilsJUnit4TestClassRunner;
+import org.regola.dao.AbstractGenericDaoTest;
 
-@RunWith(UnitilsJUnit4TestClassRunner.class)
-public class JdoGenericDaoTest extends BaseGenericDaoTest {
-
+public class JdoGenericDaoTest extends AbstractGenericDaoTest {
 }

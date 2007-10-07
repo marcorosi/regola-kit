@@ -5,27 +5,22 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class Clonator
-{
+public class Clonator {
 	@SuppressWarnings("unchecked")
-	static public <T>  T clone(T o) 
-	{
+	static public <T> T clone(T o) {
 		ByteArrayOutputStream b = new ByteArrayOutputStream();
 		ObjectOutputStream out;
-		try
-		{
+		try {
 			out = new ObjectOutputStream(b);
 			out.writeObject(o);
 			out.close();
 			ByteArrayInputStream bi = new ByteArrayInputStream(b.toByteArray());
 			ObjectInputStream in = new ObjectInputStream(bi);
-			return  (T) in.readObject();
+			return (T) in.readObject();
 
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
-		
 	}
 }

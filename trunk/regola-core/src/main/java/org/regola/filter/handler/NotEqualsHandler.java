@@ -5,9 +5,9 @@ import java.lang.annotation.Annotation;
 import org.regola.filter.annotation.NotEquals;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.criterion.Restrictions;
-import org.regola.filter.impl.AbstractCriteriaAnnotationHandler;
+import org.regola.filter.impl.AbstractFilterAnnotationHandler;
 
-public class NotEqualsHandler extends AbstractCriteriaAnnotationHandler {
+public class NotEqualsHandler extends AbstractFilterAnnotationHandler {
 
 	public NotEqualsHandler() {
 		super(NotEquals.class);
@@ -19,9 +19,9 @@ public class NotEqualsHandler extends AbstractCriteriaAnnotationHandler {
 	}
 
 	@Override
-	protected void handleCriterion(Annotation annotation, String propertyPath,
-			Object criterionValue, Criteria criteria) {
-		criteria.add(Restrictions.ne(propertyPath, criterionValue));
+	protected void handleFilter(Annotation annotation, String propertyPath,
+			Object filterValue, Criteria criteria) {
+		criteria.add(Restrictions.ne(propertyPath, filterValue));
 	}
 
 }

@@ -4,7 +4,6 @@
 		<configExtension>xml</configExtension>
 	</configExtensions>
 	<configs>
-		<config>src/test/resources/org/regola/dao/jdo/applicationContext.xml</config>
 	</configs>
 	<configSets>
 	</configSets>

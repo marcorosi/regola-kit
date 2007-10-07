@@ -5,9 +5,9 @@ import java.lang.annotation.Annotation;
 import org.regola.filter.annotation.Like;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.criterion.Restrictions;
-import org.regola.filter.impl.AbstractCriteriaAnnotationHandler;
+import org.regola.filter.impl.AbstractFilterAnnotationHandler;
 
-public class LikeHandler extends AbstractCriteriaAnnotationHandler {
+public class LikeHandler extends AbstractFilterAnnotationHandler {
 
 	public LikeHandler() {
 		super(Like.class);
@@ -27,14 +27,13 @@ public class LikeHandler extends AbstractCriteriaAnnotationHandler {
 	}
 
 	@Override
-	protected void handleCriterion(Annotation annotation, String propertyPath,
-			Object criterionValue, Criteria criteria) {
+	protected void handleFilter(Annotation annotation, String propertyPath,
+			Object filterValue, Criteria criteria) {
 		if (((Like) annotation).caseSensitive()) {
-			criteria.add(Restrictions.like(propertyPath,
-					(String) criterionValue));
+			criteria.add(Restrictions.like(propertyPath, (String) filterValue));
 		} else {
-			criteria.add(Restrictions.ilike(propertyPath,
-					(String) criterionValue));
+			criteria
+					.add(Restrictions.ilike(propertyPath, (String) filterValue));
 		}
 	}
 }

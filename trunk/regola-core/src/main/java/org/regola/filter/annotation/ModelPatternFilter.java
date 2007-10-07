@@ -19,6 +19,6 @@ import org.regola.model.ModelPattern;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.ANNOTATION_TYPE)
-public @interface ModelPatternCriterion {
+public @interface ModelPatternFilter {
 
 }

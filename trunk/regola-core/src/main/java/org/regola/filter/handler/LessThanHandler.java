@@ -5,9 +5,9 @@ import java.lang.annotation.Annotation;
 import org.regola.filter.annotation.LessThan;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.criterion.Restrictions;
-import org.regola.filter.impl.AbstractCriteriaAnnotationHandler;
+import org.regola.filter.impl.AbstractFilterAnnotationHandler;
 
-public class LessThanHandler extends AbstractCriteriaAnnotationHandler {
+public class LessThanHandler extends AbstractFilterAnnotationHandler {
 
 	public LessThanHandler() {
 		super(LessThan.class);
@@ -19,8 +19,8 @@ public class LessThanHandler extends AbstractCriteriaAnnotationHandler {
 	}
 
 	@Override
-	protected void handleCriterion(Annotation annotation, String propertyPath,
-			Object criterionValue, Criteria criteria) {
-		criteria.add(Restrictions.lt(propertyPath, criterionValue));
+	protected void handleFilter(Annotation annotation, String propertyPath,
+			Object filterValue, Criteria criteria) {
+		criteria.add(Restrictions.lt(propertyPath, filterValue));
 	}
 }
