@@ -4,7 +4,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
 import java.util.Collection;
 
-import org.regola.filter.CriteriaAnnotationHandler;
+import org.regola.filter.FilterAnnotationHandler;
 import org.regola.filter.ModelPatternParser;
 import org.regola.filter.criteria.Criteria;
 import org.regola.model.ModelPattern;
@@ -20,21 +20,20 @@ import org.springframework.util.StringUtils;
  * <li>{@link #checkAnnotation(Annotation)}: (facoltativo) verifica che
  * l'annotazione sia del tipo previsto,
  * <li>{@link #getPropertyPath(Annotation)}: (facoltativo) restituisce la
- * proprietà della clsse di dominio alla quale si applica questo criterio di
- * filtro,
- * <li>{@link #handleCriterion(Annotation, String, Object, Criteria)}: la
- * logica vera e propria di gestione del criterio.
+ * proprietà della classe di dominio alla quale si applica questo filtro,
+ * <li>{@link #handleFilter(Annotation, String, Object, Criteria)}: la logica
+ * vera e propria di gestione del filtro.
  * </ul>
  * Partecipa insieme a {@link ModelPatternParser} al pattern Builder [GoF] nel
  * ruolo di <i>director</i> su di un query builder concreto (<i>builder</i>).
  * 
  */
-public abstract class AbstractCriteriaAnnotationHandler implements
-		CriteriaAnnotationHandler {
+public abstract class AbstractFilterAnnotationHandler implements
+		FilterAnnotationHandler {
 
 	protected Class<? extends Annotation> handledAnnotation;
 
-	protected AbstractCriteriaAnnotationHandler(
+	protected AbstractFilterAnnotationHandler(
 			Class<? extends Annotation> handledAnnotation) {
 		this.handledAnnotation = handledAnnotation;
 	}
@@ -45,13 +44,13 @@ public abstract class AbstractCriteriaAnnotationHandler implements
 
 		checkAnnotation(annotation);
 
-		Object criterionValue = getPropertyValue(property, modelPattern);
+		Object filterValue = getPropertyValue(property, modelPattern);
 
-		if (isEmpty(criterionValue)) {
+		if (isEmpty(filterValue)) {
 			return;
 		}
 
-		checkValue(criterionValue);
+		checkValue(filterValue);
 
 		// if the value attribute is not specified we use the same name
 		// property of the filter
@@ -59,7 +58,7 @@ public abstract class AbstractCriteriaAnnotationHandler implements
 		String propertyPath = StringUtils.hasLength(annotationPropertyPath) ? annotationPropertyPath
 				: property.getName();
 
-		handleCriterion(annotation, propertyPath, criterionValue, criteria);
+		handleFilter(annotation, propertyPath, filterValue, criteria);
 	}
 
 	protected void checkAnnotation(Annotation annotation) {
@@ -108,7 +107,7 @@ public abstract class AbstractCriteriaAnnotationHandler implements
 		return false;
 	}
 
-	protected void checkValue(Object criterionValue) {
+	protected void checkValue(Object filterValue) {
 		return;
 	}
 
@@ -124,15 +123,15 @@ public abstract class AbstractCriteriaAnnotationHandler implements
 	}
 
 	/**
-	 * Metodo hook per la logica di gestione del criterio di filtro. <br/>
-	 * Vengono passati annotazione, property path e valore del filtro già
-	 * verificati, insieme all'istanza di criteria su cui operare.
+	 * Metodo hook per la logica di gestione del filtro. <br/> Vengono passati
+	 * annotazione, property path e valore del filtro già verificati, insieme
+	 * all'istanza di criteria su cui operare.
 	 * 
 	 * @param annotation
 	 * @param propertyPath
-	 * @param criterionValue
+	 * @param filterValue
 	 * @param criteria
 	 */
-	protected abstract void handleCriterion(Annotation annotation,
-			String propertyPath, Object criterionValue, Criteria criteria);
+	protected abstract void handleFilter(Annotation annotation,
+			String propertyPath, Object filterValue, Criteria criteria);
 }

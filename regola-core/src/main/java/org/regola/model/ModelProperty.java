@@ -1,133 +1,106 @@
-/*
- * ModelProperty.java
- * 
- * Created on 2-ott-2007, 10.46.53
- * 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.regola.model;
 
 import java.io.Serializable;
 
 /**
- *
+ * 
  * @author nicola
  */
 public class ModelProperty implements Cloneable, Serializable {
-    
-    	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 9202027753507813003L;
 
 	String name = "";
 	Order order = Order.none;
 	boolean hidden = false;
 	String label = "";
-	
-	public String getLabel()
-	{
+
+	public String getLabel() {
 		return label;
 	}
 
-	public void setLabel(String label)
-	{
+	public void setLabel(String label) {
 		this.label = label;
 	}
 
-	public ModelProperty()
-	{
-		
-	}
-	
-	public ModelProperty(String name)
-	{
-		if (name==null) throw new RuntimeException("PropertyFilter name non puo essere nullo");
-		this.name=name;
-	}
-	
-	public ModelProperty(String name, String prefix)
-	{
-		this(name);
-		this.label=prefix + name;
-	}
-	
-	public ModelProperty(String name, String prefix, Order order)
-	{
-		this(name,prefix);
-		this.order=order;
-	}
-	
-	public ModelProperty(String name, String prefix, Order order, boolean hidden)
-	{
-		this(name,prefix,order);
-		this.hidden= hidden;
+	public ModelProperty() {
+
 	}
 
-	public boolean isHidden()
-	{
-		return hidden;
-	}
-
-	public void setHidden(boolean hidden)
-	{
-		this.hidden = hidden;
-	}
-
-	public String getName()
-	{
-		return name;
-	}
-
-	public void setName(String name)
-	{
+	public ModelProperty(String name) {
+		if (name == null)
+			throw new RuntimeException(
+					"PropertyFilter name non puo essere nullo");
 		this.name = name;
 	}
 
-	public Order getOrder()
-	{
+	public ModelProperty(String name, String prefix) {
+		this(name);
+		this.label = prefix + name;
+	}
+
+	public ModelProperty(String name, String prefix, Order order) {
+		this(name, prefix);
+		this.order = order;
+	}
+
+	public ModelProperty(String name, String prefix, Order order, boolean hidden) {
+		this(name, prefix, order);
+		this.hidden = hidden;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Order getOrder() {
 		return order;
 	}
-	
-	public String getOrderStr()
-	{
+
+	public String getOrderStr() {
 		return order.toString();
 	}
 
-	public void setOrderStr(String order)
-	{
+	public void setOrderStr(String order) {
 		this.order = Order.valueOf(order);
 	}
-	
-	public boolean isOrderAscending()
-	{
+
+	public boolean isOrderAscending() {
 		return Order.asc.ordinal() == getOrder().ordinal();
-		//return Order.asc.equals(getOrder());
+		// return Order.asc.equals(getOrder());
 	}
-	
-	public boolean isOrderDescending()
-	{
+
+	public boolean isOrderDescending() {
 		return Order.desc.ordinal() == getOrder().ordinal();
-		//return Order.desc.equals(getOrder());
+		// return Order.desc.equals(getOrder());
 	}
 
 	/**
 	 * @see java.lang.Object#equals(Object)
 	 */
 	@Override
-	public boolean equals(Object object)
-	{
-		if (object == null) return false;
+	public boolean equals(Object object) {
+		if (object == null)
+			return false;
 
-		if (!(object instanceof ModelProperty))
-		{
+		if (!(object instanceof ModelProperty)) {
 			return false;
 		}
-		
+
 		ModelProperty altro = (ModelProperty) object;
-		
+
 		return getName().equals(altro.getName());
 	}
 
@@ -135,35 +108,28 @@ public class ModelProperty implements Cloneable, Serializable {
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
-	public int hashCode()
-	{
-		return getName()!=null ? getName().hashCode() : 0;
+	public int hashCode() {
+		return getName() != null ? getName().hashCode() : 0;
 	}
-	
+
 	@Override
-	public ModelProperty clone() 
-	{
-		try
-		{
+	public ModelProperty clone() {
+		try {
 			return (ModelProperty) super.clone();
-		} catch (CloneNotSupportedException e)
-		{
+		} catch (CloneNotSupportedException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	public void setOrder(Order order)
-	{
+	public void setOrder(Order order) {
 		this.order = order;
 	}
 
-	public void flipOrderDirection()
-	{
+	public void flipOrderDirection() {
 		if (Order.asc.equals(getOrder()))
-		 setOrder(Order.desc);
-		else setOrder(Order.asc);
-		
+			setOrder(Order.desc);
+		else
+			setOrder(Order.asc);
 	}
-
 
 }

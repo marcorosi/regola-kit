@@ -8,10 +8,10 @@ import java.util.Collection;
 import org.regola.filter.annotation.In;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.criterion.Restrictions;
-import org.regola.filter.impl.AbstractCriteriaAnnotationHandler;
+import org.regola.filter.impl.AbstractFilterAnnotationHandler;
 import org.regola.model.ModelPattern;
 
-public class InHandler extends AbstractCriteriaAnnotationHandler {
+public class InHandler extends AbstractFilterAnnotationHandler {
 
 	public InHandler() {
 		super(In.class);
@@ -42,9 +42,9 @@ public class InHandler extends AbstractCriteriaAnnotationHandler {
 	}
 
 	@Override
-	protected void handleCriterion(Annotation annotation, String propertyPath,
-			Object criterionValue, Criteria criteria) {
-		criteria.add(Restrictions.in(propertyPath,
-				(Collection<?>) criterionValue));
+	protected void handleFilter(Annotation annotation, String propertyPath,
+			Object filterValue, Criteria criteria) {
+		criteria
+				.add(Restrictions.in(propertyPath, (Collection<?>) filterValue));
 	}
 }

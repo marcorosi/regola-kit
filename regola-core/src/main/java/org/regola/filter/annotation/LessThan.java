@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target( { ElementType.FIELD, ElementType.METHOD })
-@ModelPatternCriterion
+@ModelPatternFilter
 public @interface LessThan {
 
 	String value() default "";

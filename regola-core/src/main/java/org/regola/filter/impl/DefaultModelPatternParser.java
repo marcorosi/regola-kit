@@ -5,13 +5,13 @@ import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.regola.filter.CriteriaAnnotationHandler;
+import org.regola.filter.FilterAnnotationHandler;
 import org.regola.filter.annotation.Equals;
 import org.regola.filter.annotation.GreaterThan;
 import org.regola.filter.annotation.In;
 import org.regola.filter.annotation.LessThan;
 import org.regola.filter.annotation.Like;
-import org.regola.filter.annotation.ModelPatternCriterion;
+import org.regola.filter.annotation.ModelPatternFilter;
 import org.regola.filter.annotation.NotEquals;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.handler.EqualsHandler;
@@ -24,7 +24,7 @@ import org.regola.model.ModelPattern;
 
 public class DefaultModelPatternParser extends AbstractModelPatternParser {
 
-	private Map<Class<? extends Annotation>, AbstractCriteriaAnnotationHandler> handlers = new HashMap<Class<? extends Annotation>, AbstractCriteriaAnnotationHandler>();
+	private Map<Class<? extends Annotation>, AbstractFilterAnnotationHandler> handlers = new HashMap<Class<? extends Annotation>, AbstractFilterAnnotationHandler>();
 
 	public DefaultModelPatternParser() {
 		addHandler(Equals.class, new EqualsHandler());
@@ -36,13 +36,13 @@ public class DefaultModelPatternParser extends AbstractModelPatternParser {
 	}
 
 	private void addHandler(Class<? extends Annotation> annotation,
-			AbstractCriteriaAnnotationHandler handler) {
-		if (!annotation.isAnnotationPresent(ModelPatternCriterion.class)) {
+			AbstractFilterAnnotationHandler handler) {
+		if (!annotation.isAnnotationPresent(ModelPatternFilter.class)) {
 			throw new IllegalArgumentException(
 					"L'annotazione indicata ["
 							+ annotation
-							+ "] deve essere marcata come criterio di pattern tramite l'annotazione "
-							+ ModelPatternCriterion.class.getName());
+							+ "] deve essere marcata come filtro di pattern tramite l'annotazione "
+							+ ModelPatternFilter.class.getName());
 		}
 		handlers.put(annotation, handler);
 	}
@@ -51,7 +51,7 @@ public class DefaultModelPatternParser extends AbstractModelPatternParser {
 	protected void handleAnnotation(Annotation annotation,
 			PropertyDescriptor property, Criteria criteria, ModelPattern filter) {
 
-		CriteriaAnnotationHandler handler = handlers.get(annotation.annotationType());
+		FilterAnnotationHandler handler = handlers.get(annotation.annotationType());
 		if (handler == null) {
 			throw new RuntimeException(
 					"Annotazione ["
@@ -62,12 +62,12 @@ public class DefaultModelPatternParser extends AbstractModelPatternParser {
 		handler.handleAnnotation(annotation, property, filter, criteria);
 	}
 
-	public Map<Class<? extends Annotation>, AbstractCriteriaAnnotationHandler> getHandlers() {
+	public Map<Class<? extends Annotation>, AbstractFilterAnnotationHandler> getHandlers() {
 		return handlers;
 	}
 
 	public void setHandlers(
-			Map<Class<? extends Annotation>, AbstractCriteriaAnnotationHandler> handlers) {
+			Map<Class<? extends Annotation>, AbstractFilterAnnotationHandler> handlers) {
 		this.handlers = handlers;
 	}
 

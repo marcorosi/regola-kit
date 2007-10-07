@@ -1,20 +1,12 @@
 package org.regola.dao.hibernate;
 
-import org.junit.Before;
-import org.junit.runner.RunWith;
-import org.regola.dao.BaseGenericDaoTest;
+import org.regola.dao.AbstractGenericDaoTest;
 import org.springframework.orm.hibernate3.HibernateAccessor;
-import org.unitils.UnitilsJUnit4TestClassRunner;
-import org.unitils.spring.annotation.SpringBeanByName;
 
-@RunWith(UnitilsJUnit4TestClassRunner.class)
-public class HibernateGenericDaoTest extends BaseGenericDaoTest {
+public class HibernateGenericDaoTest extends AbstractGenericDaoTest {
 
-	@SpringBeanByName
-	private HibernateGenericDao<?, ?> customerDao;
-
-	@Before
-	public void setUp() {
+	// injected, autowire-by-type
+	public void setHibernateCustomerDao(HibernateGenericDao<?, ?> customerDao) {
 		customerDao.getHibernateTemplate().setFlushMode(
 				HibernateAccessor.FLUSH_EAGER);
 	}

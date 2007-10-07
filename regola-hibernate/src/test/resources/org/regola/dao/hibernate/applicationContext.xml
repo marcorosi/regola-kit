@@ -11,12 +11,14 @@
 		<property name="mappingResources"
 			value="org/regola/model/Customer.hbm.xml" />
 		<property name="hibernateProperties">
-			<value>
-				hibernate.use_sql_comments=true
-				hibernate.format_sql=true
-				hibernate.dialect=org.hibernate.dialect.HSQLDialect
-				hibernate.show_sql=true
-			</value>
+			<props>
+				<prop key="hibernate.use_sql_comments">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.HSQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
 		</property>
 	</bean>
 
@@ -26,7 +28,7 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
-	<bean id="txManager"
+	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>

@@ -19,7 +19,7 @@
 			ref="persistenceManagerFactory" />
 	</bean>
 
-	<bean id="txManager"
+	<bean id="transactionManager"
 		class="org.springframework.orm.jdo.JdoTransactionManager">
 		<property name="persistenceManagerFactory"
 			ref="persistenceManagerFactory" />

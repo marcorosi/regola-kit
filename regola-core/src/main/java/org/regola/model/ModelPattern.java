@@ -1,29 +1,40 @@
 package org.regola.model;
 
 import java.beans.PropertyDescriptor;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
 import org.regola.filter.annotation.Equals;
 import org.regola.filter.annotation.GreaterThan;
 import org.regola.filter.annotation.LessThan;
-
-import org.springframework.beans.BeanUtils;
 import org.regola.util.Clonator;
+import org.springframework.beans.BeanUtils;
 
 public abstract class ModelPattern {
-    
-    	int pageSize = 20;
 
+	int pageSize = 20;
+	boolean pagingEnabled = true;
 	int currentPage = 0;
-
 	int totalItems = 0;
 
-	List<ModelProperty> sortedColumns = new ArrayList<ModelProperty>();
+	List<ModelProperty> sortedProperties = new ArrayList<ModelProperty>();
+	List<ModelProperty> allProperties = new ArrayList<ModelProperty>();
+	List<ModelProperty> visibleProperties = new ArrayList<ModelProperty>();
 
-	List<ModelProperty> allColumns = new ArrayList<ModelProperty>();
+	public boolean isPagingEnabled() {
+		return pagingEnabled;
+	}
 
-	List<ModelProperty> visibleColumns = new ArrayList<ModelProperty>();
+	public void setPagingEnabled(boolean pagingEnabled) {
+		this.pagingEnabled = pagingEnabled;
+	}
+	
+	public void disablePaging() {
+		setPagingEnabled(false);
+	}
 
 	public void init(Object model) {
 		// override this to initialize filter fields with a model object
@@ -53,26 +64,34 @@ public abstract class ModelPattern {
 		this.totalItems = totalItems;
 	}
 
-	public List<ModelProperty> getSortedColumns() {
-		return sortedColumns;
+	public List<ModelProperty> getSortedProperties() {
+		return sortedProperties;
 	}
 
-	public void setSortedColumns(List<ModelProperty> propertiesFilter) {
-		this.sortedColumns = propertiesFilter;
+	public void setSortedProperties(List<ModelProperty> properties) {
+		this.sortedProperties = properties;
 	}
 
-	public int incCurrentPage() {
+	public int nextPage() {
 		int lastPage = getTotalItems() / getPageSize();
 
-		if (currentPage == lastPage)
+		if (currentPage == lastPage) {
 			return currentPage;
-		return ++currentPage;
+		}
+
+		currentPage += 1;
+
+		return currentPage;
 	}
 
-	public int decCurrentPage() {
-		if (currentPage == 0)
+	public int previousPage() {
+		if (currentPage == 0) {
 			return currentPage;
-		return --currentPage;
+		}
+
+		currentPage -= 1;
+
+		return currentPage;
 	}
 
 	public int gotoLastPage() {
@@ -95,49 +114,48 @@ public abstract class ModelPattern {
 		return page;
 	}
 
-	public List<ModelProperty> getAllColumns() {
-		return allColumns;
+	public List<ModelProperty> getAllProperties() {
+		return allProperties;
 	}
 
-	public void setAllColumns(List<ModelProperty> allColumns) {
-		this.allColumns = allColumns;
+	public void setAllProperties(List<ModelProperty> allProperties) {
+		this.allProperties = allProperties;
 	}
 
-	public List<ModelProperty> getVisibleColumns() {
-		return visibleColumns;
+	public List<ModelProperty> getVisibleProperties() {
+		return visibleProperties;
 	}
 
-	public void setVisibleColumns(List<ModelProperty> visibleColumns) {
-		this.visibleColumns = visibleColumns;
+	public void setVisibleProperties(List<ModelProperty> visibleProperties) {
+		this.visibleProperties = visibleProperties;
 	}
 
-	protected void defineColumn(String name, String prefix) {
+	protected void addProperty(String name, String prefix) {
 		ModelProperty property = new ModelProperty(name, prefix);
-		getAllColumns().add(property);
-		getVisibleColumns().add(Clonator.clone(property));
+		getAllProperties().add(property);
+		getVisibleProperties().add(Clonator.clone(property));
 	}
 
-	protected void defineHiddenColumn(String name, String prefix) {
+	protected void addHiddenColumn(String name, String prefix) {
 		ModelProperty property = new ModelProperty(name, prefix);
-		getAllColumns().add(property);
-		//getVisibleColumns().add(Clonator.clone(property));
+		getAllProperties().add(property);
+		// getVisibleProperties().add(Clonator.clone(property));
 	}
 
-	@SuppressWarnings("unchecked")
-	public PropertyDescriptor[] findPropetiesByAnnotation(Class[] annotations) {
+	public PropertyDescriptor[] findPropertiesByAnnotation(
+			List<Class<? extends Annotation>> annotations) {
 
-		PropertyDescriptor descs[] = BeanUtils.getPropertyDescriptors(this.getClass());
+		PropertyDescriptor descs[] = BeanUtils.getPropertyDescriptors(this
+				.getClass());
 		List<PropertyDescriptor> results = new ArrayList<PropertyDescriptor>();
 
 		for (PropertyDescriptor desc : descs) {
 			Method getter = desc.getReadMethod();
 
 			if (getter != null) {
-				   
-				for (Class annotation: annotations)
-				{
-					if (desc.getReadMethod().isAnnotationPresent(annotation))
-					{
+
+				for (Class<? extends Annotation> annotation : annotations) {
+					if (desc.getReadMethod().isAnnotationPresent(annotation)) {
 						results.add(desc);
 						break;
 					}
@@ -145,58 +163,54 @@ public abstract class ModelPattern {
 			}
 		}
 
-		PropertyDescriptor[] a ={};
-		return  results.toArray(a);
+		PropertyDescriptor[] a = {};
+		return results.toArray(a);
 	}
-	
-	private static Class[] filterAnnotations = {Equals.class, LessThan.class, GreaterThan.class};
-	
-	public String getActualFilterDescription()
-	{
+
+	@SuppressWarnings("unchecked")
+	private static List<Class<? extends Annotation>> filterAnnotations = Arrays
+			.asList(Equals.class, LessThan.class, GreaterThan.class);
+
+	public String getCurrentFilterDescription() {
 		StringBuilder builder = new StringBuilder();
-		
-		PropertyDescriptor[] properties = findPropetiesByAnnotation(filterAnnotations);
-		
-		for (PropertyDescriptor property: properties)
-		{
+
+		PropertyDescriptor[] properties = findPropertiesByAnnotation(filterAnnotations);
+
+		for (PropertyDescriptor property : properties) {
 			Object value = readProperty(property);
-			
-			if (isSet(value))
-			{
-				if(builder.length() > 0)
+
+			if (isSet(value)) {
+				if (builder.length() > 0)
 					builder.append(" - ");
-				
+
 				builder.append(property.getName()).append(": ").append(value);
 			}
-			
+
 		}
 		return builder.toString();
 	}
-	
-	/** 
-	 * @return true if at least one property is specified  
+
+	/**
+	 * @return true if at least one property is specified
 	 */
-	public boolean isSpecified()
-	{
-		PropertyDescriptor[] properties = findPropetiesByAnnotation(filterAnnotations);
-		
-		for (PropertyDescriptor property: properties)
-		{
+	public boolean isSpecified() {
+		PropertyDescriptor[] properties = findPropertiesByAnnotation(filterAnnotations);
+
+		for (PropertyDescriptor property : properties) {
 			Object value = readProperty(property);
 			if (isSet(value))
 				return true;
 		}
-		
+
 		return false;
 	}
 
-	private boolean isSet(Object value) 
-	{
-		return value!=null && (!(value instanceof String) || value.toString().length()>0);
+	private boolean isSet(Object value) {
+		return value != null
+				&& (!(value instanceof String) || value.toString().length() > 0);
 	}
-	
-	public Object readProperty(PropertyDescriptor property)
-	{
+
+	public Object readProperty(PropertyDescriptor property) {
 		try {
 			return property.getReadMethod().invoke(this, (Object[]) null);
 		} catch (Exception e) {
@@ -204,9 +218,10 @@ public abstract class ModelPattern {
 		}
 	}
 
-	public String findMethodByAnnotation(Class annotation) {
+	public String findMethodByAnnotation(Class<? extends Annotation> annotation) {
 
-		PropertyDescriptor descs[] = BeanUtils.getPropertyDescriptors(this.getClass());
+		PropertyDescriptor descs[] = BeanUtils.getPropertyDescriptors(this
+				.getClass());
 
 		for (PropertyDescriptor desc : descs) {
 			Method getter = desc.getReadMethod();
@@ -244,49 +259,46 @@ public abstract class ModelPattern {
 	public String getFilterDescriptionField() {
 		return findMethodByAnnotation(Equals.class);
 	}
-	
-	public ModelPattern clone()
-	{
+
+	public ModelPattern clone() {
 		return Clonator.clone(this);
 	}
 
 	public void reset() {
-		
-		PropertyDescriptor[] properties = findPropetiesByAnnotation(filterAnnotations);
-		
-		for (PropertyDescriptor property: properties)
-		{
-			if (property.getWriteMethod()!=null)
-			{
+
+		PropertyDescriptor[] properties = findPropertiesByAnnotation(filterAnnotations);
+
+		for (PropertyDescriptor property : properties) {
+			if (property.getWriteMethod() != null) {
 				try {
-					property.getWriteMethod().invoke(this, (Object)null);
+					property.getWriteMethod().invoke(this, (Object) null);
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}
 			}
 		}
-		
+
 	}
 
 	public boolean addSortedProperty(String name, Order order) {
-		int index = getAllColumns().indexOf(new ModelProperty(name));
-		ModelProperty property = getAllColumns().get(index);
-		if (getSortedColumns().contains(property))
+		int index = getAllProperties().indexOf(new ModelProperty(name));
+		ModelProperty property = getAllProperties().get(index);
+		if (getSortedProperties().contains(property))
 			return false;
 
 		property.setOrder(order);
-		getSortedColumns().add(Clonator.clone(property));
+		getSortedProperties().add(Clonator.clone(property));
 
 		return true;
 	}
 
 	public boolean addVisibleProperty(String name) {
-		int index = getAllColumns().indexOf(new ModelProperty(name));
-		ModelProperty property = getAllColumns().get(index);
-		if (getVisibleColumns().contains(property))
+		int index = getAllProperties().indexOf(new ModelProperty(name));
+		ModelProperty property = getAllProperties().get(index);
+		if (getVisibleProperties().contains(property))
 			return false;
 
-		getVisibleColumns().add(Clonator.clone(property));
+		getVisibleProperties().add(Clonator.clone(property));
 
 		return true;
 	}

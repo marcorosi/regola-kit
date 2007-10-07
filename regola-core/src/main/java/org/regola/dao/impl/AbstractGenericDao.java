@@ -13,7 +13,7 @@ public abstract class AbstractGenericDao<T, ID extends Serializable> implements
 
 	private Class<T> persistentClass;
 
-	private ModelPatternParser filterBuilder = new DefaultModelPatternParser();
+	private ModelPatternParser parser = new DefaultModelPatternParser();
 
 	public abstract List<T> find(ModelPattern filter);
 
@@ -28,8 +28,10 @@ public abstract class AbstractGenericDao<T, ID extends Serializable> implements
 	}
 
 	public List<T> getAll() {
-		return find(new ModelPattern() {
-		});
+		ModelPattern pattern = new ModelPattern() {
+		};
+		pattern.disablePaging();
+		return find(pattern);
 	}
 
 	public void remove(ID id) {
@@ -51,12 +53,12 @@ public abstract class AbstractGenericDao<T, ID extends Serializable> implements
 		this.persistentClass = persistentClass;
 	}
 
-	public ModelPatternParser getFilterBuilder() {
-		return filterBuilder;
+	public ModelPatternParser getParser() {
+		return parser;
 	}
 
-	public void setFilterBuilder(ModelPatternParser filterBuilder) {
-		this.filterBuilder = filterBuilder;
+	public void setParser(ModelPatternParser filterBuilder) {
+		this.parser = filterBuilder;
 	}
 
 }
