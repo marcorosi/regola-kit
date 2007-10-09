@@ -66,10 +66,10 @@
 		<dependency>
 			<groupId>net.bzdyl.ejb3criteria</groupId>
 			<artifactId>ejb3criteria</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.2-SNAPSHOT</version>
 			<scope>system</scope>
 			<systemPath>
-				${basedir}/lib/ejb3criteria-0.2-REGOLA.jar
+				${basedir}/lib/ejb3criteria-0.2-SNAPSHOT.jar
 			</systemPath>
 		</dependency>
 	</dependencies>
