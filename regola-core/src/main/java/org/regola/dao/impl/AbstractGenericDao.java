@@ -8,6 +8,15 @@ import org.regola.filter.ModelPatternParser;
 import org.regola.filter.impl.DefaultModelPatternParser;
 import org.regola.model.ModelPattern;
 
+/**
+ * Fornisce un'implmentazione standard dell'interfaccia 
+ * {@link GenericDao}
+ * per agevolarne l'implementazione dei diversi motori di persistenza.
+ * 
+ * Implementa il pattern Template Method [Gof95] fornendo un'implementazione
+ * standard per le classi derivate.
+ * 
+ */
 public abstract class AbstractGenericDao<T, ID extends Serializable> implements
 		GenericDao<T, ID> {
 
@@ -17,7 +26,10 @@ public abstract class AbstractGenericDao<T, ID extends Serializable> implements
 
 	public abstract List<T> find(ModelPattern filter);
 
-	public int count(ModelPattern pattern) {
+	/** Attenzione: meglio fare l'overload potendo per
+         * evitare performace penose.
+         */
+        public int count(ModelPattern pattern) {
 		return find(pattern).size();
 	}
 
