@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+<ui:composition>
+	<ice:form>
+		<ice:panelPopup draggable="#{orderDlg.draggable}" 
+						modal="#{orderDlg.modal}" 
+						rendered="true"
+						visible="#{orderDlg.visible}"
+						style="z-index: 1000; top: 100px; left: 300px; position: absolute; width: 500px;">
+
+			<f:facet name="header">
+			  <ice:panelGrid width="100%" columns="1" styleClass="dialogHeader" title="#{msg['dialog.tooltip.header']}">
+				<ice:outputText value="#{orderDlg.title}" />
+			  </ice:panelGrid>
+			</f:facet>
+
+			<f:facet name="body">
+				<ice:panelGrid width="100%" columns="1" styleClass="dialogBody">
+
+					<ice:panelGrid columns="2" width="100%" cellspacing="4" columnClasses="dialogColumn">
+
+					<ice:panelGroup> 						
+						<ice:outputText value="#{msg['order.orderByHeader']}" styleClass="columnsHeader" />
+						<ice:panelPositioned var="column" 
+											 id="sortedColumns"
+											 listener="#{orderDlg.onOrderChange}"
+											 value="#{orderDlg.filter.sortedColumns}" 
+											 style="padding-top: 10px;"
+											 constraint="vertical">
+								<ice:panelGroup>
+									<ice:commandButton image="images/#{column.orderStr}.gif"
+										partialSubmit="true"
+										title="#{msg['order.tooltip.change']}"
+										actionListener="#{orderDlg.onFlipOrderDirection}">
+										<f:attribute value="#{column.name}" name="name" />
+									</ice:commandButton>
+									<ice:commandButton image="images/remove.gif"
+										partialSubmit="true"
+										title="#{msg['order.tooltip.remove']}"
+										actionListener="#{orderDlg.onRemoveColumn}">
+										<f:attribute value="#{column.name}" name="name" />
+									</ice:commandButton>
+									<ice:outputText value="#{msg[column.label]}"
+												    title="#{msg['order.tooltip.move']}" 
+												    style="cursor:move;" />
+								</ice:panelGroup>
+						</ice:panelPositioned>
+					</ice:panelGroup>
+						
+					<ice:panelGroup> 						
+						<ice:outputText value="#{msg['order.orderColumnsHeader']}" styleClass="columnsHeader" />
+
+						<ice:panelSeries var="column" 
+										style="padding-top: 10px;"
+										value="#{orderDlg.residualColumns}"> 
+							<ice:panelGroup>
+								<ice:commandButton image="images/add.gif"
+									partialSubmit="true"
+									title="#{msg['order.tooltip.add']}"
+									actionListener="#{orderDlg.onAddColumn}">
+									<f:attribute value="#{column.name}" name="name" />
+								</ice:commandButton>
+								<ice:outputText value="#{msg[column.label]}" />
+							</ice:panelGroup>
+						</ice:panelSeries>
+					</ice:panelGroup>
+					</ice:panelGrid>
+
+					<ice:panelGroup styleClass="buttonGroup">
+						<ice:commandButton id="OKOrderDlg"
+							actionListener="#{orderDlg.closePopup}" 
+							value="#{msg['button.ok']}" />
+						<ice:commandButton id="CancelOrderDlg"
+							actionListener="#{orderDlg.closePopup}" 
+							value="#{msg['button.cancel']}" />
+					</ice:panelGroup>
+
+				</ice:panelGrid>
+			</f:facet>
+
+		</ice:panelPopup>
+	</ice:form>
+</ui:composition>
+</html>

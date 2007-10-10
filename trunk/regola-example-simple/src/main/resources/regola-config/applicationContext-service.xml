@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+	<!-- =================================================================== -->
+	<!-- AOP: Configuration and Aspects                                      -->
+	<!-- =================================================================== -->
+	<aop:config>
+		<aop:advisor id="managerTx" advice-ref="txAdvice"
+			pointcut="execution(* *..service.*Manager.*(..))" order="0" />
+	</aop:config>
+
+	<!-- Enable @Transactional support -->
+	<tx:annotation-driven />
+
+	<!-- Enable @AspectJ support -->
+	<aop:aspectj-autoproxy />
+
+	<bean id="removeFromSessionAspect" class="org.regola.webapp.aspect.RemoveFromSession"></bean>
+
+	<tx:advice id="txAdvice">
+		<tx:attributes>
+			<!-- Read-only commented out to make things easier for end-users -->
+			<!-- http://issues.appfuse.org/browse/APF-556 -->
+			<!--tx:method name="get*" read-only="true"/-->
+			<tx:method name="save*" read-only="false"/>
+			<tx:method name="remove*" read-only="false"/>
+			<tx:method name="update*" read-only="false"/>
+			<tx:method name="autenticaConPassword*" read-only="false"/>
+			<tx:method name="salvaContestoPlitvice*" read-only="false"/>
+			<tx:method name="listaProfili*" read-only="false"/> <!-- Profilo Manager: fa anche un save -->
+			<tx:method name="*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!--bean id="userCache"
+		class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
+		<property name="cache">
+			<bean
+				class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+				<property name="cacheManager">
+					<bean
+						class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" />
+				</property>
+				<property name="cacheName" value="userCache" />
+			</bean>
+		</property>
+	</bean-->
+
+	<!-- =================================================================== -->
+	<!-- Mail: Sender and Velocity configuration                             -->
+	<!-- =================================================================== -->
+	
+	<bean id="mailMessage"
+		class="org.springframework.mail.SimpleMailMessage"
+		scope="prototype">
+		<property name="from" value="${mail.default.from}" />
+	</bean>
+
+	<bean id="freemarkerConfiguration"
+		class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+		<property name="templateLoaderPath" value="/templates/" />
+	</bean>
+
+	<bean id="msg" class="org.regola.webapp.action.Messages"
+		scope="singleton" />
+
+	<!-- =================================================================== -->
+	<!-- Remoting: XFire                                                     -->
+	<!-- =================================================================== -->
+
+	<import resource="classpath:org/codehaus/xfire/spring/xfire.xml" />
+
+	<bean id="webAnnotations"
+		class="org.codehaus.xfire.annotations.jsr181.Jsr181WebAnnotations" />
+	<bean id="handlerMapping"
+		class="org.codehaus.xfire.spring.remoting.Jsr181HandlerMapping">
+		<property name="typeMappingRegistry"
+			ref="xfire.typeMappingRegistry" />
+		<property name="xfire" ref="xfire" />
+		<property name="webAnnotations" ref="webAnnotations" />
+	</bean>
+
+	<!-- =================================================================== -->
+	<!-- Managers: For accessing DAOs                                        -->
+	<!-- =================================================================== -->
+
+
+	<!-- Icefaces ajax engine -->
+	<bean id="renderManager"
+		class="com.icesoft.faces.async.render.RenderManager"
+		scope="singleton" />
+
+	<!-- =================================================================== -->
+	<!-- Dialogs                                                              -->
+	<!-- =================================================================== -->
+
+	<bean id="confirmDlg" class="org.regola.webapp.jsf.ConfirmDlg"
+		scope="session" />
+	<bean id="columnsDlg" class="org.regola.webapp.jsf.ColumnsDlg"
+		scope="session" />
+	<bean id="orderDlg" class="org.regola.webapp.jsf.OrderDlg" scope="session" />
+	<bean id="inputTextDlg" class="org.regola.webapp.jsf.InputTextDlg" scope="session" />
+	
+
+	<!-- =================================================================== -->
+	<!-- Autenticazione e Autorizzazione                                     -->
+	<!-- =================================================================== -->
+	
+	
+	<!-- =================================================================== -->
+	<!-- Backing Bean x JSF                                                  -->
+	<!-- =================================================================== -->
+	
+	<bean id="eventBroker" class="org.regola.events.EventBroker" />
+	
+	
+</beans>

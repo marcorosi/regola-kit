@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://www.unibo.it/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="http://www.unibo.it/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.unibo.it/">
+      <s:element name="GetExtensionType">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CodiceEstensione" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetExtensionTypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetExtensionTypeResult" type="tns:ExtensionType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ExtensionType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ExtensionCode" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ExtensionName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ExtensionDescription" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ExtensionValue" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UserGroup" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ExtensionEn" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetExtensionTypes">
+        <s:complexType/>
+      </s:element>
+      <s:element name="GetExtensionTypesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetExtensionTypesResult" type="tns:ArrayOfExtensionType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfExtensionType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ExtensionType" type="tns:ExtensionType"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetUserByPassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserByPasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserByPasswordResult" type="tns:UserInfo"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UserInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="AuthenticationState" type="tns:AuthenticationStateType"/>
+          <s:element minOccurs="1" maxOccurs="1" name="UserState" type="tns:UserStateType"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UserPrincipalName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="SAMAccountName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="NationalPin" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="GivenName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="FamilyName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Gender" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Birthday" type="s:dateTime"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Birthplace" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="EmployeeId" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UserId" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="UniboId" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="AuthenticationStateType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Ok"/>
+          <s:enumeration value="BadAuthentication"/>
+          <s:enumeration value="NotDefined"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="UserStateType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Ok"/>
+          <s:enumeration value="MustChangePassword"/>
+          <s:enumeration value="NotDefined"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="ChangePassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="OldPassword" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="NewPassword" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Question" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Answer" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangePasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ChangePasswordResult" type="tns:ChangePasswordStateType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="ChangePasswordStateType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Ok"/>
+          <s:enumeration value="BadAuthentication"/>
+          <s:enumeration value="OldPasswordEmpty"/>
+          <s:enumeration value="NewPasswordNotValid"/>
+          <s:enumeration value="NewPasswordEmpty"/>
+          <s:enumeration value="QuestionEmpty"/>
+          <s:enumeration value="AnswerEmpty"/>
+          <s:enumeration value="CallerNotAuthorized"/>
+          <s:enumeration value="UserNotAuthorized"/>
+          <s:enumeration value="WrongAnswer"/>
+          <s:enumeration value="PasswordResetEnableReadOnly"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="ResetPassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="PUK" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Answer" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResetPasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ResetPasswordResult" type="tns:ChangePasswordStateType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnablePasswordReset">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="Enabled" type="s:boolean"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EnablePasswordResetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EnablePasswordResetResult" type="tns:ChangePasswordStateType"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserParm">
+        <s:complexType/>
+      </s:element>
+      <s:element name="GetUserParmResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserParmResult" type="tns:ArrayOfUserParm"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfUserParm">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UserParm" type="tns:UserParm"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UserParm">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ParmName" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ParmDescription" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Dsa" type="s:boolean"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Multivalue" type="s:boolean"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetParmInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UPN" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="parameters" type="tns:ArrayOfString"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetParmInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetParmInfoResult" type="tns:ArrayOfParmInfo"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfParmInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ParmInfo" type="tns:ParmInfo"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ParmInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ParmName" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="ParmState" type="tns:ParmStateType"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ParmValue" type="tns:ArrayOfString"/>
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ParmStateType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Empty"/>
+          <s:enumeration value="Ok"/>
+          <s:enumeration value="OkMultivalue"/>
+          <s:enumeration value="NotAuthorized"/>
+          <s:enumeration value="BadSyntax"/>
+          <s:enumeration value="NotAvailable"/>
+          <s:enumeration value="UndefinedError"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="FindUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchString" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="FindUserResult" type="tns:FindResult"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FindResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="FindState" type="tns:FindStateType"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Values" type="tns:ArrayOfUserInfo"/>
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="FindStateType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Ok"/>
+          <s:enumeration value="Empty"/>
+          <s:enumeration value="TooMany"/>
+          <s:enumeration value="NotDefined"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfUserInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="UserInfo" nillable="true" type="tns:UserInfo"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FindUserByEmployeeId">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="employeeId" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="employeeCodeType" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindUserByEmployeeIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="FindUserByEmployeeIdResult" type="tns:FindByEmployeeIdResult"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FindByEmployeeIdResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="FindState" type="tns:FindStateType"/>
+          <s:element minOccurs="0" maxOccurs="1" name="NationalPIN" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetExtensionTypeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetExtensionType"/>
+  </wsdl:message>
+  <wsdl:message name="GetExtensionTypeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetExtensionTypeResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetExtensionTypesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetExtensionTypes"/>
+  </wsdl:message>
+  <wsdl:message name="GetExtensionTypesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetExtensionTypesResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetUserByPasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserByPassword"/>
+  </wsdl:message>
+  <wsdl:message name="GetUserByPasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserByPasswordResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ChangePasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:ChangePassword"/>
+  </wsdl:message>
+  <wsdl:message name="ChangePasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:ChangePasswordResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ResetPasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:ResetPassword"/>
+  </wsdl:message>
+  <wsdl:message name="ResetPasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:ResetPasswordResponse"/>
+  </wsdl:message>
+  <wsdl:message name="EnablePasswordResetSoapIn">
+    <wsdl:part name="parameters" element="tns:EnablePasswordReset"/>
+  </wsdl:message>
+  <wsdl:message name="EnablePasswordResetSoapOut">
+    <wsdl:part name="parameters" element="tns:EnablePasswordResetResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetUserParmSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserParm"/>
+  </wsdl:message>
+  <wsdl:message name="GetUserParmSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserParmResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetParmInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetParmInfo"/>
+  </wsdl:message>
+  <wsdl:message name="GetParmInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetParmInfoResponse"/>
+  </wsdl:message>
+  <wsdl:message name="FindUserSoapIn">
+    <wsdl:part name="parameters" element="tns:FindUser"/>
+  </wsdl:message>
+  <wsdl:message name="FindUserSoapOut">
+    <wsdl:part name="parameters" element="tns:FindUserResponse"/>
+  </wsdl:message>
+  <wsdl:message name="FindUserByEmployeeIdSoapIn">
+    <wsdl:part name="parameters" element="tns:FindUserByEmployeeId"/>
+  </wsdl:message>
+  <wsdl:message name="FindUserByEmployeeIdSoapOut">
+    <wsdl:part name="parameters" element="tns:FindUserByEmployeeIdResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="DSAAuthenticationSoap">
+    <wsdl:operation name="GetExtensionType">
+      <wsdl:input message="tns:GetExtensionTypeSoapIn"/>
+      <wsdl:output message="tns:GetExtensionTypeSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetExtensionTypes">
+      <wsdl:input message="tns:GetExtensionTypesSoapIn"/>
+      <wsdl:output message="tns:GetExtensionTypesSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserByPassword">
+      <wsdl:input message="tns:GetUserByPasswordSoapIn"/>
+      <wsdl:output message="tns:GetUserByPasswordSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <wsdl:input message="tns:ChangePasswordSoapIn"/>
+      <wsdl:output message="tns:ChangePasswordSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="ResetPassword">
+      <wsdl:input message="tns:ResetPasswordSoapIn"/>
+      <wsdl:output message="tns:ResetPasswordSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="EnablePasswordReset">
+      <wsdl:input message="tns:EnablePasswordResetSoapIn"/>
+      <wsdl:output message="tns:EnablePasswordResetSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserParm">
+      <wsdl:input message="tns:GetUserParmSoapIn"/>
+      <wsdl:output message="tns:GetUserParmSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetParmInfo">
+      <wsdl:input message="tns:GetParmInfoSoapIn"/>
+      <wsdl:output message="tns:GetParmInfoSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="FindUser">
+      <wsdl:input message="tns:FindUserSoapIn"/>
+      <wsdl:output message="tns:FindUserSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="FindUserByEmployeeId">
+      <wsdl:input message="tns:FindUserByEmployeeIdSoapIn"/>
+      <wsdl:output message="tns:FindUserByEmployeeIdSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DSAAuthenticationSoap" type="tns:DSAAuthenticationSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="GetExtensionType">
+      <soap:operation soapAction="http://www.unibo.it/GetExtensionType" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetExtensionTypes">
+      <soap:operation soapAction="http://www.unibo.it/GetExtensionTypes" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserByPassword">
+      <soap:operation soapAction="http://www.unibo.it/GetUserByPassword" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <soap:operation soapAction="http://www.unibo.it/ChangePassword" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetPassword">
+      <soap:operation soapAction="http://www.unibo.it/ResetPassword" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnablePasswordReset">
+      <soap:operation soapAction="http://www.unibo.it/EnablePasswordReset" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserParm">
+      <soap:operation soapAction="http://www.unibo.it/GetUserParm" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetParmInfo">
+      <soap:operation soapAction="http://www.unibo.it/GetParmInfo" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindUser">
+      <soap:operation soapAction="http://www.unibo.it/FindUser" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindUserByEmployeeId">
+      <soap:operation soapAction="http://www.unibo.it/FindUserByEmployeeId" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DSAAuthentication">
+    <wsdl:port name="DSAAuthenticationSoap" binding="tns:DSAAuthenticationSoap">
+      <soap:address location="https://dsawebservice.unibo.it/dsaauthentication/dsaauthentication.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

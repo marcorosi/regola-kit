@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+<body>
+<ui:composition template="/common/anonimo.xhtml">
+  <ui:define name="titolo">#{msg['login.title']}</ui:define>
+  <ui:define name="titolobarra">#{msg['login.heading']}</ui:define>
+  <ui:define name="centro"><ui:include src="/common/anonimo-corpo-login.xhtml" /></ui:define>
+    
+	<ui:define name="corpo">
+
+		<ice:form partialSubmit="true">
+
+			<ice:panelGroup>
+				<center>
+					<ice:panelGrid columns="3" columnClasses="loginColumn right,loginColumn,loginColumn">
+						<ice:outputText value="Username" />
+						<ice:inputText id="userName" value="#{loginForm.username}"
+							partialSubmit="true" effect="#{loginForm.effects['username']}">
+							<!--  f:validateLongRange maximum="150" minimum="5"/>
+					<val:commonsValidator min="2" max="5" type="integer" server="false" client="true" /-->
+						</ice:inputText>
+						<ice:outputText value="#{loginForm.errors['username']}" />
+						<ice:outputText value="Password" />
+						<ice:inputSecret value="#{loginForm.password}" partialSubmit="true"
+							effect="#{loginForm.effects['password']}" />
+						<ice:outputText value="#{loginForm.errors['password']}" />
+						<ice:outputText value=" " />
+						<ice:commandButton value="Login"
+							styleClass="buttonNew"
+							actionListener="#{loginForm.submit}" />
+						<ice:outputText value=" " />
+						<ice:outputText value=" " />
+						<ice:outputText styleClass="loginError" value="#{loginForm.errore}" />
+						<ice:outputText value=" " />
+					</ice:panelGrid>
+				</center>
+			</ice:panelGroup>
+		</ice:form>
+
+	</ui:define>
+</ui:composition>
+</body>
+</html>
