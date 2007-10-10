@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <body>
+        <ui:composition template="/common/principale.xhtml">
+            <ui:define name="titolo">
+                Plitvice Services
+            </ui:define>
+            <ui:define name="corpo">
+
+<h3>1 Accesso all’applicazione</h3>
+Per accedere all’applicazione bisogna collegarsi al seguente indirizzo: http://www.plitvice.unibo.it
+Accedendo a questo link viene visualizzata la maschera rappresentata in figura 1 in cui bisogna inserire il
+nome utente e la password associata per permettere a DSA l’autenticazione.
+Inserendo i dati correttamente e premendo il tasto Accedi, si accede all’applicazione altrimenti il sistema
+restituisce un errore e richiede nuovamente l’immissione dei dati.
+Quando si accede al sistema dopo l’autenticazione il sistema carica i dati propri dell’utente che sta
+accedendo, fornendo solo i permessi e i contesti che gli sono stati assegnati e imposta l’anno
+accademico corrente.
+
+<h3>2 Procedura di uscita dall’applicazione</h3>
+Per uscire dell’applicazione bisogna utilizzare il tasto logout, che è visibile in ogni pagina, in questo modo
+il sistema cancella tutte le variabili temporanee utilizzate nella sessione di lavoro. Cliccando sul pulsante
+Logout viene generato un evento che permette al sistema di mantenere delle buone prestazioni e di
+evitare possibili conflitti, poiché viene chiusa la sessione.
+Al contrario non bisogna utilizzare il pulsante di chiusura del browser, perché questo lascia aperta una
+sessione che provoca entropia nel sistema stesso.
+
+            </ui:define>            
+        </ui:composition>
+    </body>
+</html>
