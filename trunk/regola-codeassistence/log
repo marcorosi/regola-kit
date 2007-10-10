@@ -1,0 +1,1030 @@
++ Error stacktraces are turned on.
+Maven version: 2.0.6
+[DEBUG] Building Maven user-level plugin registry from: '/home/nicola/.m2/plugin-registry.xml'
+[DEBUG] Building Maven global-level plugin registry from: '/usr/local/nicola/maven/conf/plugin-registry.xml'
+[INFO] Scanning for projects...
+[DEBUG] Searching for parent-POM: org.regola:regola-framework::1.0-M1-SNAPSHOT of project: null:regola-jsf:jar:null in relative path: ../pom.xml
+[DEBUG] Using parent-POM from the project hierarchy at: '../pom.xml' for project: null:regola-jsf:jar:null
+[DEBUG] Adding managed depedendencies for unknown:regola-jsf
+[DEBUG]   org.regola:regola-core:jar:1.0-M1-SNAPSHOT
+[DEBUG]   junit:junit:jar:4.3.1:test
+[DEBUG]   org.easymock:easymock:jar:2.3:test
+[DEBUG]   org.dbunit:dbunit:jar:2.2:test
+[DEBUG]   org.unitils:unitils:jar:1.0-rc-4:test
+[DEBUG]   hsqldb:hsqldb:jar:1.8.0.7:test
+[DEBUG]   toplink.essentials:toplink-essentials:jar:2.0-58g:test
+[DEBUG]   jpox:jpox:jar:1.1.7:test
+[DEBUG]   org.hibernate:hibernate-entitymanager:jar:3.2.1.ga:test
+[DEBUG]   org.apache.openjpa:openjpa:jar:1.0.0:test
+[DEBUG]   org.springframework:spring:jar:2.0.6
+[DEBUG]   org.springframework:spring-core:jar:2.0.6
+[DEBUG]   org.springframework:spring-beans:jar:2.0.6
+[DEBUG]   org.springframework:spring-aop:jar:2.0.6
+[DEBUG]   org.springframework:spring-jdbc:jar:2.0.6
+[DEBUG]   org.springframework:spring-hibernate3:jar:2.0.6
+[DEBUG]   org.springframework:spring-jpa:jar:2.0.6
+[DEBUG]   org.springframework:spring-jdo:jar:2.0.6
+[DEBUG]   javax.jdo:jdo2-api:jar:2.0
+[DEBUG]   javax.persistence:persistence-api:jar:1.0
+[DEBUG]   org.hibernate:hibernate:jar:3.2.5.ga
+[INFO] ----------------------------------------------------------------------------
+[INFO] Building REGOLA Framework :: JSF presentation module
+[INFO]    task-segment: [package]
+[INFO] ----------------------------------------------------------------------------
+[DEBUG] maven-resources-plugin: resolved to version 2.2 from repository central
+[DEBUG] Retrieving parent-POM: org.apache.maven.plugins:maven-plugins::1 for project: null:maven-resources-plugin:maven-plugin:2.2 from the repository.
+[DEBUG] Retrieving parent-POM: org.apache.maven:maven-parent::1 for project: org.apache.maven.plugins:maven-plugins:pom:1 from the repository.
+[DEBUG] Retrieving parent-POM: org.apache:apache::1 for project: org.apache.maven:maven-parent:pom:1 from the repository.
+[DEBUG] maven-compiler-plugin: resolved to version 2.0.2 from repository central
+[DEBUG] Retrieving parent-POM: org.apache.maven.plugins:maven-plugins::8 for project: null:maven-compiler-plugin:maven-plugin:2.0.2 from the repository.
+[DEBUG] Retrieving parent-POM: org.apache.maven:maven-parent::5 for project: org.apache.maven.plugins:maven-plugins:pom:8 from the repository.
+[DEBUG] Retrieving parent-POM: org.apache:apache::3 for project: org.apache.maven:maven-parent:pom:5 from the repository.
+[DEBUG] Retrieving parent-POM: org.apache.maven.surefire:surefire::2.3 for project: org.apache.maven.plugins:maven-surefire-plugin:maven-plugin:2.3 from the repository.
+[DEBUG] Retrieving parent-POM: org.apache.maven:maven-parent::5 for project: org.apache.maven.surefire:surefire:pom:2.3 from the repository.
+[DEBUG] Retrieving parent-POM: org.apache:apache::3 for project: org.apache.maven:maven-parent:pom:5 from the repository.
+[DEBUG] maven-jar-plugin: resolved to version 2.1 from repository central
+[DEBUG] Retrieving parent-POM: org.apache.maven.plugins:maven-plugins::3 for project: null:maven-jar-plugin:maven-plugin:2.1 from the repository.
+[DEBUG] Retrieving parent-POM: org.apache.maven:maven-parent::4 for project: org.apache.maven.plugins:maven-plugins:pom:3 from the repository.
+[DEBUG] Retrieving parent-POM: org.apache:apache::3 for project: org.apache.maven:maven-parent:pom:4 from the repository.
+[DEBUG] org.apache.maven.plugins:maven-resources-plugin:maven-plugin:2.2:runtime (selected for runtime)
+[DEBUG] Retrieving parent-POM: org.apache.maven:maven::2.0 for project: org.apache.maven:maven-model:jar:2.0 from the repository.
+[DEBUG] Adding managed depedendencies for org.apache.maven:maven-model
+[DEBUG]   org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-8
+[DEBUG]   org.codehaus.plexus:plexus-utils:jar:1.0.4
+[DEBUG]   org.apache.maven.wagon:wagon-provider-api:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-ssh:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-file:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-http-lightweight:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven:maven-model:jar:2.0:runtime (selected for runtime)
+[DEBUG]     org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (selected for runtime)
+[DEBUG] Retrieving parent-POM: org.codehaus.plexus:plexus::1.0.4 for project: null:plexus-utils:jar:1.1 from the repository.
+[DEBUG]   org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (removed - nearer found: 1.1)
+[DEBUG]   org.codehaus.plexus:plexus-utils:jar:1.1:runtime (selected for runtime)
+[DEBUG] Retrieving parent-POM: org.apache.maven:maven::2.0 for project: null:maven-project:jar:2.0 from the repository.
+[DEBUG] Adding managed depedendencies for unknown:maven-project
+[DEBUG]   org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-8
+[DEBUG]   org.codehaus.plexus:plexus-utils:jar:1.0.4
+[DEBUG]   org.apache.maven.wagon:wagon-provider-api:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-ssh:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-file:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-http-lightweight:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven:maven-project:jar:2.0:runtime (selected for runtime)
+[DEBUG] Retrieving parent-POM: org.apache.maven:maven::2.0 for project: null:maven-profile:jar:2.0 from the repository.
+[DEBUG] Adding managed depedendencies for unknown:maven-profile
+[DEBUG]   org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-8
+[DEBUG]   org.codehaus.plexus:plexus-utils:jar:1.0.4
+[DEBUG]   org.apache.maven.wagon:wagon-provider-api:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-ssh:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-file:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-http-lightweight:jar:1.0-alpha-5
+[DEBUG]     org.apache.maven:maven-profile:jar:2.0:runtime (selected for runtime)
+[DEBUG]       org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (removed - nearer found: 1.1)
+[DEBUG]       org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-8:runtime (selected for runtime)
+[DEBUG]         org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (removed - nearer found: 1.1)
+[DEBUG]         junit:junit:jar:3.8.1:runtime (selected for runtime)
+[DEBUG]         classworlds:classworlds:jar:1.1-alpha-2:runtime (selected for runtime)
+[DEBUG] Retrieving parent-POM: org.apache.maven:maven::2.0 for project: org.apache.maven:maven-artifact-manager:jar:2.0 from the repository.
+[DEBUG] Adding managed depedendencies for org.apache.maven:maven-artifact-manager
+[DEBUG]   org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-8
+[DEBUG]   org.codehaus.plexus:plexus-utils:jar:1.0.4
+[DEBUG]   org.apache.maven.wagon:wagon-provider-api:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-ssh:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-file:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-http-lightweight:jar:1.0-alpha-5
+[DEBUG]     org.apache.maven:maven-artifact-manager:jar:2.0:runtime (selected for runtime)
+[DEBUG] Retrieving parent-POM: org.apache.maven:maven::2.0 for project: org.apache.maven:maven-repository-metadata:jar:2.0 from the repository.
+[DEBUG] Adding managed depedendencies for org.apache.maven:maven-repository-metadata
+[DEBUG]   org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-8
+[DEBUG]   org.codehaus.plexus:plexus-utils:jar:1.0.4
+[DEBUG]   org.apache.maven.wagon:wagon-provider-api:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-ssh:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-file:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-http-lightweight:jar:1.0-alpha-5
+[DEBUG]       org.apache.maven:maven-repository-metadata:jar:2.0:runtime (selected for runtime)
+[DEBUG]         org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (removed - nearer found: 1.1)
+[DEBUG]       org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (removed - nearer found: 1.1)
+[DEBUG] Retrieving parent-POM: org.apache.maven:maven::2.0 for project: org.apache.maven:maven-artifact:jar:2.0 from the repository.
+[DEBUG] Adding managed depedendencies for org.apache.maven:maven-artifact
+[DEBUG]   org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-8
+[DEBUG]   org.codehaus.plexus:plexus-utils:jar:1.0.4
+[DEBUG]   org.apache.maven.wagon:wagon-provider-api:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-ssh:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-file:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-http-lightweight:jar:1.0-alpha-5
+[DEBUG]       org.apache.maven:maven-artifact:jar:2.0:runtime (selected for runtime)
+[DEBUG]         org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (removed - nearer found: 1.1)
+[DEBUG]       org.apache.maven.wagon:wagon-provider-api:jar:1.0-alpha-5:runtime (selected for runtime)
+[DEBUG]         org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (removed - nearer found: 1.1)
+[DEBUG]     org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (removed - nearer found: 1.1)
+[DEBUG]     org.apache.maven:maven-artifact:jar:2.0:runtime (selected for runtime)
+[DEBUG]       org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (removed - nearer found: 1.1)
+[DEBUG]     org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-8:runtime (selected for runtime)
+[DEBUG]       org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (removed - nearer found: 1.1)
+[DEBUG]       junit:junit:jar:3.8.1:runtime (selected for runtime)
+[DEBUG]       classworlds:classworlds:jar:1.1-alpha-2:runtime (selected for runtime)
+[DEBUG] Retrieving parent-POM: org.apache.maven:maven::2.0 for project: org.apache.maven:maven-plugin-api:jar:2.0 from the repository.
+[DEBUG] Adding managed depedendencies for org.apache.maven:maven-plugin-api
+[DEBUG]   org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-8
+[DEBUG]   org.codehaus.plexus:plexus-utils:jar:1.0.4
+[DEBUG]   org.apache.maven.wagon:wagon-provider-api:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-ssh:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-file:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven.wagon:wagon-http-lightweight:jar:1.0-alpha-5
+[DEBUG]   org.apache.maven:maven-plugin-api:jar:2.0:runtime (selected for runtime)
+[DEBUG] Configuring mojo 'org.apache.maven.plugins:maven-resources-plugin:2.2:resources' -->
+[DEBUG]   (f) filters = []
+[DEBUG]   (f) outputDirectory = /usr/local/nicola/NetBeansProjects/trunk/regola-jsf/target/classes
+[DEBUG]   (f) project = org.apache.maven.project.MavenProject@9783b71a
+[DEBUG]   (f) resources = [org.apache.maven.model.Resource@3570b0]
+[DEBUG] -- end configuration --
+[INFO] [resources:resources]
+[INFO] Using default encoding to copy filtered resources.
+[DEBUG] org.regola:regola-jsf:jar:1.0-M1-SNAPSHOT (selected for null)
+[DEBUG] Skipping disabled repository central
+[DEBUG] regola-core: using locally installed snapshot
+[DEBUG] Retrieving parent-POM: org.regola:regola-framework::1.0-M1-SNAPSHOT for project: null:regola-core:jar:1.0-M1-SNAPSHOT from the repository.
+[DEBUG] Skipping disabled repository central
+[DEBUG] regola-framework: using locally installed snapshot
+[DEBUG] Adding managed depedendencies for unknown:regola-core
+[DEBUG]   org.regola:regola-core:jar:1.0-M1-SNAPSHOT
+[DEBUG]   junit:junit:jar:4.3.1:test
+[DEBUG]   org.easymock:easymock:jar:2.3:test
+[DEBUG]   org.dbunit:dbunit:jar:2.2:test
+[DEBUG]   org.unitils:unitils:jar:1.0-rc-4:test
+[DEBUG]   hsqldb:hsqldb:jar:1.8.0.7:test
+[DEBUG]   toplink.essentials:toplink-essentials:jar:2.0-58g:test
+[DEBUG]   jpox:jpox:jar:1.1.7:test
+[DEBUG]   org.hibernate:hibernate-entitymanager:jar:3.2.1.ga:test
+[DEBUG]   org.apache.openjpa:openjpa:jar:1.0.0:test
+[DEBUG]   org.springframework:spring:jar:2.0.6
+[DEBUG]   org.springframework:spring-core:jar:2.0.6
+[DEBUG]   org.springframework:spring-beans:jar:2.0.6
+[DEBUG]   org.springframework:spring-aop:jar:2.0.6
+[DEBUG]   org.springframework:spring-jdbc:jar:2.0.6
+[DEBUG]   org.springframework:spring-hibernate3:jar:2.0.6
+[DEBUG]   org.springframework:spring-jpa:jar:2.0.6
+[DEBUG]   org.springframework:spring-jdo:jar:2.0.6
+[DEBUG]   javax.jdo:jdo2-api:jar:2.0
+[DEBUG]   javax.persistence:persistence-api:jar:1.0
+[DEBUG]   org.hibernate:hibernate:jar:3.2.5.ga
+[DEBUG]   org.regola:regola-core:jar:1.0-M1-SNAPSHOT:compile (selected for compile)
+[DEBUG]     org.springframework:spring-beans:jar:2.0.6:compile (selected for compile)
+[DEBUG]       commons-logging:commons-logging:jar:1.1:compile (selected for compile)
+[DEBUG]       org.springframework:spring-core:jar:2.0.6:compile (selected for compile)
+[DEBUG]   junit:junit:jar:4.3.1:test (selected for test)
+[DEBUG]   org.unitils:unitils:jar:1.0-rc-4:test (selected for test)
+[DEBUG]     commons-logging:commons-logging:jar:1.1:test (setting scope to: compile)
+[DEBUG]     commons-dbcp:commons-dbcp:jar:1.2.2:test (selected for test)
+[DEBUG]       commons-pool:commons-pool:jar:1.3:test (selected for test)
+[DEBUG]     commons-lang:commons-lang:jar:2.2:test (selected for test)
+[DEBUG]     commons-collections:commons-collections:jar:3.2:test (selected for test)
+[DEBUG]     ognl:ognl:jar:2.6.9:test (selected for test)
+[DEBUG]   org.springframework:spring-context:jar:2.0.6:compile (selected for compile)
+[DEBUG]     aopalliance:aopalliance:jar:1.0:compile (selected for compile)
+[DEBUG]     commons-logging:commons-logging:jar:1.1:compile (selected for compile)
+[DEBUG]     org.springframework:spring-core:jar:2.0.6:compile (selected for compile)
+[DEBUG]   org.springframework:spring-web:jar:2.0.6:compile (selected for compile)
+[DEBUG] Retrieving parent-POM: org.acegisecurity:acegi-security-parent::1.0.3 for project: null:acegi-security-tiger:jar:1.0.3 from the repository.
+[DEBUG] Adding managed depedendencies for unknown:acegi-security-tiger
+[DEBUG]   org.springframework:spring-mock:jar:1.2.8
+[DEBUG]   org.springframework:spring-remoting:jar:1.2.8
+[DEBUG]   org.springframework:spring-jdbc:jar:1.2.8
+[DEBUG]   org.springframework:spring-support:jar:1.2.8
+[DEBUG]   log4j:log4j:jar:1.2.9:runtime
+[DEBUG]   org.acegisecurity:acegi-security-tiger:jar:1.0.3:compile (selected for compile)
+[DEBUG] Retrieving parent-POM: org.acegisecurity:acegi-security-parent::1.0.3 for project: null:acegi-security:jar:1.0.3 from the repository.
+[DEBUG] Adding managed depedendencies for unknown:acegi-security
+[DEBUG]   org.springframework:spring-mock:jar:1.2.8
+[DEBUG]   org.springframework:spring-remoting:jar:1.2.8
+[DEBUG]   org.springframework:spring-jdbc:jar:1.2.8
+[DEBUG]   org.springframework:spring-support:jar:1.2.8
+[DEBUG]   log4j:log4j:jar:1.2.9:runtime
+[DEBUG]     org.acegisecurity:acegi-security:jar:1.0.3:compile (selected for compile)
+[DEBUG]       commons-lang:commons-lang:jar:2.2:test (setting scope to: compile)
+[DEBUG]       commons-lang:commons-lang:jar:2.2:compile (selected for compile)
+[DEBUG]       commons-logging:commons-logging:jar:1.0.4:compile (removed - nearer found: 1.1)
+[DEBUG]       commons-codec:commons-codec:jar:1.3:compile (selected for compile)
+[DEBUG]       oro:oro:jar:2.0.8:compile (selected for compile)
+[DEBUG]       commons-collections:commons-collections:jar:3.2:test (setting scope to: compile)
+[DEBUG]       commons-collections:commons-collections:jar:3.2:compile (selected for compile)
+[DEBUG]       log4j:log4j:jar:1.2.9:runtime (selected for runtime)
+[DEBUG]   javax.servlet:servlet-api:jar:2.4:provided (selected for provided)
+[DEBUG]   org.hibernate:hibernate-annotations:jar:3.2.1.ga:compile (selected for compile)
+[DEBUG]     org.hibernate:hibernate:jar:3.2.1.ga:compile (applying version: 3.2.5.ga)
+[DEBUG]     org.hibernate:hibernate:jar:3.2.5.ga:compile (selected for compile)
+[DEBUG]       net.sf.ehcache:ehcache:jar:1.2.3:compile (selected for compile)
+[DEBUG]         commons-logging:commons-logging:jar:1.0.4:compile (removed - nearer found: 1.1)
+[DEBUG]         commons-collections:commons-collections:jar:2.1:compile (removed - nearer found: 3.2)
+[DEBUG]       javax.transaction:jta:jar:1.0.1B:compile (selected for compile)
+[DEBUG]       commons-logging:commons-logging:jar:1.0.4:compile (removed - nearer found: 1.1)
+[DEBUG]       asm:asm-attrs:jar:1.5.3:compile (selected for compile)
+[DEBUG]       dom4j:dom4j:jar:1.6.1:compile (selected for compile)
+[DEBUG]       antlr:antlr:jar:2.7.6:compile (selected for compile)
+[DEBUG]       cglib:cglib:jar:2.1_3:compile (selected for compile)
+[DEBUG]         asm:asm:jar:1.5.3:compile (selected for compile)
+[DEBUG]       asm:asm:jar:1.5.3:compile (selected for compile)
+[DEBUG]       commons-collections:commons-collections:jar:2.1.1:compile (removed - nearer found: 3.2)
+[DEBUG]     javax.persistence:persistence-api:jar:1.0:compile (selected for compile)
+[DEBUG]   org.hibernate:hibernate:jar:3.2.5.ga:compile (removed - nearer found: 3.2.3.ga)
+[DEBUG]   org.hibernate:hibernate:jar:3.2.3.ga:compile (selected for compile)
+[DEBUG]     net.sf.ehcache:ehcache:jar:1.2.3:compile (selected for compile)
+[DEBUG]       commons-logging:commons-logging:jar:1.0.4:compile (removed - nearer found: 1.1)
+[DEBUG]       commons-collections:commons-collections:jar:2.1:compile (removed - nearer found: 3.2)
+[DEBUG]     javax.transaction:jta:jar:1.0.1B:compile (selected for compile)
+[DEBUG]     commons-logging:commons-logging:jar:1.0.4:compile (removed - nearer found: 1.1)
+[DEBUG]     asm:asm-attrs:jar:1.5.3:compile (selected for compile)
+[DEBUG]     dom4j:dom4j:jar:1.6.1:compile (selected for compile)
+[DEBUG]     antlr:antlr:jar:2.7.6:compile (selected for compile)
+[DEBUG]     cglib:cglib:jar:2.1_3:compile (selected for compile)
+[DEBUG]       asm:asm:jar:1.5.3:compile (selected for compile)
+[DEBUG]     asm:asm:jar:1.5.3:compile (selected for compile)
+[DEBUG]     commons-collections:commons-collections:jar:3.2:compile (removed - nearer found: 2.1.1)
+[DEBUG]     commons-collections:commons-collections:jar:2.1.1:compile (selected for compile)
+[DEBUG]   aspectj:aspectjweaver:jar:1.5.3:compile (selected for compile)
+[DEBUG]   xstream:xstream:jar:1.0.2:compile (selected for compile)
+[DEBUG]   ognl:ognl:jar:2.6.9:compile (selected for compile)
+[DEBUG]   commons-io:commons-io:jar:1.3.1:compile (selected for compile)
+[DEBUG]   commons-cli:commons-cli:jar:1.0:compile (selected for compile)
+[DEBUG]     commons-logging:commons-logging:jar:1.0:compile (removed - nearer found: 1.1)
+[DEBUG]     commons-lang:commons-lang:jar:2.2:compile (removed - nearer found: 1.0)
+[DEBUG]     commons-lang:commons-lang:jar:1.0:compile (selected for compile)
+[DEBUG]       junit:junit:jar:3.7:compile (applying version: 4.3.1)
+[DEBUG]       junit:junit:jar:4.3.1:compile (applying scope: test)
+[DEBUG]   freemarker:freemarker:jar:2.3.8:compile (selected for compile)
+[DEBUG]   jdom:jdom:jar:1.0:compile (selected for compile)
+[DEBUG] Retrieving parent-POM: org.apache.myfaces.core:myfaces-core-project::1.1.4 for project: org.apache.myfaces.core:myfaces-api:jar:1.1.4 from the repository.
+[DEBUG] Retrieving parent-POM: org.apache.myfaces.maven:myfaces-master::1.0.4 for project: org.apache.myfaces.core:myfaces-core-project:pom:1.1.4 from the repository.
+[DEBUG]   org.apache.myfaces.core:myfaces-api:jar:1.1.4:compile (selected for compile)
+[DEBUG]     commons-lang:commons-lang:jar:2.1:compile (removed - nearer found: 1.0)
+[DEBUG]     commons-beanutils:commons-beanutils:jar:1.7.0:compile (selected for compile)
+[DEBUG]       commons-logging:commons-logging:jar:1.0.3:compile (removed - nearer found: 1.1)
+[DEBUG]     javax.servlet:jstl:jar:1.1.0:compile (selected for compile)
+[DEBUG]     commons-logging:commons-logging:jar:1.0.4:compile (removed - nearer found: 1.1)
+[DEBUG]     commons-digester:commons-digester:jar:1.6:compile (selected for compile)
+[DEBUG]       commons-beanutils:commons-beanutils:jar:1.6:compile (removed - nearer found: 1.7.0)
+[DEBUG]       commons-logging:commons-logging:jar:1.0:compile (removed - nearer found: 1.1)
+[DEBUG]       commons-collections:commons-collections:jar:2.1:compile (removed - nearer found: 2.1.1)
+[DEBUG] Retrieving parent-POM: org.apache.myfaces.core:myfaces-core-project::1.1.4 for project: org.apache.myfaces.core:myfaces-impl:jar:1.1.4 from the repository.
+[DEBUG] Retrieving parent-POM: org.apache.myfaces.maven:myfaces-master::1.0.4 for project: org.apache.myfaces.core:myfaces-core-project:pom:1.1.4 from the repository.
+[DEBUG]   org.apache.myfaces.core:myfaces-impl:jar:1.1.4:compile (selected for compile)
+[DEBUG]     commons-el:commons-el:jar:1.0:compile (selected for compile)
+[DEBUG]     commons-collections:commons-collections:jar:3.1:compile (removed - nearer found: 2.1.1)
+[DEBUG]     commons-logging:commons-logging:jar:1.0.4:compile (removed - nearer found: 1.1)
+[DEBUG]     commons-codec:commons-codec:jar:1.3:compile (selected for compile)
+[DEBUG] Trying repository kion.cerbero
+Downloading: http://cerbero:8080/maven-proxy-webapp/repository/com/icesoft/icefaces/1.5.3/icefaces-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:icefaces:pom:1.5.3' from repository kion.cerbero (http://cerbero:8080/maven-proxy-webapp/repository)
+[DEBUG] Trying repository m2 java.net
+Downloading: http://download.java.net/maven/2//com/icesoft/icefaces/1.5.3/icefaces-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:icefaces:pom:1.5.3' from repository m2 java.net (http://download.java.net/maven/2/)
+[DEBUG] Trying repository m1 java.net
+Downloading: http://download.java.net/maven/1/com.icesoft/poms/icefaces-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:icefaces:pom:1.5.3' from repository m1 java.net (http://download.java.net/maven/1)
+[DEBUG] Trying repository m1 jpox
+Downloading: http://www.jpox.org/downloads/maven/com.icesoft/poms/icefaces-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:icefaces:pom:1.5.3' from repository m1 jpox (http://www.jpox.org/downloads/maven)
+[DEBUG] Trying repository central
+Downloading: http://repo1.maven.org/maven2/com/icesoft/icefaces/1.5.3/icefaces-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:icefaces:pom:1.5.3' from repository central (http://repo1.maven.org/maven2)
+[DEBUG] Artifact not found - using stub model: Unable to download the artifact from any repository
+
+  com.icesoft:icefaces:pom:1.5.3
+
+from the specified remote repositories:
+  central (http://repo1.maven.org/maven2),
+  kion.cerbero (http://cerbero:8080/maven-proxy-webapp/repository),
+  m2 java.net (http://download.java.net/maven/2/),
+  m1 jpox (http://www.jpox.org/downloads/maven),
+  m1 java.net (http://download.java.net/maven/1)
+
+[DEBUG] Using defaults for missing POM com.icesoft:icefaces:pom:1.5.3:compile
+[DEBUG]   com.icesoft:icefaces:jar:1.5.3:compile (selected for compile)
+[DEBUG] Trying repository kion.cerbero
+Downloading: http://cerbero:8080/maven-proxy-webapp/repository/com/icesoft/icefaces-comps/1.5.3/icefaces-comps-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:icefaces-comps:pom:1.5.3' from repository kion.cerbero (http://cerbero:8080/maven-proxy-webapp/repository)
+[DEBUG] Trying repository m2 java.net
+Downloading: http://download.java.net/maven/2//com/icesoft/icefaces-comps/1.5.3/icefaces-comps-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:icefaces-comps:pom:1.5.3' from repository m2 java.net (http://download.java.net/maven/2/)
+[DEBUG] Trying repository m1 java.net
+Downloading: http://download.java.net/maven/1/com.icesoft/poms/icefaces-comps-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:icefaces-comps:pom:1.5.3' from repository m1 java.net (http://download.java.net/maven/1)
+[DEBUG] Trying repository m1 jpox
+Downloading: http://www.jpox.org/downloads/maven/com.icesoft/poms/icefaces-comps-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:icefaces-comps:pom:1.5.3' from repository m1 jpox (http://www.jpox.org/downloads/maven)
+[DEBUG] Trying repository central
+Downloading: http://repo1.maven.org/maven2/com/icesoft/icefaces-comps/1.5.3/icefaces-comps-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:icefaces-comps:pom:1.5.3' from repository central (http://repo1.maven.org/maven2)
+[DEBUG] Artifact not found - using stub model: Unable to download the artifact from any repository
+
+  com.icesoft:icefaces-comps:pom:1.5.3
+
+from the specified remote repositories:
+  central (http://repo1.maven.org/maven2),
+  kion.cerbero (http://cerbero:8080/maven-proxy-webapp/repository),
+  m2 java.net (http://download.java.net/maven/2/),
+  m1 jpox (http://www.jpox.org/downloads/maven),
+  m1 java.net (http://download.java.net/maven/1)
+
+[DEBUG] Using defaults for missing POM com.icesoft:icefaces-comps:pom:1.5.3:compile
+[DEBUG]   com.icesoft:icefaces-comps:jar:1.5.3:compile (selected for compile)
+[DEBUG] Trying repository kion.cerbero
+Downloading: http://cerbero:8080/maven-proxy-webapp/repository/com/icesoft/icefaces-facelets/1.5.3/icefaces-facelets-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:icefaces-facelets:pom:1.5.3' from repository kion.cerbero (http://cerbero:8080/maven-proxy-webapp/repository)
+[DEBUG] Trying repository m2 java.net
+Downloading: http://download.java.net/maven/2//com/icesoft/icefaces-facelets/1.5.3/icefaces-facelets-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:icefaces-facelets:pom:1.5.3' from repository m2 java.net (http://download.java.net/maven/2/)
+[DEBUG] Trying repository m1 java.net
+Downloading: http://download.java.net/maven/1/com.icesoft/poms/icefaces-facelets-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:icefaces-facelets:pom:1.5.3' from repository m1 java.net (http://download.java.net/maven/1)
+[DEBUG] Trying repository m1 jpox
+Downloading: http://www.jpox.org/downloads/maven/com.icesoft/poms/icefaces-facelets-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:icefaces-facelets:pom:1.5.3' from repository m1 jpox (http://www.jpox.org/downloads/maven)
+[DEBUG] Trying repository central
+Downloading: http://repo1.maven.org/maven2/com/icesoft/icefaces-facelets/1.5.3/icefaces-facelets-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:icefaces-facelets:pom:1.5.3' from repository central (http://repo1.maven.org/maven2)
+[DEBUG] Artifact not found - using stub model: Unable to download the artifact from any repository
+
+  com.icesoft:icefaces-facelets:pom:1.5.3
+
+from the specified remote repositories:
+  central (http://repo1.maven.org/maven2),
+  kion.cerbero (http://cerbero:8080/maven-proxy-webapp/repository),
+  m2 java.net (http://download.java.net/maven/2/),
+  m1 jpox (http://www.jpox.org/downloads/maven),
+  m1 java.net (http://download.java.net/maven/1)
+
+[DEBUG] Using defaults for missing POM com.icesoft:icefaces-facelets:pom:1.5.3:compile
+[DEBUG]   com.icesoft:icefaces-facelets:jar:1.5.3:compile (selected for compile)
+[DEBUG] Trying repository kion.cerbero
+Downloading: http://cerbero:8080/maven-proxy-webapp/repository/com/icesoft/backport-util/1.5.3/backport-util-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:backport-util:pom:1.5.3' from repository kion.cerbero (http://cerbero:8080/maven-proxy-webapp/repository)
+[DEBUG] Trying repository m2 java.net
+Downloading: http://download.java.net/maven/2//com/icesoft/backport-util/1.5.3/backport-util-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:backport-util:pom:1.5.3' from repository m2 java.net (http://download.java.net/maven/2/)
+[DEBUG] Trying repository m1 java.net
+Downloading: http://download.java.net/maven/1/com.icesoft/poms/backport-util-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:backport-util:pom:1.5.3' from repository m1 java.net (http://download.java.net/maven/1)
+[DEBUG] Trying repository m1 jpox
+Downloading: http://www.jpox.org/downloads/maven/com.icesoft/poms/backport-util-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:backport-util:pom:1.5.3' from repository m1 jpox (http://www.jpox.org/downloads/maven)
+[DEBUG] Trying repository central
+Downloading: http://repo1.maven.org/maven2/com/icesoft/backport-util/1.5.3/backport-util-1.5.3.pom
+[DEBUG] Unable to get resource 'com.icesoft:backport-util:pom:1.5.3' from repository central (http://repo1.maven.org/maven2)
+[DEBUG] Artifact not found - using stub model: Unable to download the artifact from any repository
+
+  com.icesoft:backport-util:pom:1.5.3
+
+from the specified remote repositories:
+  central (http://repo1.maven.org/maven2),
+  kion.cerbero (http://cerbero:8080/maven-proxy-webapp/repository),
+  m2 java.net (http://download.java.net/maven/2/),
+  m1 jpox (http://www.jpox.org/downloads/maven),
+  m1 java.net (http://download.java.net/maven/1)
+
+[DEBUG] Using defaults for missing POM com.icesoft:backport-util:pom:1.5.3:test
+[DEBUG]   com.icesoft:backport-util:jar:1.5.3:test (selected for test)
+[DEBUG] Retrieving parent-POM: org.codehaus.xfire:xfire-parent::1.2.6 for project: null:xfire-jaxb2:jar:1.2.6 from the repository.
+[DEBUG] Adding managed depedendencies for unknown:xfire-jaxb2
+[DEBUG]   org.codehaus.xfire:xfire-core:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-all:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-annotations:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-aegis:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-plexus:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-xmpp:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-spring:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-xmlbeans:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-java5:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jibx:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxb:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxb2:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxws:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-loom:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-generator:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jms:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-castor:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-picocontainer:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-ws-security:jar:1.2.6
+[DEBUG]   javax.activation:activation:jar:1.1
+[DEBUG]   javax.mail:mail:jar:1.4
+[DEBUG]   javax.servlet:servlet-api:jar:2.3:provided
+[DEBUG]   commons-logging:commons-logging:jar:1.0.4
+[DEBUG]   stax:stax-api:jar:1.0.1
+[DEBUG]   stax:stax:jar:1.2.0:test
+[DEBUG]   wsdl4j:wsdl4j:jar:1.6.1
+[DEBUG]   org.codehaus.woodstox:wstx-asl:jar:3.2.0
+[DEBUG]   jdom:jdom:jar:1.0
+[DEBUG]   org.apache.ws.commons:XmlSchema:jar:1.1
+[DEBUG]   org.mortbay.jetty:jetty:jar:6.1.2rc0
+[DEBUG]   commons-httpclient:commons-httpclient:jar:3.0
+[DEBUG]   commons-codec:commons-codec:jar:1.3
+[DEBUG]   xmlbeans:xbean:jar:2.2.0
+[DEBUG]   junit:junit:jar:3.8.1
+[DEBUG]   httpunit:httpunit:jar:1.6.1
+[DEBUG]   org.springframework:spring:jar:1.2.6
+[DEBUG]   org.apache.xbean:xbean-spring:jar:2.8
+[DEBUG]   xalan:xalan:jar:2.7.0:test
+[DEBUG]   jaxen:jaxen:jar:1.1-beta-9
+[DEBUG]   log4j:log4j:jar:1.2.8:test
+[DEBUG]   easymock:easymock:jar:1.1:test
+[DEBUG]   xmlunit:xmlunit:jar:1.0:test
+[DEBUG]   org.codehaus.xfire:xfire-jaxb2:jar:1.2.6:compile (selected for compile)
+[DEBUG] Retrieving parent-POM: org.codehaus.xfire:xfire-parent::1.2.6 for project: null:xfire-aegis:jar:1.2.6 from the repository.
+[DEBUG] Adding managed depedendencies for unknown:xfire-aegis
+[DEBUG]   org.codehaus.xfire:xfire-core:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-all:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-annotations:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-aegis:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-plexus:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-xmpp:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-spring:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-xmlbeans:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-java5:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jibx:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxb:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxb2:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxws:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-loom:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-generator:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jms:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-castor:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-picocontainer:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-ws-security:jar:1.2.6
+[DEBUG]   javax.activation:activation:jar:1.1
+[DEBUG]   javax.mail:mail:jar:1.4
+[DEBUG]   javax.servlet:servlet-api:jar:2.3:provided
+[DEBUG]   commons-logging:commons-logging:jar:1.0.4
+[DEBUG]   stax:stax-api:jar:1.0.1
+[DEBUG]   stax:stax:jar:1.2.0:test
+[DEBUG]   wsdl4j:wsdl4j:jar:1.6.1
+[DEBUG]   org.codehaus.woodstox:wstx-asl:jar:3.2.0
+[DEBUG]   jdom:jdom:jar:1.0
+[DEBUG]   org.apache.ws.commons:XmlSchema:jar:1.1
+[DEBUG]   org.mortbay.jetty:jetty:jar:6.1.2rc0
+[DEBUG]   commons-httpclient:commons-httpclient:jar:3.0
+[DEBUG]   commons-codec:commons-codec:jar:1.3
+[DEBUG]   xmlbeans:xbean:jar:2.2.0
+[DEBUG]   junit:junit:jar:3.8.1
+[DEBUG]   httpunit:httpunit:jar:1.6.1
+[DEBUG]   org.springframework:spring:jar:1.2.6
+[DEBUG]   org.apache.xbean:xbean-spring:jar:2.8
+[DEBUG]   xalan:xalan:jar:2.7.0:test
+[DEBUG]   jaxen:jaxen:jar:1.1-beta-9
+[DEBUG]   log4j:log4j:jar:1.2.8:test
+[DEBUG]   easymock:easymock:jar:1.1:test
+[DEBUG]   xmlunit:xmlunit:jar:1.0:test
+[DEBUG]     org.codehaus.xfire:xfire-aegis:jar:1.2.6:compile (selected for compile)
+[DEBUG] Retrieving parent-POM: org.codehaus.xfire:xfire-parent::1.2.6 for project: null:xfire-core:jar:1.2.6 from the repository.
+[DEBUG] Adding managed depedendencies for unknown:xfire-core
+[DEBUG]   org.codehaus.xfire:xfire-core:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-all:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-annotations:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-aegis:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-plexus:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-xmpp:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-spring:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-xmlbeans:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-java5:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jibx:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxb:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxb2:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxws:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-loom:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-generator:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jms:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-castor:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-picocontainer:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-ws-security:jar:1.2.6
+[DEBUG]   javax.activation:activation:jar:1.1
+[DEBUG]   javax.mail:mail:jar:1.4
+[DEBUG]   javax.servlet:servlet-api:jar:2.3:provided
+[DEBUG]   commons-logging:commons-logging:jar:1.0.4
+[DEBUG]   stax:stax-api:jar:1.0.1
+[DEBUG]   stax:stax:jar:1.2.0:test
+[DEBUG]   wsdl4j:wsdl4j:jar:1.6.1
+[DEBUG]   org.codehaus.woodstox:wstx-asl:jar:3.2.0
+[DEBUG]   jdom:jdom:jar:1.0
+[DEBUG]   org.apache.ws.commons:XmlSchema:jar:1.1
+[DEBUG]   org.mortbay.jetty:jetty:jar:6.1.2rc0
+[DEBUG]   commons-httpclient:commons-httpclient:jar:3.0
+[DEBUG]   commons-codec:commons-codec:jar:1.3
+[DEBUG]   xmlbeans:xbean:jar:2.2.0
+[DEBUG]   junit:junit:jar:3.8.1
+[DEBUG]   httpunit:httpunit:jar:1.6.1
+[DEBUG]   org.springframework:spring:jar:1.2.6
+[DEBUG]   org.apache.xbean:xbean-spring:jar:2.8
+[DEBUG]   xalan:xalan:jar:2.7.0:test
+[DEBUG]   jaxen:jaxen:jar:1.1-beta-9
+[DEBUG]   log4j:log4j:jar:1.2.8:test
+[DEBUG]   easymock:easymock:jar:1.1:test
+[DEBUG]   xmlunit:xmlunit:jar:1.0:test
+[DEBUG]       org.codehaus.xfire:xfire-core:jar:1.2.6:compile (selected for compile)
+[DEBUG]         javax.activation:activation:jar:1.1:compile (selected for compile)
+[DEBUG]         javax.mail:mail:jar:1.4:compile (selected for compile)
+[DEBUG]         wsdl4j:wsdl4j:jar:1.6.1:compile (selected for compile)
+[DEBUG]         jaxen:jaxen:jar:1.1-beta-9:compile (selected for compile)
+[DEBUG]           jaxen:jaxen:jar:1.0-FCS:compile (removed - causes a cycle in the graph)
+[DEBUG]           xerces:xmlParserAPIs:jar:2.6.2:compile (selected for compile)
+[DEBUG]           xerces:xercesImpl:jar:2.6.2:compile (selected for compile)
+[DEBUG]         stax:stax-api:jar:1.0.1:compile (selected for compile)
+[DEBUG]         org.apache.ws.commons:XmlSchema:jar:1.1:compile (selected for compile)
+[DEBUG]           stax:stax-api:jar:1.0:compile (removed - nearer found: 1.0.1)
+[DEBUG]         org.codehaus.woodstox:wstx-asl:jar:3.2.0:compile (selected for compile)
+[DEBUG]         commons-logging:commons-logging:jar:1.0.4:compile (removed - nearer found: 1.1)
+[DEBUG]         commons-httpclient:commons-httpclient:jar:3.0:compile (selected for compile)
+[DEBUG]           junit:junit:jar:3.8.1:compile (applying version: 4.3.1)
+[DEBUG]           junit:junit:jar:4.3.1:compile (applying scope: test)
+[DEBUG]           commons-logging:commons-logging:jar:1.0.3:compile (removed - nearer found: 1.1)
+[DEBUG]           commons-codec:commons-codec:jar:1.2:compile (removed - nearer found: 1.3)
+[DEBUG] While downloading stax-utils:stax-utils:snapshot-20040917
+  This artifact has been relocated to net.java.dev.stax-utils:stax-utils:20040917.
+
+
+[DEBUG]       net.java.dev.stax-utils:stax-utils:jar:20040917:compile (selected for compile)
+[DEBUG] Retrieving parent-POM: org.codehaus.xfire:xfire-parent::1.2.6 for project: null:xfire-java5:jar:1.2.6 from the repository.
+[DEBUG] Adding managed depedendencies for unknown:xfire-java5
+[DEBUG]   org.codehaus.xfire:xfire-core:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-all:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-annotations:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-aegis:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-plexus:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-xmpp:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-spring:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-xmlbeans:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-java5:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jibx:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxb:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxb2:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxws:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-loom:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-generator:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jms:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-castor:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-picocontainer:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-ws-security:jar:1.2.6
+[DEBUG]   javax.activation:activation:jar:1.1
+[DEBUG]   javax.mail:mail:jar:1.4
+[DEBUG]   javax.servlet:servlet-api:jar:2.3:provided
+[DEBUG]   commons-logging:commons-logging:jar:1.0.4
+[DEBUG]   stax:stax-api:jar:1.0.1
+[DEBUG]   stax:stax:jar:1.2.0:test
+[DEBUG]   wsdl4j:wsdl4j:jar:1.6.1
+[DEBUG]   org.codehaus.woodstox:wstx-asl:jar:3.2.0
+[DEBUG]   jdom:jdom:jar:1.0
+[DEBUG]   org.apache.ws.commons:XmlSchema:jar:1.1
+[DEBUG]   org.mortbay.jetty:jetty:jar:6.1.2rc0
+[DEBUG]   commons-httpclient:commons-httpclient:jar:3.0
+[DEBUG]   commons-codec:commons-codec:jar:1.3
+[DEBUG]   xmlbeans:xbean:jar:2.2.0
+[DEBUG]   junit:junit:jar:3.8.1
+[DEBUG]   httpunit:httpunit:jar:1.6.1
+[DEBUG]   org.springframework:spring:jar:1.2.6
+[DEBUG]   org.apache.xbean:xbean-spring:jar:2.8
+[DEBUG]   xalan:xalan:jar:2.7.0:test
+[DEBUG]   jaxen:jaxen:jar:1.1-beta-9
+[DEBUG]   log4j:log4j:jar:1.2.8:test
+[DEBUG]   easymock:easymock:jar:1.1:test
+[DEBUG]   xmlunit:xmlunit:jar:1.0:test
+[DEBUG]     org.codehaus.xfire:xfire-java5:jar:1.2.6:compile (selected for compile)
+[DEBUG] Retrieving parent-POM: org.codehaus.xfire:xfire-parent::1.2.6 for project: null:xfire-annotations:jar:1.2.6 from the repository.
+[DEBUG] Adding managed depedendencies for unknown:xfire-annotations
+[DEBUG]   org.codehaus.xfire:xfire-core:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-all:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-annotations:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-aegis:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-plexus:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-xmpp:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-spring:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-xmlbeans:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-java5:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jibx:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxb:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxb2:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxws:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-loom:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-generator:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jms:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-castor:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-picocontainer:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-ws-security:jar:1.2.6
+[DEBUG]   javax.activation:activation:jar:1.1
+[DEBUG]   javax.mail:mail:jar:1.4
+[DEBUG]   javax.servlet:servlet-api:jar:2.3:provided
+[DEBUG]   commons-logging:commons-logging:jar:1.0.4
+[DEBUG]   stax:stax-api:jar:1.0.1
+[DEBUG]   stax:stax:jar:1.2.0:test
+[DEBUG]   wsdl4j:wsdl4j:jar:1.6.1
+[DEBUG]   org.codehaus.woodstox:wstx-asl:jar:3.2.0
+[DEBUG]   jdom:jdom:jar:1.0
+[DEBUG]   org.apache.ws.commons:XmlSchema:jar:1.1
+[DEBUG]   org.mortbay.jetty:jetty:jar:6.1.2rc0
+[DEBUG]   commons-httpclient:commons-httpclient:jar:3.0
+[DEBUG]   commons-codec:commons-codec:jar:1.3
+[DEBUG]   xmlbeans:xbean:jar:2.2.0
+[DEBUG]   junit:junit:jar:3.8.1
+[DEBUG]   httpunit:httpunit:jar:1.6.1
+[DEBUG]   org.springframework:spring:jar:1.2.6
+[DEBUG]   org.apache.xbean:xbean-spring:jar:2.8
+[DEBUG]   xalan:xalan:jar:2.7.0:test
+[DEBUG]   jaxen:jaxen:jar:1.1-beta-9
+[DEBUG]   log4j:log4j:jar:1.2.8:test
+[DEBUG]   easymock:easymock:jar:1.1:test
+[DEBUG]   xmlunit:xmlunit:jar:1.0:test
+[DEBUG]       org.codehaus.xfire:xfire-annotations:jar:1.2.6:compile (selected for compile)
+[DEBUG]         commons-attributes:commons-attributes-api:jar:2.1:compile (selected for compile)
+[DEBUG]           ant:ant:jar:1.5:compile (selected for compile)
+[DEBUG]           qdox:qdox:jar:1.5:compile (selected for compile)
+[DEBUG]       xfire:xfire-jsr181-api:jar:1.0-M1:compile (selected for compile)
+[DEBUG]     org.codehaus.xfire:xfire-annotations:jar:1.2.6:compile (selected for compile)
+[DEBUG]       commons-attributes:commons-attributes-api:jar:2.1:compile (selected for compile)
+[DEBUG]         ant:ant:jar:1.5:compile (selected for compile)
+[DEBUG]         qdox:qdox:jar:1.5:compile (selected for compile)
+[DEBUG]     com.sun.xml.bind:jaxb-xjc:jar:2.0.1:compile (selected for compile)
+[DEBUG]       com.sun.xml.bind:jaxb-impl:jar:2.0.1:compile (selected for compile)
+[DEBUG]         javax.xml:jaxb-api:jar:2.0:compile (selected for compile)
+[DEBUG]     javax.xml.ws:jaxws-api:jar:2.0:compile (selected for compile)
+[DEBUG]       javax.xml.bind:jaxb-api:jar:2.0:compile (selected for compile)
+[DEBUG]         javax.xml.bind:jsr173_api:jar:1.0:compile (selected for compile)
+[DEBUG]     org.codehaus.xfire:xfire-core:jar:1.2.6:compile (selected for compile)
+[DEBUG]       javax.activation:activation:jar:1.1:compile (selected for compile)
+[DEBUG]       javax.mail:mail:jar:1.4:compile (selected for compile)
+[DEBUG]       wsdl4j:wsdl4j:jar:1.6.1:compile (selected for compile)
+[DEBUG]       jaxen:jaxen:jar:1.1-beta-9:compile (selected for compile)
+[DEBUG]         jaxen:jaxen:jar:1.0-FCS:compile (removed - causes a cycle in the graph)
+[DEBUG]         xerces:xmlParserAPIs:jar:2.6.2:compile (selected for compile)
+[DEBUG]         xerces:xercesImpl:jar:2.6.2:compile (selected for compile)
+[DEBUG]       stax:stax-api:jar:1.0.1:compile (selected for compile)
+[DEBUG]       org.apache.ws.commons:XmlSchema:jar:1.1:compile (selected for compile)
+[DEBUG]         stax:stax-api:jar:1.0:compile (removed - nearer found: 1.0.1)
+[DEBUG]       org.codehaus.woodstox:wstx-asl:jar:3.2.0:compile (selected for compile)
+[DEBUG]       commons-logging:commons-logging:jar:1.0.4:compile (removed - nearer found: 1.1)
+[DEBUG]       commons-httpclient:commons-httpclient:jar:3.0:compile (selected for compile)
+[DEBUG]         junit:junit:jar:3.8.1:compile (applying version: 4.3.1)
+[DEBUG]         junit:junit:jar:4.3.1:compile (applying scope: test)
+[DEBUG]         commons-logging:commons-logging:jar:1.0.3:compile (removed - nearer found: 1.1)
+[DEBUG]         commons-codec:commons-codec:jar:1.2:compile (removed - nearer found: 1.3)
+[DEBUG] Retrieving parent-POM: org.codehaus.xfire:xfire-parent::1.2.6 for project: null:xfire-spring:jar:1.2.6 from the repository.
+[DEBUG] Adding managed depedendencies for unknown:xfire-spring
+[DEBUG]   org.codehaus.xfire:xfire-core:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-all:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-annotations:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-aegis:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-plexus:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-xmpp:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-spring:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-xmlbeans:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-java5:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jibx:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxb:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxb2:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxws:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-loom:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-generator:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jms:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-castor:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-picocontainer:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-ws-security:jar:1.2.6
+[DEBUG]   javax.activation:activation:jar:1.1
+[DEBUG]   javax.mail:mail:jar:1.4
+[DEBUG]   javax.servlet:servlet-api:jar:2.3:provided
+[DEBUG]   commons-logging:commons-logging:jar:1.0.4
+[DEBUG]   stax:stax-api:jar:1.0.1
+[DEBUG]   stax:stax:jar:1.2.0:test
+[DEBUG]   wsdl4j:wsdl4j:jar:1.6.1
+[DEBUG]   org.codehaus.woodstox:wstx-asl:jar:3.2.0
+[DEBUG]   jdom:jdom:jar:1.0
+[DEBUG]   org.apache.ws.commons:XmlSchema:jar:1.1
+[DEBUG]   org.mortbay.jetty:jetty:jar:6.1.2rc0
+[DEBUG]   commons-httpclient:commons-httpclient:jar:3.0
+[DEBUG]   commons-codec:commons-codec:jar:1.3
+[DEBUG]   xmlbeans:xbean:jar:2.2.0
+[DEBUG]   junit:junit:jar:3.8.1
+[DEBUG]   httpunit:httpunit:jar:1.6.1
+[DEBUG]   org.springframework:spring:jar:1.2.6
+[DEBUG]   org.apache.xbean:xbean-spring:jar:2.8
+[DEBUG]   xalan:xalan:jar:2.7.0:test
+[DEBUG]   jaxen:jaxen:jar:1.1-beta-9
+[DEBUG]   log4j:log4j:jar:1.2.8:test
+[DEBUG]   easymock:easymock:jar:1.1:test
+[DEBUG]   xmlunit:xmlunit:jar:1.0:test
+[DEBUG]   org.codehaus.xfire:xfire-spring:jar:1.2.6:compile (selected for compile)
+[DEBUG]     junit:junit:jar:3.8.1:compile (applying version: 4.3.1)
+[DEBUG]     junit:junit:jar:4.3.1:compile (applying scope: test)
+[DEBUG] Retrieving parent-POM: org.apache.xbean:xbean::2.8 for project: null:xbean-spring:jar:2.8 from the repository.
+[DEBUG] Retrieving parent-POM: org.apache:apache::3 for project: org.apache.xbean:xbean:pom:2.8 from the repository.
+[DEBUG] Adding managed depedendencies for unknown:xbean-spring
+[DEBUG]   ant:ant:jar:1.6.2
+[DEBUG]   backport-util-concurrent:backport-util-concurrent:jar:2.1
+[DEBUG]   cglib:cglib-nodep:jar:2.1_2
+[DEBUG]   commons-beanutils:commons-beanutils:jar:1.7.0
+[DEBUG]   commons-logging:commons-logging:jar:1.0.3
+[DEBUG]   groovy:groovy:jar:1.0-jsr-03
+[DEBUG]   lingo:sca-api:jar:SNAPSHOT
+[DEBUG]   mx4j:mx4j:jar:3.0.1
+[DEBUG]   org.eclipse.equinox:osgi:jar:3.1.1
+[DEBUG]   org.livetribe:livetribe-jmx:jar:1.0-SNAPSHOT
+[DEBUG]   org.snmp4j:snmp4j:jar:1.7.1
+[DEBUG]   org.springframework:spring:jar:1.2.4
+[DEBUG]   qdox:qdox:jar:1.6.1
+[DEBUG]   stax:stax-api:jar:1.0
+[DEBUG]     org.apache.xbean:xbean-spring:jar:2.8:compile (selected for compile)
+[DEBUG]       commons-logging:commons-logging:jar:1.0.3:compile (removed - nearer found: 1.1)
+[DEBUG]       org.springframework:spring:jar:1.2.4:compile (applying version: 2.0.6)
+[DEBUG]       org.springframework:spring:jar:2.0.6:compile (selected for compile)
+[DEBUG] Retrieving parent-POM: org.codehaus.xfire:xfire-parent::1.2.6 for project: null:xfire-xmlbeans:jar:1.2.6 from the repository.
+[DEBUG] Adding managed depedendencies for unknown:xfire-xmlbeans
+[DEBUG]   org.codehaus.xfire:xfire-core:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-all:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-annotations:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-aegis:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-plexus:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-xmpp:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-spring:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-xmlbeans:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-java5:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jibx:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxb:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxb2:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jaxws:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-loom:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-generator:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-jms:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-castor:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-picocontainer:jar:1.2.6
+[DEBUG]   org.codehaus.xfire:xfire-ws-security:jar:1.2.6
+[DEBUG]   javax.activation:activation:jar:1.1
+[DEBUG]   javax.mail:mail:jar:1.4
+[DEBUG]   javax.servlet:servlet-api:jar:2.3:provided
+[DEBUG]   commons-logging:commons-logging:jar:1.0.4
+[DEBUG]   stax:stax-api:jar:1.0.1
+[DEBUG]   stax:stax:jar:1.2.0:test
+[DEBUG]   wsdl4j:wsdl4j:jar:1.6.1
+[DEBUG]   org.codehaus.woodstox:wstx-asl:jar:3.2.0
+[DEBUG]   jdom:jdom:jar:1.0
+[DEBUG]   org.apache.ws.commons:XmlSchema:jar:1.1
+[DEBUG]   org.mortbay.jetty:jetty:jar:6.1.2rc0
+[DEBUG]   commons-httpclient:commons-httpclient:jar:3.0
+[DEBUG]   commons-codec:commons-codec:jar:1.3
+[DEBUG]   xmlbeans:xbean:jar:2.2.0
+[DEBUG]   junit:junit:jar:3.8.1
+[DEBUG]   httpunit:httpunit:jar:1.6.1
+[DEBUG]   org.springframework:spring:jar:1.2.6
+[DEBUG]   org.apache.xbean:xbean-spring:jar:2.8
+[DEBUG]   xalan:xalan:jar:2.7.0:test
+[DEBUG]   jaxen:jaxen:jar:1.1-beta-9
+[DEBUG]   log4j:log4j:jar:1.2.8:test
+[DEBUG]   easymock:easymock:jar:1.1:test
+[DEBUG]   xmlunit:xmlunit:jar:1.0:test
+[DEBUG]     org.codehaus.xfire:xfire-xmlbeans:jar:1.2.6:compile (selected for compile)
+[DEBUG] Retrieving parent-POM: org.apache:apache::3 for project: xmlbeans:xbean:jar:2.2.0 from the repository.
+[DEBUG]       xmlbeans:xbean:jar:2.2.0:compile (selected for compile)
+[DEBUG]     org.springframework:spring:jar:1.2.6:compile (applying version: 2.0.6)
+[DEBUG]     org.springframework:spring:jar:2.0.6:compile (selected for compile)
+[DEBUG]   org.codehaus.xfire:xfire-java5:jar:1.2.6:compile (selected for compile)
+[DEBUG]     xfire:xfire-jsr181-api:jar:1.0-M1:compile (selected for compile)
+[DEBUG]   commons-beanutils:commons-beanutils:jar:1.7.0:compile (selected for compile)
+[DEBUG]     commons-logging:commons-logging:jar:1.0.3:compile (removed - nearer found: 1.1)
+[DEBUG]   oro:oro:jar:2.0.8:compile (selected for compile)
+[DEBUG]   commons-lang:commons-lang:jar:1.0:compile (removed - nearer found: 2.3)
+[DEBUG]   commons-lang:commons-lang:jar:2.3:compile (selected for compile)
+[DEBUG] regola-core: using locally installed snapshot
+[DEBUG] org.apache.maven.plugins:maven-compiler-plugin:maven-plugin:2.0.2:runtime (selected for runtime)
+[DEBUG]   org.codehaus.plexus:plexus-utils:jar:1.0.4:runtime (selected for runtime)
+[DEBUG] Retrieving parent-POM: org.codehaus.plexus:plexus-compiler::1.5.3 for project: null:plexus-compiler-manager:jar:1.5.3 from the repository.
+[DEBUG] Retrieving parent-POM: org.codehaus.plexus:plexus-components::1.1.6 for project: null:plexus-compiler:pom:1.5.3 from the repository.
+[DEBUG] Retrieving parent-POM: org.codehaus.plexus:plexus::1.0.8 for project: org.codehaus.plexus:plexus-components:pom:1.1.6 from the repository.
+[DEBUG]   org.codehaus.plexus:plexus-compiler-manager:jar:1.5.3:runtime (selected for runtime)
+[DEBUG]     org.codehaus.plexus:plexus-container-default:jar:1.0-alpha-8:runtime (selected for runtime)
+[DEBUG]       junit:junit:jar:3.8.1:runtime (selected for runtime)
+[DEBUG]       classworlds:classworlds:jar:1.1-alpha-2:runtime (selected for runtime)
+[DEBUG] Retrieving parent-POM: org.codehaus.plexus:plexus-compiler::1.5.3 for project: null:plexus-compiler-api:jar:1.5.3 from the repository.
+[DEBUG] Retrieving parent-POM: org.codehaus.plexus:plexus-components::1.1.6 for project: null:plexus-compiler:pom:1.5.3 from the repository.
+[DEBUG] Retrieving parent-POM: org.codehaus.plexus:plexus::1.0.8 for project: org.codehaus.plexus:plexus-components:pom:1.1.6 from the repository.
+[DEBUG]     org.codehaus.plexus:plexus-compiler-api:jar:1.5.3:runtime (selected for runtime)
+[DEBUG]   org.codehaus.plexus:plexus-compiler-api:jar:1.5.3:runtime (selected for runtime)
+[DEBUG]   org.codehaus.plexus:plexus-utils:jar:1.1:runtime (removed - nearer found: 1.0.4)
+[DEBUG] Retrieving parent-POM: org.codehaus.plexus:plexus-compilers::1.5.3 for project: null:plexus-compiler-javac:jar:1.5.3 from the repository.
+[DEBUG] Retrieving parent-POM: org.codehaus.plexus:plexus-compiler::1.5.3 for project: org.codehaus.plexus:plexus-compilers:pom:1.5.3 from the repository.
+[DEBUG] Retrieving parent-POM: org.codehaus.plexus:plexus-components::1.1.6 for project: null:plexus-compiler:pom:1.5.3 from the repository.
+[DEBUG] Retrieving parent-POM: org.codehaus.plexus:plexus::1.0.8 for project: org.codehaus.plexus:plexus-components:pom:1.1.6 from the repository.
+[DEBUG]   org.codehaus.plexus:plexus-compiler-javac:jar:1.5.3:runtime (selected for runtime)
+[DEBUG] Retrieving parent-POM: org.codehaus.plexus:plexus::1.0.4 for project: null:plexus-utils:jar:1.0.5 from the repository.
+[DEBUG]     org.codehaus.plexus:plexus-utils:jar:1.0.5:runtime (removed - nearer found: 1.0.4)
+[DEBUG]   org.apache.maven:maven-artifact:jar:2.0:runtime (selected for runtime)
+[DEBUG]   org.apache.maven:maven-plugin-api:jar:2.0:runtime (selected for runtime)
+[DEBUG] Configuring mojo 'org.apache.maven.plugins:maven-compiler-plugin:2.0.2:compile' -->
+[DEBUG]   (f) basedir = /usr/local/nicola/NetBeansProjects/trunk/regola-jsf
+[DEBUG]   (f) buildDirectory = /usr/local/nicola/NetBeansProjects/trunk/regola-jsf/target
+[DEBUG]   (f) classpathElements = [/usr/local/nicola/NetBeansProjects/trunk/regola-jsf/target/classes, /home/nicola/.m2/repository/com/sun/xml/bind/jaxb-xjc/2.0.1/jaxb-xjc-2.0.1.jar, /home/nicola/.m2/repository/org/springframework/spring-beans/2.0.6/spring-beans-2.0.6.jar, /home/nicola/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar, /home/nicola/.m2/repository/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar, /home/nicola/.m2/repository/com/icesoft/icefaces-facelets/1.5.3/icefaces-facelets-1.5.3.jar, /home/nicola/.m2/repository/xstream/xstream/1.0.2/xstream-1.0.2.jar, /home/nicola/.m2/repository/commons-httpclient/commons-httpclient/3.0/commons-httpclient-3.0.jar, /home/nicola/.m2/repository/stax/stax-api/1.0.1/stax-api-1.0.1.jar, /home/nicola/.m2/repository/org/apache/myfaces/core/myfaces-impl/1.1.4/myfaces-impl-1.1.4.jar, /home/nicola/.m2/repository/org/codehaus/xfire/xfire-jaxb2/1.2.6/xfire-jaxb2-1.2.6.jar, /home/nicola/.m2/repository/asm/asm/1.5.3/asm-1.5.3.jar, /home/nicola/.m2/repository/org/springframework/spring-web/2.0.6/spring-web-2.0.6.jar, /home/nicola/.m2/repository/xerces/xercesImpl/2.6.2/xercesImpl-2.6.2.jar, /home/nicola/.m2/repository/freemarker/freemarker/2.3.8/freemarker-2.3.8.jar, /home/nicola/.m2/repository/commons-io/commons-io/1.3.1/commons-io-1.3.1.jar, /home/nicola/.m2/repository/net/sf/ehcache/ehcache/1.2.3/ehcache-1.2.3.jar, /home/nicola/.m2/repository/commons-lang/commons-lang/2.3/commons-lang-2.3.jar, /home/nicola/.m2/repository/org/acegisecurity/acegi-security-tiger/1.0.3/acegi-security-tiger-1.0.3.jar, /home/nicola/.m2/repository/commons-codec/commons-codec/1.3/commons-codec-1.3.jar, /home/nicola/.m2/repository/org/codehaus/woodstox/wstx-asl/3.2.0/wstx-asl-3.2.0.jar, /home/nicola/.m2/repository/commons-logging/commons-logging/1.1/commons-logging-1.1.jar, /home/nicola/.m2/repository/org/codehaus/xfire/xfire-xmlbeans/1.2.6/xfire-xmlbeans-1.2.6.jar, /home/nicola/.m2/repository/org/springframework/spring-core/2.0.6/spring-core-2.0.6.jar, /home/nicola/.m2/repository/cglib/cglib/2.1_3/cglib-2.1_3.jar, /home/nicola/.m2/repository/asm/asm-attrs/1.5.3/asm-attrs-1.5.3.jar, /home/nicola/.m2/repository/javax/mail/mail/1.4/mail-1.4.jar, /home/nicola/.m2/repository/org/codehaus/xfire/xfire-aegis/1.2.6/xfire-aegis-1.2.6.jar, /home/nicola/.m2/repository/commons-collections/commons-collections/2.1.1/commons-collections-2.1.1.jar, /home/nicola/.m2/repository/wsdl4j/wsdl4j/1.6.1/wsdl4j-1.6.1.jar, /home/nicola/.m2/repository/org/codehaus/xfire/xfire-spring/1.2.6/xfire-spring-1.2.6.jar, /home/nicola/.m2/repository/javax/xml/bind/jsr173_api/1.0/jsr173_api-1.0.jar, /home/nicola/.m2/repository/commons-el/commons-el/1.0/commons-el-1.0.jar, /home/nicola/.m2/repository/com/icesoft/icefaces-comps/1.5.3/icefaces-comps-1.5.3.jar, /home/nicola/.m2/repository/javax/xml/ws/jaxws-api/2.0/jaxws-api-2.0.jar, /home/nicola/.m2/repository/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar, /home/nicola/.m2/repository/org/regola/regola-core/1.0-M1-SNAPSHOT/regola-core-1.0-M1-SNAPSHOT.jar, /home/nicola/.m2/repository/ognl/ognl/2.6.9/ognl-2.6.9.jar, /home/nicola/.m2/repository/net/java/dev/stax-utils/stax-utils/20040917/stax-utils-20040917.jar, /home/nicola/.m2/repository/org/apache/ws/commons/XmlSchema/1.1/XmlSchema-1.1.jar, /home/nicola/.m2/repository/aspectj/aspectjweaver/1.5.3/aspectjweaver-1.5.3.jar, /home/nicola/.m2/repository/antlr/antlr/2.7.6/antlr-2.7.6.jar, /home/nicola/.m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar, /home/nicola/.m2/repository/org/codehaus/xfire/xfire-core/1.2.6/xfire-core-1.2.6.jar, /home/nicola/.m2/repository/org/springframework/spring-context/2.0.6/spring-context-2.0.6.jar, /home/nicola/.m2/repository/xfire/xfire-jsr181-api/1.0-M1/xfire-jsr181-api-1.0-M1.jar, /home/nicola/.m2/repository/javax/servlet/jstl/1.1.0/jstl-1.1.0.jar, /home/nicola/.m2/repository/org/apache/myfaces/core/myfaces-api/1.1.4/myfaces-api-1.1.4.jar, /home/nicola/.m2/repository/jdom/jdom/1.0/jdom-1.0.jar, /home/nicola/.m2/repository/javax/xml/bind/jaxb-api/2.0/jaxb-api-2.0.jar, /home/nicola/.m2/repository/commons-digester/commons-digester/1.6/commons-digester-1.6.jar, /home/nicola/.m2/repository/oro/oro/2.0.8/oro-2.0.8.jar, /home/nicola/.m2/repository/javax/persistence/persistence-api/1.0/persistence-api-1.0.jar, /home/nicola/.m2/repository/commons-cli/commons-cli/1.0/commons-cli-1.0.jar, /home/nicola/.m2/repository/jaxen/jaxen/1.1-beta-9/jaxen-1.1-beta-9.jar, /home/nicola/.m2/repository/com/sun/xml/bind/jaxb-impl/2.0.1/jaxb-impl-2.0.1.jar, /home/nicola/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar, /home/nicola/.m2/repository/com/icesoft/icefaces/1.5.3/icefaces-1.5.3.jar, /home/nicola/.m2/repository/org/codehaus/xfire/xfire-annotations/1.2.6/xfire-annotations-1.2.6.jar, /home/nicola/.m2/repository/org/hibernate/hibernate-annotations/3.2.1.ga/hibernate-annotations-3.2.1.ga.jar, /home/nicola/.m2/repository/org/codehaus/xfire/xfire-java5/1.2.6/xfire-java5-1.2.6.jar, /home/nicola/.m2/repository/xmlbeans/xbean/2.2.0/xbean-2.2.0.jar, /home/nicola/.m2/repository/commons-attributes/commons-attributes-api/2.1/commons-attributes-api-2.1.jar, /home/nicola/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar, /home/nicola/.m2/repository/qdox/qdox/1.5/qdox-1.5.jar, /home/nicola/.m2/repository/xerces/xmlParserAPIs/2.6.2/xmlParserAPIs-2.6.2.jar, /home/nicola/.m2/repository/org/springframework/spring/2.0.6/spring-2.0.6.jar, /home/nicola/.m2/repository/org/acegisecurity/acegi-security/1.0.3/acegi-security-1.0.3.jar, /home/nicola/.m2/repository/org/hibernate/hibernate/3.2.3.ga/hibernate-3.2.3.ga.jar, /home/nicola/.m2/repository/ant/ant/1.5/ant-1.5.jar, /home/nicola/.m2/repository/org/apache/xbean/xbean-spring/2.8/xbean-spring-2.8.jar, /home/nicola/.m2/repository/javax/xml/jaxb-api/2.0/jaxb-api-2.0.jar]
+[DEBUG]   (f) compileSourceRoots = [/usr/local/nicola/NetBeansProjects/trunk/regola-jsf/src/main/java]
+[DEBUG]   (f) compilerId = javac
+[DEBUG]   (f) debug = true
+[DEBUG]   (f) failOnError = true
+[DEBUG]   (f) fork = false
+[DEBUG]   (f) optimize = false
+[DEBUG]   (f) outputDirectory = /usr/local/nicola/NetBeansProjects/trunk/regola-jsf/target/classes
+[DEBUG]   (f) outputFileName = regola-jsf-1.0-M1-SNAPSHOT
+[DEBUG]   (f) projectArtifact = org.regola:regola-jsf:jar:1.0-M1-SNAPSHOT
+[DEBUG]   (f) showDeprecation = false
+[DEBUG]   (f) showWarnings = false
+[DEBUG]   (f) source = 1.5
+[DEBUG]   (f) staleMillis = 0
+[DEBUG]   (f) target = 1.5
+[DEBUG]   (f) verbose = false
+[DEBUG] -- end configuration --
+[INFO] [compiler:compile]
+[DEBUG] Using compiler 'javac'.
+[DEBUG] Source directories: [/usr/local/nicola/NetBeansProjects/trunk/regola-jsf/src/main/java]
+[DEBUG] Classpath: [/usr/local/nicola/NetBeansProjects/trunk/regola-jsf/target/classes
+ /home/nicola/.m2/repository/com/sun/xml/bind/jaxb-xjc/2.0.1/jaxb-xjc-2.0.1.jar
+ /home/nicola/.m2/repository/org/springframework/spring-beans/2.0.6/spring-beans-2.0.6.jar
+ /home/nicola/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar
+ /home/nicola/.m2/repository/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar
+ /home/nicola/.m2/repository/com/icesoft/icefaces-facelets/1.5.3/icefaces-facelets-1.5.3.jar
+ /home/nicola/.m2/repository/xstream/xstream/1.0.2/xstream-1.0.2.jar
+ /home/nicola/.m2/repository/commons-httpclient/commons-httpclient/3.0/commons-httpclient-3.0.jar
+ /home/nicola/.m2/repository/stax/stax-api/1.0.1/stax-api-1.0.1.jar
+ /home/nicola/.m2/repository/org/apache/myfaces/core/myfaces-impl/1.1.4/myfaces-impl-1.1.4.jar
+ /home/nicola/.m2/repository/org/codehaus/xfire/xfire-jaxb2/1.2.6/xfire-jaxb2-1.2.6.jar
+ /home/nicola/.m2/repository/asm/asm/1.5.3/asm-1.5.3.jar
+ /home/nicola/.m2/repository/org/springframework/spring-web/2.0.6/spring-web-2.0.6.jar
+ /home/nicola/.m2/repository/xerces/xercesImpl/2.6.2/xercesImpl-2.6.2.jar
+ /home/nicola/.m2/repository/freemarker/freemarker/2.3.8/freemarker-2.3.8.jar
+ /home/nicola/.m2/repository/commons-io/commons-io/1.3.1/commons-io-1.3.1.jar
+ /home/nicola/.m2/repository/net/sf/ehcache/ehcache/1.2.3/ehcache-1.2.3.jar
+ /home/nicola/.m2/repository/commons-lang/commons-lang/2.3/commons-lang-2.3.jar
+ /home/nicola/.m2/repository/org/acegisecurity/acegi-security-tiger/1.0.3/acegi-security-tiger-1.0.3.jar
+ /home/nicola/.m2/repository/commons-codec/commons-codec/1.3/commons-codec-1.3.jar
+ /home/nicola/.m2/repository/org/codehaus/woodstox/wstx-asl/3.2.0/wstx-asl-3.2.0.jar
+ /home/nicola/.m2/repository/commons-logging/commons-logging/1.1/commons-logging-1.1.jar
+ /home/nicola/.m2/repository/org/codehaus/xfire/xfire-xmlbeans/1.2.6/xfire-xmlbeans-1.2.6.jar
+ /home/nicola/.m2/repository/org/springframework/spring-core/2.0.6/spring-core-2.0.6.jar
+ /home/nicola/.m2/repository/cglib/cglib/2.1_3/cglib-2.1_3.jar
+ /home/nicola/.m2/repository/asm/asm-attrs/1.5.3/asm-attrs-1.5.3.jar
+ /home/nicola/.m2/repository/javax/mail/mail/1.4/mail-1.4.jar
+ /home/nicola/.m2/repository/org/codehaus/xfire/xfire-aegis/1.2.6/xfire-aegis-1.2.6.jar
+ /home/nicola/.m2/repository/commons-collections/commons-collections/2.1.1/commons-collections-2.1.1.jar
+ /home/nicola/.m2/repository/wsdl4j/wsdl4j/1.6.1/wsdl4j-1.6.1.jar
+ /home/nicola/.m2/repository/org/codehaus/xfire/xfire-spring/1.2.6/xfire-spring-1.2.6.jar
+ /home/nicola/.m2/repository/javax/xml/bind/jsr173_api/1.0/jsr173_api-1.0.jar
+ /home/nicola/.m2/repository/commons-el/commons-el/1.0/commons-el-1.0.jar
+ /home/nicola/.m2/repository/com/icesoft/icefaces-comps/1.5.3/icefaces-comps-1.5.3.jar
+ /home/nicola/.m2/repository/javax/xml/ws/jaxws-api/2.0/jaxws-api-2.0.jar
+ /home/nicola/.m2/repository/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar
+ /home/nicola/.m2/repository/org/regola/regola-core/1.0-M1-SNAPSHOT/regola-core-1.0-M1-SNAPSHOT.jar
+ /home/nicola/.m2/repository/ognl/ognl/2.6.9/ognl-2.6.9.jar
+ /home/nicola/.m2/repository/net/java/dev/stax-utils/stax-utils/20040917/stax-utils-20040917.jar
+ /home/nicola/.m2/repository/org/apache/ws/commons/XmlSchema/1.1/XmlSchema-1.1.jar
+ /home/nicola/.m2/repository/aspectj/aspectjweaver/1.5.3/aspectjweaver-1.5.3.jar
+ /home/nicola/.m2/repository/antlr/antlr/2.7.6/antlr-2.7.6.jar
+ /home/nicola/.m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar
+ /home/nicola/.m2/repository/org/codehaus/xfire/xfire-core/1.2.6/xfire-core-1.2.6.jar
+ /home/nicola/.m2/repository/org/springframework/spring-context/2.0.6/spring-context-2.0.6.jar
+ /home/nicola/.m2/repository/xfire/xfire-jsr181-api/1.0-M1/xfire-jsr181-api-1.0-M1.jar
+ /home/nicola/.m2/repository/javax/servlet/jstl/1.1.0/jstl-1.1.0.jar
+ /home/nicola/.m2/repository/org/apache/myfaces/core/myfaces-api/1.1.4/myfaces-api-1.1.4.jar
+ /home/nicola/.m2/repository/jdom/jdom/1.0/jdom-1.0.jar
+ /home/nicola/.m2/repository/javax/xml/bind/jaxb-api/2.0/jaxb-api-2.0.jar
+ /home/nicola/.m2/repository/commons-digester/commons-digester/1.6/commons-digester-1.6.jar
+ /home/nicola/.m2/repository/oro/oro/2.0.8/oro-2.0.8.jar
+ /home/nicola/.m2/repository/javax/persistence/persistence-api/1.0/persistence-api-1.0.jar
+ /home/nicola/.m2/repository/commons-cli/commons-cli/1.0/commons-cli-1.0.jar
+ /home/nicola/.m2/repository/jaxen/jaxen/1.1-beta-9/jaxen-1.1-beta-9.jar
+ /home/nicola/.m2/repository/com/sun/xml/bind/jaxb-impl/2.0.1/jaxb-impl-2.0.1.jar
+ /home/nicola/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar
+ /home/nicola/.m2/repository/com/icesoft/icefaces/1.5.3/icefaces-1.5.3.jar
+ /home/nicola/.m2/repository/org/codehaus/xfire/xfire-annotations/1.2.6/xfire-annotations-1.2.6.jar
+ /home/nicola/.m2/repository/org/hibernate/hibernate-annotations/3.2.1.ga/hibernate-annotations-3.2.1.ga.jar
+ /home/nicola/.m2/repository/org/codehaus/xfire/xfire-java5/1.2.6/xfire-java5-1.2.6.jar
+ /home/nicola/.m2/repository/xmlbeans/xbean/2.2.0/xbean-2.2.0.jar
+ /home/nicola/.m2/repository/commons-attributes/commons-attributes-api/2.1/commons-attributes-api-2.1.jar
+ /home/nicola/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar
+ /home/nicola/.m2/repository/qdox/qdox/1.5/qdox-1.5.jar
+ /home/nicola/.m2/repository/xerces/xmlParserAPIs/2.6.2/xmlParserAPIs-2.6.2.jar
+ /home/nicola/.m2/repository/org/springframework/spring/2.0.6/spring-2.0.6.jar
+ /home/nicola/.m2/repository/org/acegisecurity/acegi-security/1.0.3/acegi-security-1.0.3.jar
+ /home/nicola/.m2/repository/org/hibernate/hibernate/3.2.3.ga/hibernate-3.2.3.ga.jar
+ /home/nicola/.m2/repository/ant/ant/1.5/ant-1.5.jar
+ /home/nicola/.m2/repository/org/apache/xbean/xbean-spring/2.8/xbean-spring-2.8.jar
+ /home/nicola/.m2/repository/javax/xml/jaxb-api/2.0/jaxb-api-2.0.jar]
+[DEBUG] Output directory: /usr/local/nicola/NetBeansProjects/trunk/regola-jsf/target/classes
+[DEBUG] Classpath:
+[DEBUG]  /usr/local/nicola/NetBeansProjects/trunk/regola-jsf/target/classes
+[DEBUG]  /home/nicola/.m2/repository/com/sun/xml/bind/jaxb-xjc/2.0.1/jaxb-xjc-2.0.1.jar
+[DEBUG]  /home/nicola/.m2/repository/org/springframework/spring-beans/2.0.6/spring-beans-2.0.6.jar
+[DEBUG]  /home/nicola/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar
+[DEBUG]  /home/nicola/.m2/repository/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar
+[DEBUG]  /home/nicola/.m2/repository/com/icesoft/icefaces-facelets/1.5.3/icefaces-facelets-1.5.3.jar
+[DEBUG]  /home/nicola/.m2/repository/xstream/xstream/1.0.2/xstream-1.0.2.jar
+[DEBUG]  /home/nicola/.m2/repository/commons-httpclient/commons-httpclient/3.0/commons-httpclient-3.0.jar
+[DEBUG]  /home/nicola/.m2/repository/stax/stax-api/1.0.1/stax-api-1.0.1.jar
+[DEBUG]  /home/nicola/.m2/repository/org/apache/myfaces/core/myfaces-impl/1.1.4/myfaces-impl-1.1.4.jar
+[DEBUG]  /home/nicola/.m2/repository/org/codehaus/xfire/xfire-jaxb2/1.2.6/xfire-jaxb2-1.2.6.jar
+[DEBUG]  /home/nicola/.m2/repository/asm/asm/1.5.3/asm-1.5.3.jar
+[DEBUG]  /home/nicola/.m2/repository/org/springframework/spring-web/2.0.6/spring-web-2.0.6.jar
+[DEBUG]  /home/nicola/.m2/repository/xerces/xercesImpl/2.6.2/xercesImpl-2.6.2.jar
+[DEBUG]  /home/nicola/.m2/repository/freemarker/freemarker/2.3.8/freemarker-2.3.8.jar
+[DEBUG]  /home/nicola/.m2/repository/commons-io/commons-io/1.3.1/commons-io-1.3.1.jar
+[DEBUG]  /home/nicola/.m2/repository/net/sf/ehcache/ehcache/1.2.3/ehcache-1.2.3.jar
+[DEBUG]  /home/nicola/.m2/repository/commons-lang/commons-lang/2.3/commons-lang-2.3.jar
+[DEBUG]  /home/nicola/.m2/repository/org/acegisecurity/acegi-security-tiger/1.0.3/acegi-security-tiger-1.0.3.jar
+[DEBUG]  /home/nicola/.m2/repository/commons-codec/commons-codec/1.3/commons-codec-1.3.jar
+[DEBUG]  /home/nicola/.m2/repository/org/codehaus/woodstox/wstx-asl/3.2.0/wstx-asl-3.2.0.jar
+[DEBUG]  /home/nicola/.m2/repository/commons-logging/commons-logging/1.1/commons-logging-1.1.jar
+[DEBUG]  /home/nicola/.m2/repository/org/codehaus/xfire/xfire-xmlbeans/1.2.6/xfire-xmlbeans-1.2.6.jar
+[DEBUG]  /home/nicola/.m2/repository/org/springframework/spring-core/2.0.6/spring-core-2.0.6.jar
+[DEBUG]  /home/nicola/.m2/repository/cglib/cglib/2.1_3/cglib-2.1_3.jar
+[DEBUG]  /home/nicola/.m2/repository/asm/asm-attrs/1.5.3/asm-attrs-1.5.3.jar
+[DEBUG]  /home/nicola/.m2/repository/javax/mail/mail/1.4/mail-1.4.jar
+[DEBUG]  /home/nicola/.m2/repository/org/codehaus/xfire/xfire-aegis/1.2.6/xfire-aegis-1.2.6.jar
+[DEBUG]  /home/nicola/.m2/repository/commons-collections/commons-collections/2.1.1/commons-collections-2.1.1.jar
+[DEBUG]  /home/nicola/.m2/repository/wsdl4j/wsdl4j/1.6.1/wsdl4j-1.6.1.jar
+[DEBUG]  /home/nicola/.m2/repository/org/codehaus/xfire/xfire-spring/1.2.6/xfire-spring-1.2.6.jar
+[DEBUG]  /home/nicola/.m2/repository/javax/xml/bind/jsr173_api/1.0/jsr173_api-1.0.jar
+[DEBUG]  /home/nicola/.m2/repository/commons-el/commons-el/1.0/commons-el-1.0.jar
+[DEBUG]  /home/nicola/.m2/repository/com/icesoft/icefaces-comps/1.5.3/icefaces-comps-1.5.3.jar
+[DEBUG]  /home/nicola/.m2/repository/javax/xml/ws/jaxws-api/2.0/jaxws-api-2.0.jar
+[DEBUG]  /home/nicola/.m2/repository/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar
+[DEBUG]  /home/nicola/.m2/repository/org/regola/regola-core/1.0-M1-SNAPSHOT/regola-core-1.0-M1-SNAPSHOT.jar
+[DEBUG]  /home/nicola/.m2/repository/ognl/ognl/2.6.9/ognl-2.6.9.jar
+[DEBUG]  /home/nicola/.m2/repository/net/java/dev/stax-utils/stax-utils/20040917/stax-utils-20040917.jar
+[DEBUG]  /home/nicola/.m2/repository/org/apache/ws/commons/XmlSchema/1.1/XmlSchema-1.1.jar
+[DEBUG]  /home/nicola/.m2/repository/aspectj/aspectjweaver/1.5.3/aspectjweaver-1.5.3.jar
+[DEBUG]  /home/nicola/.m2/repository/antlr/antlr/2.7.6/antlr-2.7.6.jar
+[DEBUG]  /home/nicola/.m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar
+[DEBUG]  /home/nicola/.m2/repository/org/codehaus/xfire/xfire-core/1.2.6/xfire-core-1.2.6.jar
+[DEBUG]  /home/nicola/.m2/repository/org/springframework/spring-context/2.0.6/spring-context-2.0.6.jar
+[DEBUG]  /home/nicola/.m2/repository/xfire/xfire-jsr181-api/1.0-M1/xfire-jsr181-api-1.0-M1.jar
+[DEBUG]  /home/nicola/.m2/repository/javax/servlet/jstl/1.1.0/jstl-1.1.0.jar
+[DEBUG]  /home/nicola/.m2/repository/org/apache/myfaces/core/myfaces-api/1.1.4/myfaces-api-1.1.4.jar
+[DEBUG]  /home/nicola/.m2/repository/jdom/jdom/1.0/jdom-1.0.jar
+[DEBUG]  /home/nicola/.m2/repository/javax/xml/bind/jaxb-api/2.0/jaxb-api-2.0.jar
+[DEBUG]  /home/nicola/.m2/repository/commons-digester/commons-digester/1.6/commons-digester-1.6.jar
+[DEBUG]  /home/nicola/.m2/repository/oro/oro/2.0.8/oro-2.0.8.jar
+[DEBUG]  /home/nicola/.m2/repository/javax/persistence/persistence-api/1.0/persistence-api-1.0.jar
+[DEBUG]  /home/nicola/.m2/repository/commons-cli/commons-cli/1.0/commons-cli-1.0.jar
+[DEBUG]  /home/nicola/.m2/repository/jaxen/jaxen/1.1-beta-9/jaxen-1.1-beta-9.jar
+[DEBUG]  /home/nicola/.m2/repository/com/sun/xml/bind/jaxb-impl/2.0.1/jaxb-impl-2.0.1.jar
+[DEBUG]  /home/nicola/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar
+[DEBUG]  /home/nicola/.m2/repository/com/icesoft/icefaces/1.5.3/icefaces-1.5.3.jar
+[DEBUG]  /home/nicola/.m2/repository/org/codehaus/xfire/xfire-annotations/1.2.6/xfire-annotations-1.2.6.jar
+[DEBUG]  /home/nicola/.m2/repository/org/hibernate/hibernate-annotations/3.2.1.ga/hibernate-annotations-3.2.1.ga.jar
+[DEBUG]  /home/nicola/.m2/repository/org/codehaus/xfire/xfire-java5/1.2.6/xfire-java5-1.2.6.jar
+[DEBUG]  /home/nicola/.m2/repository/xmlbeans/xbean/2.2.0/xbean-2.2.0.jar
+[DEBUG]  /home/nicola/.m2/repository/commons-attributes/commons-attributes-api/2.1/commons-attributes-api-2.1.jar
+[DEBUG]  /home/nicola/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar
+[DEBUG]  /home/nicola/.m2/repository/qdox/qdox/1.5/qdox-1.5.jar
+[DEBUG]  /home/nicola/.m2/repository/xerces/xmlParserAPIs/2.6.2/xmlParserAPIs-2.6.2.jar
+[DEBUG]  /home/nicola/.m2/repository/org/springframework/spring/2.0.6/spring-2.0.6.jar
+[DEBUG]  /home/nicola/.m2/repository/org/acegisecurity/acegi-security/1.0.3/acegi-security-1.0.3.jar
+[DEBUG]  /home/nicola/.m2/repository/org/hibernate/hibernate/3.2.3.ga/hibernate-3.2.3.ga.jar
+[DEBUG]  /home/nicola/.m2/repository/ant/ant/1.5/ant-1.5.jar
+[DEBUG]  /home/nicola/.m2/repository/org/apache/xbean/xbean-spring/2.8/xbean-spring-2.8.jar
+[DEBUG]  /home/nicola/.m2/repository/javax/xml/jaxb-api/2.0/jaxb-api-2.0.jar
+[DEBUG] Source roots:
+[DEBUG]  /usr/local/nicola/NetBeansProjects/trunk/regola-jsf/src/main/java
+[INFO] Compiling 37 source files to /usr/local/nicola/NetBeansProjects/trunk/regola-jsf/target/classes
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Compilation failure
+
+/usr/local/nicola/NetBeansProjects/trunk/regola-jsf/src/main/java/it/kion/regola/webapp/filter/LocaleFilter.java:[48,22] cannot access javax.servlet.jsp.PageContext
+file javax/servlet/jsp/PageContext.class not found
+                Config.set(session, Config.FMT_LOCALE, preferredLocale);
+
+/usr/local/nicola/NetBeansProjects/trunk/regola-jsf/src/main/java/it/kion/regola/webapp/util/FacesUtils.java:[136,26] cannot access javax.servlet.jsp.tagext.Tag
+file javax/servlet/jsp/tagext/Tag.class not found
+        if (UIComponentTag.isValueReference(el)) {
+
+
+[INFO] ------------------------------------------------------------------------
+[DEBUG] Trace
+org.apache.maven.BuildFailureException: Compilation failure
+	at org.apache.maven.lifecycle.DefaultLifecycleExecutor.executeGoals(DefaultLifecycleExecutor.java:560)
+	at org.apache.maven.lifecycle.DefaultLifecycleExecutor.executeGoalWithLifecycle(DefaultLifecycleExecutor.java:480)
+	at org.apache.maven.lifecycle.DefaultLifecycleExecutor.executeGoal(DefaultLifecycleExecutor.java:459)
+	at org.apache.maven.lifecycle.DefaultLifecycleExecutor.executeGoalAndHandleFailures(DefaultLifecycleExecutor.java:311)
+	at org.apache.maven.lifecycle.DefaultLifecycleExecutor.executeTaskSegments(DefaultLifecycleExecutor.java:278)
+	at org.apache.maven.lifecycle.DefaultLifecycleExecutor.execute(DefaultLifecycleExecutor.java:143)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:334)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:125)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:272)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at org.codehaus.classworlds.Launcher.launchEnhanced(Launcher.java:315)
+	at org.codehaus.classworlds.Launcher.launch(Launcher.java:255)
+	at org.codehaus.classworlds.Launcher.mainWithExitCode(Launcher.java:430)
+	at org.codehaus.classworlds.Launcher.main(Launcher.java:375)
+Caused by: org.apache.maven.plugin.CompilationFailureException: Compilation failure
+	at org.apache.maven.plugin.AbstractCompilerMojo.execute(AbstractCompilerMojo.java:516)
+	at org.apache.maven.plugin.CompilerMojo.execute(CompilerMojo.java:114)
+	at org.apache.maven.plugin.DefaultPluginManager.executeMojo(DefaultPluginManager.java:443)
+	at org.apache.maven.lifecycle.DefaultLifecycleExecutor.executeGoals(DefaultLifecycleExecutor.java:539)
+	... 16 more
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 8 seconds
+[INFO] Finished at: Wed Oct 03 10:57:38 CEST 2007
+[INFO] Final Memory: 8M/17M
+[INFO] ------------------------------------------------------------------------
