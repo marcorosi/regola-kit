@@ -104,7 +104,7 @@
 
 	<properties>
 		<spring.version>2.0.7</spring.version>
-		<jpox.version>1.1.7</jpox.version>
+		<jpox.version>1.2-SNAPSHOT</jpox.version>
 	</properties>
 
 	<dependencyManagement>
@@ -155,9 +155,7 @@
 			</dependency>
 			<dependency>
 				<groupId>jpox</groupId>
-				<artifactId>jpox</artifactId>
-				<version>${jpox.version}</version>
-				<scope>test</scope>
+				<artifactId>jpox-core</artifactId>
 				<exclusions>
 					<exclusion>
 						<groupId>oracle</groupId>
@@ -168,6 +166,20 @@
 						<artifactId>db4o</artifactId>
 					</exclusion>
 				</exclusions>
+				<version>${jpox.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>jpox</groupId>
+				<artifactId>jpox-enhancer</artifactId>
+				<version>${jpox.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>bcel</groupId>
+				<artifactId>bcel</artifactId>
+				<version>5.1</version>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
@@ -474,6 +486,11 @@
 		<repository>
 			<id>m1 jpox</id>
 			<url>http://www.jpox.org/downloads/maven</url>
+			<layout>legacy</layout>
+		</repository>
+		<repository>
+			<id>m1 jpox nightly</id>
+			<url>http://www.jpox.org/downloads/maven-nightly</url>
 			<layout>legacy</layout>
 		</repository>
 	</repositories>
