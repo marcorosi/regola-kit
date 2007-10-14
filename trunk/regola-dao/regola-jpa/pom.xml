@@ -5,17 +5,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.regola</groupId>
-		<artifactId>regola-kit</artifactId>
+		<artifactId>regola-dao</artifactId>
 		<version>1.0-M1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>regola-ibatis</artifactId>
+	<artifactId>regola-jpa</artifactId>
 	<packaging>jar</packaging>
-	<name>REGOLA Toolkit :: iBATIS integration module</name>
-	<description>
-		REGOLA Toolkit :: iBATIS integration module
-	</description>
+	<name>REGOLA Toolkit :: DAO :: JPA integration module</name>
+	<description>REGOLA Toolkit :: DAO :: JPA integration module</description>
 
 	<dependencies>
 		<dependency>
@@ -34,6 +32,18 @@
 			<artifactId>hsqldb</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>toplink.essentials</groupId>
+			<artifactId>toplink-essentials</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.openjpa</groupId>
+			<artifactId>openjpa</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-mock</artifactId>
 		</dependency>
@@ -43,11 +53,24 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-ibatis</artifactId>
+			<artifactId>spring-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.persistence</groupId>
 			<artifactId>persistence-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.bzdyl.ejb3criteria</groupId>
+			<artifactId>ejb3criteria</artifactId>
+			<version>0.2-SNAPSHOT</version>
+			<scope>system</scope>
+			<systemPath>
+				${basedir}/lib/ejb3criteria-0.2-SNAPSHOT.jar
+			</systemPath>
 		</dependency>
 	</dependencies>
 </project>

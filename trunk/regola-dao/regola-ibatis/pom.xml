@@ -5,32 +5,17 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.regola</groupId>
-		<artifactId>regola-kit</artifactId>
+		<artifactId>regola-dao</artifactId>
 		<version>1.0-M1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>regola-jdo</artifactId>
+	<artifactId>regola-ibatis</artifactId>
 	<packaging>jar</packaging>
-	<name>REGOLA Toolkit :: JDO integration module</name>
-	<description>REGOLA Toolkit :: JDO integration module</description>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<forkMode>once</forkMode>
-					<argLine>
-						-javaagent:${user.home}/.m2/repository/jpox/jpox-enhancer/${jpox.version}/jpox-enhancer-${jpox.version}.jar
-					</argLine>
-					<useSystemClassLoader>true</useSystemClassLoader>
-				</configuration>
-			</plugin>
-
-		</plugins>
-	</build>
+	<name>REGOLA Toolkit :: DAO :: iBATIS integration module</name>
+	<description>
+		REGOLA Toolkit :: DAO :: iBATIS integration module
+	</description>
 
 	<dependencies>
 		<dependency>
@@ -58,23 +43,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdo</artifactId>
+			<artifactId>spring-ibatis</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>javax.jdo</groupId>
-			<artifactId>jdo2-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>jpox</groupId>
-			<artifactId>jpox-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>jpox</groupId>
-			<artifactId>jpox-enhancer</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>bcel</groupId>
-			<artifactId>bcel</artifactId>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
 		</dependency>
 	</dependencies>
 </project>

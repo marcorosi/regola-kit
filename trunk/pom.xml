@@ -76,10 +76,7 @@
 
 	<modules>
 		<module>regola-core</module>
-		<module>regola-hibernate</module>
-		<module>regola-jpa</module>
-		<module>regola-jdo</module>
-		<module>regola-ibatis</module>
+		<module>regola-dao</module>
 	</modules>
 
 	<build>
@@ -128,70 +125,6 @@
 				<groupId>org.easymock</groupId>
 				<artifactId>easymock</artifactId>
 				<version>2.3</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.dbunit</groupId>
-				<artifactId>dbunit</artifactId>
-				<version>2.2</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.unitils</groupId>
-				<artifactId>unitils</artifactId>
-				<version>1.0-rc-4</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>hsqldb</groupId>
-				<artifactId>hsqldb</artifactId>
-				<version>1.8.0.7</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>toplink.essentials</groupId>
-				<artifactId>toplink-essentials</artifactId>
-				<version>2.0-58g</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>jpox</groupId>
-				<artifactId>jpox-core</artifactId>
-				<exclusions>
-					<exclusion>
-						<groupId>oracle</groupId>
-						<artifactId>ojdbc</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>db4o</groupId>
-						<artifactId>db4o</artifactId>
-					</exclusion>
-				</exclusions>
-				<version>${jpox.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>jpox</groupId>
-				<artifactId>jpox-enhancer</artifactId>
-				<version>${jpox.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>bcel</groupId>
-				<artifactId>bcel</artifactId>
-				<version>5.1</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-entitymanager</artifactId>
-				<version>3.2.1.ga</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.openjpa</groupId>
-				<artifactId>openjpa</artifactId>
-				<version>1.0.0</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
