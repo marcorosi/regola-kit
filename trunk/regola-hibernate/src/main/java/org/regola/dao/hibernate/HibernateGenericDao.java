@@ -20,7 +20,7 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 
 	private Class<T> persistentClass;
 
-	private ModelPatternParser filterBuilder = new DefaultModelPatternParser();
+	private ModelPatternParser patternParser = new DefaultModelPatternParser();
 
 	public HibernateGenericDao(Class<T> persistentClass) {
 		this.persistentClass = persistentClass;
@@ -48,37 +48,37 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> find(final ModelPattern filter) {
+	public List<T> find(final ModelPattern pattern) {
 		return getHibernateTemplate().executeFind(new HibernateCallback() {
 			public Object doInHibernate(Session session) {
 				HibernateCriteria criteriaBuilder = new HibernateCriteria(
 						session.createCriteria(persistentClass));
-				getFilterBuilder().createQuery(criteriaBuilder, filter);
+				getPatternParser().createQuery(criteriaBuilder, pattern);
 				return criteriaBuilder.getCriteria().list();
 			}
 		});
 	}
 
-	public int count(final ModelPattern filter) {
+	public int count(final ModelPattern pattern) {
 		// TODO controllare null result?
 		return (Integer) getHibernateTemplate().execute(
 				new HibernateCallback() {
 					public Object doInHibernate(Session session) {
 						HibernateCriteria criteriaBuilder = new HibernateCriteria(
 								session.createCriteria(persistentClass));
-						getFilterBuilder().createCountQuery(criteriaBuilder,
-								filter);
+						getPatternParser().createCountQuery(criteriaBuilder,
+								pattern);
 						return criteriaBuilder.getCriteria().uniqueResult();
 					}
 				});
 	}
 
-	public ModelPatternParser getFilterBuilder() {
-		return filterBuilder;
+	public ModelPatternParser getPatternParser() {
+		return patternParser;
 	}
 
-	public void setFilterBuilder(ModelPatternParser filterBuilder) {
-		this.filterBuilder = filterBuilder;
+	public void setPatternParser(ModelPatternParser patternParser) {
+		this.patternParser = patternParser;
 	}
 
 	@SuppressWarnings("unchecked")

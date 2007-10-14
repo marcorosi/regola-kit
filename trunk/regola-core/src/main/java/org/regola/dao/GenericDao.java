@@ -6,14 +6,12 @@ import java.util.List;
 import org.regola.model.ModelPattern;
 
 /**
- * L'interfaccia del generic dao per effettuare le
- * più comuni operazioni di CRUD sul tipo T con chiave
- * relazionale di tipo ID.
+ * L'interfaccia del generic dao per effettuare le più comuni operazioni di CRUD
+ * sul tipo T con chiave relazionale di tipo ID.
  */
 public interface GenericDao<T, ID extends Serializable> {
 
-	    
-        T get(ID id);
+	T get(ID id);
 
 	boolean exists(ID id);
 
@@ -21,7 +19,7 @@ public interface GenericDao<T, ID extends Serializable> {
 
 	void removeEntity(T entity);
 
-	T save(T object);
+	T save(T entity);
 
 	List<T> find(ModelPattern pattern);
 
