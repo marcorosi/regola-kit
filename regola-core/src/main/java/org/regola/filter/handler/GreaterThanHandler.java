@@ -5,7 +5,6 @@ import java.lang.annotation.Annotation;
 import org.regola.filter.annotation.GreaterThan;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.criterion.Restrictions;
-import org.regola.filter.impl.AbstractFilterAnnotationHandler;
 
 public class GreaterThanHandler extends AbstractFilterAnnotationHandler {
 

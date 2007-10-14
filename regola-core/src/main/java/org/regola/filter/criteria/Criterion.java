@@ -100,7 +100,7 @@ public class Criterion {
 			this.token = token;
 		}
 
-                @Override
+		@Override
 		public String toString() {
 			return token;
 		}

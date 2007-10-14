@@ -14,6 +14,7 @@ import org.regola.filter.annotation.Like;
 import org.regola.filter.annotation.ModelPatternFilter;
 import org.regola.filter.annotation.NotEquals;
 import org.regola.filter.criteria.Criteria;
+import org.regola.filter.handler.AbstractFilterAnnotationHandler;
 import org.regola.filter.handler.EqualsHandler;
 import org.regola.filter.handler.GreaterThanHandler;
 import org.regola.filter.handler.InHandler;

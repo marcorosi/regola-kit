@@ -1,4 +1,4 @@
-package org.regola.filter.impl;
+package org.regola.filter.handler;
 
 import java.beans.PropertyDescriptor;
 import java.lang.annotation.Annotation;
