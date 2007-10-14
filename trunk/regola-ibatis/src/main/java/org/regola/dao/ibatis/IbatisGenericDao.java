@@ -1,24 +1,14 @@
 package org.regola.dao.ibatis;
 
-import java.beans.PropertyDescriptor;
 import java.io.Serializable;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.List;
-
-import javax.persistence.Id;
 
 import org.regola.dao.GenericDao;
 import org.regola.filter.ModelPatternParser;
 import org.regola.filter.criteria.ibatis.IbatisCriteria;
 import org.regola.filter.impl.DefaultModelPatternParser;
 import org.regola.model.ModelPattern;
-import org.regola.util.AnnotationUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
-
-import com.ibatis.common.beans.Probe;
-import com.ibatis.common.beans.ProbeFactory;
 
 public class IbatisGenericDao<T, ID extends Serializable> extends
 		SqlMapClientDaoSupport implements GenericDao<T, ID> {
@@ -27,53 +17,8 @@ public class IbatisGenericDao<T, ID extends Serializable> extends
 
 	private ModelPatternParser patternParser = new DefaultModelPatternParser();
 
-	private Probe probe;
-
-	private String idProperty;
-
 	public IbatisGenericDao(Class<T> persistentClass) {
 		this.persistentClass = persistentClass;
-		probe = ProbeFactory.getProbe(persistentClass);
-		idProperty = idProperty(persistentClass);
-	}
-
-	protected String idProperty(Class<T> persistentClass) {
-		Field[] fields = AnnotationUtils.findFieldsByAnnotation(
-				persistentClass, Id.class);
-		if (fields.length > 1) {
-			throw new IllegalArgumentException("La classe " + persistentClass
-					+ " contiene più campi marcati con l'annotazione \"Id\":"
-					+ " chiavi primarie composte non sono supportate");
-		}
-		if (fields.length == 1) {
-			return fields[0].getName();
-		}
-		Method[] methods = AnnotationUtils.findMethodsByAnnotation(
-				persistentClass, Id.class);
-		if (methods.length > 1) {
-			throw new IllegalArgumentException("La classe " + persistentClass
-					+ " contiene più metodi marcati con l'annotazione \"Id\":"
-					+ " chiavi primarie composte non sono supportate");
-		}
-		if (methods.length == 1) {
-			if (methods[0].getName().startsWith("get")
-					|| methods[0].getName().startsWith("set")) {
-				return methods[0].getName().substring(3);
-			} else {
-				throw new IllegalArgumentException("La classe "
-						+ persistentClass
-						+ " contiene un metodo con nome invalido marcato come"
-						+ " chiave primaria con l'annotatione \"Id\"");
-			}
-		}
-		PropertyDescriptor pd = BeanUtils.getPropertyDescriptor(
-				persistentClass, "id");
-		if (pd != null) {
-			return pd.getName();
-		}
-		throw new IllegalArgumentException(
-				"Impossibile individuare la chiave primaria della classe "
-						+ persistentClass);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -118,7 +63,6 @@ public class IbatisGenericDao<T, ID extends Serializable> extends
 	}
 
 	public T save(T entity) {
-		// if (idValue(entity) != null) {
 		if (existsEntity(entity)) {
 			update(entity);
 		} else {
@@ -142,9 +86,5 @@ public class IbatisGenericDao<T, ID extends Serializable> extends
 
 	protected String queryName(String query) {
 		return persistentClass.getSimpleName() + "." + query;
-	}
-
-	protected Object idValue(T entity) {
-		return probe.getObject(entity, idProperty);
 	}
 }
