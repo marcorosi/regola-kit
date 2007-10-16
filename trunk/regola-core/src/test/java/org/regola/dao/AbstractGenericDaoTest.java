@@ -20,7 +20,11 @@ import org.springframework.test.annotation.AbstractAnnotationAwareTransactionalT
 public abstract class AbstractGenericDaoTest extends
 		AbstractAnnotationAwareTransactionalTests {
 
-	protected GenericDao<Customer, Integer> customerDao;
+	private GenericDao<Customer, Integer> customerDao;
+
+	public GenericDao<Customer, Integer> getCustomerDao() {
+		return customerDao;
+	}
 
 	public void setCustomerDao(GenericDao<Customer, Integer> customerDao) {
 		this.customerDao = customerDao;
@@ -42,7 +46,11 @@ public abstract class AbstractGenericDaoTest extends
 
 	protected Customer newCustomer(Integer id, String firstName,
 			String lastName, String street, String city) {
-		return new Customer(id, firstName, lastName, new Address(street, city));
+		return new Customer(id, firstName, lastName, newAddress(street, city));
+	}
+
+	protected Address newAddress(String street, String city) {
+		return new Address(street, city);
 	}
 
 	protected void assertEqualsCustomers(Customer expected, Customer actual) {

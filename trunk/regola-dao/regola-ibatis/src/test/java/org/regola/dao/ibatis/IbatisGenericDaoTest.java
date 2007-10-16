@@ -1,7 +1,7 @@
 package org.regola.dao.ibatis;
 
-import org.regola.dao.AbstractGenericDaoTest;
+import org.regola.dao.AbstractFinderDaoTest;
 
-public class IbatisGenericDaoTest extends AbstractGenericDaoTest {
+public class IbatisGenericDaoTest extends AbstractFinderDaoTest {
 
 }
