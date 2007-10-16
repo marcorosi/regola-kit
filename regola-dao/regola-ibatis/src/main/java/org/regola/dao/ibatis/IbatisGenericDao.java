@@ -1,17 +1,20 @@
 package org.regola.dao.ibatis;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.regola.dao.GenericDao;
 import org.regola.filter.ModelPatternParser;
 import org.regola.filter.criteria.ibatis.IbatisCriteria;
 import org.regola.filter.impl.DefaultModelPatternParser;
+import org.regola.finder.FinderExecutor;
 import org.regola.model.ModelPattern;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 public class IbatisGenericDao<T, ID extends Serializable> extends
-		SqlMapClientDaoSupport implements GenericDao<T, ID> {
+		SqlMapClientDaoSupport implements GenericDao<T, ID>, FinderExecutor<T> {
 
 	private Class<T> persistentClass;
 
@@ -82,6 +85,26 @@ public class IbatisGenericDao<T, ID extends Serializable> extends
 	@SuppressWarnings("unchecked")
 	public List<T> getAll() {
 		return getSqlMapClientTemplate().queryForList(queryName("getAll"));
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<T> executeFinder(String finder, Object... args) {
+		Object param = null;
+		if (args.length == 1) {
+			param = args[0];
+		} else if (args.length > 1) {
+			param = buildParameterMap(args);
+		}
+		return getSqlMapClientTemplate().queryForList(
+				queryName(finder), param);
+	}
+
+	protected Map<String, Object> buildParameterMap(Object... args) {
+		Map<String, Object> paramsMap = new HashMap<String, Object>();
+		for (int i = 0; i < args.length; i++) {
+			paramsMap.put(String.valueOf(i + 1), args[i]);
+		}
+		return paramsMap;
 	}
 
 	protected String queryName(String query) {

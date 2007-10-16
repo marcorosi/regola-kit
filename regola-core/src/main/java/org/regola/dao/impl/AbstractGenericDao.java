@@ -6,24 +6,23 @@ import java.util.List;
 import org.regola.dao.GenericDao;
 import org.regola.filter.ModelPatternParser;
 import org.regola.filter.impl.DefaultModelPatternParser;
+import org.regola.finder.FinderExecutor;
 import org.regola.model.ModelPattern;
 
 /**
- * Fornisce un'implmentazione standard dell'interfaccia {@link GenericDao} per
- * agevolarne l'implementazione dei diversi motori di persistenza.
+ * Implementazione di base dell'interfaccia {@link GenericDao} per agevolare la
+ * scrittura dei DAO per i diversi motori di persistenza.
  * 
- * Implementa il pattern Template Method [Gof95] fornendo un'implementazione
- * standard per le classi derivate.
+ * Applica il pattern Template Method [Gof95] per fornire un'implementazione di
+ * default di alcuni metodi per le classi derivate.
  * 
  */
 public abstract class AbstractGenericDao<T, ID extends Serializable> implements
-		GenericDao<T, ID> {
+		GenericDao<T, ID>, FinderExecutor<T> {
 
 	private Class<T> persistentClass;
 
 	private ModelPatternParser patternParser = new DefaultModelPatternParser();
-
-	public abstract List<T> find(ModelPattern pattern);
 
 	/**
 	 * Attenzione: meglio fare l'overload potendo per evitare performace penose.
@@ -31,8 +30,6 @@ public abstract class AbstractGenericDao<T, ID extends Serializable> implements
 	public int count(ModelPattern pattern) {
 		return find(pattern).size();
 	}
-
-	public abstract T get(ID id);
 
 	public boolean exists(ID id) {
 		return get(id) == null ? false : true;
@@ -51,10 +48,6 @@ public abstract class AbstractGenericDao<T, ID extends Serializable> implements
 			removeEntity(entity);
 		}
 	}
-
-	public abstract void removeEntity(T entity);
-
-	public abstract T save(T entity);
 
 	public Class<T> getPersistentClass() {
 		return persistentClass;

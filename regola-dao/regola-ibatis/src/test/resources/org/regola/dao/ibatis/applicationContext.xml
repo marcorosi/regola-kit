@@ -13,9 +13,16 @@
 	</bean>
 
 	<bean id="customerDao"
-		class="org.regola.dao.ibatis.IbatisGenericDao">
-		<constructor-arg value="org.regola.model.Customer" />
-		<property name="sqlMapClient" ref="sqlMapClient" />
+		class="org.regola.finder.FinderFactoryBean">
+		<property name="proxyInterfaces"
+			value="org.regola.dao.CustomerDao" />
+		<property name="target">
+			<bean id="customerDaoTarget"
+				class="org.regola.dao.ibatis.IbatisGenericDao">
+				<constructor-arg value="org.regola.model.Customer" />
+				<property name="sqlMapClient" ref="sqlMapClient" />
+			</bean>
+		</property>
 	</bean>
 
 	<bean id="transactionManager"

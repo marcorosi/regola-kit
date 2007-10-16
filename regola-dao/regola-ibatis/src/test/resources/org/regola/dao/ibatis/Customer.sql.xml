@@ -5,6 +5,7 @@
 <sqlMap namespace="Customer">
 
 	<typeAlias alias="Customer" type="org.regola.model.Customer" />
+	<typeAlias alias="Address" type="org.regola.model.Customer$Address" />
 
 	<resultMap class="Customer" id="customerMap">
 		<result property="id" column="ID" />
@@ -176,7 +177,8 @@
 		<include refid="existsFragment" />
 	</select>
 
-	<select id="existsEntity" parameterClass="Customer" resultClass="boolean">
+	<select id="existsEntity" parameterClass="Customer"
+		resultClass="boolean">
 		<include refid="existsFragment" />
 	</select>
 
@@ -217,4 +219,19 @@
 		<include refid="select" />
 	</select>
 
+	<select id="findByLastNameAndCity" parameterClass="map"
+		resultMap="customerMap">
+		<include refid="select" />
+		<![CDATA[
+			WHERE LASTNAME = #1# AND CITY = #2.city#
+		]]>
+	</select>
+
+	<select id="findByAddress" parameterClass="Address"
+		resultMap="customerMap">
+		<include refid="select" />
+		<![CDATA[
+			WHERE STREET = #street# AND CITY = #city#
+		]]>
+	</select>
 </sqlMap>
