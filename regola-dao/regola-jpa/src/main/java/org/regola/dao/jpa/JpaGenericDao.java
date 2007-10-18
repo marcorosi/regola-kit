@@ -40,10 +40,10 @@ public class JpaGenericDao<T, ID extends Serializable> extends
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> find(String finder, Object... args) {
+	public List<T> executeFinder(String finder, Object... args) {
 		Query query = entityManager.createNamedQuery(queryName(finder));
-		for (int i = 0; i < args.length; i++) {
-			query.setParameter(i, args[i]);
+		for (int i = 1; i <= args.length; i++) {
+			query.setParameter(i, args[i - 1]);
 		}
 		return query.getResultList();
 	}

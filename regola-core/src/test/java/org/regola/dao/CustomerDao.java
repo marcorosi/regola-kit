@@ -7,7 +7,9 @@ import org.regola.model.Customer.Address;
 
 public interface CustomerDao extends GenericDao<Customer, Integer> {
 
-	public List<Customer> findByLastNameAndCity(String lastName, Address address);
+	public List<Customer> findByLastNameAndCity(String lastName, String city);
+
+	public List<Customer> findByAddressCity(Address address);
 
 	public List<Customer> findByAddress(Address address);
 
