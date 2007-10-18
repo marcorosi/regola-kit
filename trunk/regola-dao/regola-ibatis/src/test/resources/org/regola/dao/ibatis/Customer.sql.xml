@@ -223,7 +223,15 @@
 		resultMap="customerMap">
 		<include refid="select" />
 		<![CDATA[
-			WHERE LASTNAME = #1# AND CITY = #2.city#
+			WHERE LASTNAME = #1# AND CITY = #2#
+		]]>
+	</select>
+
+	<select id="findByAddressCity" parameterClass="Address"
+		resultMap="customerMap">
+		<include refid="select" />
+		<![CDATA[
+			WHERE CITY = #city#
 		]]>
 	</select>
 

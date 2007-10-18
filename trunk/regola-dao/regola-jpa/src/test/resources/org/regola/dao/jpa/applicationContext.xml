@@ -5,8 +5,16 @@
 
 	<import resource="classpath:org/regola/dao/applicationContext.xml" />
 
-	<bean id="customerDao" class="org.regola.dao.jpa.JpaGenericDao">
-		<constructor-arg value="org.regola.model.Customer" />
+	<bean id="customerDao"
+		class="org.regola.finder.FinderFactoryBean">
+		<property name="proxyInterfaces"
+			value="org.regola.dao.CustomerDao" />
+		<property name="target">
+			<bean id="customerDaoTarget"
+				class="org.regola.dao.jpa.JpaGenericDao">
+				<constructor-arg value="org.regola.model.Customer" />
+			</bean>
+		</property>
 	</bean>
 
 	<bean id="transactionManager"

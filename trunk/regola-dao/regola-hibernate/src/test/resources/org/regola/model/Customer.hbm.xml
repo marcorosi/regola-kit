@@ -4,6 +4,7 @@
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="org.regola.model"
 	default-access="property">
+
 	<class name="Customer">
 		<id name="id" />
 		<property name="firstName" />
@@ -13,4 +14,22 @@
 			<property name="city" />
 		</component>
 	</class>
+
+	<query name="Customer.findByLastNameAndCity">
+		<![CDATA[
+			from Customer as c where c.lastName = ? and c.address.city = ?
+		]]>
+	</query>
+
+	<query name="Customer.findByAddressCity">
+		<![CDATA[
+			from Customer as c where c.address = :city
+		]]>
+	</query>
+
+	<query name="Customer.findByAddress">
+		<![CDATA[
+			from Customer as c where c.address = :address
+		]]>
+	</query>
 </hibernate-mapping>
