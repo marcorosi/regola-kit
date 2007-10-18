@@ -37,11 +37,11 @@
 					FINEST
 				</prop>
 				<prop key="toplink.jdbc.driver">
-					org.hsqldb.jdbcDriver
+					${jdbc.driverClassName}
 				</prop>
-				<prop key="toplink.jdbc.url">jdbc:hsqldb:mem:.</prop>
-				<prop key="toplink.jdbc.user">sa</prop>
-				<prop key="toplink.jdbc.password"></prop>
+				<prop key="toplink.jdbc.url">${jdbc.url}</prop>
+				<prop key="toplink.jdbc.user">${jdbc.username}</prop>
+				<prop key="toplink.jdbc.password">${jdbc.password}</prop>
 				<prop key="toplink.target-database">
 					oracle.toplink.essentials.platform.database.HSQLPlatform
 				</prop>
