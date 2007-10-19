@@ -11,6 +11,7 @@
         <property name="hibernate.default_schema">DIDATTICA</property> -->
         <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
         
+        <mapping resource="org/regola/model/Customer.hbm.xml" />
      
     </session-factory>
 </hibernate-configuration>

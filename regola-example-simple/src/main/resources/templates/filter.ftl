@@ -2,31 +2,31 @@ package ${dao_package};
 
 import java.io.Serializable;
 
-import it.kion.regola.validation.ModelFilter;
-import it.kion.regola.validation.PropertyFilter;
-import it.kion.regola.validation.PropertyFilter.Order;
-import it.kion.regola.validation.annotations.Equals;
+import org.regola.filter.annotation.Equals;
+import org.regola.model.ModelPattern;
+import org.regola.model.ModelProperty;
+import org.regola.model.Order;
 
-public class ${filter_name} extends ModelFilter implements Serializable
+public class ${filter_name} extends ModelPattern implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
 	public ${filter_name}()
 	{
 	  <#list idProperties as proprieta >
-	    defineColumn("id.${same(proprieta.name)}","${field(model_name)}.column.");
+	    addProperty("id.${same(proprieta.name)}","${field(model_name)}.column.");
 	  </#list>
 	  <#if idProperties?size == 0 >
-	    defineColumn("id","${field(model_name)}.column.");
+	    addProperty("id","${field(model_name)}.column.");
 	  </#if>
 	  <#list modelProperties as proprieta >
-	    defineColumn("${same(proprieta.name)}","${field(model_name)}.column.");
+	    addProperty("${same(proprieta.name)}","${field(model_name)}.column.");
 	  </#list>
 	  
 	  <#if idProperties?size &gt; 0 >
-	  getSortedColumns().add(new PropertyFilter("id.${same(idProperties[0].name)}","${field(model_name)}.column.",Order.asc));
+	  getSortedProperties().add(new ModelProperty("id.${same(idProperties[0].name)}","${field(model_name)}.column.",Order.asc));
 	  <#else>
-	  getSortedColumns().add(new PropertyFilter("id","${field(model_name)}.column.",Order.asc));
+	  getSortedProperties().add(new ModelProperty("id","${field(model_name)}.column.",Order.asc));
 	  </#if>
 	}
 
@@ -40,7 +40,7 @@ public class ${filter_name} extends ModelFilter implements Serializable
   
   <#if idProperties?size == 0 >
     
-    @Equals(propertyPath="id")
+    @Equals("id")
 	public ${id_class} getId()
 	{
 		return id;
@@ -55,7 +55,7 @@ public class ${filter_name} extends ModelFilter implements Serializable
  
    <#list idProperties as proprieta >
 	
-	@Equals(propertyPath="id.${same(proprieta.name)}")
+	@Equals("id.${same(proprieta.name)}")
 	public ${proprieta.propertyType.name} get${field(proprieta.name)}()
 	{
 		return ${same(proprieta.name)};
@@ -69,7 +69,7 @@ public class ${filter_name} extends ModelFilter implements Serializable
   
   <#list modelProperties as proprieta >
   
-	@Equals(propertyPath="${same(proprieta.name)}")
+	@Equals("${same(proprieta.name)}")
 	public ${proprieta.propertyType.name} get${field(proprieta.name)}()
 	{
 		return ${same(proprieta.name)};

@@ -32,9 +32,4 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
-	<!-- UniversalDao - can be used when doing standard CRUD - made available 
-		for those who don't mind casting.  If you don't want to cast, look at 
-		'fooDao' below. -->
-
-
 </beans>

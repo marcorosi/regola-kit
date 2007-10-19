@@ -5,7 +5,11 @@
  <!--import resource="classpath*:/regola-config/applicationContext-dao.xml" /-->
  
     <!-- Add new DAOs here -->
-
-   
- 
-</beans>        
+    <bean id="customerDao" class="org.regola.dao.hibernate.CustomerDaoHibernate">
+        	<constructor-arg value="org.regola.model.Customer" />
+		    <property name="sessionFactory" ref="sessionFactory"/>
+    </bean> 
+    	
+</beans>	
+	
+            
