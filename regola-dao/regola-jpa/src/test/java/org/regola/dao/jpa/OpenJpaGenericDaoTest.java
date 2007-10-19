@@ -7,4 +7,12 @@ public class OpenJpaGenericDaoTest extends AbstractJpaGenericDaoTest {
 		return "applicationContext-openjpa.xml";
 	}
 
+	@Override
+	public boolean isDisabledInThisEnvironment(String testMethodName) {
+		if ("testExecuteFinder_byAddress".equals(testMethodName)) {
+			return true;
+		}
+		return super.isDisabledInThisEnvironment(testMethodName);
+	}
+
 }

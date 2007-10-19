@@ -21,11 +21,11 @@
 		]]>
 	</query>
 
-	<query name="Customer.findByAddressCity">
-		<![CDATA[
-			from Customer as c where c.address = :city
-		]]>
-	</query>
+	<!--	<query name="Customer.findByAddressCity">-->
+	<!--		<![CDATA[-->
+	<!--			from Customer as c where c.address = :address.city-->
+	<!--		]]>-->
+	<!--	</query>-->
 
 	<query name="Customer.findByAddress">
 		<![CDATA[

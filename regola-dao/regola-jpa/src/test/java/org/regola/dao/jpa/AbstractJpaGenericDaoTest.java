@@ -17,10 +17,4 @@ public abstract class AbstractJpaGenericDaoTest extends AbstractFinderDaoTest {
 		}
 	}
 
-	@Override
-	public void testExecuteFinder_byAddressCity() {
-		logger
-				.info("*** WARNING: TEST [testExecuteFinder_byAddressCity] DISABLED IN JPA ENVIRONMENT");
-	}
-
 }

@@ -22,6 +22,10 @@
 		<module>regola-ibatis</module>
 	</modules>
 
+	<properties>
+		<jpox.version>1.2-SNAPSHOT</jpox.version>
+	</properties>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

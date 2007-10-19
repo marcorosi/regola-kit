@@ -5,8 +5,14 @@
 
 	<entity class="org.regola.model.Customer" access="PROPERTY">
 		<named-query name="Customer.findByLastNameAndCity">
-			<query>select c from Customer c where c.lastName = ?1 and c.address.city = ?2</query>
+			<query>
+				select c from Customer c where c.lastName = ?1 and
+				c.address.city = ?2
+			</query>
 		</named-query>
+		<!--		<named-query name="Customer.findByAddressCity">-->
+		<!--			<query>select c from Customer c where c.address.city = ?1.city</query>-->
+		<!--		</named-query>-->
 		<named-query name="Customer.findByAddress">
 			<query>select c from Customer c where c.address = ?1</query>
 		</named-query>
