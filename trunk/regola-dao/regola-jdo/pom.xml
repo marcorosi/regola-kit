@@ -13,7 +13,9 @@
 	<artifactId>regola-jdo</artifactId>
 	<packaging>jar</packaging>
 	<name>REGOLA Toolkit :: DAO :: JDO integration module</name>
-	<description>REGOLA Toolkit :: DAO :: JDO integration module</description>
+	<description>
+		REGOLA Toolkit :: DAO :: JDO integration module
+	</description>
 
 	<build>
 		<plugins>
@@ -28,7 +30,6 @@
 					<useSystemClassLoader>true</useSystemClassLoader>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 
