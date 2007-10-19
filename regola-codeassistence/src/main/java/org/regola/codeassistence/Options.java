@@ -33,7 +33,10 @@ public class Options {
 			new ListPageGenerator(), new ServiceManagerGenerator() };
 	
 	String modelClass;
-
+	
+	public static Generator[] getAllGenerators() {
+		return allGenerators;
+	}
 
 	/**
 	 * @return  the modelClass

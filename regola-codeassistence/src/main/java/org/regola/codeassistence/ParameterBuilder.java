@@ -39,6 +39,7 @@ public class ParameterBuilder {
 
 		parameters.put("package", getPackageName(modelDescriptor));
 		parameters.put("dao_package", getPackageName(modelDescriptor) + ".dao");
+		parameters.put("pattern_package", getPackageName(modelDescriptor) + ".model.pattern");
 		parameters.put("dao_impl_package", getPackageName(modelDescriptor)
 				+ ".dao.hibernate");
 		parameters.put("service_package", getPackageName(modelDescriptor)
@@ -90,14 +91,16 @@ public class ParameterBuilder {
 
 		parameters.put("mbean_list_name", modelDescriptor.getType().getSimpleName()
 				+ "List");
+		parameters.put("mbean_list_page",Utils.lowerFirstLetter(parameters.get("model_name")+"-list.xhtml"));
+		
 		parameters.put("mbean_form_name", modelDescriptor.getType().getSimpleName()
 				+ "Form");
-
+		parameters.put("mbean_form_page",Utils.lowerFirstLetter(parameters.get("model_name")+"-form.xhtml"));
+		
 		parameters.put("filter_name", modelDescriptor.getType().getSimpleName()
-				+ "Filter");
+				+ "Pattern");
 		
-		parameters.put("filter_class", cat("dao_package","filter_name"));
-		
+		parameters.put("filter_class", cat("pattern_package","filter_name"));
 		
 
 		parameters.put("field", new FieldNameConverter());
@@ -123,9 +126,25 @@ public class ParameterBuilder {
 	private List<IPropertyDescriptor> findProperties(
 			IClassDescriptor modelDescriptor) {
 		List<Class> annotazioni = new ArrayList<Class>();
-		annotazioni.add(Column.class);
+		//annotazioni.add(Column.class);
 
-		return filterAnnotatedProperties(modelDescriptor, annotazioni);
+		List<IPropertyDescriptor> properties = filterAnnotatedProperties(modelDescriptor, annotazioni);
+		
+		Iterator<IPropertyDescriptor> iter = properties.iterator();
+		
+		while (iter.hasNext())
+		{
+			IPropertyDescriptor descriptor = iter.next();
+			
+			if (descriptor.getName().equals("id")) iter.remove();
+			else if (descriptor.getPropertyType().getName().contains("$")) iter.remove();
+			
+			
+		}
+		
+		
+		
+		return properties;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -153,9 +172,10 @@ public class ParameterBuilder {
 		try {
 			Field propertyField = clonedDescriptor.getBeanType()
 					.getDeclaredField(propertyDescriptor.getName());
-			for (Annotation annotation : propertyField.getAnnotations()) {
-				if (annotations.contains(annotation.annotationType()))
-					properties.add(propertyDescriptor);
+			if (couldAddProperty(annotations, propertyField.getAnnotations()))
+			{
+				properties.add(propertyDescriptor);
+				return;
 			}
 
 			PropertyDescriptor beanPropDescriptor = (PropertyDescriptor) Ognl
@@ -165,14 +185,29 @@ public class ParameterBuilder {
 									.getBeanType()));
 
 			Method readMethod = beanPropDescriptor.getReadMethod();
-			for (Annotation annotation : readMethod.getAnnotations()) {
-				if (annotations.contains(annotation.annotationType()))
-					properties.add(propertyDescriptor);
+			
+			if (couldAddProperty(annotations, readMethod.getAnnotations()))
+			{
+				properties.add(propertyDescriptor);
 			}
 
 		} catch (Exception ex) {
 			// don't care
 		}
+	}
+	
+	boolean couldAddProperty(List<Class> expectedAnnotations,Annotation[] actualAnnotations)
+	{
+		
+		if (expectedAnnotations.size()==0) return true;
+		
+		for (Annotation annotation : actualAnnotations) {
+			if (expectedAnnotations.contains(annotation.annotationType()))
+				return true;
+		}
+
+		return false;
+		
 	}
 	
 	/**

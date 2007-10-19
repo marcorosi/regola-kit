@@ -8,20 +8,18 @@ import org.regola.codeassistence.ParameterBuilder;
 public class FormPageGenerator implements Generator
 {
 	private static final String TEMPLATE = "form_page.ftl";
-	//private static final String MBEAN_TEMPLATE = "formMBean.ftl";
+	private static final String FACES_CONFIG_TEMPLATE = "formMBeanFacesContextBean.ftl";
 	
 	public void generate(Environment env, ParameterBuilder pb)
 	{
 		Template template = env.getTemplate(TEMPLATE);	  
 		env.writeWebSource(pb.getParameters().get("model_name")+"-form", template, pb.getParameters());
 
-		/*
-		template = env.getTemplate(MBEAN_TEMPLATE);	  
-		env.writeJavaSource((String) pb.getParameters().get("mbean_package")
-				, (String) pb.getParameters().get("mbean_form_name")
-				, template
-				, pb.getParameters());
-		*/
+		template = env.getTemplate(FACES_CONFIG_TEMPLATE);
+		String beanId = "/" + pb.getParameters().get("mbean_form_page");
+		env.writeFacesConfig(env.getFacesConfigFileName(), beanId, template, pb.getParameters());
+		
+		
 	}
 
 	public boolean existsArtifact(Environment env, ParameterBuilder pb) {

@@ -9,7 +9,8 @@ public class FormManagedBeanGenerator implements Generator
 {
 	private static final String LIST_TEMPLATE = "formMBean.ftl";
 	private static final String FACES_CONTEXT_TEMPLATE = "formMBeanFacesContextBean.ftl";
-
+	private static final String SPRING_BEAN_TEMPLATE = "formMBeanSpringBean.ftl";
+	
 	public void generate(Environment env, ParameterBuilder pb)
 	{
 		Template template = env.getTemplate(LIST_TEMPLATE);	  
@@ -18,9 +19,13 @@ public class FormManagedBeanGenerator implements Generator
 				, template
 				, pb.getParameters());
 		
-		template = env.getTemplate(FACES_CONTEXT_TEMPLATE);
-		String beanId = (String)pb.getParameters().get("mbean_form_name");
-		env.writeFacesConfig(env.getSpringDaoFileName(), beanId, template, pb.getParameters());
+		template = env.getTemplate(SPRING_BEAN_TEMPLATE);
+		String beanId = ParameterBuilder.camelNotation((String)pb.getParameters().get("mbean_form_name"));
+		env.writeXmlSource(env.getSpringServiceFileName(), beanId, template, pb.getParameters());
+		
+		//template = env.getTemplate(FACES_CONTEXT_TEMPLATE);
+		//String beanId = (String)pb.getParameters().get("mbean_form_name");
+		//env.writeFacesConfig(env.getSpringDaoFileName(), beanId, template, pb.getParameters());
 	}
 
 	public boolean existsArtifact(Environment env, ParameterBuilder pb) {

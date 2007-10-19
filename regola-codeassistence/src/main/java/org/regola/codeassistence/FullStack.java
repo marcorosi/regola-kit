@@ -61,11 +61,11 @@ public class FullStack {
 		if (cmd.hasOption("s"))
 		env.setSimulate(true);
 
-		env.setProjectDir(".");
+		env.setProjectDir("../regola-example-simple");
 		
 		if (!cmd.hasOption("d"))
 		{
-			env.setOutputDir(new File(".").getCanonicalPath());
+			env.setOutputDir(new File(".").getCanonicalPath()+"/../regola-example-simple");
 		}
 		else
 		{

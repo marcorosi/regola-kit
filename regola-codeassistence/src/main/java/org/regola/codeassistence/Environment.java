@@ -46,6 +46,7 @@ public class Environment {
 
 	private String springServiceFileName = "applicationContext-service.xml";
 	private String springDaoFileName = "applicationContext-dao.xml";
+	private String facesConfigFileName = "faces-config.xml";
 	
 	private boolean simulate=false;
 	
@@ -324,7 +325,7 @@ public class Environment {
 
 	public void writeApplicationProperties(Template template, Map<String, Object> root) 
 	{
-		writeFile(getResourcePath()+"/", "ApplicationResources.properties", template, root, true);
+		//writeFile(getResourcePath()+"/", "ApplicationResources.properties", template, root, true);
 		writeFile(getResourcePath()+"/", "ApplicationResources_en.properties", template, root, true);
 		writeFile(getResourcePath()+"/", "ApplicationResources_it.properties", template, root, true);
 	}
@@ -382,14 +383,14 @@ public class Environment {
 	
 	public void writeFacesConfig(String xmlfile, String beanId, Template template, Map<String, Object> parameters) 
 	{
-		File f = new File(getOutputDir()+"/"+getResourcePath()+"/"+xmlfile);
+		File f = new File(getOutputDir()+"/"+getWebSrcPath()+"/WEB-INF/" + xmlfile);
 		if(!f.exists())
 		{
 			log.info(String.format("Salto la modifica di %s perchè non esiste",xmlfile));
 			return;
 		}
 		
-		if(existsManagedBean(getResourcePath()+"/"+xmlfile, beanId))
+		if(existsManagedBean(getWebSrcPath()+"/WEB-INF/" + xmlfile, beanId))
 		{
 			log.info(String.format("Il file %s non è stato modificato perchè il bean %s è già definito"
 					,xmlfile, beanId));
@@ -404,10 +405,10 @@ public class Environment {
 			throw new RuntimeException(e);
 		}
 		
-		String xml = readFileAsString(getResourcePath()+"/"+xmlfile);
+		String xml = readFileAsString(getWebSrcPath()+"/WEB-INF/" + xmlfile);
 		xml = xml.replaceFirst("</faces-config>", sw.toString());
 		
-		writeStringToFile(getResourcePath()+"/"+xmlfile, xml, false);
+		writeStringToFile(getWebSrcPath()+"/WEB-INF/" + xmlfile, xml, false);
 	}
 
 	
@@ -440,13 +441,20 @@ public class Environment {
 				"org.apache.xerces.parsers.SAXParser");
 
 		File xmlDocument = new File(getProjectDir() + "/" + acFilePath);
-
+ 
+		if (!xmlDocument.exists())
+		{
+			throw new RuntimeException("Il file xml "+ xmlDocument +" non esiste.");
+		}
+		
 		Element levelNode;
 		try {
 			org.jdom.Document jdomDocument = saxBuilder.build(xmlDocument);
 			XPath xpath = XPath.newInstance(xPathExp);
 			xpath.addNamespace("s",
 					"http://www.springframework.org/schema/beans");
+			xpath.addNamespace("f",
+					"http://java.sun.com/dtd/web-facesconfig_1_1.dtd");
 			levelNode = (Element) xpath.selectSingleNode(jdomDocument);
 			return levelNode != null;
 
@@ -461,7 +469,7 @@ public class Environment {
 	}
 	
 	public boolean existsManagedBean(String acFilePath, String beanId) {
-		return existsXPath(acFilePath, "/faces-config/managed-bean/managed-bean-name[text()='" + beanId + "']");
+		return existsXPath(acFilePath, "/f:faces-config/f:navigation-rule/f:from-view-id[text()='" + beanId + "']");
 	}
 
 	public String readFileAsString(String filePath) {
@@ -538,6 +546,11 @@ public class Environment {
 
 	public void setSimulate(boolean simulate) {
 		this.simulate = simulate;
+	}
+
+	public String getFacesConfigFileName() {
+		
+		return facesConfigFileName;
 	}
 
 }

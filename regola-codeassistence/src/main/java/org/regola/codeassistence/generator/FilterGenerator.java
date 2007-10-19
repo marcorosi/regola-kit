@@ -12,7 +12,7 @@ public class FilterGenerator implements Generator
 	public void generate(Environment env, ParameterBuilder pb)
 	{
 		Template template = env.getTemplate(TEMPLATE);
-		env.writeJavaSource((String) pb.getParameters().get("dao_package")
+		env.writeJavaSource((String) pb.getParameters().get("pattern_package")
 				, (String) pb.getParameters().get("filter_name")
 				, template
 				, pb.getParameters());

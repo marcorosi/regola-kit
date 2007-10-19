@@ -8,6 +8,7 @@ import org.regola.codeassistence.ParameterBuilder;
 public class ListPageGenerator implements Generator
 {
 	private static final String TEMPLATE = "list_page.ftl";
+	
 
 	public void generate(Environment env, ParameterBuilder pb)
 	{
