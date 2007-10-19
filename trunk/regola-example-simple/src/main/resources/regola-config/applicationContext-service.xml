@@ -56,11 +56,6 @@
 	<!-- Mail: Sender and Velocity configuration                             -->
 	<!-- =================================================================== -->
 	
-	<bean id="mailMessage"
-		class="org.springframework.mail.SimpleMailMessage"
-		scope="prototype">
-		<property name="from" value="${mail.default.from}" />
-	</bean>
 
 	<bean id="freemarkerConfiguration"
 		class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">

@@ -13,9 +13,36 @@
                 
 	<!-- Add new Managers here -->
 
-	
-	<!--lang:jruby id="messenger" script-interfaces="it.kion.regola.service.UniboDsa" script-source="classpath:ruby/RubyMessenger.rb" refresh-check-delay="60000" >
-    <lang:property name="message" value="Hello World!" />
-</lang:jruby-->
+	<!-- 
+		Le form page leggono il parametro id dalla request: 
+		il message filter provvede a copiarlo tra gli attributi
+		della request in modo che il bean qui sotto sia valorizzato
+	-->
+	<bean id="id" scope="request" class="java.lang.String" />
     
-</beans>        
+    
+    <bean id="customerManager" class="org.regola.service.impl.CustomerManagerImpl">      
+	    <constructor-arg>          
+	        <bean class="org.regola.dao.hibernate.CustomerDaoHibernate" autowire="byType">              
+	            <constructor-arg value="org.regola.model.Customer"/>          
+	        </bean>      
+    </constructor-arg>  
+   </bean>
+    
+
+	<bean id="customerList"
+		class="org.regola.webapp.action.CustomerList" scope="session" init-method="init">
+		<property name="serviceManager" ref="customerManager" />
+		<property name="confirmDlg" ref="confirmDlg" />
+		<property name="columnsDlg" ref="columnsDlg" />
+		<property name="orderDlg" ref="orderDlg" />
+	</bean>
+	
+	<bean id="customerForm" class="org.regola.webapp.action.CustomerForm" scope="session" init-method="init">
+		<property name="serviceManager" ref="customerManager" />
+		<property name="encodedId"  ref="id"/>
+	</bean>
+	
+</beans>	
+	
+                
