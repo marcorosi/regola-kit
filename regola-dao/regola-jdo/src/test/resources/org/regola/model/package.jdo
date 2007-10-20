@@ -3,21 +3,38 @@
     "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.0//EN" 
     "http://java.sun.com/dtd/jdo_2_0.dtd">
 <jdo>
-    <package name="org.regola.model">
-    	<class name="Customer" identity-type="application" table="CUSTOMER">
-    		<field name="id" primary-key="true" column="ID" />
-    		<field name="firstName" column="FIRSTNAME" />
-    		<field name="lastName" column="LASTNAME" />
-    		<field name="address" default-fetch-group="true">
-    			<embedded>
-    				<field name="street" column="STREET" />
-    				<field name="city" column="CITY" />
-    			</embedded>
-    		</field>
-    	</class>
-    	<class name="Customer$Address" embedded-only="true">
-    		<field name="street" />
-    		<field name="city" />
-    	</class>
-    </package>
+	<package name="org.regola.model">
+		<class name="Customer" identity-type="application"
+			table="CUSTOMER">
+			<field name="id" primary-key="true" column="ID" />
+			<field name="firstName" column="FIRSTNAME" />
+			<field name="lastName" column="LASTNAME" />
+			<field name="address" default-fetch-group="true">
+				<embedded>
+					<field name="street" column="STREET" />
+					<field name="city" column="CITY" />
+				</embedded>
+			</field>
+			<query name="Customer.findByLastNameAndCity">
+				<![CDATA[
+					select where lastName == :p1 && address.city == :p2
+				]]>
+			</query>
+			<query name="Customer.findByAddressCity">
+				<![CDATA[
+					select where address.city == :p1.city
+				]]>
+			</query>
+			<query name="Customer.findByAddress">
+				<![CDATA[
+					select where address.street == :p1.street
+						&& address.city == :p1.city
+				]]>
+			</query>
+		</class>
+		<class name="Customer$Address" embedded-only="true">
+			<field name="street" />
+			<field name="city" />
+		</class>
+	</package>
 </jdo>

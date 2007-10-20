@@ -2,6 +2,7 @@ package org.regola.dao.jdo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -11,6 +12,7 @@ import org.regola.dao.GenericDao;
 import org.regola.filter.ModelPatternParser;
 import org.regola.filter.criteria.jdo.JdoCriteria;
 import org.regola.filter.impl.DefaultModelPatternParser;
+import org.regola.finder.FinderExecutor;
 import org.regola.model.ModelPattern;
 import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.orm.jdo.JdoCallback;
@@ -25,7 +27,7 @@ import org.springframework.orm.jdo.support.JdoDaoSupport;
  * 
  */
 public class JdoGenericDao<T, ID extends Serializable> extends JdoDaoSupport
-		implements GenericDao<T, ID> {
+		implements GenericDao<T, ID>, FinderExecutor<T> {
 
 	/**
 	 * TODO: these fields are common to other implementations, they could be
@@ -131,4 +133,13 @@ public class JdoGenericDao<T, ID extends Serializable> extends JdoDaoSupport
 
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<T> executeFinder(String finder, Object... args) {
+		return new ArrayList<T>(getJdoTemplate().findByNamedQuery(
+				persistentClass, queryName(finder), args));
+	}
+
+	protected String queryName(String query) {
+		return persistentClass.getSimpleName() + "." + query;
+	}
 }

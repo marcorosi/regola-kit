@@ -93,13 +93,13 @@ public class IbatisGenericDao<T, ID extends Serializable> extends
 		if (args.length == 1) {
 			param = args[0];
 		} else if (args.length > 1) {
-			param = buildParameterMap(args);
+			param = parametersMap(args);
 		}
 		return getSqlMapClientTemplate().queryForList(
 				queryName(finder), param);
 	}
 
-	protected Map<String, Object> buildParameterMap(Object... args) {
+	protected Map<String, Object> parametersMap(Object... args) {
 		Map<String, Object> paramsMap = new HashMap<String, Object>();
 		for (int i = 0; i < args.length; i++) {
 			paramsMap.put(String.valueOf(i + 1), args[i]);

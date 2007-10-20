@@ -12,9 +12,9 @@
 
 	<artifactId>regola-ibatis</artifactId>
 	<packaging>jar</packaging>
-	<name>REGOLA Toolkit :: DAO :: iBATIS integration module</name>
+	<name>REGOLA Toolkit :: DAO :: iBATIS module</name>
 	<description>
-		REGOLA Toolkit :: DAO :: iBATIS integration module
+		REGOLA Toolkit :: DAO :: iBATIS module
 	</description>
 
 	<dependencies>
