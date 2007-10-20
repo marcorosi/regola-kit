@@ -10,9 +10,11 @@
 				c.address.city = ?2
 			</query>
 		</named-query>
-		<!--		<named-query name="Customer.findByAddressCity">-->
-		<!--			<query>select c from Customer c where c.address.city = ?1.city</query>-->
-		<!--		</named-query>-->
+		<named-query name="Customer.findByAddressCity">
+			<query>
+				select c from Customer c where c.address.city = ?1
+			</query>
+		</named-query>
 		<named-query name="Customer.findByAddress">
 			<query>select c from Customer c where c.address = ?1</query>
 		</named-query>

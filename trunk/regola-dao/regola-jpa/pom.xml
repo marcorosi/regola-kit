@@ -12,9 +12,9 @@
 
 	<artifactId>regola-jpa</artifactId>
 	<packaging>jar</packaging>
-	<name>REGOLA Toolkit :: DAO :: JPA integration module</name>
+	<name>REGOLA Toolkit :: DAO :: JPA module</name>
 	<description>
-		REGOLA Toolkit :: DAO :: JPA integration module
+		REGOLA Toolkit :: DAO :: JPA module
 	</description>
 
 	<build>

@@ -12,9 +12,9 @@
 
 	<artifactId>regola-hibernate</artifactId>
 	<packaging>jar</packaging>
-	<name>REGOLA Toolkit :: DAO :: Hibernate integration module</name>
+	<name>REGOLA Toolkit :: DAO :: Hibernate module</name>
 	<description>
-		REGOLA Toolkit :: DAO :: Hibernate integration module
+		REGOLA Toolkit :: DAO :: Hibernate module
 	</description>
 
 	<build>
