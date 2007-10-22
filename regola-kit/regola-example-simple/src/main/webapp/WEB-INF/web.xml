@@ -2,13 +2,12 @@
 <web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-
+ 
 	<display-name>Regola-kit: Simple Example</display-name>
 	<description>
 		Un primo semplice esempio del toolkit grafico con JSF.
-	</description>
-
-
+	</description> 
+ 
 	<!-- Define the basename for a resource bundle for I18N -->
 	<context-param>
 		<param-name>
@@ -28,9 +27,6 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			classpath*:/regola-config/applicationContext-resources.xml
-			classpath*:/regola-config/applicationContext-dao.xml
-			classpath*:/regola-config/applicationContext-service.xml
 			classpath*:/applicationContext-resources.xml
 			classpath*:/applicationContext-dao.xml
 			classpath*:/applicationContext-service.xml
@@ -310,7 +306,7 @@
 	</session-config>
 
 	<welcome-file-list>
-		<welcome-file>customer-list.xhtml</welcome-file>
+		<welcome-file>customer-list.html</welcome-file>
 	</welcome-file-list>
 
 	<error-page>
