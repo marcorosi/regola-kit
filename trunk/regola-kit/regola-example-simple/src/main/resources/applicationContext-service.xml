@@ -9,7 +9,7 @@
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
             http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.0.xsd">
 
-        <!--import resource="classpath*:/regola-config/applicationContext-service.xml" /-->        
+        <import resource="classpath*:/regola-config/applicationContext-service.xml" />        
                 
 	<!-- Add new Managers here -->
 

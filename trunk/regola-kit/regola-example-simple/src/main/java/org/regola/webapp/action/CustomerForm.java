@@ -24,18 +24,14 @@ public class CustomerForm extends FormPage<Customer, Integer, CustomerPattern>
 			// update an existing model item
 			id = new Integer(getEncodedId());
 			model = getServiceManager().get(id);
-			id = model.getId();
-			setOriginalId(id.toString());
 		}
 		else
 		{
 			// edit a new model item
-			id = new Integer(1);
 			model = new Customer();
 			model.setId(id);
 		}
 		
-		idClass = (Class<Integer>) id.getClass();
 	}
 
 	@Override
@@ -49,6 +45,4 @@ public class CustomerForm extends FormPage<Customer, Integer, CustomerPattern>
 	public String cancel() {
 		return super.cancel();
 	}
-
-	
 }
