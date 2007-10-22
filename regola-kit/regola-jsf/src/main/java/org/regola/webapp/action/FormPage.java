@@ -308,4 +308,12 @@ public class FormPage<T, ID extends Serializable, F extends ModelPattern> extend
 	public void setLookups(Map<String, LookupStrategy> lookups) {
 		this.lookups = lookups;
 	}
+
+	public Class<ID> getIdClass() {
+		return idClass;
+	}
+
+	public void setIdClass(Class<ID> idClass) {
+		this.idClass = idClass;
+	}
 }
