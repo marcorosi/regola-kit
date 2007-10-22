@@ -286,7 +286,7 @@
 	<servlet-mapping>
 		<servlet-name>Blocking Servlet</servlet-name>
 		<url-pattern>/block/*</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> 
 
 	<!-- servlet-mapping>
 		<servlet-name>faces</servlet-name>
@@ -309,7 +309,7 @@
 		<welcome-file>customer-list.html</welcome-file>
 	</welcome-file-list>
 
-	<error-page>
+	<error-page> 
 		<error-code>500</error-code>
 		<location>/error.jsp</location>
 	</error-page>
