@@ -28,11 +28,15 @@
 	        </bean>      
     </constructor-arg>  
    </bean>
+   
+   <bean id="eventBroker" class="org.regola.events.DuckTypingEventBroker">
+   </bean>
     
 
 	<bean id="customerList"
 		class="org.regola.webapp.action.CustomerList" scope="session" init-method="init">
 		<property name="serviceManager" ref="customerManager" />
+		<property name="eventBroker" ref="eventBroker"  />
 		<property name="confirmDlg" ref="confirmDlg" />
 		<property name="columnsDlg" ref="columnsDlg" />
 		<property name="orderDlg" ref="orderDlg" />
@@ -41,6 +45,7 @@
 	<bean id="customerForm" class="org.regola.webapp.action.CustomerForm" scope="session" init-method="init">
 		<property name="serviceManager" ref="customerManager" />
 		<property name="encodedId"  ref="id"/>
+		<property name="eventBroker" ref="eventBroker" />
 	</bean>
 	
 </beans>	

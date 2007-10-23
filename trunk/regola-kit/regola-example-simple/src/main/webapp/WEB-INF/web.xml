@@ -4,9 +4,9 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
  
 	<display-name>Regola-kit: Simple Example</display-name>
-	<description>
+	<description> 
 		Un primo semplice esempio del toolkit grafico con JSF.
-	</description> 
+	</description>
  
 	<!-- Define the basename for a resource bundle for I18N -->
 	<context-param>
@@ -292,9 +292,6 @@
 		<servlet-name>faces</servlet-name>
 		<url-pattern>*.html</url-pattern>
 		</servlet-mapping-->
-
-
-
 
 	<servlet-mapping>
 		<servlet-name>SOAPServlet</servlet-name>

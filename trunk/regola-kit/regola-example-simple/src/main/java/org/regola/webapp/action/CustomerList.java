@@ -1,5 +1,6 @@
 package org.regola.webapp.action;
 
+import org.regola.events.Event;
 import org.regola.model.Customer;
 import java.lang.Integer;
 import org.regola.model.pattern.CustomerPattern;
@@ -17,6 +18,8 @@ public class CustomerList extends ListPage<Customer, Integer, CustomerPattern>
 		//@TODO Imposta un criterio per il figlio, ad esempio
 		//getFilter().setAnnoAccademico(2005);
 
+		getEventBroker().subscribe(this, "customer.persistence.changes");
+		
 		super.init();
 	}
 	
@@ -38,6 +41,16 @@ public class CustomerList extends ListPage<Customer, Integer, CustomerPattern>
 		Customer v = getCurrentModelItem();
 		log.info("Selezionato "+v);
 		return "edit";
+	}
+	
+	/**
+	 * E' stata fatta qualche variazione all'insieme
+	 * degli oggetto di modello.
+	 * @param e
+	 */
+	public void onRegolaEvent(Event e)
+	{
+		refresh();
 	}
 
 }

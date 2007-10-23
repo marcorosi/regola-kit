@@ -37,7 +37,10 @@ public class CustomerForm extends FormPage<Customer, Integer, CustomerPattern>
 	@Override
 	public String save()
 	{
-		return super.save();
+		String navigation = super.save();
+		getEventBroker().publish("customer.persistence.changes", null);
+		
+		return navigation;
 	}
 	
 	@Override
