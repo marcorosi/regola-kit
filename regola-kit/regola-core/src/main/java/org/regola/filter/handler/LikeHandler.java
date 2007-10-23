@@ -6,7 +6,7 @@ import org.regola.filter.annotation.Like;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.criterion.Restrictions;
 
-public class LikeHandler extends AbstractFilterAnnotationHandler {
+public class LikeHandler extends AbstractAnnotationHandler {
 
 	public LikeHandler() {
 		super(Like.class);

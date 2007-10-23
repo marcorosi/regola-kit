@@ -6,7 +6,7 @@ import org.regola.filter.annotation.Equals;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.criterion.Restrictions;
 
-public class EqualsHandler extends AbstractFilterAnnotationHandler {
+public class EqualsHandler extends AbstractAnnotationHandler {
 
 	public EqualsHandler() {
 		super(Equals.class);

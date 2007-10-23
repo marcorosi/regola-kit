@@ -10,7 +10,7 @@ import javax.jdo.Query;
 import org.regola.dao.GenericDao;
 import org.regola.filter.ModelPatternParser;
 import org.regola.filter.criteria.jdo.JdoCriteria;
-import org.regola.filter.impl.DefaultModelPatternParser;
+import org.regola.filter.impl.DefaultPatternParser;
 import org.regola.finder.FinderExecutor;
 import org.regola.model.ModelPattern;
 import org.springframework.orm.ObjectRetrievalFailureException;
@@ -34,7 +34,7 @@ public class JdoGenericDao<T, ID extends Serializable> extends JdoDaoSupport
 	 */
 	private Class<T> persistentClass;
 
-	private ModelPatternParser filterBuilder = new DefaultModelPatternParser();
+	private ModelPatternParser filterBuilder = new DefaultPatternParser();
 
 	public ModelPatternParser getFilterBuilder() {
 		return filterBuilder;

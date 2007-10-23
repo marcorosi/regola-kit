@@ -28,12 +28,12 @@ import org.springframework.util.StringUtils;
  * ruolo di <i>director</i> su di un query builder concreto (<i>builder</i>).
  * 
  */
-public abstract class AbstractFilterAnnotationHandler implements
+public abstract class AbstractAnnotationHandler implements
 		FilterAnnotationHandler {
 
 	protected Class<? extends Annotation> handledAnnotation;
 
-	protected AbstractFilterAnnotationHandler(
+	protected AbstractAnnotationHandler(
 			Class<? extends Annotation> handledAnnotation) {
 		this.handledAnnotation = handledAnnotation;
 	}

@@ -9,7 +9,7 @@ import org.hibernate.Session;
 import org.regola.dao.GenericDao;
 import org.regola.filter.ModelPatternParser;
 import org.regola.filter.criteria.hibernate.HibernateCriteria;
-import org.regola.filter.impl.DefaultModelPatternParser;
+import org.regola.filter.impl.DefaultPatternParser;
 import org.regola.finder.FinderExecutor;
 import org.regola.model.ModelPattern;
 import org.springframework.orm.hibernate3.HibernateCallback;
@@ -23,7 +23,7 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 
 	private Class<T> persistentClass;
 
-	private ModelPatternParser patternParser = new DefaultModelPatternParser();
+	private ModelPatternParser patternParser = new DefaultPatternParser();
 
 	public HibernateGenericDao(Class<T> persistentClass) {
 		this.persistentClass = persistentClass;

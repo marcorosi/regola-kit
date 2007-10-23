@@ -14,7 +14,7 @@ import org.regola.filter.annotation.Like;
 import org.regola.filter.annotation.ModelPatternFilter;
 import org.regola.filter.annotation.NotEquals;
 import org.regola.filter.criteria.Criteria;
-import org.regola.filter.handler.AbstractFilterAnnotationHandler;
+import org.regola.filter.handler.AbstractAnnotationHandler;
 import org.regola.filter.handler.EqualsHandler;
 import org.regola.filter.handler.GreaterThanHandler;
 import org.regola.filter.handler.InHandler;
@@ -23,11 +23,11 @@ import org.regola.filter.handler.LikeHandler;
 import org.regola.filter.handler.NotEqualsHandler;
 import org.regola.model.ModelPattern;
 
-public class DefaultModelPatternParser extends AbstractModelPatternParser {
+public class DefaultPatternParser extends AbstractPatternParser {
 
-	private Map<Class<? extends Annotation>, AbstractFilterAnnotationHandler> handlers = new HashMap<Class<? extends Annotation>, AbstractFilterAnnotationHandler>();
+	private Map<Class<? extends Annotation>, AbstractAnnotationHandler> handlers = new HashMap<Class<? extends Annotation>, AbstractAnnotationHandler>();
 
-	public DefaultModelPatternParser() {
+	public DefaultPatternParser() {
 		addHandler(Equals.class, new EqualsHandler());
 		addHandler(NotEquals.class, new NotEqualsHandler());
 		addHandler(GreaterThan.class, new GreaterThanHandler());
@@ -37,7 +37,7 @@ public class DefaultModelPatternParser extends AbstractModelPatternParser {
 	}
 
 	private void addHandler(Class<? extends Annotation> annotation,
-			AbstractFilterAnnotationHandler handler) {
+			AbstractAnnotationHandler handler) {
 		if (!annotation.isAnnotationPresent(ModelPatternFilter.class)) {
 			throw new IllegalArgumentException(
 					"L'annotazione indicata ["
@@ -52,7 +52,8 @@ public class DefaultModelPatternParser extends AbstractModelPatternParser {
 	protected void handleAnnotation(Annotation annotation,
 			PropertyDescriptor property, Criteria criteria, ModelPattern filter) {
 
-		FilterAnnotationHandler handler = handlers.get(annotation.annotationType());
+		FilterAnnotationHandler handler = handlers.get(annotation
+				.annotationType());
 		if (handler == null) {
 			throw new RuntimeException(
 					"Annotazione ["
@@ -63,12 +64,12 @@ public class DefaultModelPatternParser extends AbstractModelPatternParser {
 		handler.handleAnnotation(annotation, property, filter, criteria);
 	}
 
-	public Map<Class<? extends Annotation>, AbstractFilterAnnotationHandler> getHandlers() {
+	public Map<Class<? extends Annotation>, AbstractAnnotationHandler> getHandlers() {
 		return handlers;
 	}
 
 	public void setHandlers(
-			Map<Class<? extends Annotation>, AbstractFilterAnnotationHandler> handlers) {
+			Map<Class<? extends Annotation>, AbstractAnnotationHandler> handlers) {
 		this.handlers = handlers;
 	}
 
