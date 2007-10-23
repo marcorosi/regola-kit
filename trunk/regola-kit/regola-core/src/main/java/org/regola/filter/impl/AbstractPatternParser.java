@@ -14,7 +14,7 @@ import org.regola.model.ModelPattern;
 import org.regola.model.ModelProperty;
 import org.springframework.beans.BeanUtils;
 
-public abstract class AbstractModelPatternParser implements ModelPatternParser {
+public abstract class AbstractPatternParser implements ModelPatternParser {
 
 	public void createCountQuery(Criteria criteria, ModelPattern pattern) {
 		handleFilters(criteria, pattern);

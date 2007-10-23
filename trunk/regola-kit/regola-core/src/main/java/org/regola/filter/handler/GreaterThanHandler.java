@@ -6,7 +6,7 @@ import org.regola.filter.annotation.GreaterThan;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.criterion.Restrictions;
 
-public class GreaterThanHandler extends AbstractFilterAnnotationHandler {
+public class GreaterThanHandler extends AbstractAnnotationHandler {
 
 	public GreaterThanHandler() {
 		super(GreaterThan.class);

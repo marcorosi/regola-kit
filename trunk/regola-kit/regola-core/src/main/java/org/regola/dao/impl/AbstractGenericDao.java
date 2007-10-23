@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.regola.dao.GenericDao;
 import org.regola.filter.ModelPatternParser;
-import org.regola.filter.impl.DefaultModelPatternParser;
+import org.regola.filter.impl.DefaultPatternParser;
 import org.regola.finder.FinderExecutor;
 import org.regola.model.ModelPattern;
 
@@ -22,7 +22,7 @@ public abstract class AbstractGenericDao<T, ID extends Serializable> implements
 
 	private Class<T> persistentClass;
 
-	private ModelPatternParser patternParser = new DefaultModelPatternParser();
+	private ModelPatternParser patternParser = new DefaultPatternParser();
 
 	public abstract T get(ID id);
 

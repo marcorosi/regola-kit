@@ -10,7 +10,7 @@ import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.criterion.Restrictions;
 import org.regola.model.ModelPattern;
 
-public class InHandler extends AbstractFilterAnnotationHandler {
+public class InHandler extends AbstractAnnotationHandler {
 
 	public InHandler() {
 		super(In.class);

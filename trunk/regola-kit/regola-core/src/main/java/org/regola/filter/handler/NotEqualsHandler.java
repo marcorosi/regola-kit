@@ -6,7 +6,7 @@ import org.regola.filter.annotation.NotEquals;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.criterion.Restrictions;
 
-public class NotEqualsHandler extends AbstractFilterAnnotationHandler {
+public class NotEqualsHandler extends AbstractAnnotationHandler {
 
 	public NotEqualsHandler() {
 		super(NotEquals.class);
