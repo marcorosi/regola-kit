@@ -55,32 +55,10 @@ public class StartupListener implements ServletContextListener {
             config.put(Constants.CSS_THEME, context.getInitParameter(Constants.CSS_THEME));
         }
 
-        ApplicationContext ctx =
-            WebApplicationContextUtils.getRequiredWebApplicationContext(context);
+        ApplicationContext ctx =  WebApplicationContextUtils.getRequiredWebApplicationContext(context);
 
         boolean encryptPassword = false;
-        try {
-            ProviderManager provider = (ProviderManager) ctx.getBean("authenticationManager");
-            for (Object o : provider.getProviders()) {
-                AuthenticationProvider p = (AuthenticationProvider) o;
-                if (p instanceof RememberMeAuthenticationProvider) {
-                    config.put("rememberMeEnabled", Boolean.TRUE);
-                }
-            }
-
-            if (ctx.containsBean("passwordEncoder")) {
-                encryptPassword = true;
-                config.put(Constants.ENCRYPT_PASSWORD, Boolean.TRUE);
-                String algorithm = "SHA";
-                if (ctx.getBean("passwordEncoder") instanceof Md5PasswordEncoder) {
-                    algorithm = "MD5";
-                }
-                config.put(Constants.ENC_ALGORITHM, algorithm);
-            }
-        } catch (NoSuchBeanDefinitionException n) {
-            // ignore, should only happen when testing
-        }
-
+        
         context.setAttribute(Constants.CONFIG, config);
 
         // output the retrieved values for the Init and Context Parameters

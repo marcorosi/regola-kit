@@ -5,6 +5,7 @@ import org.regola.service.GenericManager;
 import org.regola.util.ELFunction;
 import org.regola.util.Ognl;
 import org.regola.validation.LazyLoadingArrayList;
+import org.regola.events.DuckTypingEventBroker;
 import org.regola.model.ModelPattern;
 import org.regola.validation.LazyLoadingArrayList.Fetcher;
 import org.regola.webapp.jsf.ColumnsDlg;
@@ -54,6 +55,8 @@ public abstract class ListPage<T, ID extends Serializable, F extends ModelPatter
 	List<T> modelObjectList;
 
 	OrderDlg orderDlg;
+	
+
 
 	protected DataModel rowDataModel;
 
@@ -453,5 +456,7 @@ public abstract class ListPage<T, ID extends Serializable, F extends ModelPatter
 	public void setState(PersistentFacesState state) {
 		this.state = state;
 	}
+
+
 
 }

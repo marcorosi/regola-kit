@@ -6,6 +6,7 @@ package org.regola.webapp.action;
 
 
 import org.regola.Constants;
+import org.regola.events.DuckTypingEventBroker;
 import org.regola.events.EventBroker;
 import org.regola.webapp.annotation.ScopeEnd;
 import org.regola.webapp.jsf.ConfirmDlg;
@@ -43,7 +44,7 @@ public class BasePage {
     protected boolean nullsAreHigh = true;
 	private String returnPage;
 	
-	private EventBroker eventBroker;
+	private DuckTypingEventBroker eventBroker;
 	ConfirmDlg confirmDlg;
 
 
@@ -260,11 +261,11 @@ public class BasePage {
 		this.returnPage = returnPage;
 	}
 
-	public EventBroker getEventBroker() {
+	public DuckTypingEventBroker getEventBroker() {
 		return eventBroker;
 	}
 
-	public void setEventBroker(EventBroker eventBroker) {
+	public void setEventBroker(DuckTypingEventBroker eventBroker) {
 		this.eventBroker = eventBroker;
 	}
 
