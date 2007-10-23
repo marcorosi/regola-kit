@@ -24,15 +24,30 @@ public abstract class AbstractGenericDao<T, ID extends Serializable> implements
 
 	private ModelPatternParser patternParser = new DefaultModelPatternParser();
 
+	public abstract T get(ID id);
+
+	public boolean exists(ID id) {
+		return get(id) == null ? false : true;
+	}
+
+	public void remove(ID id) {
+		T entity = get(id);
+		if (entity != null) {
+			removeEntity(entity);
+		}
+	}
+
+	public abstract void removeEntity(T entity);
+
+	public abstract T save(T entity);
+
+	public abstract List<T> find(ModelPattern pattern);
+
 	/**
 	 * Attenzione: meglio fare l'overload potendo per evitare performace penose.
 	 */
 	public int count(ModelPattern pattern) {
 		return find(pattern).size();
-	}
-
-	public boolean exists(ID id) {
-		return get(id) == null ? false : true;
 	}
 
 	public List<T> getAll() {
@@ -42,12 +57,7 @@ public abstract class AbstractGenericDao<T, ID extends Serializable> implements
 		return find(pattern);
 	}
 
-	public void remove(ID id) {
-		T entity = get(id);
-		if (entity != null) {
-			removeEntity(entity);
-		}
-	}
+	public abstract List<T> executeFinder(String finder, Object... args);
 
 	public Class<T> getPersistentClass() {
 		return persistentClass;
@@ -64,5 +74,4 @@ public abstract class AbstractGenericDao<T, ID extends Serializable> implements
 	public void setPatternParser(ModelPatternParser parser) {
 		this.patternParser = parser;
 	}
-
 }
