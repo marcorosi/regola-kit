@@ -35,6 +35,7 @@ public class CustomerForm extends FormPage<Customer, Integer, CustomerPattern>
 	}
 
 	@Override
+	@ScopeEnd
 	public String save()
 	{
 		String navigation = super.save();

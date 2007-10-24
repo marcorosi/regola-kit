@@ -5,7 +5,10 @@
 <hibernate-mapping package="org.regola.model"
 	default-access="property">
 	<class name="Customer">
-		<id name="id" />
+		<id name="id" >
+		<!-- non usare questo generatore in produzione -->
+		<generator class="increment"></generator>
+		</id>
 		<property name="firstName" />
 		<property name="lastName" />
 		<component name="address" class="Customer$Address">

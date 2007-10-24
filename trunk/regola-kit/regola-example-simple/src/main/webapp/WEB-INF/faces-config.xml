@@ -24,10 +24,12 @@
 		<navigation-case>
 			<from-outcome>save</from-outcome>
 			<to-view-id>/customer-list.html</to-view-id>
+			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>cancel</from-outcome>
 			<to-view-id>/customer-list.html</to-view-id>			
+			<redirect/>
 		</navigation-case>
 	</navigation-rule> 
 
