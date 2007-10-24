@@ -1,5 +1,7 @@
 package org.regola.model;
 
+import org.hibernate.validator.NotEmpty;
+
 public class Customer {
 
 	private Integer id;
@@ -12,6 +14,7 @@ public class Customer {
 		private String street;
 		private String city;
 
+		
 		public Address() {
 		}
 
@@ -79,6 +82,7 @@ public class Customer {
 		this.id = id;
 	}
 
+	@NotEmpty
 	public String getFirstName() {
 		return firstName;
 	}
@@ -87,6 +91,7 @@ public class Customer {
 		this.firstName = firstName;
 	}
 
+	@NotEmpty
 	public String getLastName() {
 		return lastName;
 	}

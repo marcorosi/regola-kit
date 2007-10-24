@@ -303,7 +303,7 @@
 	</session-config>
 
 	<welcome-file-list>
-		<welcome-file>customer-list.html</welcome-file>
+		<welcome-file>welcome.jsp</welcome-file>
 	</welcome-file-list>
 
 	<error-page> 

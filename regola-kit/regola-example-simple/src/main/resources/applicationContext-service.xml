@@ -9,7 +9,7 @@
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
             http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.0.xsd">
 
-        <import resource="classpath*:/regola-config/applicationContext-service.xml" />        
+   <import resource="classpath*:/regola-config/applicationContext-service.xml" />        
                 
 	<!-- Add new Managers here -->
 
@@ -19,6 +19,7 @@
 		della request in modo che il bean qui sotto sia valorizzato
 	-->
 	<bean id="id" scope="request" class="java.lang.String" />
+    <bean id="eventBroker" class="org.regola.events.DuckTypingEventBroker" />
     
     
     <bean id="customerManager" class="org.regola.service.impl.CustomerManagerImpl">      
@@ -29,11 +30,7 @@
     </constructor-arg>  
    </bean>
    
-   <bean id="eventBroker" class="org.regola.events.DuckTypingEventBroker">
-   </bean>
-    
-
-	<bean id="customerList"
+   	<bean id="customerList"
 		class="org.regola.webapp.action.CustomerList" scope="session" init-method="init">
 		<property name="serviceManager" ref="customerManager" />
 		<property name="eventBroker" ref="eventBroker"  />
