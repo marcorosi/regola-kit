@@ -243,7 +243,11 @@ public class FormPage<T, ID extends Serializable, F extends ModelPattern> extend
 	
 	public boolean validate()
 	{
-		int idLength = validate(id).length;
+		int idLength=0;
+		
+		if (id!=null)  idLength = validate(id).length;
+		
+		
 		int modelLength = validate(model).length;
 		if (idLength > 0 || modelLength > 0)
 			return false;
