@@ -31,6 +31,11 @@
         </plugins>
     </build>
     
+    <properties>
+    	<!-- icefaces.version>1.5.3</icefaces.version-->
+    	<icefaces.version>1.6.1</icefaces.version>
+	</properties>
+    
     <dependencies>
         <dependency>
             <groupId>${groupId}</groupId>
@@ -196,24 +201,29 @@
         <dependency>
             <groupId>com.icesoft</groupId>
             <artifactId>icefaces</artifactId>
-            <version>1.5.3</version>
+            <version>${icefaces.version}</version>
         </dependency>
         <dependency>
             <groupId>com.icesoft</groupId>
             <artifactId>icefaces-comps</artifactId>
-            <version>1.5.3</version>
+            <version>${icefaces.version}</version>
         </dependency>
         <dependency>
             <groupId>com.icesoft</groupId>
             <artifactId>icefaces-facelets</artifactId>
-            <version>1.5.3</version>
+            <version>${icefaces.version}</version>
         </dependency>
         <dependency>
             <groupId>com.icesoft</groupId>
             <artifactId>backport-util</artifactId>
-            <version>1.5.3</version>
-            <scope>test</scope>
+            <version>${icefaces.version}</version>
         </dependency>
+        
+        <dependency>
+    		<groupId>commons-fileupload</groupId>
+    		<artifactId>commons-fileupload</artifactId>
+    		<version>1.2</version>
+		</dependency>
         
         <dependency>
             <groupId>org.codehaus.xfire</groupId>
