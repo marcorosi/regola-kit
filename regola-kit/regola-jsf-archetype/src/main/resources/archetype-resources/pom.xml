@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+		<groupId>${groupId}</groupId>
+    <artifactId>${artifactId}</artifactId>
+		<version>${version}</version>
+    <packaging>war</packaging>
+    
+		<name>REGOLA Framework :: JSF application archetype</name>
+    <description>...</description>
+    
+    <properties>
+        <jee.datasource>java:jdbc/YourDataSource</jee.datasource>
+    </properties>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+            <testResource>
+                <directory>src/main/webapp</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <excludes>
+                    <exclude>**/lib/*</exclude>
+                    <exclude>**/classes/*</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
+    </build>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.regola</groupId>
+            <artifactId>regola-jsf</artifactId>
+            <version>1.0-M1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.regola</groupId>
+            <artifactId>regola-hibernate</artifactId>
+            <version>1.0-M1-SNAPSHOT</version>
+        </dependency>
+        
+    </dependencies>
+    
+    <profiles>
+        <profile>
+            <id>netbeans-public</id>
+            <activation>
+                <property>
+                    <name>netbeans.execution</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build />
+            <properties>
+                <netbeans.deployment.server.type>JBoss4</netbeans.deployment.server.type>
+            </properties>
+        </profile>
+    </profiles>
+    
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>net.objectlab</groupId>
+                <artifactId>mvn-qalab-plugin</artifactId>
+                <version>2.2</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>report-merge-chart</report>
+                            <report>report-movers-all</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            
+        </plugins>
+    </reporting>
+</project>
+
+
+
