@@ -13,15 +13,6 @@
                 
 	<!-- Add new Managers here -->
 
-	<!-- 
-		Le form page leggono il parametro id dalla request: 
-		il message filter provvede a copiarlo tra gli attributi
-		della request in modo che il bean qui sotto sia valorizzato
-	-->
-	<bean id="id" scope="request" class="java.lang.String" />
-    <bean id="eventBroker" class="org.regola.events.DuckTypingEventBroker" />
-    
-    
     <bean id="customerManager" class="org.regola.service.impl.CustomerManagerImpl">      
 	    <constructor-arg>          
 	        <bean class="org.regola.dao.hibernate.CustomerDaoHibernate" autowire="byType">              

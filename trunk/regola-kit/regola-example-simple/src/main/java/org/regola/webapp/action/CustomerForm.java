@@ -15,6 +15,7 @@ public class CustomerForm extends FormPage<Customer, Integer, CustomerPattern>
 	{
 	}
 
+	@Override
 	public void init()
 	{
 		super.init();
