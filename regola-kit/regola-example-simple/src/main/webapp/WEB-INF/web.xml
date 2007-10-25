@@ -2,12 +2,12 @@
 <web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
- 
+
 	<display-name>Regola-kit: Simple Example</display-name>
-	<description> 
+	<description>
 		Un primo semplice esempio del toolkit grafico con JSF.
 	</description>
- 
+
 	<!-- Define the basename for a resource bundle for I18N -->
 	<context-param>
 		<param-name>
@@ -17,10 +17,10 @@
 	</context-param>
 	<!-- Fallback locale if no bundles found for browser's preferred locale -->
 	<!-- Force a single locale using param-name 'javax.servlet.jsp.jstl.fmt.locale' -->
-	<context-param>
+	<context-param> 
 		<param-name>
 			javax.servlet.jsp.jstl.fmt.fallbackLocale
-		</param-name>
+		</param-name> 
 		<param-value>en</param-value>
 	</context-param>
 	<!-- Context Configuration locations for Spring XML files -->
@@ -71,10 +71,6 @@
 		<param-value>true</param-value>
 	</context-param>
 
-	<!-- filter>
-		<filter-name>ajax4jsf</filter-name>
-		<filter-class>org.ajax4jsf.Filter</filter-class>
-		</filter-->
 
 
 
@@ -168,18 +164,7 @@
 
 
 
-	<!--  filter-mapping>
-		<filter-name>ajax4jsf</filter-name>
-		<servlet-name>faces</servlet-name>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>FORWARD</dispatcher>
-		</filter-mapping-->
-	<!-- Commented out for 2 reasons: 1) it's a pain when developing JSPs, and
-		2) it causes the Signup webtest to fail -->
-	<!--filter-mapping>  
-		<filter-name>cacheFilter</filter-name>
-		<url-pattern>*.jsp</url-pattern>
-		</filter-mapping-->
+
 	<filter-mapping>
 		<filter-name>lazyLoadingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
@@ -188,10 +173,7 @@
 		<filter-name>localeFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	<!-- filter-mapping>
-		<filter-name>gzipFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-		</filter-mapping-->
+
 	<filter-mapping>
 		<filter-name>rewriteFilter</filter-name>
 		<url-pattern>/*</url-pattern>
@@ -286,7 +268,7 @@
 	<servlet-mapping>
 		<servlet-name>Blocking Servlet</servlet-name>
 		<url-pattern>/block/*</url-pattern>
-	</servlet-mapping> 
+	</servlet-mapping>
 
 	<!-- servlet-mapping>
 		<servlet-name>faces</servlet-name>
@@ -297,7 +279,7 @@
 		<servlet-name>SOAPServlet</servlet-name>
 		<url-pattern>/services/*</url-pattern>
 	</servlet-mapping>
-  
+
 	<session-config>
 		<session-timeout>10</session-timeout>
 	</session-config>
@@ -306,7 +288,7 @@
 		<welcome-file>welcome.jsp</welcome-file>
 	</welcome-file-list>
 
-	<error-page> 
+	<error-page>
 		<error-code>500</error-code>
 		<location>/error.jsp</location>
 	</error-page>
@@ -322,18 +304,4 @@
 		<error-code>404</error-code>
 		<location>/404.html</location>
 	</error-page>
-
-	<!-- 
-		<filter>
-		<filter-name>shale</filter-name>
-		<filter-class>org.apache.shale.application.faces.ShaleApplicationFilter</filter-class>
-		</filter>
-		<filter-mapping>
-		<filter-name>shale</filter-name>
-		<url-pattern>/*</url-pattern>
-		</filter-mapping>
-		<listener>
-		<listener-class>org.apache.commons.chain.web.ChainListener</listener-class>
-		</listener>
-	-->
 </web-app>
