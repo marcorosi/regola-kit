@@ -112,7 +112,15 @@
 	<!-- Backing Bean x JSF                                                  -->
 	<!-- =================================================================== -->
 	
-	<bean id="eventBroker" class="org.regola.events.EventBroker" />
+	<!--  bean id="eventBroker" class="org.regola.events.EventBroker" /-->
+    <bean id="eventBroker" class="org.regola.events.DuckTypingEventBroker" />
+	
+	<!-- 
+		Le form page leggono il parametro id dalla request: 
+		il message filter provvede a copiarlo tra gli attributi
+		della request in modo che il bean qui sotto sia valorizzato
+	-->
+	<bean id="id" scope="request" class="java.lang.String" />
 	
 	
 </beans>
