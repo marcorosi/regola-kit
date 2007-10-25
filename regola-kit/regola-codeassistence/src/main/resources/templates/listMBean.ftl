@@ -14,30 +14,21 @@ public class ${mbean_list_name} extends ListPage<${model_name}, ${id_name}, ${fi
 	public void init()
 	{
 		setFilter(new ${filter_name}());
-		//@TODO Imposta un criterio per il figlio, ad esempio
-		//getFilter().setAnnoAccademico(2005);
-
+		//@TODO Imposta un criterio per il filtro, ad esempio
+		
+		getEventBroker().subscribe(this, "${field(model_name)}.persistence.changes");
+		
 		super.init();
 	}
 	
 	/**
-	 * Questo metodo è chiamato per aggiornare il modello
-	 * da presentare a video ad esempio dopo una modifica al filtro
+	 * E' stata fatta qualche variazione all'insieme
+	 * degli oggetto di modello.
+	 * @param e
 	 */
-	@Override
-	public void refresh()
+	public void onRegolaEvent(Event e)
 	{
-		super.refresh();
-	}
-	
-	/**
-	 * Salta alla pagina di editing
-	 */
-	public String edit()
-	{
-		${model_name} v = getCurrentModelItem();
-		log.info("Selezionato "+v);
-		return "edit";
+		refresh();
 	}
 
 }
