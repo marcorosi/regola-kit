@@ -1,0 +1,8 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.regola</groupId>
+  <artifactId>regola-jsf-archetype</artifactId>
+  <version>1.0-M1-SNAPSHOT</version>
+  <packaging>maven-plugin</packaging>
+  <name>webapp archetype</name>
+</project>
