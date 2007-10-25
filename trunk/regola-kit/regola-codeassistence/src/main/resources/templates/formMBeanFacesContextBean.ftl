@@ -4,10 +4,12 @@
 		<navigation-case>
 			<from-outcome>save</from-outcome>
 			<to-view-id>/${mbean_list_page}</to-view-id>
+			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>cancel</from-outcome>
-			<to-view-id>/${mbean_list_page}</to-view-id>			
+			<to-view-id>/${mbean_list_page}</to-view-id>
+			<redirect/>			
 		</navigation-case>
 	</navigation-rule>
     

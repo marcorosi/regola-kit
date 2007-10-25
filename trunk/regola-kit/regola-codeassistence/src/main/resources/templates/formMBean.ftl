@@ -14,31 +14,43 @@ import org.apache.commons.logging.LogFactory;
 
 public class ${mbean_form_name} extends FormPage<${model_name}, ${id_name}, ${filter_name}>
 {
-	@SuppressWarnings("unchecked")
-	public ${mbean_form_name}()
-	{
-		idClass = (Class<${id_name}>) id.getClass();
-		model = new ${model_name}();
-		model.setId(id);
-	}
-
+	public ${mbean_form_name}() {}
+		
+	@Override
 	public void init()
 	{
 		super.init();
-
-		if (id != null)
+ 
+		if(StringUtils.isNotEmpty(getEncodedId()))
 		{
+			// update an existing model item
+			id = new Integer(getEncodedId());
 			model = getServiceManager().get(id);
-			id = model.getId();
-			setOriginalId(id.toString());
 		}
-	
+		else
+		{
+			// edit a new model item
+			model = new ${model_name}();
+			model.setId(id);
+		}
+		
 	}
 
+
 	@Override
+	@ScopeEnd
 	public String save()
 	{
-		return super.save();
+		String navigation = super.save();
+		getEventBroker().publish("${field(model_name)}.persistence.changes", null);
+		
+		return navigation;
+	}
+	
+	@Override
+	@ScopeEnd
+	public String cancel() {
+		return super.cancel();
 	}
 
 	

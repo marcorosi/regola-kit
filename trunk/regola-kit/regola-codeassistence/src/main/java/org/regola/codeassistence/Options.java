@@ -30,7 +30,7 @@ public class Options {
 			new CustomDaoGenerator(), new FilterGenerator(),
 			new FormPageGenerator(), new ListManagedBeanGenerator(),
 			new FormManagedBeanGenerator(), new CustomManagerGenerator(),
-			new ListPageGenerator(), new ServiceManagerGenerator() };
+			new ListPageGenerator() };
 	
 	String modelClass;
 	
