@@ -1,5 +1,6 @@
 package org.regola.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.regola.model.Customer;
@@ -13,4 +14,5 @@ public interface CustomerDao extends GenericDao<Customer, Integer> {
 
 	public List<Customer> findByAddress(Address address);
 
+        public List<Customer> findByInvoiceTotalGT(BigDecimal invoiceTotal);
 }

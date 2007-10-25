@@ -1,5 +1,6 @@
 package org.regola.model;
 
+import java.math.BigDecimal;
 import org.regola.filter.annotation.Equals;
 import org.regola.filter.annotation.GreaterThan;
 import org.regola.filter.annotation.In;
@@ -85,10 +86,11 @@ public class CustomerPattern extends ModelPattern {
 	public void setAddressCity(String addressCity) {
 		this.addressCity = addressCity;
 	}
-
+        
 	public CustomerPattern() {
 		addProperty("id", null);
 		addProperty("firstName", null);
 		addProperty("lastName", null);
+                addProperty("invoices", null);
 	}
 }

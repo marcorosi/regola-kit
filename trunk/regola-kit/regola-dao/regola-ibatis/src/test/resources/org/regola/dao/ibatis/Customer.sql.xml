@@ -13,6 +13,7 @@
 		<result property="lastName" column="LASTNAME" />
 		<result property="address.street" column="STREET" />
 		<result property="address.city" column="CITY" />
+                <result property="invoices" column="ID" select="Invoice.findByCustomerId" />
 	</resultMap>
 
 	<sql id="select">
@@ -242,4 +243,15 @@
 			WHERE STREET = #street# AND CITY = #city#
 		]]>
 	</select>
+        
+        <select id="findByInvoiceTotalGT" parameterClass="decimal"
+                resultMap="customerMap">
+                <include refid="select" />
+		<![CDATA[
+			WHERE EXISTS ( SELECT 1 
+                                         FROM INVOICE I
+                                        WHERE I.CUSTOMERID = CUSTOMER.ID
+                                          AND I.TOTAL > #value# )
+		]]>
+	</select>  
 </sqlMap>

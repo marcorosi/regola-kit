@@ -13,6 +13,10 @@
 			<property name="street" />
 			<property name="city" />
 		</component>
+                <set name="invoices" inverse="true">
+                    <key column="CUSTOMERID" />
+                    <one-to-many class="Invoice" />
+                </set>
 	</class>
 
 	<query name="Customer.findByLastNameAndCity">
@@ -23,13 +27,18 @@
 
 	<query name="Customer.findByAddressCity">
 		<![CDATA[
-				from Customer as c where c.address.city = :address
+			from Customer as c where c.address.city = :address
 		]]>
 	</query>
 
 	<query name="Customer.findByAddress">
 		<![CDATA[
 			from Customer as c where c.address = :address
+		]]>
+	</query>
+        <query name="Customer.findByInvoiceTotalGT">
+		<![CDATA[
+			select distinct c from Customer as c left join c.invoices as i where i.total > :total
 		]]>
 	</query>
 </hibernate-mapping>

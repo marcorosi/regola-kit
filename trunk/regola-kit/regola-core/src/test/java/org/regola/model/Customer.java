@@ -1,12 +1,26 @@
 package org.regola.model;
 
-public class Customer {
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
+
+public class Customer implements Serializable {
 
 	private Integer id;
 	private String firstName;
 	private String lastName;
 	private Address address;
 
+        private Collection<Invoice> invoices = new HashSet<Invoice>();
+
+        public Collection<Invoice> getInvoices() {
+            return invoices;
+        }
+
+        public void setInvoices(Collection<Invoice> invoices) {
+            this.invoices = invoices;
+        }
+        
 	public static class Address {
 
 		private String street;
