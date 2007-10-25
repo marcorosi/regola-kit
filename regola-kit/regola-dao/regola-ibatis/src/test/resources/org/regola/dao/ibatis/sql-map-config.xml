@@ -7,5 +7,5 @@
         	lazyLoadingEnabled="true" useStatementNamespaces="true" />
 
         <sqlMap resource="org/regola/dao/ibatis/Customer.sql.xml" />
-
+        <sqlMap resource="org/regola/dao/ibatis/Invoice.sql.xml" />
 </sqlMapConfig>
