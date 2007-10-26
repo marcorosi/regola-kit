@@ -75,6 +75,11 @@
 				<scope>test</scope>
 			</dependency>
 			<dependency>
+				<groupId>jpox</groupId>
+				<artifactId>jpox-springframework</artifactId>
+				<version>${jpox.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>bcel</groupId>
 				<artifactId>bcel</artifactId>
 				<version>5.1</version>
@@ -106,6 +111,11 @@
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate</artifactId>
 				<version>3.2.5.ga</version>
+			</dependency>
+			<dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib</artifactId>
+				<version>2.1_3</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

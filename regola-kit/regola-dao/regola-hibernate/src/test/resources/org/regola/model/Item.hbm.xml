@@ -5,13 +5,14 @@
 <hibernate-mapping package="org.regola.model"
 	default-access="property">
 	<class name="Item">
-            <composite-id name="id" class="Item$ItemId">
-                <key-property name="invoice" column="INVOICEID" />
-                <key-property name="itemNumber" column="ITEM" />
-            </composite-id>
-            <many-to-one name="invoice" column="INVOICEID" insert="false" update="false" />
-            <many-to-one name="product" column="PRODUCTID" />
-            <property name="quantity" />
-            <property name="cost" />
+		<composite-id name="id" class="Item$ItemId">
+			<key-property name="invoiceId" column="INVOICEID" />
+			<key-property name="itemNumber" column="ITEM" />
+		</composite-id>
+		<many-to-one name="invoice" column="INVOICEID" insert="false"
+			update="false" />
+		<many-to-one name="product" column="PRODUCTID" />
+		<property name="quantity" />
+		<property name="cost" />
 	</class>
 </hibernate-mapping>

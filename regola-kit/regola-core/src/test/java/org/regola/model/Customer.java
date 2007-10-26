@@ -6,6 +6,8 @@ import java.util.HashSet;
 
 public class Customer implements Serializable {
 
+	private static final long serialVersionUID = 9184855964484379930L;
+	
 	private Integer id;
 	private String firstName;
 	private String lastName;
@@ -21,8 +23,10 @@ public class Customer implements Serializable {
             this.invoices = invoices;
         }
         
-	public static class Address {
+	public static class Address implements Serializable {
 
+		private static final long serialVersionUID = -3409962801425592095L;
+		
 		private String street;
 		private String city;
 
