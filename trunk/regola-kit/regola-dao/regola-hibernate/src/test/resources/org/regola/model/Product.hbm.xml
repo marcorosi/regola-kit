@@ -7,6 +7,6 @@
 	<class name="Product">
 		<id name="id" />
 		<property name="name" />
-		<property name="price" />		
+		<property name="price" />
 	</class>
 </hibernate-mapping>

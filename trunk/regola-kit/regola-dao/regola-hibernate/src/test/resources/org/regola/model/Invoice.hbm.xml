@@ -7,11 +7,11 @@
 	<class name="Invoice">
 		<id name="id" />
 		<many-to-one name="customer" column="CUSTOMERID" />
-                <list name="items" inverse="true">
-                    <key column="INVOICEID" />
-                    <list-index column="ITEM" />
-                    <one-to-many class="Item" />
-                </list>
+		<list name="items" inverse="true">
+			<key column="INVOICEID" />
+			<list-index column="ITEM" />
+			<one-to-many class="Item" />
+		</list>
 		<property name="total" />
 	</class>
 </hibernate-mapping>

@@ -18,52 +18,57 @@
 		<named-query name="Customer.findByAddress">
 			<query>select c from Customer c where c.address = ?1</query>
 		</named-query>
-                <named-query name="Customer.findByInvoiceTotalGT">
-			<query>select distinct c from Customer c left join c.invoices i 
-                                where i.total > ?1
-                        </query>
+		<named-query name="Customer.findByInvoiceTotalGT">
+			<query>
+				select distinct c from Customer c left join c.invoices i
+				where i.total > ?1
+			</query>
 		</named-query>
 		<attributes>
 			<id name="id" />
 			<basic name="firstName" />
 			<basic name="lastName" />
-                        <one-to-many name="invoices" mapped-by="customer" />
-			<embedded name="address" />                        
+			<one-to-many name="invoices" mapped-by="customer" />
+			<embedded name="address" />
 		</attributes>
 	</entity>
-        <entity class="org.regola.model.Invoice" access="PROPERTY">
-            <attributes>
-                <id name="id" />
-                <basic name="total" />
-                <many-to-one name="customer">
-                    <join-column name="CUSTOMERID" />
-                </many-to-one>
-                <transient name="items" />
-                <!--<one-to-many name="items" mapped-by="invoice">
-                    <order-by />
-                </one-to-many>-->
-            </attributes>
-        </entity>
-        <!--<entity class="org.regola.model.Item" access="PROPERTY">
-            <attributes>
-                <embedded-id name="id" />
-                <basic name="quantity" />
-                <basic name="cost" />
-                <many-to-one name="invoice">
-                    <join-column name="INVOICEID" />
-                </many-to-one>
-                <many-to-one name="product">
-                    <join-column name="PRODUCTID" />
-                </many-to-one>
-            </attributes>
-        </entity>-->
-        <entity class="org.regola.model.Product" access="PROPERTY">
-            <attributes>
-                <id name="id" />
-                <basic name="name" />
-                <basic name="price" />
-            </attributes>
-        </entity>
+	<entity class="org.regola.model.Invoice" access="PROPERTY">
+		<attributes>
+			<id name="id" />
+			<basic name="total" />
+			<many-to-one name="customer">
+				<join-column name="CUSTOMERID" />
+			</many-to-one>
+			<one-to-many name="items" mapped-by="invoice">
+				<order-by>itemNumber</order-by>
+			</one-to-many>
+		</attributes>
+	</entity>
+	<entity class="org.regola.model.Item" access="PROPERTY">
+		<attributes>
+			<embedded-id name="id" />
+			<basic name="quantity" />
+			<basic name="cost" />
+			<basic name="itemNumber">
+				<column name="ITEM" insertable="false"
+					updatable="false" />
+			</basic>
+			<many-to-one name="invoice">
+				<join-column name="INVOICEID" insertable="false"
+					updatable="false" />
+			</many-to-one>
+			<many-to-one name="product">
+				<join-column name="PRODUCTID" />
+			</many-to-one>
+		</attributes>
+	</entity>
+	<entity class="org.regola.model.Product" access="PROPERTY">
+		<attributes>
+			<id name="id" />
+			<basic name="name" />
+			<basic name="price" />
+		</attributes>
+	</entity>
 
 	<embeddable class="org.regola.model.Customer$Address"
 		access="PROPERTY">
@@ -72,12 +77,13 @@
 			<basic name="city" />
 		</attributes>
 	</embeddable>
-        <embeddable class="org.regola.model.Item$ItemId"
-                    access="PROPERTY">
-            <attributes>
-                <basic name="invoice" />
-                <basic name="itemNumber" />
-            </attributes>
-        </embeddable>
+	<embeddable class="org.regola.model.Item$ItemId"
+		access="PROPERTY">
+		<attributes>
+			<basic name="invoiceId" />
+			<basic name="itemNumber" />
+			<transient name="invoice" />
+		</attributes>
+	</embeddable>
 
 </entity-mappings>

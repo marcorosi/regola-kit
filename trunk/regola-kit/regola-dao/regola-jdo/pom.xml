@@ -72,6 +72,10 @@
 			<artifactId>jpox-enhancer</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>jpox</groupId>
+			<artifactId>jpox-springframework</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>bcel</groupId>
 			<artifactId>bcel</artifactId>
 		</dependency>

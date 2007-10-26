@@ -26,11 +26,14 @@
 			</bean>
 		</property>
 	</bean>
-
+	<bean id="jpoxDialect"
+		class="org.jpox.springframework.JPOXJdoDialect">
+	</bean>
 	<bean id="transactionManager"
 		class="org.springframework.orm.jdo.JdoTransactionManager">
 		<property name="persistenceManagerFactory"
 			ref="persistenceManagerFactory" />
+	    <property name="jdoDialect" ref="jpoxDialect" />
 	</bean>
 
 </beans>
