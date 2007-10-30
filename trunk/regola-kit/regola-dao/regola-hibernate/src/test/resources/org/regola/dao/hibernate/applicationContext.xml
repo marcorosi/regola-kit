@@ -12,7 +12,6 @@
                     <list>
                         <value>org/regola/model/Customer.hbm.xml</value>
                         <value>org/regola/model/Invoice.hbm.xml</value>
-                        <value>org/regola/model/Item.hbm.xml</value>
                         <value>org/regola/model/Product.hbm.xml</value>
                     </list>
                 </property>

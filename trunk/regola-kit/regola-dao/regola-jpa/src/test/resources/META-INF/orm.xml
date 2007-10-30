@@ -82,7 +82,6 @@
 		<attributes>
 			<basic name="invoiceId" />
 			<basic name="itemNumber" />
-			<transient name="invoice" />
 		</attributes>
 	</embeddable>
 

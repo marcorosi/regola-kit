@@ -7,10 +7,15 @@
 	<class name="Invoice">
 		<id name="id" />
 		<many-to-one name="customer" column="CUSTOMERID" />
-		<list name="items" inverse="true">
+		<list name="items" inverse="true" table="ITEM">
 			<key column="INVOICEID" />
 			<list-index column="ITEM" />
-			<one-to-many class="Item" />
+			<composite-element class="Item">
+				<parent name="invoice" />
+				<many-to-one name="product" column="PRODUCTID" />
+				<property name="quantity" />
+				<property name="cost" />
+			</composite-element>
 		</list>
 		<property name="total" />
 	</class>
