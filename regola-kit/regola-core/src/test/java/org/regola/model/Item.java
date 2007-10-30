@@ -3,56 +3,26 @@ package org.regola.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-class Item implements Serializable {
+public class Item implements Serializable {
 
 	private static final long serialVersionUID = -2054179206343306401L;
 
 	public static class ItemId implements Serializable {
 
-		private static final long serialVersionUID = 1889718673921098048L;
-		
-		public Invoice.InvoiceId invoice;
-		public Integer itemNumber;
+		private static final long serialVersionUID = -7440178962501455406L;
+
+		private Integer invoiceId;
+		private Integer itemNumber;
 
 		public ItemId() {
 		}
 
-		public ItemId(String stringRapresentation) {
-			String[] invoiceIdAndItemNumber = stringRapresentation.split(",");
-			if (invoiceIdAndItemNumber.length == 2) {
-				try {
-					this.invoice = new Invoice.InvoiceId(
-							invoiceIdAndItemNumber[0]);
-					this.itemNumber = Integer
-							.parseInt(invoiceIdAndItemNumber[1]);
-				} catch (NumberFormatException e) {
-					throw new IllegalArgumentException(
-							"You must provide a string in the format <invoiceId,itemNumber>");
-				}
-			}
-			throw new IllegalArgumentException(
-					"You must provide a string in the format <invoiceId,itemNumber>");
-		}
-
-		public ItemId(Invoice.InvoiceId invoice, Integer itemNumber) {
-			this.invoice = invoice;
-			this.itemNumber = itemNumber;
-		}
-
-		public Invoice.InvoiceId getInvoice() {
-			return invoice;
-		}
-
-		public void setInvoice(Invoice.InvoiceId invoice) {
-			this.invoice = invoice;
-		}
-		
 		public Integer getInvoiceId() {
-			return getInvoice().getId();
+			return invoiceId;
 		}
-		
+
 		public void setInvoiceId(Integer invoiceId) {
-			getInvoice().setId(invoiceId);
+			this.invoiceId = invoiceId;
 		}
 
 		public Integer getItemNumber() {
@@ -63,48 +33,48 @@ class Item implements Serializable {
 			this.itemNumber = itemNumber;
 		}
 
-		public String toString() {
-			return getInvoice() + "," + getItemNumber();
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime
+					* result
+					+ ((getInvoiceId() == null) ? 0 : getInvoiceId().hashCode());
+			result = prime
+					* result
+					+ ((getItemNumber() == null) ? 0 : getItemNumber()
+							.hashCode());
+			return result;
 		}
 
 		@Override
 		public boolean equals(Object obj) {
-			if (obj == null) {
+			if (this == obj)
+				return true;
+			if (obj == null)
 				return false;
-			}
-			if (getClass() != obj.getClass()) {
+			if (getClass() != obj.getClass())
 				return false;
-			}
 			final ItemId other = (ItemId) obj;
-			if (this.invoice != other.invoice
-					&& (this.invoice == null || !this.invoice
-							.equals(other.invoice))) {
+			if (getInvoiceId() == null) {
+				if (other.getInvoiceId() != null)
+					return false;
+			} else if (!getInvoiceId().equals(other.getInvoiceId()))
 				return false;
-			}
-			if (this.itemNumber != other.itemNumber
-					&& (this.itemNumber == null || !this.itemNumber
-							.equals(other.itemNumber))) {
+			if (getItemNumber() == null) {
+				if (other.getItemNumber() != null)
+					return false;
+			} else if (!getItemNumber().equals(other.getItemNumber()))
 				return false;
-			}
 			return true;
-		}
-
-		@Override
-		public int hashCode() {
-			int hash = 7;
-			hash = 53 * hash
-					+ (this.invoice != null ? this.invoice.hashCode() : 0);
-			hash = 53
-					* hash
-					+ (this.itemNumber != null ? this.itemNumber.hashCode() : 0);
-			return hash;
 		}
 
 	}
 
 	private ItemId id;
+
 	private Integer itemNumber;
-	
+
 	private Invoice invoice;
 	private Product product;
 	private Integer quantity;
@@ -144,21 +114,20 @@ class Item implements Serializable {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
-	
-	protected ItemId getId() {
+
+	public ItemId getId() {
 		return id;
 	}
 
-	protected void setId(ItemId id) {
+	public void setId(ItemId id) {
 		this.id = id;
 	}
 
-	protected Integer getItemNumber() {
+	public Integer getItemNumber() {
 		return itemNumber;
 	}
 
-	protected void setItemNumber(Integer itemNumber) {
+	public void setItemNumber(Integer itemNumber) {
 		this.itemNumber = itemNumber;
 	}
-	
 }
