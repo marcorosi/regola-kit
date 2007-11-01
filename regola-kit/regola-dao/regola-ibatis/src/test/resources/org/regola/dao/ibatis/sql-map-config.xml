@@ -8,4 +8,6 @@
 
         <sqlMap resource="org/regola/dao/ibatis/Customer.sql.xml" />
         <sqlMap resource="org/regola/dao/ibatis/Invoice.sql.xml" />
+        <sqlMap resource="org/regola/dao/ibatis/Item.sql.xml" />
+        <sqlMap resource="org/regola/dao/ibatis/Product.sql.xml" />
 </sqlMapConfig>

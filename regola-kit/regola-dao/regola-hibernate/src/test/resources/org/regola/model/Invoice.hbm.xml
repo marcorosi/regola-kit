@@ -7,7 +7,7 @@
 	<class name="Invoice">
 		<id name="id" />
 		<many-to-one name="customer" column="CUSTOMERID" />
-		<list name="items" inverse="true" table="ITEM">
+		<list name="items" table="ITEM">
 			<key column="INVOICEID" />
 			<list-index column="ITEM" />
 			<composite-element class="Item">

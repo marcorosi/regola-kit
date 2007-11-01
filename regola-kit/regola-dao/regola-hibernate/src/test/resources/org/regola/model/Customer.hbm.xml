@@ -38,7 +38,17 @@
 	</query>
 	<query name="Customer.findByInvoiceTotalGT">
 		<![CDATA[
-			select distinct c from Customer as c left join c.invoices as i where i.total > :total
+			from Customer as c 
+			where exists( from c.invoices as i where i.total > :total )
 		]]>
 	</query>
+	<query name="Customer.findByProductNameBought">
+        <![CDATA[
+            select distinct c from Customer as c 
+            join c.invoices as i 
+            inner join i.items as item
+            inner join item.product as p
+            where p.name = :productName
+        ]]>
+    </query>
 </hibernate-mapping>

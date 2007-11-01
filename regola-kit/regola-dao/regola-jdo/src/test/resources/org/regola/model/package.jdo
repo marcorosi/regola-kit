@@ -26,14 +26,13 @@
 
 			<query name="Customer.findByAddressCity">
 				<![CDATA[
-                select where address.city == :address.city
-                
+                select where address.city == :address.city                
                 ]]>
 			</query>
 
 			<query name="Customer.findByAddress">
 				<![CDATA[
-                select where address.street == :address.street && address.city == :address.city          
+                select where address.street == :address.street && address.city == :address.city
                 ]]>
 			</query>
 			<query name="Customer.findByInvoiceTotalGT">
@@ -41,6 +40,14 @@
                 select where invoices.contains(i) && i.total > :total          
                 ]]>
 			</query>
+			<query name="Customer.findByProductNameBought">
+                <![CDATA[
+                select where 
+                invoices.contains(i) &&
+                ( i.items.contains(it) &&
+                  it.product.name == :productName )           
+                ]]>
+            </query>
 		</class>
 		<class name="Customer$Address" embedded-only="true">
 			<field name="street" />
@@ -57,27 +64,29 @@
 			<field name="id" primary-key="true" column="ID" />
 			<field name="customer" column="CUSTOMERID" />
 			<field name="total" column="TOTAL" />
-			<field name="items" mapped-by="invoice" table="ITEM">
+			<field name="items" table="ITEM">
 				<collection />
-				<join>
-					<column name="INVOICEID" />
-				</join>
+				<join column="INVOICEID" />					
 				<element>
-					<embedded>
+					<embedded owner-field="invoice">					    
 						<field name="invoice" column="INVOICEID" />
 						<field name="product" column="PRODUCTID" />
 						<field name="quantity" column="QUANTITY" />
 						<field name="cost" column="COST" />
-					</embedded>
+					</embedded>					
 				</element>
 				<order column="ITEM" />
 			</field>
 		</class>
+		
 		<class name="Item" embedded-only="true">
-			<field name="invoice" column="INVOICEID" />
-			<field name="product" column="PRODUCTID" />
-			<field name="quantity" column="QUANTITY" />
-			<field name="cost" column="COST" />
-		</class>
+		  <field name="id" persistence-modifier="none" />
+		  <field name="invoice" />
+		  <field name="product" />
+		  <field name="quantity" />
+		  <field name="cost" />
+		  <field name="itemNumber" persistence-modifier="none" />
+		</class>		
+		
 	</package>
 </jdo>
