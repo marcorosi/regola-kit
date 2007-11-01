@@ -4,7 +4,7 @@
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="org.regola.model"
 	default-access="property">
-	<class name="Product">
+	<class name="Product" batch-size="20">
 		<id name="id" />
 		<property name="name" />
 		<property name="price" />

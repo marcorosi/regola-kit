@@ -20,8 +20,16 @@
 		</named-query>
 		<named-query name="Customer.findByInvoiceTotalGT">
 			<query>
-				select distinct c from Customer c left join c.invoices i
+				select distinct c from Customer c, in(c.invoices) i
 				where i.total > ?1
+			</query>
+		</named-query>
+		<named-query name="Customer.findByProductNameBought">
+			<query>
+				select distinct c from Customer as c join c.invoices as
+				i inner join i.items as item inner join item.product as
+				p where p.name = ?1
+
 			</query>
 		</named-query>
 		<attributes>
@@ -81,7 +89,9 @@
 		access="PROPERTY">
 		<attributes>
 			<basic name="invoiceId" />
-			<basic name="itemNumber" />
+			<basic name="itemNumber">
+				<column name="ITEM" />
+			</basic>
 		</attributes>
 	</embeddable>
 

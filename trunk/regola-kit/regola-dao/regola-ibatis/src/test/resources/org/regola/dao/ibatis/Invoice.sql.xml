@@ -11,6 +11,8 @@
 		<result property="customer" column="CUSTOMERID"
 			select="Customer.get" />
 		<result property="total" column="TOTAL" />
+		<result property="items" column="ID"
+			select="Item.findByInvoiceId" />
 	</resultMap>
 
 	<select id="findByCustomerId" parameterClass="int"
@@ -20,5 +22,12 @@
 			FROM INVOICE
                         WHERE CUSTOMERID = #id#
 		]]>
+	</select>
+	<select id="get" parameterClass="int" resultMap="invoiceMap">
+		<![CDATA[
+            SELECT ID, CUSTOMERID, TOTAL
+            FROM INVOICE
+                        WHERE ID = #id#
+        ]]>
 	</select>
 </sqlMap>

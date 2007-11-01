@@ -80,7 +80,7 @@ public class Item implements Serializable {
 	private Integer quantity;
 	private BigDecimal cost;
 
-	protected Item() {
+	public Item() {
 	}
 
 	public BigDecimal getCost() {
@@ -115,19 +115,19 @@ public class Item implements Serializable {
 		this.quantity = quantity;
 	}
 
-	public ItemId getId() {
+	protected ItemId getId() {
 		return id;
 	}
 
-	public void setId(ItemId id) {
+	protected void setId(ItemId id) {
 		this.id = id;
 	}
 
-	public Integer getItemNumber() {
+	protected Integer getItemNumber() {
 		return itemNumber;
 	}
 
-	public void setItemNumber(Integer itemNumber) {
+	protected void setItemNumber(Integer itemNumber) {
 		this.itemNumber = itemNumber;
 	}
 }
