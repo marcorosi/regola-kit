@@ -14,7 +14,7 @@ public interface CustomerDao extends GenericDao<Customer, Integer> {
 
 	public List<Customer> findByAddress(Address address);
 
-        public List<Customer> findByInvoiceTotalGT(BigDecimal invoiceTotal);
+	public List<Customer> findByInvoiceTotalGT(BigDecimal invoiceTotal);
 
 		public List<Customer> findByProductNameBought(String shoeChair);
 }

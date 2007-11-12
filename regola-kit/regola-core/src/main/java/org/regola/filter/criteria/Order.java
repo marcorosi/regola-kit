@@ -1,10 +1,10 @@
 package org.regola.filter.criteria;
 
 /**
- * @author   nicola
+ * @author nicola
  */
 public class Order {
-	
+
 	/**
 	 * Nome della propriet&agrave; usata per l'ordinamento
 	 */

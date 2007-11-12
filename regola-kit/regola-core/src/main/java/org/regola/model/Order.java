@@ -10,18 +10,17 @@
 package org.regola.model;
 
 /**
- *
+ * 
  * @author nicola
  */
 public enum Order {
 	asc, desc, none;
-	
+
 	public Order[] getLabels() {
 		return Order.values();
 	}
-	
-	public String getLabel()
-	{
+
+	public String getLabel() {
 		return this.toString();
 	}
 }

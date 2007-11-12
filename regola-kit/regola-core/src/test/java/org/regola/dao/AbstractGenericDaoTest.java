@@ -1,6 +1,5 @@
 package org.regola.dao;
 
-import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -349,7 +348,6 @@ public abstract class AbstractGenericDaoTest extends
 		assertEquals(29, customers.get(9).getId().intValue());
 	}
 
-        
 	public void testGetAll() {
 		List<Customer> customers = customerDao.getAll();
 

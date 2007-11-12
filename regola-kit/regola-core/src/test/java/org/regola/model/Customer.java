@@ -7,26 +7,26 @@ import java.util.HashSet;
 public class Customer implements Serializable {
 
 	private static final long serialVersionUID = 9184855964484379930L;
-	
+
 	private Integer id;
 	private String firstName;
 	private String lastName;
 	private Address address;
 
-        private Collection<Invoice> invoices = new HashSet<Invoice>();
+	private Collection<Invoice> invoices = new HashSet<Invoice>();
 
-        public Collection<Invoice> getInvoices() {
-            return invoices;
-        }
+	public Collection<Invoice> getInvoices() {
+		return invoices;
+	}
 
-        public void setInvoices(Collection<Invoice> invoices) {
-            this.invoices = invoices;
-        }
-        
+	public void setInvoices(Collection<Invoice> invoices) {
+		this.invoices = invoices;
+	}
+
 	public static class Address implements Serializable {
 
 		private static final long serialVersionUID = -3409962801425592095L;
-		
+
 		private String street;
 		private String city;
 

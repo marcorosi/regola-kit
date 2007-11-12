@@ -76,7 +76,7 @@ public abstract class AbstractFinderDaoTest extends AbstractGenericDaoTest {
 			}
 		}
 	}
-	
+
 	public void testExecuteFinder_byProductNameBought() {
 
 		String shoeChair = "Shoe Chair";
@@ -88,17 +88,17 @@ public abstract class AbstractFinderDaoTest extends AbstractGenericDaoTest {
 			boolean found = false;
 			for (Invoice i : c.getInvoices()) {
 				assertNotNull(i.getCustomer());
-				for(Item it : i.getItems()) {
+				for (Item it : i.getItems()) {
 					assertNotNull(it.getInvoice());
-					if(shoeChair.equals(it.getProduct().getName()))
-					{
+					if (shoeChair.equals(it.getProduct().getName())) {
 						found = true;
 						continue;
 					}
 				}
 			}
 			if (!found) {
-				fail("Should have at least one item with a product named \"" + shoeChair + "\"");
+				fail("Should have at least one item with a product named \""
+						+ shoeChair + "\"");
 			}
 		}
 	}
