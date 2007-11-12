@@ -31,7 +31,7 @@ public abstract class ModelPattern {
 	public void setPagingEnabled(boolean pagingEnabled) {
 		this.pagingEnabled = pagingEnabled;
 	}
-	
+
 	public void disablePaging() {
 		setPagingEnabled(false);
 	}
@@ -249,8 +249,6 @@ public abstract class ModelPattern {
 
 	/**
 	 * Restituisce la proprietà del filtro che identifica la chiave primaria
-	 * 
-	 * @return
 	 */
 	public String getFilterIdField() {
 		return findMethodByAnnotation(Equals.class);

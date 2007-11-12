@@ -10,11 +10,10 @@ import org.regola.filter.annotation.NotEquals;
 import org.regola.model.ModelPattern;
 
 /**
- * @author  nicola
+ * @author nicola
  */
-class MockModelFilter extends ModelPattern
-{
-	@Equals(value="modelName")
+class MockModelFilter extends ModelPattern {
+	@Equals(value = "modelName")
 	String name;
 	String surname;
 	String nickname;

@@ -61,10 +61,6 @@ public class JdoGenericDao<T, ID extends Serializable> extends JdoDaoSupport
 		return count.intValue();
 	}
 
-	public void delete(T object) {
-		getJdoTemplate().deletePersistent(object);
-	}
-
 	/**
 	 * Finds results matching the filter
 	 * 

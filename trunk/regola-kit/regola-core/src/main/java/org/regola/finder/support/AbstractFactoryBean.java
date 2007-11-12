@@ -61,11 +61,12 @@ public abstract class AbstractFactoryBean implements FactoryBean,
 		return null;
 	}
 
-	protected abstract <T> FinderExecutor<T> newFinderExecutor(Class<T> entityClass);
+	protected abstract <T> FinderExecutor<T> newFinderExecutor(
+			Class<T> entityClass);
 
 	public Class<?> getObjectType() {
-		// Returns null when is called before this factory bean is fully
-		// initialized
+		// It's ok to return null when this method is called before the factory
+		// bean is fully initialized
 		return iface;
 	}
 

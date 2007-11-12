@@ -64,23 +64,4 @@
 			<version>2.6.9</version>
 		</dependency>
 	</dependencies>
-
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>net.objectlab</groupId>
-				<artifactId>mvn-qalab-plugin</artifactId>
-				<version>2.2</version>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>report-merge-chart</report>
-							<report>report-movers-all</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
-
-		</plugins>
-	</reporting>
 </project>

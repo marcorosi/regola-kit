@@ -8,9 +8,9 @@ import org.regola.model.ModelPattern;
  * {@link Criteria} passata ai suoi metodi in modo che rispecchi i criteri di
  * filtro e ordinamento contenuti in un'istanza di {@link ModelPattern}.
  * <p>
- * Questa classe ricopre il ruolo di <i>director</i> nel pattern Builder
- * [GoF], mentre l'istanza di {@link Criteria} rappresenta il <i>builder</i>
- * che crea effettivamente un prodotto specifico, che sarà in genere una query
+ * Questa classe ricopre il ruolo di <i>director</i> nel pattern Builder [GoF],
+ * mentre l'istanza di {@link Criteria} rappresenta il <i>builder</i> che crea
+ * effettivamente un prodotto specifico, che sarà in genere una query
  * nell'implementazione concreta del framework di persistenza.
  */
 public interface ModelPatternParser {

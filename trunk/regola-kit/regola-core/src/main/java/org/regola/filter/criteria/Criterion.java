@@ -83,10 +83,16 @@ public class Criterion {
 		},
 		IN("IN") {
 			public void dispatch(Builder builder, String property, Object value) {
-				if (Collection.class.isAssignableFrom(value.getClass())) {
-					builder.addIn(property, (Collection<?>) value);
-				} else if (value != null && value.getClass().isArray()) {
-					builder.addIn(property, Arrays.asList((Object[]) value));
+				Collection<?> collection = null;
+				if (value != null) {
+					if (value instanceof Collection) {
+						collection = (Collection<?>) value;
+					} else if (value.getClass().isArray()) {
+						collection = Arrays.asList((Object[]) value);
+					}
+				}
+				if (collection != null) {
+					builder.addIn(property, collection);
 				} else {
 					throw new RuntimeException(
 							"L'operatore IN supporta solo valori di tipo Collection o Array");

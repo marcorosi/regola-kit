@@ -8,41 +8,36 @@ import org.regola.filter.criteria.Criterion;
 import org.regola.filter.criteria.Order;
 import org.regola.filter.criteria.Projection;
 
-class MockCriteria implements Criteria
-{
+class MockCriteria implements Criteria {
 	List<Criterion> criterias = new ArrayList<Criterion>();
-	
+
 	public Criteria add(Criterion criterion) {
 		criterias.add(criterion);
 		return this;
 	}
 
 	public boolean contains(Criterion criterion) {
-		for(Criterion c : criterias)
-		{
-			if(c.equals(criterion))
+		for (Criterion c : criterias) {
+			if (c.equals(criterion))
 				return true;
 		}
 		return false;
 	}
 
-	public String printCriterion()
-	{
+	public String printCriterion() {
 		StringBuilder sb = new StringBuilder();
-		for(Criterion c : criterias)
-		{
-			if(sb.length() > 0)
+		for (Criterion c : criterias) {
+			if (sb.length() > 0)
 				sb.append(",");
-			
+
 			sb.append(c.toString());
 		}
 		return sb.toString();
 	}
 
 	public boolean containsCriterion(String criterion) {
-		for(Criterion c : criterias)
-		{
-			if(c.toString().equals(criterion))
+		for (Criterion c : criterias) {
+			if (c.toString().equals(criterion))
 				return true;
 		}
 		return false;

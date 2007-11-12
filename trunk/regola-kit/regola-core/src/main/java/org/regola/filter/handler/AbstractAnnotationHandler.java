@@ -5,7 +5,6 @@ import java.lang.annotation.Annotation;
 import java.util.Collection;
 
 import org.regola.filter.FilterAnnotationHandler;
-import org.regola.filter.ModelPatternParser;
 import org.regola.filter.criteria.Criteria;
 import org.regola.model.ModelPattern;
 import org.springframework.beans.BeanWrapperImpl;
@@ -13,19 +12,19 @@ import org.springframework.util.StringUtils;
 
 /**
  * Fornisce lo scheletro di implementazione per gli handler (gestori) per le
- * annotazioni delle proprietà di {@link ModelPattern}. <br>
+ * annotazioni delle propriet&agrave; di {@link ModelPattern}. <br>
  * Basata sul pattern Template Method [GoF], i tre metodi da implementare nella
  * classi derivate sono:
  * <ul>
  * <li>{@link #checkAnnotation(Annotation)}: (facoltativo) verifica che
  * l'annotazione sia del tipo previsto,
  * <li>{@link #getPropertyPath(Annotation)}: (facoltativo) restituisce la
- * proprietà della classe di dominio alla quale si applica questo filtro,
+ * propriet&agrave; della classe di dominio alla quale si applica questo filtro,
  * <li>{@link #handleFilter(Annotation, String, Object, Criteria)}: la logica
  * vera e propria di gestione del filtro.
  * </ul>
- * Partecipa insieme a {@link ModelPatternParser} al pattern Builder [GoF] nel
- * ruolo di <i>director</i> su di un query builder concreto (<i>builder</i>).
+ * Partecipa insieme a {@link org.regola.filter.ModelPatternParser} al pattern
+ * Builder [GoF] nel ruolo di <i>director</i> su di un query builder concreto (<i>builder</i>).
  * 
  */
 public abstract class AbstractAnnotationHandler implements
@@ -68,14 +67,14 @@ public abstract class AbstractAnnotationHandler implements
 	}
 
 	/**
-	 * Metodo di utilità per recuperare tramite introspezione una proprietà da
-	 * un oggetto di tipo {@link ModelPattern}
+	 * Metodo di utilit&agrave; per recuperare tramite introspezione una
+	 * propriet&agrave; da un oggetto di tipo {@link ModelPattern}
 	 * 
 	 * @param property
-	 *            la proprietà da leggere
+	 *            la propriet&agrave; da leggere
 	 * @param modelPattern
-	 *            l'oggetto di cui leggere la proprietà
-	 * @return il valore della proprietà richiesta
+	 *            l'oggetto di cui leggere la propriet&agrave;
+	 * @return il valore della propriet&agrave; richiesta
 	 */
 	protected Object getPropertyValue(PropertyDescriptor property,
 			ModelPattern modelPattern) {
@@ -108,7 +107,6 @@ public abstract class AbstractAnnotationHandler implements
 	}
 
 	protected void checkValue(Object filterValue) {
-		return;
 	}
 
 	protected void throwInvalidAnnotation(
@@ -124,8 +122,8 @@ public abstract class AbstractAnnotationHandler implements
 
 	/**
 	 * Metodo hook per la logica di gestione del filtro. <br/> Vengono passati
-	 * annotazione, property path e valore del filtro già verificati, insieme
-	 * all'istanza di criteria su cui operare.
+	 * annotazione, property path e valore del filtro gi&agrave; verificati,
+	 * insieme all'istanza di criteria su cui operare.
 	 * 
 	 * @param annotation
 	 * @param propertyPath
