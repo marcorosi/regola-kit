@@ -114,6 +114,12 @@
 	
 	<!--  bean id="eventBroker" class="org.regola.events.EventBroker" /-->
     <bean id="eventBroker" class="org.regola.events.DuckTypingEventBroker" />
+
+	<bean id="loginForm" init-method="init"
+		class="org.regola.webapp.action.LoginForm" scope="request">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<property name="renderManager" ref="renderManager" />
+	</bean>
 	
 	<!-- 
 		Le form page leggono il parametro id dalla request: 
