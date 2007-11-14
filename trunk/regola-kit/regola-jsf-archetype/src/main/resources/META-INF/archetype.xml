@@ -1,6 +1,13 @@
 <archetype>
   <id>webapp-archetype</id>
  <testResources>
+   <resource filtered="false">src/test/resources/log4j.xml</resource>
+   <resource filtered="false">src/test/resources/hibernate.cfg.xml</resource>
+   <resource filtered="false">src/test/resources/jdbc.test.properties</resource>
+   <resource filtered="false">src/test/resources/applicationContext-dao-test.xml</resource>
+   <resource filtered="false">src/test/resources/applicationContext-service-test.xml</resource>
+   <resource filtered="false">src/test/resources/applicationContext-resources-test.xml</resource>
+   <resource filtered="false">src/test/resources/jetty/env.xml</resource>
   </testResources>
  <resources>
    <resource filtered="false">src/main/webapp/404.xhtml</resource>
