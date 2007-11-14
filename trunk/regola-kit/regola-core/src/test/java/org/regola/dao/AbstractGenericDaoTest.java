@@ -30,6 +30,7 @@ public abstract class AbstractGenericDaoTest extends
 		this.customerDao = customerDao;
 	}
 
+   @Override
 	public String getConfigPath() {
 		return "applicationContext.xml";
 	}
