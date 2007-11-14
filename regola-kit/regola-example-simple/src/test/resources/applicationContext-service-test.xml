@@ -5,5 +5,11 @@
             http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
 
+  <import resource="classpath*:/regola-config/applicationContext-service.xml" />
+       
+  <bean name="customerListTest" class="org.regola.webapp.action.CustomerListTest">
+     <property name="context" value="${integration.context}" />
+     <property name="host" value="${integration.host}" />
+  </bean>
   
 </beans>

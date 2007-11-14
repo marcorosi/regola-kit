@@ -9,43 +9,17 @@
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
             http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.0.xsd">
 
-
-	<!-- For mail settings and future properties files -->
-	<bean id="propertyConfigurer"
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<list>
-				<value>classpath:jdbc.properties</value>
-				<value>classpath:mail.properties</value>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="dataSource"
-		class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
-		<property name="driverClassName"
-			value="${jdbc.driverClassName}" />
-		<property name="url" value="${jdbc.url}" />
-		<property name="username" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-		<property name="maxActive" value="100" />
-		<property name="maxIdle" value="30" />
-		<property name="maxWait" value="1000" />
-		<property name="defaultAutoCommit" value="true" />
-		<property name="removeAbandoned" value="true" />
-		<property name="removeAbandonedTimeout" value="60" />
-	</bean>
-
-	<!-- Serve per agevolare la registrazione di mock object  
-		<bean id="mockRecorder" class="it.kion.regola.test.MockRecorder" />
-	-->
-
-	<bean id="plitviceContextHolder"
-		class="it.kion.regola.webapp.security.impl.PlitviceContextHolderMock">
-		<property name="contesto" ref="contesto"/>
-	</bean>
-	
+  
+      <!-- For mail settings and future properties files -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.test.properties</value>
+                
+            </list>
+        </property>
+    </bean>
+ 
 	
 
 </beans>
