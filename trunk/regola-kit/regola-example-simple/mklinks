@@ -1,0 +1,4 @@
+cd /src/main/webapp/WEB-INF
+
+ln -s ../../../../target/classes/ .
+ln -s ../../../../target/regola-example-simple-1.0-M1-SNAPSHOT/WEB-INF/lib/ .

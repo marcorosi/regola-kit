@@ -7,12 +7,22 @@
             http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
 
-
-
-	<!-- Non e' un mock!, da mocckizzare -->
-	<bean id="autenticatoreDao"
-		class="it.kion.regola.dao.hibernate.AutenticatoreDaoHibernate">
-		<property name="sessionFactory" ref="sessionFactory" />
+    <import resource="classpath*:/regola-config/applicationContext-dao.xml" />
+    
+    <bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName"
+			value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url2}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="maxActive" value="100" />
+		<property name="maxIdle" value="30" />
+		<property name="maxWait" value="1000" />
+		<property name="defaultAutoCommit" value="true" />
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="60" />
 	</bean>
     
 </beans>
