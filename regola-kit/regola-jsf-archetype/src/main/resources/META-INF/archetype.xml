@@ -15,6 +15,7 @@
    <resource filtered="false">src/main/webapp/403.xhtml</resource>
    <resource filtered="false">src/main/webapp/403.jsp</resource>
    <resource filtered="false">src/main/webapp/welcome.jsp</resource>
+   <resource filtered="false">src/main/webapp/login.xhtml</resource>
    <resource filtered="false">src/main/webapp/images/aquadot.jpg</resource>
    <resource filtered="false">src/main/webapp/images/salva.gif</resource>
    <resource filtered="false">src/main/webapp/images/arrow-previous.gif</resource>
@@ -76,6 +77,7 @@
    <resource filtered="false">src/main/webapp/common/testata.xhtml</resource>
    <resource filtered="false">src/main/webapp/common/taglibs.jsp</resource>
    <resource filtered="false">src/main/webapp/common/menu.xhtml</resource>
+   <resource filtered="false">src/main/webapp/WEB-INF/security.xml</resource>
    <resource filtered="false">src/main/webapp/WEB-INF/web.xml</resource>
    <resource filtered="false">src/main/webapp/WEB-INF/jboss-web.xml</resource>
    <resource filtered="false">src/main/webapp/WEB-INF/security.xml</resource>
