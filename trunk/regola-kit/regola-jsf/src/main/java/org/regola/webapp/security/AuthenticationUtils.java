@@ -1,5 +1,6 @@
 package org.regola.webapp.security;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -49,5 +50,30 @@ public class AuthenticationUtils
 		session.setAttribute(HttpSessionContextIntegrationFilter.ACEGI_SECURITY_CONTEXT_KEY, secCtx);
 
 		return AbstractProcessingFilter.obtainFullRequestUrl(request);
+	}
+	
+	/**
+	 * Restituisce il cookie che si chiama nome
+	 * 
+	 * @param request
+	 * @param nome
+	 * @return
+	 */
+	public static Cookie searchCookie(HttpServletRequest request, String nome)
+	{
+		Cookie cookies[] = request.getCookies();
+
+		if (cookies != null)
+		{
+			for (int i = 0; i < cookies.length; i++)
+			{
+				if (nome.equals(cookies[i].getName()))
+				{
+					return cookies[i];
+				}
+			}
+		}
+
+		return null;
 	}
 }
