@@ -3,10 +3,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<groupId>org.regola</groupId>
 	<artifactId>regola-kit</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0-M1-SNAPSHOT</version>
+	<version>1.0-M1</version>
+
 	<name>REGOLA Toolkit</name>
 	<description>Regola conventional framework</description>
 	<url>http://code.google.com/p/regola-kit/</url>
@@ -43,6 +45,9 @@
 		<connection>
 			scm:svn:http://regola-kit.googlecode.com/svn/trunk
 		</connection>
+		<developerConnection>
+			scm:svn:https://regola-kit.googlecode.com/svn/trunk
+		</developerConnection>
 		<url>http://regola-kit.googlecode.com/svn/</url>
 	</scm>
 	<issueManagement>
@@ -300,7 +305,7 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>findbugs-maven-plugin</artifactId>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jdepend-maven-plugin</artifactId>
@@ -342,8 +347,11 @@
 			<layout>legacy</layout>
 		</repository>
 		<repository>
-			<id>m2 regola repository</id>
-			<url>http://regola-kit.googlecode.com/svn/trunk/m2/repository</url>
+			<id>regola-kit.repo</id>
+			<name>REGOLA Toolkit Repository</name>
+			<url>
+				http://regola-kit.googlecode.com/svn/trunk/m2/repository
+			</url>
 		</repository>
 	</repositories>
 

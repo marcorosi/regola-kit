@@ -16,7 +16,7 @@ public abstract class AbstractFinderDaoTest extends AbstractGenericDaoTest {
 
 	private CustomerDao customerFinderDao;
 
-	public class DefaultEnabledSystemProfileValueSource implements
+	public static class DefaultEnabledSystemProfileValueSource implements
 			ProfileValueSource {
 
 		private ProfileValueSource delegate;
