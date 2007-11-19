@@ -22,5 +22,5 @@ Per l'utente finale si tratterà quindi di implementare l'interfaccia org.regola
 
 = Da fare =
 
-* Aggiungere un metodo a BasePage che ritorna i dettagli dell'utente autenticato
-* Aggiungere documentazione su Acegi?
+  * Aggiungere un metodo a BasePage che ritorna i dettagli dell'utente autenticato
+  * Aggiungere documentazione su Acegi?
