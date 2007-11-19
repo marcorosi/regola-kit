@@ -1,0 +1,15 @@
+#Alcuni appunti sulla sicurezza in Regola
+
+= Introduzione =
+
+In Regola la sicurezza è implementata con Acegi [http://www.acegisecurity.org/].
+In questa pagina vengono riportati alcuni dettagli dell'integrazione. 
+
+= Dettagli =
+
+In Acegi l'operazione di autenticazione è compito dell'_AuthenticationManager_ che la delega a sua volta a uno o più _AuthenticationProvider_. 
+In generale ogni _AuthenticationProvider_ è competente per un particolare tipo di richiesta di autenticazione (ad esempio autenticazione tramite username e password, autenticazione tramite certificato X.509 ecc.).
+Nel caso di una classica autenticazione con username e password la best practice di Acegi sarebbe di utilizzare _DaoAuthenticationProvider_ e definire un proprio _UserDetailsService_. Questo servizio ricava i dettagli di un utente a partire dalla *sola username* e spetta poi al framework verificare la correttezza della password e comportarsi di conseguenza.
+In alcuni casi però questo sistema risulta restrittivo, ad esempio capita di delegare l'autenticazione a servizi esterni (come un web service) che eseguono essi stessi la verifica delle credenziali.
+Per questo motivo in Regola si è deciso di definire un proprio _AuthenticationProvider_ (_org.regola.webapp.security.UsernamePasswordAuthenticationProvider_) che delega l'autenticazione passando sia username che password.
+Per l'utente finale si tratterà quindi di implementare l'interfaccia org.regola.webapp.security.AuthenticationDao.
