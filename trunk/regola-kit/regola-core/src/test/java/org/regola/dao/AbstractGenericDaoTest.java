@@ -8,6 +8,7 @@ import org.regola.model.Customer;
 import org.regola.model.CustomerPattern;
 import org.regola.model.Order;
 import org.regola.model.Customer.Address;
+import org.regola.model.Invoice;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.test.annotation.AbstractAnnotationAwareTransactionalTests;
 
@@ -192,6 +193,23 @@ public abstract class AbstractGenericDaoTest extends
 		assertEquals(44, customers.size());
 	}
 
+    public void testFindByModelPattern_relationBug() {
+        int INVOICE_ID = 1;
+		CustomerPattern pattern = new CustomerPattern();
+		pattern.setInvoiceId(INVOICE_ID);
+		pattern.disablePaging();
+
+		List<Customer> customers = customerDao.find(pattern);
+
+		assertEquals(1, customers.size());
+        assertTrue(customers.get(0).getInvoices().size() > 0);
+        for(Invoice i : customers.get(0).getInvoices())
+        {
+            if(i.equals(INVOICE_ID))
+                assertEquals(i.getTotal(), new BigDecimal("1610.70"));
+        }
+	}
+                
 	public void testFindByModelPattern_lessThan() {
 		CustomerPattern pattern = new CustomerPattern();
 		pattern.setLessThanId(5);

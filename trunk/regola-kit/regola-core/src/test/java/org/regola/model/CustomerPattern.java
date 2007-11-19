@@ -86,6 +86,17 @@ public class CustomerPattern extends ModelPattern {
 		this.addressCity = addressCity;
 	}
 
+    @Equals("invoices.id")
+    private Integer invoiceId;
+
+    public Integer getInvoiceId() {
+        return invoiceId;
+    }
+
+    public void setInvoiceId(Integer invoiceId) {
+        this.invoiceId = invoiceId;
+    }        
+        
 	public CustomerPattern() {
 		addProperty("id", null);
 		addProperty("firstName", null);
