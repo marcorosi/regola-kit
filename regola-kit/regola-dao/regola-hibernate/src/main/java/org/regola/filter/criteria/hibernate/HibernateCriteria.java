@@ -1,6 +1,11 @@
 package org.regola.filter.criteria.hibernate;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.regola.filter.criteria.Criteria;
@@ -12,64 +17,126 @@ import org.regola.filter.criteria.impl.AbstractQueryBuilder;
  */
 public class HibernateCriteria extends AbstractQueryBuilder {
 
-	private org.hibernate.Criteria criteria;
+    protected final Log log = LogFactory.getLog(getClass());
+        
+    private static final String ROOT = "CriteriaPseudoBuilder_ROOT";
+	private Map<String, org.hibernate.Criteria> criteri;
+	//private org.hibernate.Criteria criteria;
 
 	public HibernateCriteria(org.hibernate.Criteria criteria) {
-		this.criteria = criteria;
+            	criteri = new HashMap<String, org.hibernate.Criteria>();
+		criteri.put(ROOT, criteria);
+		//this.criteria = criteria;
 	}
 
+    private org.hibernate.Criteria getCriteria(String propertyPath)
+	{ 
+		if(propertyPath == null)
+			throw new RuntimeException("propertyPath non può essere null");
+		
+		if(propertyPath.indexOf(".") < 0 || propertyPath.startsWith("id."))
+			return getRootCriteria();
+
+		String path = propertyPath.substring(0,propertyPath.lastIndexOf(".")); 
+		
+		if(!criteri.containsKey(path))
+		{
+			creaCriterio(path, getRootCriteria());				
+		}
+		
+		return criteri.get(path);
+	}
+        
+    private void creaCriterio(String path, org.hibernate.Criteria criteria) 
+	{
+		if(path.indexOf(".") < 0)
+		{
+			criteri.put(path, criteria.createCriteria(path));
+			log.info("createCriteria("+path+")");
+		}
+		else
+		{
+			String subPath = path.substring(0,path.indexOf("."));
+			if(!criteri.containsKey(subPath))
+			{
+				creaCriterio(subPath, criteria);
+			}
+			String alias = path.substring(path.lastIndexOf(".")+1,path.length());
+			criteri.put(path, criteri.get(subPath).createCriteria(alias));
+			log.info("createCriteria("+alias+")");
+		}
+	}
+        
+    private void add(String property, Criterion exp) {
+        getCriteria(property).add(exp);
+    }
+
+	private String getPropertyName(String propertyPath) 
+	{
+		if(propertyPath == null)
+			throw new RuntimeException("propertyPath non può essere null");
+		
+		if(propertyPath.lastIndexOf(".") >= 0 && !propertyPath.startsWith("id."))
+		{
+			return propertyPath.substring(propertyPath.lastIndexOf(".")+1,propertyPath.length());
+		} else
+		{
+			return propertyPath;
+		}
+	}
+    	
 	@Override
 	public void addEquals(String property, Object value) {
-		criteria.add(Restrictions.eq(property, value));
+		add(property, Restrictions.eq(getPropertyName(property), value));
 	}
 
 	@Override
 	public void addNotEquals(String property, Object value) {
-		criteria.add(Restrictions.ne(property, value));
+		add(property, Restrictions.ne(property, value));
 	}
 
 	@Override
 	public void addGreaterThan(String property, Object value) {
-		criteria.add(Restrictions.gt(property, value));
+		add(property, Restrictions.gt(property, value));
 	}
 
 	@Override
 	public void addLessThan(String property, Object value) {
-		criteria.add(Restrictions.lt(property, value));
+		add(property, Restrictions.lt(property, value));
 	}
 
 	@Override
 	public void addLike(String property, String value) {
-		criteria.add(Restrictions.like(property, value + "%"));
+		add(property, Restrictions.like(property, value + "%"));
 	}
 
 	@Override
 	public void addIlike(String property, String value) {
-		criteria.add(Restrictions.ilike(property, value + "%"));
+		add(property, Restrictions.ilike(property, value + "%"));
 	}
 
 	@Override
 	public void addGreaterEquals(String property, Object value) {
-		criteria.add(Restrictions.ge(property, value));
+		add(property, Restrictions.ge(property, value));
 	}
 
 	@Override
 	public void addLessEquals(String property, Object value) {
-		criteria.add(Restrictions.le(property, value));
+		add(property, Restrictions.le(property, value));
 	}
 
 	@Override
 	public void addIn(String property, Collection<?> value) {
-		criteria.add(Restrictions.in(property, value));
+		add(property, Restrictions.in(property, value));
 	}
 
 	@Override
 	public Criteria addOrder(Order order) {
 		if (order.isAscending()) {
-			criteria.addOrder(org.hibernate.criterion.Order.asc(order
+			getRootCriteria().addOrder(org.hibernate.criterion.Order.asc(order
 					.getPropertyName()));
 		} else {
-			criteria.addOrder(org.hibernate.criterion.Order.desc(order
+			getRootCriteria().addOrder(org.hibernate.criterion.Order.desc(order
 					.getPropertyName()));
 		}
 		return this;
@@ -77,23 +144,28 @@ public class HibernateCriteria extends AbstractQueryBuilder {
 
 	@Override
 	public Criteria setFirstResult(int firstResult) {
-		criteria.setFirstResult(firstResult);
+		getRootCriteria().setFirstResult(firstResult);
 		return this;
 	}
 
 	@Override
 	public Criteria setMaxResults(int maxResults) {
-		criteria.setMaxResults(maxResults);
+		getRootCriteria().setMaxResults(maxResults);
 		return this;
 	}
 
 	@Override
 	public void setRowCount() {
-		criteria.setProjection(Projections.rowCount());
+		getRootCriteria().setProjection(Projections.rowCount());
 	}
 
 	public org.hibernate.Criteria getCriteria() {
-		return criteria;
+		//return criteria;
+                return getRootCriteria();
 	}
+
+    private org.hibernate.Criteria getRootCriteria() {
+            return criteri.get(ROOT);
+    }
 
 }
