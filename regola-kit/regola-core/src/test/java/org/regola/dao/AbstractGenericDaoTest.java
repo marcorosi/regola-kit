@@ -209,6 +209,14 @@ public abstract class AbstractGenericDaoTest extends
             if(i.equals(INVOICE_ID))
                 assertEquals(i.getTotal(), new BigDecimal("1610.70"));
         }
+        
+        pattern.setInvoiceId(null);
+		pattern.setProductName("Iron Iron");
+
+		customers = customerDao.find(pattern);
+
+		assertEquals(1, customers.size());
+
 	}
                 
 	public void testFindByModelPattern_lessThan() {

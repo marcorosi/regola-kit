@@ -86,17 +86,28 @@ public class CustomerPattern extends ModelPattern {
 		this.addressCity = addressCity;
 	}
 
-    @Equals("invoices.id")
-    private Integer invoiceId;
+	@Equals("invoices[].id")
+	private Integer invoiceId;
 
-    public Integer getInvoiceId() {
-        return invoiceId;
-    }
+	public Integer getInvoiceId() {
+		return invoiceId;
+	}
 
-    public void setInvoiceId(Integer invoiceId) {
-        this.invoiceId = invoiceId;
-    }        
-        
+	public void setInvoiceId(Integer invoiceId) {
+		this.invoiceId = invoiceId;
+	}
+
+	@Equals("invoices[].items[].product.name")
+	private String productName;
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
 	public CustomerPattern() {
 		addProperty("id", null);
 		addProperty("firstName", null);
