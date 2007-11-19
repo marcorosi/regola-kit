@@ -20,6 +20,10 @@ In alcuni casi però questo sistema risulta restrittivo, ad esempio capita di de
 Per questo motivo in Regola si è deciso di definire un proprio AuthenticationProvider (org.regola.webapp.security.UsernamePasswordAuthenticationProvider) che delega l'autenticazione passando sia username che password.
 Per l'utente finale si tratterà quindi di implementare l'interfaccia org.regola.webapp.security.AuthenticationDao.
 
+
+Esiste già un'implementazione di esempio ExampleAuthenticationDao che al momento si trova in regola-jsf. Forse sarebbe più comodo per l'utente averla nell'archetipo in modo da accedere immediamente al codice.
+
+
 = Da fare =
 
   * Aggiungere un metodo a BasePage che ritorna i dettagli dell'utente autenticato
