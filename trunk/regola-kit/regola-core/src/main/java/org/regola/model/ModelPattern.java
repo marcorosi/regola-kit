@@ -278,8 +278,18 @@ public abstract class ModelPattern {
 
 	}
 
+	/**
+	 * 
+	 * @param name
+	 * @param order
+	 * @return
+	 * @throws PropertyNotFoundException if the property cannot be found in this model pattern 
+	 */
 	public boolean addSortedProperty(String name, Order order) {
 		int index = getAllProperties().indexOf(new ModelProperty(name));
+		if(index < 0)
+			throw new PropertyNotFoundException(name,this);
+		
 		ModelProperty property = getAllProperties().get(index);
 		if (getSortedProperties().contains(property))
 			return false;
@@ -290,8 +300,17 @@ public abstract class ModelPattern {
 		return true;
 	}
 
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 * @throws PropertyNotFoundException if the property cannot be found in this model pattern
+	 */
 	public boolean addVisibleProperty(String name) {
 		int index = getAllProperties().indexOf(new ModelProperty(name));
+		if(index < 0)
+			throw new PropertyNotFoundException(name,this);
+
 		ModelProperty property = getAllProperties().get(index);
 		if (getVisibleProperties().contains(property))
 			return false;

@@ -108,10 +108,22 @@ public class CustomerPattern extends ModelPattern {
 		this.productName = productName;
 	}
 
+	@Equals("sex.description")
+	private String sexDescription;
+	
+	public String getSexDescription() {
+		return sexDescription;
+	}
+
+	public void setSexDescription(String sex) {
+		this.sexDescription = sex;
+	}
+	
 	public CustomerPattern() {
 		addProperty("id", null);
 		addProperty("firstName", null);
 		addProperty("lastName", null);
 		addProperty("invoices", null);
 	}
+
 }

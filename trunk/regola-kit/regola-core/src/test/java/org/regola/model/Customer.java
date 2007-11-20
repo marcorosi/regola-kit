@@ -12,6 +12,7 @@ public class Customer implements Serializable {
 	private String firstName;
 	private String lastName;
 	private Address address;
+	private Sex sex;
 
 	private Collection<Invoice> invoices = new HashSet<Invoice>();
 
@@ -119,5 +120,13 @@ public class Customer implements Serializable {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public Sex getSex() {
+		return sex;
+	}
+
+	public void setSex(Sex sex) {
+		this.sex = sex;
 	}
 }
