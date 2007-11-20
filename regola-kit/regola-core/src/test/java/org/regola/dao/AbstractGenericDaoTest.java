@@ -218,7 +218,18 @@ public abstract class AbstractGenericDaoTest extends
 		assertEquals(1, customers.size());
 
 	}
-                
+
+	public void testFindByModelPattern_sexRelation() {
+		CustomerPattern pattern = new CustomerPattern();
+		pattern.setSexDescription("MALE");
+		pattern.disablePaging();
+
+		List<Customer> customers = customerDao.find(pattern);
+		assertEquals(25, customers.size());
+		for(Customer c : customers)
+			assertEquals(c.getSex().getDescription(),"MALE");
+	}
+    
 	public void testFindByModelPattern_lessThan() {
 		CustomerPattern pattern = new CustomerPattern();
 		pattern.setLessThanId(5);
