@@ -6,13 +6,17 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.type.Type;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.Order;
 import org.regola.filter.criteria.impl.AbstractQueryBuilder;
 
-public class HibernateCriteria extends AbstractQueryBuilder {
+public class HibernateCriteria<T> extends AbstractQueryBuilder {
 
 	protected final Log log = LogFactory.getLog(getClass());
 
@@ -66,38 +70,65 @@ public class HibernateCriteria extends AbstractQueryBuilder {
 		}
 	}
 
+	/*
 	public HibernateCriteria(org.hibernate.Criteria criteria) {
 		criteriaMap = new HashMap<String, org.hibernate.Criteria>();
 		criteriaMap.put(ROOT, criteria);
 	}
+	*/
 
-	private CriteriaBuilder getCriteria(String propertyPath) {
-		if (propertyPath == null) {
+	private ClassMetadata classMetadata;
+	
+	public HibernateCriteria(Session session, Class<T> persistentClass, SessionFactory sessionFactory) {
+		criteriaMap = new HashMap<String, org.hibernate.Criteria>();
+		criteriaMap.put(ROOT, session.createCriteria(persistentClass));
+		classMetadata = sessionFactory.getClassMetadata(persistentClass);
+		if(log.isDebugEnabled())
+		{
+			log.debug("Initializing "+this.getClass()+" for "+persistentClass);
+			for(String s : classMetadata.getPropertyNames())
+			{
+				Type t = classMetadata.getPropertyType(s);
+				log.debug(String.format(
+						"property name: %s type: %s isAssociation: %s"
+						, s, t.getName(), t.isAssociationType()));
+			}
+		}		
+	}
+	
+	private CriteriaBuilder getCriteria(String path) {
+		if (path == null) {
 			throw new RuntimeException("propertyPath non può essere null");
 		}
 
+		String propertyPath=path;
+		
 		StringBuilder fullPath = new StringBuilder();
 		org.hibernate.Criteria criteria = getRootCriteria();
-		if (propertyPath.contains("[]")) {
-			String[] paths = propertyPath.split("\\[\\]\\.?");
+		if (propertyPath.contains(".")) {
+			String[] paths = propertyPath.split("\\.");
 			for (int i = 0; i < paths.length; i++) {
 				propertyPath = paths[i];
 				if (i < paths.length - 1) {
 					fullPath.append(paths[i]);
-					if (criteriaMap.containsKey(fullPath)) {
-						criteria = criteriaMap.get(fullPath);
-					} else {
-						criteria = criteria.createCriteria(paths[i]);
-						criteriaMap.put(fullPath.toString(), criteria);
+					Type type = classMetadata.getPropertyType(fullPath.toString());
+					if(type.isAssociationType())
+					{
+						if (criteriaMap.containsKey(fullPath)) {
+							criteria = criteriaMap.get(fullPath);
+						} else {
+							criteria = criteria.createCriteria(paths[i]);
+							criteriaMap.put(fullPath.toString(), criteria);
+						}
+						fullPath.append(".");
+						path = paths[i+1];
 					}
-					fullPath.append("[]");
 				}
 			}
 		}
+		log.debug("getCriteria(): path=" + path + ", fullPath=" + fullPath);
 		
-		log.debug("getCriteria(): path=" + propertyPath + ", fullPath="
-				+ fullPath);
-		return new CriteriaBuilder(propertyPath, criteria);
+		return new CriteriaBuilder(path, criteria);
 	}
 
 	@Override
