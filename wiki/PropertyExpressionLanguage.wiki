@@ -3,8 +3,8 @@
 == RFC 2 ==
 = Property expression language =
 
-  # proprietà semplice:
-    Esempi con entity Customer:
+  # _Simple property_: default ("." for embedded object's properties)
+  Example with entity Customer:
 {{{
 firstName
 }}}
@@ -12,5 +12,17 @@ firstName
 address.street
 }}}
 
-  # relazione "a molti": (da Customer) invoices[]
-  # relazione "a uno": (da Invoice) customer.lastName (da Item) product.name
+  # _"To many" association_: "[]" postfixed
+  Example with entity Customer:
+{{{
+invoices[]
+}}}
+  # _"To one" association_: ":" prefixed
+  Example with entity Invoice:
+{{{
+:customer.lastName
+}}}
+  Example from Item:
+{{{
+:product.name
+}}}
