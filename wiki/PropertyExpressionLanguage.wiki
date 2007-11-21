@@ -3,7 +3,7 @@
 == RFC 2 ==
 = Property expression language =
 
-  # _Simple property_: default ("." for embedded object's properties)
+  # _Simple property_: "." for embedded object's properties and related entities separator
   Example with entity Customer:
 {{{
 firstName
@@ -25,4 +25,9 @@ invoices[]
   Example from Item:
 {{{
 ->product.name
+}}}
+
+Complex example from entity Customer:
+{{{
+invoices[]items[]->product.name
 }}}
