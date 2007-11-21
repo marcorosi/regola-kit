@@ -86,7 +86,7 @@ public class CustomerPattern extends ModelPattern {
 		this.addressCity = addressCity;
 	}
 
-	@Equals("invoices[].id")
+	@Equals("invoices.id")
 	private Integer invoiceId;
 
 	public Integer getInvoiceId() {
@@ -97,7 +97,7 @@ public class CustomerPattern extends ModelPattern {
 		this.invoiceId = invoiceId;
 	}
 
-	@Equals("invoices[].items[].product.name")
+	@Equals("invoices.items.product.name")
 	private String productName;
 
 	public String getProductName() {

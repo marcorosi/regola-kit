@@ -54,8 +54,10 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 	public List<T> find(final ModelPattern pattern) {
 		return getHibernateTemplate().executeFind(new HibernateCallback() {
 			public Object doInHibernate(Session session) {
+//				HibernateCriteria criteriaBuilder = new HibernateCriteria(
+//						session.createCriteria(persistentClass));
 				HibernateCriteria criteriaBuilder = new HibernateCriteria(
-						session.createCriteria(persistentClass));
+						session, persistentClass, getSessionFactory());
 				getPatternParser().createQuery(criteriaBuilder, pattern);
 				return criteriaBuilder.getCriteria().list();
 			}
@@ -67,8 +69,10 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 		return (Integer) getHibernateTemplate().execute(
 				new HibernateCallback() {
 					public Object doInHibernate(Session session) {
+//						HibernateCriteria criteriaBuilder = new HibernateCriteria(
+//								session.createCriteria(persistentClass));
 						HibernateCriteria criteriaBuilder = new HibernateCriteria(
-								session.createCriteria(persistentClass));
+								session, persistentClass, getSessionFactory());
 						getPatternParser().createCountQuery(criteriaBuilder,
 								pattern);
 						return criteriaBuilder.getCriteria().uniqueResult();
