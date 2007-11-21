@@ -1,4 +1,4 @@
-#summary Definizione della sintassi per esprimere riferimenti a proprietà nelle annotazioni di filtro (RFC 2)
+#summary Syntax to reference properties in ModelPattern annotations (RFC 2)
 
 == RFC 2 ==
 = Property expression language =
