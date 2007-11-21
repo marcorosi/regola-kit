@@ -10,7 +10,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.engine.SessionFactoryImplementor;
 import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.type.AssociationType;
 import org.hibernate.type.Type;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.Order;
@@ -78,11 +80,14 @@ public class HibernateCriteria<T> extends AbstractQueryBuilder {
 	*/
 
 	private ClassMetadata classMetadata;
+
+	private SessionFactory sessionFactory;
 	
 	public HibernateCriteria(Session session, Class<T> persistentClass, SessionFactory sessionFactory) {
 		criteriaMap = new HashMap<String, org.hibernate.Criteria>();
 		criteriaMap.put(ROOT, session.createCriteria(persistentClass));
 		classMetadata = sessionFactory.getClassMetadata(persistentClass);
+		this.sessionFactory = sessionFactory;
 		if(log.isDebugEnabled())
 		{
 			log.debug("Initializing "+this.getClass()+" for "+persistentClass);
@@ -102,6 +107,7 @@ public class HibernateCriteria<T> extends AbstractQueryBuilder {
 		}
 
 		String propertyPath=path;
+		ClassMetadata metadata = classMetadata;
 		
 		StringBuilder fullPath = new StringBuilder();
 		org.hibernate.Criteria criteria = getRootCriteria();
@@ -111,7 +117,8 @@ public class HibernateCriteria<T> extends AbstractQueryBuilder {
 				propertyPath = paths[i];
 				if (i < paths.length - 1) {
 					fullPath.append(paths[i]);
-					Type type = classMetadata.getPropertyType(fullPath.toString());
+					//Type type = classMetadata.getPropertyType(fullPath.toString());
+					Type type = metadata.getPropertyType(paths[i]);
 					if(type.isAssociationType())
 					{
 						if (criteriaMap.containsKey(fullPath)) {
@@ -119,6 +126,7 @@ public class HibernateCriteria<T> extends AbstractQueryBuilder {
 						} else {
 							criteria = criteria.createCriteria(paths[i]);
 							criteriaMap.put(fullPath.toString(), criteria);
+							metadata = sessionFactory.getClassMetadata(((AssociationType)type).getAssociatedEntityName((SessionFactoryImplementor)sessionFactory));
 						}
 						fullPath.append(".");
 						path = paths[i+1];
