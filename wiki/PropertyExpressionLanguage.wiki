@@ -3,6 +3,14 @@
 == RFC 2 ==
 = Property expression language =
 
-  # proprietà semplice: (da Customer) firstName address.street
+  # proprietà semplice:
+    Esempi con entity Customer:
+{{{
+firstName
+}}}
+{{{
+address.street
+}}}
+
   # relazione "a molti": (da Customer) invoices[]
   # relazione "a uno": (da Invoice) customer.lastName (da Item) product.name
