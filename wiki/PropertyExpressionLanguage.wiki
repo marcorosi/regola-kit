@@ -17,12 +17,12 @@ address.street
 {{{
 invoices[]
 }}}
-  # _"To one" association_: ":" prefixed
+  # _"To one" association_: "->" prefixed
   Example with entity Invoice:
 {{{
-:customer.lastName
+->customer.lastName
 }}}
   Example from Item:
 {{{
-:product.name
+->product.name
 }}}
