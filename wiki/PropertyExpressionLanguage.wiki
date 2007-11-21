@@ -1,0 +1,8 @@
+#summary Definizione della sintassi per esprimere riferimenti a proprietà nelle annotazioni di filtro (RFC 2)
+
+== RFC 2 ==
+= Property expression language =
+
+  # proprietà semplice: (da Customer) firstName address.street
+  # relazione "a molti": (da Customer) invoices[]
+  # relazione "a uno": (da Invoice) customer.lastName (da Item) product.name
