@@ -30,22 +30,22 @@
 			  	title="${r"#"}{msg['button.tooltip.option']}" 
 			  	styleClass="toolbar" 
 			  	partialSubmit="true" 
-			  	actionListener="${r"#{"}${field(mbean_list_name)}.doColumnsDlg}" />
+			  	actionListener="${r"#{"}${field(mbean_list_name)}.listPage.doColumnsDlg}" />
 			  <ice:commandButton image="images/order.gif" 
 			  	title="${r"#"}{msg['button.tooltip.order']}" 
 			  	styleClass="toolbar" 
 			  	partialSubmit="true" 
-			  	actionListener="${r"#{"}${field(mbean_list_name)}.doOrderDlg}" />
+			  	actionListener="${r"#{"}${field(mbean_list_name)}.listPage.doOrderDlg}" />
 			  
 			  <!--TODO: aggiungi i filtri rapidi -->
 			  <ice:outputText value="${r"#"}{msg['${field(model_name)}.column.id']}" />
- 			  <ice:inputText value="${r"#"}{${field(mbean_list_name)}.filter.id}" />
+ 			  <ice:inputText value="${r"#"}{${field(mbean_list_name)}.listPage.filter.id}" />
 			  
 			  <ice:commandButton image="images/search.gif" 
 			  	title="${r"#"}{msg['button.tooltip.search']}" 
 			  	styleClass="toolbar" 
 			  	partialSubmit="true" 
-			  	actionListener="${r"#"}{${field(mbean_list_name)}.refresh}" />
+			  	actionListener="${r"#"}{${field(mbean_list_name)}.listPage.refresh}" />
 		
 			</ice:panelGrid>
 		</ice:panelGrid>
@@ -53,15 +53,15 @@
 		<ice:dataTable id="${field(mbean_list_name)}" var="item"
 				rows="${r"#{"}${field(mbean_list_name)}.filter.pageSize}"
 				rowClasses="rigaPari,rigaDispari"
-				value="${r"#{"}${field(mbean_list_name)}.rowDataModel}">
+				value="${r"#{"}${field(mbean_list_name)}.listPage.rowDataModel}">
 		
-			<ice:columns value="${r"#{"}${field(mbean_list_name)}.columnDataModel}" var="column">
+			<ice:columns value="${r"#{"}${field(mbean_list_name)}.listPage.columnDataModel}" var="column">
 					<f:facet name="header">
 						<ice:outputText value="${r"#{"}msg[column.label]}" />
 					</f:facet>
 					<!-- il prossimo outputText fissa un baco delle icefaces -->
-					<ice:outputText value="${r"#{"}${field(mbean_list_name)}.currentCulumnCallback[column.name]}" />
-					<ice:outputText value="${r"#{"}${field(mbean_list_name)}.cellValue}" />
+					<ice:outputText value="${r"#{"}${field(mbean_list_name)}.listPage.currentCulumnCallback[column.name]}" />
+					<ice:outputText value="${r"#{"}${field(mbean_list_name)}.listPage.cellValue}" />
 				</ice:columns>
 
 				<ice:column>
@@ -78,7 +78,7 @@
   				  <ice:commandLink value="Cancella"
 					  styleClass="buttonNew"
 					  partialSubmit="true"
-					  actionListener="${r"#{"}${field(mbean_list_name)}.remove}" />
+					  actionListener="${r"#{"}${field(mbean_list_name)}.listPage.remove}" />
 
 				</ice:column>
 				
@@ -87,7 +87,7 @@
 						<ice:panelGrid columns="4">
 		
 					<ice:dataPaginator for="${field(mbean_list_name)}" fastStep="3"
-					actionListener="${r"#{"}${field(mbean_list_name)}.paginatorListener}"
+					actionListener="${r"#{"}${field(mbean_list_name)}.listPage.paginatorListener}"
 					pageCountVar="pageCount" pageIndexVar="pageIndex" paginator="true"
 					paginatorMaxPages="4" vertical="false" rendered="true"
 					styleClass="formBorderHighlight">
@@ -127,8 +127,8 @@
 				</ice:dataPaginator>
 
 				<ice:outputText value="${r"#{"}msg['paginator.pageSize']}" />
-                <ice:selectOneMenu value="${r"#{"}${field(mbean_list_name)}.filter.pageSize}"
-					               valueChangeListener="${r"#{"}${field(mbean_list_name)}.refresh}"
+                <ice:selectOneMenu value="${r"#{"}${field(mbean_list_name)}.listPage.filter.pageSize}"
+					               valueChangeListener="${r"#{"}${field(mbean_list_name)}.listPage.refresh}"
 					               partialSubmit="true">
                     <f:selectItem itemValue="10" itemLabel="10"/>
                     <f:selectItem itemValue="20" itemLabel="20"/>

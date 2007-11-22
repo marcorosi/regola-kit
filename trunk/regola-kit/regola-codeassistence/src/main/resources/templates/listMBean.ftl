@@ -3,22 +3,25 @@ package ${mbean_package};
 import ${model_class};
 import ${id_class};
 import ${filter_class};
+import org.regola.events.Event;
 import org.regola.webapp.action.ListPage;
+import org.regola.webapp.action.plug.ListPagePlugProxy;
 
-public class ${mbean_list_name} extends ListPage<${model_name}, ${id_name}, ${filter_name}>
+public class ${mbean_list_name} 
 {
 	/**
 	 * Init è chiamato dopo tutte le dipendenze iniettate da Spring 
 	 */
-	@Override
 	public void init()
 	{
-		setFilter(new ${filter_name}());
+		listPage.setPlug(new ListPagePlugProxy(this));
+		
 		//@TODO Imposta un criterio per il filtro, ad esempio
+		listPage.setFilter(new ${filter_name}());
 		
-		getEventBroker().subscribe(this, "${field(model_name)}.persistence.changes");
+		listPage.getEventBroker().subscribe(this, "${field(model_name)}.persistence.changes");
 		
-		super.init();
+		listPage..init();
 	}
 	
 	/**
@@ -28,7 +31,19 @@ public class ${mbean_list_name} extends ListPage<${model_name}, ${id_name}, ${fi
 	 */
 	public void onRegolaEvent(Event e)
 	{
-		refresh();
+		listPage.refresh();
 	}
+	
+	ListPage<${model_name}, ${id_name}, ${filter_name}> listPage;
+
+	public void setListPage(
+			ListPage<${model_name}, ${id_name}, ${filter_name}> listPage) {
+		this.listPage= listPage;
+		
+	}
+
+	public ListPage<${model_name}, ${id_name}, ${filter_name}> getListPage() {
+		return listPage;
+	} 
 
 }

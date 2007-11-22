@@ -4,54 +4,65 @@ import ${model_class};
 import ${id_class};
 import ${filter_class};
 
-import org.regola.webapp.action.AutoCompleteBean;
-import org.regola.webapp.action.FormPage;
-
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class ${mbean_form_name} extends FormPage<${model_name}, ${id_name}, ${filter_name}>
+import org.regola.webapp.action.FormPage;
+import org.regola.webapp.action.plug.FormPagePlugProxy;
+import org.regola.webapp.annotation.ScopeEnd;
+import org.apache.commons.lang.StringUtils;
+
+public class ${mbean_form_name}
 {
-	public ${mbean_form_name}() {}
-		
-	@Override
+    @SuppressWarnings("unchecked")
 	public void init()
 	{
-		super.init();
- 
-		if(StringUtils.isNotEmpty(getEncodedId()))
+		formPage.setPlug(new FormPagePlugProxy(this));
+		formPage.init();
+		
+		if(StringUtils.isNotEmpty(formPage.getEncodedId()))
 		{
 			// update an existing model item
-			id = new Integer(getEncodedId());
-			model = getServiceManager().get(id);
+			Integer id = new Integer(formPage.getEncodedId());
+			formPage.setTypedID(id);
+			formPage.setModel(formPage.getServiceManager().get(id));
 		}
 		else
 		{
 			// edit a new model item
-			model = new ${model_name}();
-			model.setId(id);
+			formPage.setModel (${model_name});
+			formPage.getModel().setId(id);
 		}
-		
 	}
 
-
-	@Override
 	@ScopeEnd
 	public String save()
 	{
-		String navigation = super.save();
-		getEventBroker().publish("${field(model_name)}.persistence.changes", null);
+		String navigation = formPage.save();
+		formPage.getEventBroker().publish("${field(model_name)}.persistence.changes", null);
 		
 		return navigation;
 	}
 	
-	@Override
 	@ScopeEnd
 	public String cancel() {
-		return super.cancel();
+		return formPage.cancel();
 	}
+	
+	FormPage<${model_name}, ${id_name}, ${filter_name}> formPage;
+
+	public void setFormPage(
+			FormPage<${model_name}, ${id_name}, ${filter_name}> formPage) {
+		this.formPage=formPage;
+		
+	}
+
+	public FormPage<${model_name}, ${id_name}, ${filter_name}> getFormPage() {
+		return formPage;
+	}
+	
 
 	
 }

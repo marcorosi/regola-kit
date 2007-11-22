@@ -19,7 +19,7 @@
 	<ui:define name="corpo">
 
 		<ice:form>
-		<ice:inputText id="originalId" value="${r"#{"}${field(mbean_form_name)}.originalId}" visible="false" />
+		<ice:inputText id="originalId" value="${r"#{"}${field(mbean_form_name)}.formPage.originalId}" visible="false" />
 		<ice:outputConnectionStatus style="align: right;"/>
 			<ice:panelGroup>
 				<ice:panelGrid columns="4">
@@ -27,10 +27,10 @@
 			
 					<!-- ${same(proprieta.name)} -->
 					<ice:outputText value="${r"#{"}msg['${field(model_name)}.column.${same(proprieta.name)}']}" />
-					<ice:inputText  value="${r"#{"}${field(mbean_form_name)}.model.${same(proprieta.name)}}">
+					<ice:inputText  value="${r"#{"}${field(mbean_form_name)}.formPage.model.${same(proprieta.name)}}">
 					</ice:inputText>
 					<ice:outputText value=" " />
-					<ice:outputText value="${r"#{"}${field(mbean_form_name)}.errors['${same(proprieta.name)}']}" />
+					<ice:outputText value="${r"#{"}${field(mbean_form_name)}.formPage.errors['${same(proprieta.name)}']}" />
 		  </#list>
 		  
 		           <ice:outputText value="${r"#{"}${field(mbean_form_name)}.errore}" />
