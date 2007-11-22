@@ -17,15 +17,15 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.icesoft.faces.component.selectinputtext.SelectInputText;
 
-public class SmartAutoCompleteBean<M, T, ID extends Serializable, F extends ModelPattern>
+
+public abstract class SmartAutoCompleteBean<M, T, ID extends Serializable, F extends ModelPattern>
 		extends BaseLookupStrategy<T, ID, F> {
-	private static Log log = LogFactory.getLog(SmartAutoCompleteBean.class);
+	protected static Log log = LogFactory.getLog(SmartAutoCompleteBean.class);
 
-	private List<SelectItem> matchesList = new ArrayList<SelectItem>();
-	private String property  = null;
-	private M objectToUpdate = null;
+	protected List<SelectItem> matchesList = new ArrayList<SelectItem>();
+	protected String property  = null;
+	protected M objectToUpdate = null;
 	
 	/*
 	 * Valore per ottimizzare il lookup tramite id:
@@ -87,33 +87,8 @@ public class SmartAutoCompleteBean<M, T, ID extends Serializable, F extends Mode
 	 * @param event
 	 */
 	@SuppressWarnings("unchecked")
-	public void updateList(ValueChangeEvent event) {
-		log.info("updateList");
-
-		// get a new list of matches.
-		setMatches(event);
-
-		// Get the auto complete component from the event and assing
-		if (event.getComponent() instanceof SelectInputText) {
-			SelectInputText autoComplete = (SelectInputText) event
-					.getComponent();
-			T m;
-			if (autoComplete.getSelectedItem() != null)
-				m = (T) autoComplete.getSelectedItem().getValue();
-			else
-				m = getMatch(autoComplete.getValue().toString());
-
-			if (m != null) {
-				log.info("Selezionato " + m);
-				getFilter().init(m);
-				autoComplete.setValue(getFilterDescription());
-
-				log.info(String.format("Aggiornamento dell'oggetto %s: %s -> %s",objectToUpdate,property,m));					
-				Ognl.setValue(property, objectToUpdate, m);
-			}
-		}
-	}
-
+	abstract public void updateList(ValueChangeEvent event) ;	
+	
 	/**
 	 * The list of possible matches for the given SelectInputText value
 	 * 
@@ -125,7 +100,7 @@ public class SmartAutoCompleteBean<M, T, ID extends Serializable, F extends Mode
 	}
 
 	@SuppressWarnings("unchecked")
-	private T getMatch(String value) {
+	protected T getMatch(String value) {
 		T result = null;
 		if (matchesList != null) {
 			SelectItem si;
@@ -182,7 +157,7 @@ public class SmartAutoCompleteBean<M, T, ID extends Serializable, F extends Mode
 	 * Ricerca sia per codice che per descrizione.
 	 */
 	@SuppressWarnings("unchecked")
-	private void setMatches(ValueChangeEvent event) {
+	protected void setMatches(ValueChangeEvent event) {
 		Object searchWord = event.getNewValue();
 		
 		getFilter().reset();

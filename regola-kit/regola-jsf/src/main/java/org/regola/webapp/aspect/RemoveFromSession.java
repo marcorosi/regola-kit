@@ -4,13 +4,16 @@ import org.regola.webapp.action.BasePage;
 
 import java.util.Enumeration;
 
+import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
 /**
@@ -24,23 +27,35 @@ public class RemoveFromSession {
 
 	private static Log log = LogFactory.getLog(RemoveFromSession.class);
 	
-	@AfterReturning(pointcut = "@annotation(org.regola.webapp.annotation.ScopeEnd)")
-	public void doRemove(JoinPoint thisJoinPoint) 
+	@SuppressWarnings("unchecked")
+	@Around(value = "@annotation(org.regola.webapp.annotation.ScopeEnd)")
+	public Object doRemove(ProceedingJoinPoint pjp) 
 	{
-		log.info("chiamata doRemove su " +thisJoinPoint.getThis());
+		log.info("chiamata doRemove su " +pjp.getThis());
 		
-		BasePage bean = (BasePage)thisJoinPoint.getThis();
-		if("".equals(bean.getReturnPage()))
+		Object returnValue = null;
+		try {
+			returnValue = pjp.proceed();
+		} catch (Throwable e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		Object bean = pjp.getThis();
+		
+		//BasePage bean = (BasePage)thisJoinPoint.getThis();
+		if("".equals(returnValue))
 		{
 			log.info("il bean non sarà rimosso perchè verrà ricaricata le stessa pagina");
 		} else 
 		{
 			try {
-				HttpSession session = ((HttpServletRequest)bean.getFacesContext().getExternalContext().getRequest()).getSession();
+				HttpSession session = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getSession();
 			    Enumeration<String> attributeKeys = session.getAttributeNames();
 			    while(attributeKeys.hasMoreElements())
 			    {
 			    	String key = attributeKeys.nextElement();
+			    	Object o = session.getAttribute(key);
 			    	if(bean == session.getAttribute(key))
 			    	{
 			    		log.info("rimozione di "+key);
@@ -52,5 +67,9 @@ public class RemoveFromSession {
 				log.error("Impossibile rimuovere il bean dalla sessione",e);
 			}			
 		}
+		
+		return returnValue;
 	}
+	
+	
 }
