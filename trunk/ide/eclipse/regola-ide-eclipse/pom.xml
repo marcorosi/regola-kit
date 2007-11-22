@@ -5,9 +5,9 @@
   <groupId>org.regola</groupId>
   <artifactId>ide.eclipse</artifactId>
   <packaging>zip</packaging>
-  <name>REGOLA Framework :: Eclipse IDE plugin module</name>
-  <description>REGOLA Framework :: Eclipse IDE plugin module</description>
-  <version>1.0-M1-SNAPSHOT</version>
+  <name>REGOLA Toolkit :: Eclipse IDE plugin module</name>
+  <description>REGOLA Toolkit :: Eclipse IDE plugin module</description>
+  <version>1.0-M1</version>
   <build>
     <plugins>
       <plugin>
@@ -25,7 +25,7 @@
         <dependency>
             <groupId>${groupId}</groupId>
             <artifactId>regola-codeassistence</artifactId>
-            <version>${version}</version>
+            <version>1.0-M1</version>
         </dependency>
    </dependencies>
 </project>
