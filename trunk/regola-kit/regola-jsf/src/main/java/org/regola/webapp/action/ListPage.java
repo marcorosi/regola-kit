@@ -5,9 +5,11 @@ import org.regola.service.GenericManager;
 import org.regola.util.ELFunction;
 import org.regola.util.Ognl;
 import org.regola.validation.LazyLoadingArrayList;
-import org.regola.events.DuckTypingEventBroker;
 import org.regola.model.ModelPattern;
 import org.regola.validation.LazyLoadingArrayList.Fetcher;
+import org.regola.webapp.action.component.FormPageComponent;
+import org.regola.webapp.action.component.ListPageComponent;
+import org.regola.webapp.action.plug.ListPagePlug;
 import org.regola.webapp.jsf.ColumnsDlg;
 import org.regola.webapp.jsf.OrderDlg;
 import org.regola.webapp.jsf.Dialog.DialogCallback;
@@ -23,9 +25,7 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
-import com.icesoft.faces.component.datapaginator.PaginatorActionEvent;
-import com.icesoft.faces.component.ext.RowSelectorEvent;
-import com.icesoft.faces.webapp.xmlhttp.PersistentFacesState;
+
 
 /**
  * Questa classe offre dei servizi comuni a tutte le pagine
@@ -36,13 +36,18 @@ import com.icesoft.faces.webapp.xmlhttp.PersistentFacesState;
  * @param <ID>
  * @param <F>
  */
-public abstract class ListPage<T, ID extends Serializable, F extends ModelPattern> extends
+public class ListPage<T, ID extends Serializable, F extends ModelPattern> extends
 		org.regola.webapp.action.BasePage
 {
 
+	
+	
+	
+	
+	
 	private DataModel columnDataModel;
 	
-	private PersistentFacesState state;
+	
 
 	ColumnsDlg columnsDlg;
 
@@ -60,7 +65,7 @@ public abstract class ListPage<T, ID extends Serializable, F extends ModelPatter
 
 	protected DataModel rowDataModel;
 
-	Set<ID> selectedId = new HashSet<ID>();
+	protected Set<ID> selectedId = new HashSet<ID>();
 
 	GenericManager<T, ID> serviceManager;
 
@@ -136,11 +141,8 @@ public abstract class ListPage<T, ID extends Serializable, F extends ModelPatter
 	/**
 	 * Chiamato a seguito della selezione di una riga
 	 */
-	public void onRowSelection(RowSelectorEvent event)
+	public void onRowSelection()
 	{
-		log.info("call back for " + event.getRow() + " " + event.isSelected());
-		log.info("elementi selezionati " + selectedId.size());
-
 		getConfirmDlg().showModal("Attenzione", "Sei sicuro di voler cancellare?", new DialogCallback()
 		{
 			T model2 = getCurrentModelItem();
@@ -272,8 +274,7 @@ public abstract class ListPage<T, ID extends Serializable, F extends ModelPatter
 
 	public void init()
 	{
-		state = PersistentFacesState.getInstance();
-
+		getComponent().setPage(this);
 		refresh();	
 		
 		currentCulumnCallback = new ELFunction()
@@ -286,6 +287,8 @@ public abstract class ListPage<T, ID extends Serializable, F extends ModelPatter
 			}
 
 		};
+		
+		component.init();
 	}
 
 	public boolean isSelected()
@@ -297,40 +300,7 @@ public abstract class ListPage<T, ID extends Serializable, F extends ModelPatter
 		return selectedId.contains(getId(model));
 	}
 
-	public void paginatorListener(ActionEvent event)
-	{
-		PaginatorActionEvent e = (PaginatorActionEvent) event;
-
-		if ("next".equals(e.getScrollerfacet()))
-		{
-			getFilter().nextPage();
-		}
-
-		if ("previous".equals(e.getScrollerfacet()))
-		{
-			getFilter().previousPage();
-		}
-
-		if ("last".equals(e.getScrollerfacet()))
-		{
-			getFilter().gotoLastPage();
-		}
-
-		if ("first".equals(e.getScrollerfacet()))
-		{
-			getFilter().setCurrentPage(0);
-		}
-
-		if (e.getPageIndex() > 0)
-		{
-			getFilter().gotoPage(e.getPageIndex() -1);
-		}
-
-		//filter.setCurrentPage(e.getPageIndex());
-
-		event.toString();
-	}
-
+	
 	public void refresh()
 	{
 
@@ -448,14 +418,39 @@ public abstract class ListPage<T, ID extends Serializable, F extends ModelPatter
 	{
 		this.serviceManager = serviceManager;
 	}
-
-	public PersistentFacesState getState() {
-		return state;
+	
+	public void paginatorListener(ActionEvent event)
+	{
+		getComponent().paginatorListener(event);
 	}
 
-	public void setState(PersistentFacesState state) {
-		this.state = state;
+	@SuppressWarnings("unchecked")
+	@Override
+	public ListPagePlug<T, ID, F> getPlug() {
+		return (ListPagePlug<T, ID, F>) super.getPlug();
 	}
+	
+
+	public void setPlug(ListPagePlug<T, ID, F> plug) {
+		super.setPlug(plug);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public ListPageComponent<T, ID, F> getComponent() {
+		return (ListPageComponent<T, ID, F>) component;
+	}
+	
+	public void setComponent(ListPageComponent<T, ID, F> component) 
+	{
+	    super.setComponent(component);
+	}
+	
+	
+	
+	
+
+
 
 
 

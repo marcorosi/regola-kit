@@ -16,8 +16,6 @@ import javax.faces.model.SelectItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.icesoft.faces.webapp.xmlhttp.PersistentFacesState;
-import com.icesoft.faces.webapp.xmlhttp.RenderingException;
 
 
 public class ProfiloForm extends BasePage
@@ -35,7 +33,7 @@ public class ProfiloForm extends BasePage
 	
 	protected InputTextDlg inputTextDlg; // per inserimento etichetta (salva con nome)
 	
-	protected PersistentFacesState state;
+	
 	
 	//riferimento al bean che gestisce la lista della pagina
 	protected ListPage listPageBean;
@@ -44,13 +42,13 @@ public class ProfiloForm extends BasePage
 	
 	public ProfiloForm()
 	{
-		state = PersistentFacesState.getInstance();
+		
 	}
 	
 	public ProfiloForm(String nomeCompleto)
 	{
+		this();
 		this.nomeCompleto = nomeCompleto;
-		state = PersistentFacesState.getInstance();
 	}	
 	
 	
@@ -175,14 +173,7 @@ public class ProfiloForm extends BasePage
 		this.confirmDlg = confirmDlg;
 	}
 	
-	public PersistentFacesState getState() {
-		return state;
-	}
-
-	public void setState(PersistentFacesState state) {
-		this.state = state;
-	}
-
+	
 	public ListPage getListPageBean() {
 		return listPageBean;
 	}
@@ -249,12 +240,7 @@ public class ProfiloForm extends BasePage
 		
 		setCurrentFilter(profiloManager.getFilter(selezionato, nomeCompleto));
 		
-		try {
-			getState().render();
-		} catch (RenderingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+		
 	}
 
 }

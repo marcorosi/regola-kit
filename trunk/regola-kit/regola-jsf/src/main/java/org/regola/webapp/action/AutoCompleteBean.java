@@ -14,13 +14,12 @@ import org.regola.model.ModelPattern;
 import org.regola.service.GenericManager;
 import org.regola.webapp.action.lookup.BaseLookupStrategy;
 
-import com.icesoft.faces.component.selectinputtext.SelectInputText;
 
-public class AutoCompleteBean<T, ID extends Serializable, F extends ModelPattern>
+public abstract class AutoCompleteBean<T, ID extends Serializable, F extends ModelPattern>
 		extends BaseLookupStrategy<T, ID, F> {
-	private static Log log = LogFactory.getLog(AutoCompleteBean.class);
+	protected static Log log = LogFactory.getLog(AutoCompleteBean.class);
 
-	private List<SelectItem> matchesList = new ArrayList<SelectItem>();
+	protected List<SelectItem> matchesList = new ArrayList<SelectItem>();
 
 	/**
 	 * initialize this component with a model object
@@ -43,31 +42,7 @@ public class AutoCompleteBean<T, ID extends Serializable, F extends ModelPattern
 	 * @param event
 	 */
 	@SuppressWarnings("unchecked")
-	public void updateList(ValueChangeEvent event) {
-		log.info("updateList");
-
-		// get a new list of matches.
-		setMatches(event);
-
-		// Get the auto complete component from the event and assing
-		if (event.getComponent() instanceof SelectInputText) {
-			SelectInputText autoComplete = (SelectInputText) event
-					.getComponent();
-			T m;
-			if (autoComplete.getSelectedItem() != null)
-				m = (T) autoComplete.getSelectedItem().getValue();
-			else
-				m = getMatch(autoComplete.getValue().toString());
-
-			if (m != null) {
-				log.info("Selezionato " + m);
-				getFilter().init(m);
-				autoComplete.setValue(getFilterDescription());
-
-			}
-		}
-	}
-
+	public abstract void updateList(ValueChangeEvent event) ;
 	/**
 	 * The list of possible matches for the given SelectInputText value
 	 * 
@@ -79,7 +54,7 @@ public class AutoCompleteBean<T, ID extends Serializable, F extends ModelPattern
 	}
 
 	@SuppressWarnings("unchecked")
-	private T getMatch(String value) {
+	protected T getMatch(String value) {
 		T result = null;
 		if (matchesList != null) {
 			SelectItem si;
@@ -101,7 +76,7 @@ public class AutoCompleteBean<T, ID extends Serializable, F extends ModelPattern
 	 * @param event
 	 */
 	@SuppressWarnings("unchecked")
-	private void setMatches(ValueChangeEvent event) {
+	protected void setMatches(ValueChangeEvent event) {
 		Object searchWord = event.getNewValue();
 
 		getFilter().reset();

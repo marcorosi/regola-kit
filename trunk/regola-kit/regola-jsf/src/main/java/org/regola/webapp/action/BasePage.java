@@ -36,27 +36,33 @@ import org.apache.commons.collections.comparators.NullComparator;
 import org.apache.commons.collections.comparators.ReverseComparator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.regola.webapp.action.component.BasePageComponent;
+import org.regola.webapp.action.plug.BasePagePlug;
 
 public class BasePage {
 	public static final String jstlBundleParam = "javax.servlet.jsp.jstl.fmt.localizationContext";
-
 	protected final Log log = LogFactory.getLog(getClass());
 
-	protected FacesContext facesContext = null;
-
 	protected String templateName = null;
-
+	protected FacesContext facesContext = null;
 	protected String sortColumn = null;
-
 	protected boolean ascending = true;
-
 	protected boolean nullsAreHigh = true;
-
 	private String returnPage;
 
 	private DuckTypingEventBroker eventBroker;
-
 	ConfirmDlg confirmDlg;
+
+	protected BasePageComponent component;
+	protected BasePagePlug plug;
+
+	public BasePageComponent getComponent() {
+		return component;
+	}
+
+	public void setComponent(BasePageComponent component) {
+		this.component = component;
+	}
 
 	protected Application getApplication() {
 		ApplicationFactory appFactory = (ApplicationFactory) FactoryFinder
@@ -75,16 +81,12 @@ public class BasePage {
 		UIViewRoot view = viewHandler.createView(facesCtx, viewId);
 		facesCtx.setViewRoot(view);
 		facesCtx.renderResponse();
-		//da provare x il redirect
+		// da provare x il redirect
 		/*
-		try {
-			facesCtx.getExternalContext().redirect(viewId);
-			facesCtx.responseComplete();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
+		 * try { facesCtx.getExternalContext().redirect(viewId);
+		 * facesCtx.responseComplete(); } catch (IOException e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); }
+		 */
 	}
 
 	/**
@@ -326,5 +328,13 @@ public class BasePage {
 
 	public void setConfirmDlg(ConfirmDlg confirmDlg) {
 		this.confirmDlg = confirmDlg;
+	}
+
+	public BasePagePlug getPlug() {
+		return plug;
+	}
+
+	public void setPlug(BasePagePlug plug) {
+		this.plug = plug;
 	}
 }

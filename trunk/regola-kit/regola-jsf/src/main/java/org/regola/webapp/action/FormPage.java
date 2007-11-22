@@ -2,7 +2,10 @@ package org.regola.webapp.action;
 
 import org.regola.service.GenericManager;
 import org.regola.util.Ognl;
+import org.regola.webapp.action.component.FormPageComponent;
 import org.regola.webapp.action.lookup.LookupStrategy;
+import org.regola.webapp.action.plug.FormPagePlug;
+import org.regola.webapp.action.plug.ListPagePlug;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -15,29 +18,18 @@ import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.ClassValidator;
 import org.hibernate.validator.InvalidValue;
 
-import com.icesoft.faces.async.render.IntervalRenderer;
-import com.icesoft.faces.async.render.RenderManager;
-import com.icesoft.faces.context.effects.Effect;
-import com.icesoft.faces.context.effects.Highlight;
-import com.icesoft.faces.webapp.xmlhttp.PersistentFacesState;
 import org.regola.model.ModelPattern;
 
-public class FormPage<T, ID extends Serializable, F extends ModelPattern> extends org.regola.webapp.action.BasePage
+public  class FormPage<T, ID extends Serializable, F extends ModelPattern> extends org.regola.webapp.action.BasePage
 {
-	private RenderManager renderManager;
+	
 	private GenericManager<T, ID> serviceManager;
 	
 	String errore;
 	HashMap<String, String> errors = new HashMap<String, String>();
-	HashMap<String, Effect> effects = new HashMap<String, Effect>();
+	
 	protected Map<String, LookupStrategy> lookups = new HashMap<String, LookupStrategy>();
 	
-	private PersistentFacesState state;
-	@SuppressWarnings("unused")
-	private IntervalRenderer clock;
-
-	Effect effectPanel = null;
-
 	protected Class<ID> idClass;
 	protected ID id;
 	protected T model;
@@ -80,35 +72,18 @@ public class FormPage<T, ID extends Serializable, F extends ModelPattern> extend
 		}
 	}
 	
-    public <MODEL, MODELID extends Serializable, FILTER extends ModelPattern> 
+	public void setTypedID(ID id)
+	{
+		this.id=id;
+	}
+	
+    public  <MODEL, MODELID extends Serializable, FILTER extends ModelPattern> 
     void addAutoCompleteLookUp(String property,MODEL model, FILTER filter, GenericManager<MODEL, MODELID> manager)
     {
-    	AutoCompleteBean<MODEL, MODELID , FILTER> ac = new AutoCompleteBean<MODEL, MODELID , FILTER>();
-		ac.init(model,filter,manager);
-		
-		lookups.put(property, ac);
+    	getComponent().addAutoCompleteLookUp(property, model, filter, manager);
     }
 	
-	public Effect getEffectPanel()
-	{
-		return effectPanel;
-	}
-
-	public void setEffectPanel(Effect effect)
-	{
-		effectPanel = effect;
-	}
-
-	public RenderManager getRenderManager()
-	{
-		return renderManager;
-	}
-
-	public void setRenderManager(RenderManager renderManger)
-	{
-		this.renderManager = renderManger;
-	}
-
+	
 	public String getErrore()
 	{
 		return errore;
@@ -124,21 +99,7 @@ public class FormPage<T, ID extends Serializable, F extends ModelPattern> extend
 		return errors;
 	}
 
-	public HashMap<String, Effect> getEffects()
-	{
-		return effects;
-	}
-
-	public PersistentFacesState getState()
-	{
-		return state;
-	}
-
-	public void setState(PersistentFacesState state)
-	{
-		this.state = state;
-	}
-
+	
 	
 	public void submit(ActionEvent event)
 	{
@@ -147,17 +108,18 @@ public class FormPage<T, ID extends Serializable, F extends ModelPattern> extend
 
 	public void init()
 	{
-		state = PersistentFacesState.getInstance();
+		getComponent().setPage(this);
 		if(id != null) log.info("Init con id " + id);
+		getComponent().init();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public <T> InvalidValue[] validate(T object)
 	{
-		//	clean errors and effects
-		setEffectPanel(null);
+		//	clean errors
 		getErrors().clear();
-		getEffects().clear();
+		
+		
 
 		//validate bean
 		ClassValidator<T> validator = new ClassValidator<T>((Class<T>) object.getClass());
@@ -167,8 +129,10 @@ public class FormPage<T, ID extends Serializable, F extends ModelPattern> extend
 		for (InvalidValue msg : msgs)
 		{
 			errors.put(msg.getPropertyName(), msg.getMessage());
-			effects.put(msg.getPropertyName(), new Highlight("#FFFF00"));
+			
 		}
+		
+		getComponent().validate(msgs);
 
 		return msgs;
 	}
@@ -320,4 +284,29 @@ public class FormPage<T, ID extends Serializable, F extends ModelPattern> extend
 	public void setIdClass(Class<ID> idClass) {
 		this.idClass = idClass;
 	}
+	
+	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public FormPagePlug<T, ID, F> getPlug() {
+		return (FormPagePlug<T, ID, F>) plug;
+	}
+	
+	public void setPlug(FormPagePlug<T, ID, F> plug) {
+		super.setPlug(plug);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public FormPageComponent<T, ID, F> getComponent() {
+		return (FormPageComponent<T, ID, F>) component;
+	}
+	
+	public void setComponent(FormPageComponent<T, ID, F> component) 
+	{
+	    super.setComponent(component);
+	}
+	
+	
 }
