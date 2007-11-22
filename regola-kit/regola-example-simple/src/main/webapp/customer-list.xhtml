@@ -30,38 +30,38 @@
 			  	title="#{msg['button.tooltip.option']}" 
 			  	styleClass="toolbar" 
 			  	partialSubmit="true" 
-			  	actionListener="#{customerList.doColumnsDlg}" />
+			  	actionListener="#{customerList.listPage.doColumnsDlg}" />
 			  <ice:commandButton image="images/order.gif" 
 			  	title="#{msg['button.tooltip.order']}" 
 			  	styleClass="toolbar" 
 			  	partialSubmit="true" 
-			  	actionListener="#{customerList.doOrderDlg}" />
+			  	actionListener="#{customerList.listPage.doOrderDlg}" />
 			  
 			  <!--TODO: aggiungi i filtri rapidi -->
 			  <ice:outputText value="#{msg['customer.column.id']}" />
- 			  <ice:inputText value="#{customerList.filter.id}" />
+ 			  <ice:inputText value="#{customerList.listPage.filter.id}" />
 			  
 			  <ice:commandButton image="images/search.gif" 
 			  	title="#{msg['button.tooltip.search']}" 
 			  	styleClass="toolbar" 
 			  	partialSubmit="true" 
-			  	actionListener="#{customerList.refresh}" />
+			  	actionListener="#{customerList.listPage.refresh}" />
 		
 			</ice:panelGrid>
 		</ice:panelGrid>
 		
 		<ice:dataTable id="customerList" var="item"
-				rows="#{customerList.filter.pageSize}"
+				rows="#{customerList.listPage.filter.pageSize}"
 				rowClasses="rigaPari,rigaDispari"
-				value="#{customerList.rowDataModel}">
+				value="#{customerList.listPage.rowDataModel}">
 		
-			<ice:columns value="#{customerList.columnDataModel}" var="column">
+			<ice:columns value="#{customerList.listPage.columnDataModel}" var="column">
 					<f:facet name="header">
 						<ice:outputText value="#{msg[column.label]}" />
 					</f:facet>
 					<!-- il prossimo outputText fissa un baco delle icefaces -->
-					<ice:outputText value="#{customerList.currentCulumnCallback[column.name]}" />
-					<ice:outputText value="#{customerList.cellValue}" />
+					<ice:outputText value="#{customerList.listPage.currentCulumnCallback[column.name]}" />
+					<ice:outputText value="#{customerList.listPage.cellValue}" />
 				</ice:columns>
 
 				<ice:column>
@@ -78,7 +78,7 @@
   				  <ice:commandLink value="Cancella"
 					  styleClass="buttonNew"
 					  partialSubmit="true"
-					  actionListener="#{customerList.remove}" />
+					  actionListener="#{customerList.listPage.remove}" />
 
 				</ice:column>
 				
@@ -87,7 +87,7 @@
 						<ice:panelGrid columns="4">
 		
 					<ice:dataPaginator for="customerList" fastStep="3"
-					actionListener="#{customerList.paginatorListener}"
+					actionListener="#{customerList.listPage.paginatorListener}"
 					pageCountVar="pageCount" pageIndexVar="pageIndex" paginator="true"
 					paginatorMaxPages="4" vertical="false" rendered="true"
 					styleClass="formBorderHighlight">
@@ -127,8 +127,8 @@
 				</ice:dataPaginator>
 
 				<ice:outputText value="#{msg['paginator.pageSize']}" />
-                <ice:selectOneMenu value="#{customerList.filter.pageSize}"
-					               valueChangeListener="#{customerList.refresh}"
+                <ice:selectOneMenu value="#{customerList.listPage.filter.pageSize}"
+					               valueChangeListener="#{customerList.listPage.refresh}"
 					               partialSubmit="true">
                     <f:selectItem itemValue="10" itemLabel="10"/>
                     <f:selectItem itemValue="20" itemLabel="20"/>

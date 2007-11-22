@@ -5,7 +5,6 @@ import com.thoughtworks.selenium.Selenium;
 
 import java.io.InputStream;
 import java.util.Properties;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.test.annotation.AbstractAnnotationAwareTransactionalTests;
 
 /**

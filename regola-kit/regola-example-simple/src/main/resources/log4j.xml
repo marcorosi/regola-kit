@@ -43,25 +43,11 @@
 		<level value="WARN" />
 	</logger>
 
-	<logger name="it.kion.regola">
-		<level value="DEBUG" />
-	</logger>
-
-	<logger name="it.kion.regola.util">
-		<level value="WARN" />
-	</logger>
-
-	<logger name="it.kion.regola.webapp.filter">
-		<level value="ERROR" />
-	</logger>
 
 	<logger name="org.codehaus.xfire">
 		<level value="WARN" />
 	</logger>
 
-	<logger name="it.kion">
-		<level value="DEBUG" />
-	</logger>
 	
 	<logger name="org.regola">
 		<level value="DEBUG" />

@@ -2,52 +2,64 @@ package org.regola.webapp.action;
 
 import org.regola.model.Customer;
 
-import org.regola.webapp.annotation.ScopeEnd;
-
+import java.io.Serializable;
 import java.lang.Integer;
 import org.regola.model.pattern.CustomerPattern;
 import org.regola.webapp.action.FormPage;
+import org.regola.webapp.action.plug.FormPagePlug;
+import org.regola.webapp.action.plug.FormPagePlugProxy;
+import org.regola.webapp.annotation.ScopeEnd;
 import org.apache.commons.lang.StringUtils;
 
-public class CustomerForm extends FormPage<Customer, Integer, CustomerPattern>
+public class CustomerForm //implements Serializable,FormPagePlug<Customer, Integer, CustomerPattern>
 {
-	public CustomerForm()
-	{
-	}
-
-	@Override
-	public void init()
-	{
-		super.init();
- 
-		if(StringUtils.isNotEmpty(getEncodedId()))
+	
+	public void init() {
+		
+		formPage.setPlug(new FormPagePlugProxy(this));
+		formPage.init();
+		
+		if(StringUtils.isNotEmpty(formPage.getEncodedId()))
 		{
 			// update an existing model item
-			id = new Integer(getEncodedId());
-			model = getServiceManager().get(id);
+			Integer id = new Integer(formPage.getEncodedId());
+			formPage.setTypedID(id);
+			formPage.setModel(formPage.getServiceManager().get(id));
 		}
 		else
 		{
 			// edit a new model item
-			model = new Customer();
-			model.setId(id);
+			formPage.setModel (new Customer());
+			formPage.getModel().setId(null);
 		}
+
 		
 	}
-
-	@Override
+	
 	@ScopeEnd
 	public String save()
 	{
-		String navigation = super.save();
-		getEventBroker().publish("customer.persistence.changes", null);
+		String navigation = formPage.save();
+		formPage.getEventBroker().publish("customer.persistence.changes", null);
 		
 		return navigation;
 	}
 	
-	@Override
 	@ScopeEnd
 	public String cancel() {
-		return super.cancel();
+		return formPage.cancel();
 	}
+	
+	FormPage<Customer, Integer, CustomerPattern> formPage;
+
+	public void setFormPage(
+			FormPage<Customer, Integer, CustomerPattern> formPage) {
+		this.formPage=formPage;
+		
+	}
+
+	public FormPage<Customer, Integer, CustomerPattern> getFormPage() {
+		return formPage;
+	}
+	
 }

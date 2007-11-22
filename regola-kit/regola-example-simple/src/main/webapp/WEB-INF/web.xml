@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
   
 	<display-name>Regola-kit: Simple Example</display-name>
-	<description>
+	<description> 
 		Un primo semplice esempio del toolkit grafico con JSF.
 	</description>
  
@@ -62,13 +62,7 @@
 		<param-name>com.sun.faces.verifyObjects</param-name>
 		<param-value>false</param-value>
 	</context-param>
-	<!-- context-param>
-		<param-name>facelets.LIBRARIES</param-name>
-		<param-value>
-		/WEB-INF/taglibs/corejsf-validator.taglib.xml;
-		/WEB-INF/taglibs/tomahawk.taglib.xml
-		</param-value>
-		</context-param -->
+  
 	<context-param>
 		<param-name>com.icesoft.faces.concurrentDOMViews</param-name>
 		<param-value>true</param-value>
@@ -123,6 +117,7 @@
 			<param-value>log4j</param-value>
 		</init-param>
 	</filter>
+
 	
 	<filter>
 		<filter-name>securityFilter</filter-name>
@@ -253,6 +248,8 @@
 		</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
+
 
 	<!-- Persistent Faces Servlet Mappings -->
 	<servlet-mapping>
@@ -271,11 +268,7 @@
 		<url-pattern>/block/*</url-pattern>
 	</servlet-mapping>
 
-	<!-- servlet-mapping>
-		<servlet-name>faces</servlet-name>
-		<url-pattern>*.html</url-pattern>
-		</servlet-mapping-->
-
+ 
 	<servlet-mapping>
 		<servlet-name>SOAPServlet</servlet-name>
 		<url-pattern>/services/*</url-pattern>
