@@ -260,7 +260,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>${groupId}</groupId>
-			<artifactId>regola-jsf</artifactId>
+			<artifactId>regola-jsf-icefaces</artifactId>
 			<version>${version}</version>
 		</dependency>
 
