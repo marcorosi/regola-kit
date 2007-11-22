@@ -13,7 +13,7 @@ import org.regola.model.ModelPattern;
 import org.regola.webapp.action.FormPage;
 import org.regola.webapp.action.ListPage;
 
-import com.icesoft.faces.component.ext.RowSelectorEvent;
+
 
 /**
  *
@@ -21,7 +21,6 @@ import com.icesoft.faces.component.ext.RowSelectorEvent;
  */
 public interface ListPageComponent<T, ID extends Serializable, F extends ModelPattern> extends BasePageComponent {
 
-	public void onRowSelection(RowSelectorEvent event);
 	public void paginatorListener(ActionEvent event);
 	public void setPage(ListPage<T,ID,F> page);
 	
