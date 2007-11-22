@@ -26,15 +26,15 @@
 						<ice:outputText value="Username" />
 						<ice:inputText id="userName" 
 							value="#{loginForm.username}"
-							effect="#{loginForm.effects['username']}">
+							effect="#{loginForm.formPage.component.effects['username']}">
 						</ice:inputText>
-						<ice:outputText value="#{loginForm.errors['username']}" />
+						<ice:outputText value="#{loginForm.formPage.errors['username']}" />
 						
 						<ice:outputText value="Password" />
 						<ice:inputSecret id="password"
 							value="#{loginForm.password}"
-							effect="#{loginForm.effects['password']}" />
-						<ice:outputText value="#{loginForm.errors['password']}" />
+							effect="#{loginForm.formPage.component.effects['password']}" />
+						<ice:outputText value="#{loginForm.formPage.errors['password']}" />
 
 						<ice:outputText value=" " />
 						<ice:commandButton value="Login"
@@ -43,7 +43,7 @@
 						<ice:outputText value=" " />
 						
 						<ice:outputText value=" " />
-						<ice:outputText styleClass="loginError" value="#{loginForm.errore}" />
+						<ice:outputText styleClass="loginError" value="#{loginForm.formPage.errore}" />
 						<ice:outputText value=" " />
 					</ice:panelGrid>
 				</center>
@@ -57,3 +57,4 @@
 </ui:composition>
 </body>
 </html>
+
