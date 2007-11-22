@@ -3,6 +3,8 @@
 "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
 
 <faces-config>
+
+
     <application>
         <view-handler>
             com.icesoft.faces.facelets.D2DFaceletViewHandler

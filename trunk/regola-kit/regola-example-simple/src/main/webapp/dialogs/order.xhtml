@@ -28,7 +28,7 @@
 						<ice:outputText value="#{msg['order.orderByHeader']}" styleClass="columnsHeader" />
 						<ice:panelPositioned var="column" 
 											 id="sortedColumns"
-											 listener="#{orderDlg.onOrderChange}"
+											 listener="#{orderDlg.impl.onOrderChange}"
 											 value="#{orderDlg.filter.sortedProperties}" 
 											 style="padding-top: 10px;"
 											 constraint="vertical">

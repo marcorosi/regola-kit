@@ -5,21 +5,21 @@ import org.regola.model.Customer;
 import java.lang.Integer;
 import org.regola.model.pattern.CustomerPattern;
 import org.regola.webapp.action.ListPage;
+import org.regola.webapp.action.plug.ListPagePlug;
+import org.regola.webapp.action.plug.ListPagePlugProxy;
 
-public class CustomerList extends ListPage<Customer, Integer, CustomerPattern>
+public class CustomerList //implements ListPagePlug<Customer, Integer, CustomerPattern>
 {
-	/**
-	 * Init è chiamato dopo tutte le dipendenze iniettate da Spring 
-	 */
-	@Override
+	
 	public void init()
 	{
-		setFilter(new CustomerPattern());
-		//@TODO Imposta un criterio per il filtro, ad esempio
+		listPage.setPlug(new ListPagePlugProxy(this));
 		
-		getEventBroker().subscribe(this, "customer.persistence.changes");
+		listPage.setFilter(new CustomerPattern());
+		listPage.init();
 		
-		super.init();
+		listPage.getEventBroker().subscribe(this, "customer.persistence.changes");
+		
 	}
 	
 	/**
@@ -29,7 +29,21 @@ public class CustomerList extends ListPage<Customer, Integer, CustomerPattern>
 	 */
 	public void onRegolaEvent(Event e)
 	{
-		refresh();
+		listPage.refresh();
 	}
+	
+	ListPage<Customer, Integer, CustomerPattern> listPage;
+
+	public void setListPage(
+			ListPage<Customer, Integer, CustomerPattern> listPage) {
+		this.listPage= listPage;
+		
+	}
+
+	public ListPage<Customer, Integer, CustomerPattern> getListPage() {
+		return listPage;
+	} 
+
+	
 
 }

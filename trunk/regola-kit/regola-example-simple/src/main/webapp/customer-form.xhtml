@@ -19,26 +19,26 @@
 	<ui:define name="corpo">
 
 		<ice:form>
-		<ice:inputText id="originalId" value="#{customerForm.originalId}" visible="false" />
+		<ice:inputText id="originalId" value="#{customerForm.formPage.originalId}" visible="false" />
 		<ice:outputConnectionStatus style="align: right;"/>
 			<ice:panelGroup>
 				<ice:panelGrid columns="4">
 			
 					<!-- firstName -->
 					<ice:outputText value="#{msg['customer.column.firstName']}" />
-					<ice:inputText  value="#{customerForm.model.firstName}">
+					<ice:inputText  value="#{customerForm.formPage.model.firstName}">
 					</ice:inputText>
 					<ice:outputText value=" " />
-					<ice:outputText value="#{customerForm.errors['firstName']}" />
+					<ice:outputText value="#{customerForm.formPage.errors['firstName']}" />
 			
 					<!-- lastName -->
 					<ice:outputText value="#{msg['customer.column.lastName']}" />
-					<ice:inputText  value="#{customerForm.model.lastName}">
+					<ice:inputText  value="#{customerForm.formPage.model.lastName}">
 					</ice:inputText>
 					<ice:outputText value=" " />
-					<ice:outputText value="#{customerForm.errors['lastName']}" />
+					<ice:outputText value="#{customerForm.formPage.errors['lastName']}" />
 		  
-		           <ice:outputText value="#{customerForm.errore}" />
+		           <ice:outputText value="#{customerForm.formPage.errore}" />
 					<ice:outputText value=" " />
 					<ice:outputText value=" " />
 					<ice:outputText value=" " />
