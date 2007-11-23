@@ -3,12 +3,18 @@
 
 <hibernate-configuration>
     <session-factory>
-        <!--
-        <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
-        <property name="hibernate.connection.url">jdbc:oracle:thin:@137.204.25.171:1521:DBDEV</property>
-        <property name="hibernate.connection.password">didattica</property>
-        <property name="hibernate.connection.username">didattica</property>
-        <property name="hibernate.default_schema">DIDATTICA</property> -->
+        <!-- DB locale Hypersonic -->
+        <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
+        
+        <!-- property name="hibernate.connection.url">jdbc:hsqldb:${jboss.server.data.dir}${/}hypersonic${/}regola-exampleDB</property -->
+        <!-- property name="hibernate.connection.url">jdbc:hsqldb:${jboss.server.data.dir}/hypersonic/regola-exampleDB</property -->
+        <!-- property name="hibernate.connection.url">jdbc:hsqldb:/usr/local/jboss/server/regola-kit/data/hypersonic/regola-exampleDB</property -->
+        <!-- property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost:9001/usr/local/jboss/server/regola-kit/data/hypersonic/regola-exampleDB</property -->
+        <property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost:1701</property>
+        
+        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.connection.username">sa</property>
+        
         <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
         
         <mapping resource="org/regola/model/Customer.hbm.xml" />

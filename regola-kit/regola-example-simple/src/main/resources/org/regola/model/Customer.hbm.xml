@@ -15,5 +15,6 @@
 			<property name="street" />
 			<property name="city" />
 		</component>
+		<!--  property name="age" / --> <!-- solo per prova conversione e validazione tipi numerici -->
 	</class>
 </hibernate-mapping>

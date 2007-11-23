@@ -16,6 +16,7 @@ public class CustomerPattern extends ModelPattern implements Serializable
 	  addProperty("id","customer.column.");
 	  addProperty("firstName","customer.column.");
 	  addProperty("lastName","customer.column.");
+	  //addProperty("age","customer.column.");
 	  
 	  getSortedProperties().add(new ModelProperty("id","customer.column.",Order.asc));
 	}

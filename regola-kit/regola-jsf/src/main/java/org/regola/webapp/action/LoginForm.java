@@ -60,10 +60,14 @@ public class LoginForm {
 
     public void submit(ActionEvent event) {
         formPage.submit(event);
-
+        
+        /*
         if (formPage.validate(this).length > 0) {
             return;
         }
+        */
+        if(!formPage.validate(this))
+        	return;
 
         try {
             String targetUrl = AuthenticationUtils.acegiProgrammaticLogin(
