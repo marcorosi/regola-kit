@@ -123,19 +123,4 @@
         </plugins>
     </reporting>
     
-    <repositories>
-        <repository>
-            <id>kion.cerbero</id>
-            <name>CINECA MiUR Internal Repository</name>
-            <url>http://cerbero:8080/maven-proxy-webapp/repository</url>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>kion.cerbero</id>
-            <name>CINECA MiUR Internal Repository</name>
-            <url>http://cerbero:8080/maven-proxy-webapp/repository</url>
-        </pluginRepository>
-    </pluginRepositories>
-    
 </project>
