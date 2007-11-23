@@ -50,6 +50,8 @@ http://www.springframework.org/schema/lang http://www.springframework.org/schema
         </property>
     </bean>
     
+	<!-- bean id="silentNumberConverter" class="org.regola.jsfValidators.SilentNumberConverter"/ -->
+	
 </beans>	
 
 

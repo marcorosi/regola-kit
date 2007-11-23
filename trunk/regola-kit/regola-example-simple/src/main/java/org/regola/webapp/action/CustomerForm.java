@@ -14,6 +14,8 @@ import org.apache.commons.lang.StringUtils;
 public class CustomerForm //implements Serializable,FormPagePlug<Customer, Integer, CustomerPattern>
 {
 	
+	private static final String VALIDATION_AMENDMENTS_CFG_FILE = "validationAmendments.xml";
+
 	public void init() {
 		
 		formPage.setPlug(new FormPagePlugProxy(this));
@@ -34,11 +36,13 @@ public class CustomerForm //implements Serializable,FormPagePlug<Customer, Integ
 		}
 
 		
+		formPage.setValidationContext(VALIDATION_AMENDMENTS_CFG_FILE);
+		
 	}
 	
 	@ScopeEnd
 	public String save()
-	{
+	{	
 		String navigation = formPage.save();
 		formPage.getEventBroker().publish("customer.persistence.changes", null);
 		

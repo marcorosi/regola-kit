@@ -17,7 +17,49 @@
         <message-bundle>ApplicationResources</message-bundle>
     </application>
     
-    
+    <!-- converter jsf per i tipi numerici -->
+    <converter>
+		<converter-for-class>java.math.BigDecimal</converter-for-class>
+		<converter-class>
+			org.regola.jsfValidators.SilentNumberConverter
+		</converter-class>
+	</converter>
+	<converter>
+		<converter-for-class>java.math.BigInteger</converter-for-class>
+		<converter-class>
+			org.regola.jsfValidators.SilentNumberConverter
+		</converter-class>
+	</converter>
+	<converter>
+		<converter-for-class>java.lang.Double</converter-for-class>
+		<converter-class>
+			org.regola.jsfValidators.SilentNumberConverter
+		</converter-class>
+	</converter>
+	<converter>
+		<converter-for-class>java.lang.Float</converter-for-class>
+		<converter-class>
+			org.regola.jsfValidators.SilentNumberConverter
+		</converter-class>
+	</converter>
+	<converter>
+		<converter-for-class>java.lang.Integer</converter-for-class>
+		<converter-class>
+			org.regola.jsfValidators.SilentNumberConverter
+		</converter-class>
+	</converter>
+	<converter>
+		<converter-for-class>java.lang.Long</converter-for-class>
+		<converter-class>
+			org.regola.jsfValidators.SilentNumberConverter
+		</converter-class>
+	</converter>
+	<converter>
+		<converter-for-class>java.lang.Short</converter-for-class>
+		<converter-class>
+			org.regola.jsfValidators.SilentNumberConverter
+		</converter-class>
+	</converter>
     
 
 

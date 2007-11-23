@@ -8,6 +8,7 @@ public class Customer {
 	private String firstName;
 	private String lastName;
 	private Address address;
+	//private Integer age;  //solo per prove conversione-validazione tipi numerici
 
 	public static class Address {
 
@@ -107,4 +108,17 @@ public class Customer {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+	
+	/*
+	public Integer getAge()
+	{
+		return age;
+	}
+
+	public void setAge(Integer age)
+	{
+		this.age = age;
+	}
+	*/
+
 }

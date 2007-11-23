@@ -16,7 +16,7 @@
       <integration.context>/${project.artifactId}-${project.version}</integration.context>
       <ping.url>${integration.host}${integration.context}/welcome.html</ping.url>
       <jee.datasource>java:jdbc/YourDataSource</jee.datasource>
-      
+	  
    </properties>
    
    <build>
