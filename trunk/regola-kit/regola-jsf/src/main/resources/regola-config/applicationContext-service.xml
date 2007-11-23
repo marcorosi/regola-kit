@@ -56,11 +56,12 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
     <!-- Mail: Sender and Velocity configuration                             -->
     <!-- =================================================================== -->
 	
-
+	<!-- 
     <bean id="freemarkerConfiguration"
           class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
         <property name="templateLoaderPath" value="/templates/" />
     </bean>
+     -->
     
     <bean id="msg" class="org.regola.webapp.action.Messages"
           scope="singleton" />

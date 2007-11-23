@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.regola</groupId>
@@ -11,19 +13,31 @@
 	<artifactId>regola-example-simple</artifactId>
 	<packaging>war</packaging>
 	<name>REGOLA Framework :: First simple example module</name>
-	<description>REGOLA Framework :: First simple example module</description>
+	<description>
+		REGOLA Framework :: First simple example module
+	</description>
 
 	<properties>
 		<!--tomcat.home>${project.build.directory}/apache-tomcat-5.5.25</tomcat.home-->
-		<tomcat.home>/home/nicola/lavoro/apache-tomcat-5.5.25</tomcat.home>
-		<netbeans.hint.deploy.server>Tomcat55</netbeans.hint.deploy.server>
+		<tomcat.home>
+			/home/nicola/lavoro/apache-tomcat-5.5.25
+		</tomcat.home>
+		<netbeans.hint.deploy.server>
+			Tomcat55
+		</netbeans.hint.deploy.server>
 		<integration.host>http://localhost:8080</integration.host>
-		<integration.context>/${project.artifactId}-${project.version}</integration.context>
-		<ping.url>${integration.host}${integration.context}/customer-list.html</ping.url>
+		<integration.context>
+			/${project.artifactId}-${project.version}
+		</integration.context>
+		<ping.url>
+			${integration.host}${integration.context}/customer-list.html
+		</ping.url>
 		<!--jee.datasource>
 			java:comp/env/jdbc/RegolaExampleDS
 			</jee.datasource-->
-		<jee.datasource>java:comp/env/jdbc/RegolaExampleDS</jee.datasource>
+		<jee.datasource>
+			java:comp/env/jdbc/RegolaExampleDS
+		</jee.datasource>
 		<!-- Jetty e Tomcat java:comp/env/jdbc/RegolaExampleDS 
 			JBoss java:jdbc/RegolaExampleDS
 		-->
@@ -70,9 +84,18 @@
 				<artifactId>maven-jetty-plugin</artifactId>
 				<version>6.1.0</version>
 				<configuration>
-					<jettyEnvXml>src/test/resources/jetty/env.xml</jettyEnvXml>
+					<jettyEnvXml>
+						src/test/resources/jetty/env.xml
+					</jettyEnvXml>
 					<contextPath>/simple</contextPath>
 					<scanIntervalSeconds>30</scanIntervalSeconds>
+					<connectors>
+						<connector
+							implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+							<port>8080</port>
+							<maxIdleTime>3600000</maxIdleTime>
+						</connector>
+					</connectors>
 				</configuration>
 			</plugin>
 
@@ -117,7 +140,9 @@
 										<exclude>none</exclude>
 									</excludes>
 									<includes>
-										<include>**/*action/*Test.java</include>
+										<include>
+											**/*action/*Test.java
+										</include>
 									</includes>
 								</configuration>
 							</execution>
@@ -173,7 +198,9 @@
 								<type>existing</type>
 								<properties>
 									<cargo.logging>high</cargo.logging>
-									<cargo.servlet.port>8080</cargo.servlet.port>
+									<cargo.servlet.port>
+										8080
+									</cargo.servlet.port>
 									<!--cargo.datasource.datasource>
 										cargo.datasource.url=jdbc:hsqldb:hsql://localhost/|
 										cargo.datasource.driver=org.hsqldb.jdbcDriver|
@@ -206,10 +233,16 @@
 
 										<deployables>
 											<deployable>
-												<groupId>${project.groupId}</groupId>
-												<artifactId>${project.artifactId}</artifactId>
+												<groupId>
+													${project.groupId}
+												</groupId>
+												<artifactId>
+													${project.artifactId}
+												</artifactId>
 												<type>war</type>
-												<pingURL>${ping.url}</pingURL>
+												<pingURL>
+													${ping.url}
+												</pingURL>
 												<!--pingTimeout>300000</pingTimeout-->
 											</deployable>
 										</deployables>
@@ -320,7 +353,7 @@
 
 
 	</dependencies>
-	
+
 
 
 
