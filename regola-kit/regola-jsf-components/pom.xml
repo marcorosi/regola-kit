@@ -17,6 +17,7 @@
 
 	<modules>
 		<module>regola-jsf-icefaces</module>
+    <module>regola-jsf-webgalileo</module>
 	</modules>
 
 
