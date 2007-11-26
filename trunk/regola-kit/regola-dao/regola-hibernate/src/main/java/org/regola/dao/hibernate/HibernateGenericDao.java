@@ -8,7 +8,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.regola.dao.GenericDao;
 import org.regola.filter.ModelPatternParser;
-import org.regola.filter.criteria.hibernate.HibernateCriteria;
 import org.regola.filter.criteria.hibernate.HibernateQueryBuilder;
 import org.regola.filter.impl.DefaultPatternParser;
 import org.regola.finder.FinderExecutor;
@@ -60,7 +59,7 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 				// HibernateCriteria criteriaBuilder = new HibernateCriteria(
 				// session, persistentClass, getSessionFactory());
 				HibernateQueryBuilder criteriaBuilder = new HibernateQueryBuilder(
-						session, persistentClass);
+						persistentClass, session);
 				getPatternParser().createQuery(criteriaBuilder, pattern);
 				return criteriaBuilder.getQuery().list();
 			}
@@ -76,7 +75,7 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 						// HibernateCriteria(
 						// session.createCriteria(persistentClass));
 						HibernateQueryBuilder criteriaBuilder = new HibernateQueryBuilder(
-								session, persistentClass);
+								persistentClass, session);
 						getPatternParser().createCountQuery(criteriaBuilder,
 								pattern);
 						return criteriaBuilder.getQuery().uniqueResult();
