@@ -1,15 +1,19 @@
 package org.regola.dao;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.regola.model.Customer;
 import org.regola.model.CustomerPattern;
+import org.regola.model.Invoice;
 import org.regola.model.Order;
 import org.regola.model.Customer.Address;
-import org.regola.model.Invoice;
+import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.test.annotation.AbstractAnnotationAwareTransactionalTests;
 
@@ -194,8 +198,8 @@ public abstract class AbstractGenericDaoTest extends
 		assertEquals(44, customers.size());
 	}
 
-    public void testFindByModelPattern_relationBug() {
-        int INVOICE_ID = 1;
+	public void testFindByModelPattern_relationBug() {
+		int INVOICE_ID = 1;
 		CustomerPattern pattern = new CustomerPattern();
 		pattern.setInvoiceId(INVOICE_ID);
 		pattern.disablePaging();
@@ -203,19 +207,18 @@ public abstract class AbstractGenericDaoTest extends
 		List<Customer> customers = customerDao.find(pattern);
 
 		assertEquals(1, customers.size());
-        assertTrue(customers.get(0).getInvoices().size() > 0);
-        for(Invoice i : customers.get(0).getInvoices())
-        {
-            if(i.equals(INVOICE_ID))
-                assertEquals(i.getTotal(), new BigDecimal("1610.70"));
-        }
-        
-        pattern.setInvoiceId(null);
+		assertTrue(customers.get(0).getInvoices().size() > 0);
+		for (Invoice i : customers.get(0).getInvoices()) {
+			if (i.equals(INVOICE_ID))
+				assertEquals(i.getTotal(), new BigDecimal("1610.70"));
+		}
+
+		pattern.setInvoiceId(null);
 		pattern.setProductName("Iron Iron");
 
 		customers = customerDao.find(pattern);
 
-		assertEquals(1, customers.size());
+		assertEquals(18, customers.size());
 
 	}
 
@@ -226,10 +229,10 @@ public abstract class AbstractGenericDaoTest extends
 
 		List<Customer> customers = customerDao.find(pattern);
 		assertEquals(25, customers.size());
-		for(Customer c : customers)
-			assertEquals(c.getSex().getDescription(),"MALE");
+		for (Customer c : customers)
+			assertEquals(c.getSex().getDescription(), "MALE");
 	}
-    
+
 	public void testFindByModelPattern_lessThan() {
 		CustomerPattern pattern = new CustomerPattern();
 		pattern.setLessThanId(5);
@@ -403,9 +406,24 @@ public abstract class AbstractGenericDaoTest extends
 		} finally {
 			logger.debug("Table CUSTOMER record count: " + count);
 			if (count == 0) {
-				executeSqlScript("classpath:dbscripts/001_test_data.sql", false);
+				executeSqlScripts();
+				//executeSqlScript("classpath:dbscripts/001_test_data.sql", false);
 			}
 		}
 	}
 
+	protected void executeSqlScripts() {
+		try {
+			SortedSet<String> scripts = new TreeSet<String>();
+			for (Resource resource : applicationContext
+					.getResources("classpath:dbscripts/???_*.sql")) {
+				scripts.add(resource.getFilename());
+			}
+			for (String fileName : scripts) {
+				executeSqlScript("classpath:dbscripts/" + fileName, false);
+			}
+		} catch (IOException e) {
+			logger.error("Failure opening sql script", e);
+		}
+	}
 }
