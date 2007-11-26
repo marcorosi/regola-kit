@@ -4,8 +4,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -19,8 +17,6 @@ import org.regola.filter.criteria.Order;
 import org.regola.filter.criteria.impl.AbstractQueryBuilder;
 
 public class HibernateCriteria<T> extends AbstractQueryBuilder {
-
-	protected final Log log = LogFactory.getLog(getClass());
 
 	private static final String ROOT = "CriteriaPseudoBuilder_ROOT";
 	private Map<String, org.hibernate.Criteria> criteriaMap;

@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.regola.dao.impl.AbstractGenericDao;
-import org.regola.filter.criteria.jpa.JpaCriteria;
+import org.regola.filter.criteria.jpa.JpaQueryBuilder;
 import org.regola.model.ModelPattern;
 import org.springframework.stereotype.Repository;
 
@@ -53,8 +53,8 @@ public class JpaGenericDao<T, ID extends Serializable> extends
 	}
 
 	public int count(ModelPattern filter) {
-		JpaCriteria criteriaBuilder = new JpaCriteria(getPersistentClass(),
-				entityManager);
+		JpaQueryBuilder criteriaBuilder = new JpaQueryBuilder(
+				getPersistentClass(), entityManager);
 		getPatternParser().createCountQuery(criteriaBuilder, filter);
 		return ((Number) criteriaBuilder.getQuery().getSingleResult())
 				.intValue();
@@ -62,8 +62,8 @@ public class JpaGenericDao<T, ID extends Serializable> extends
 
 	@SuppressWarnings("unchecked")
 	public List<T> find(ModelPattern filter) {
-		JpaCriteria criteriaBuilder = new JpaCriteria(getPersistentClass(),
-				entityManager);
+		JpaQueryBuilder criteriaBuilder = new JpaQueryBuilder(
+				getPersistentClass(), entityManager);
 		getPatternParser().createQuery(criteriaBuilder, filter);
 		return criteriaBuilder.getQuery().getResultList();
 	}
