@@ -11,6 +11,7 @@ import java.util.TreeSet;
 import org.regola.model.Customer;
 import org.regola.model.CustomerPattern;
 import org.regola.model.Invoice;
+import org.regola.model.InvoicePattern;
 import org.regola.model.Order;
 import org.regola.model.Customer.Address;
 import org.springframework.core.io.Resource;
@@ -27,13 +28,48 @@ public abstract class AbstractGenericDaoTest extends
 		AbstractAnnotationAwareTransactionalTests {
 
 	private GenericDao<Customer, Integer> customerDao;
+	private GenericDao<Invoice, Integer> invoiceDao;
+
+	@Override
+	@SuppressWarnings("unchecked")
+	protected void onSetUpBeforeTransaction() {
+		// lookup Daos
+		customerDao = (GenericDao<Customer, Integer>) applicationContext
+				.getBean("customerDao");
+		invoiceDao = (GenericDao<Invoice, Integer>) applicationContext
+				.getBean("invoiceDao");
+
+		// init db if needed
+		int count = 0;
+		try {
+			count = countRowsInTable("CUSTOMER");
+		} catch (Exception e) {
+			// table can be missing
+		} finally {
+			logger.debug("Table CUSTOMER record count: " + count);
+			if (count == 0) {
+				executeSqlScripts();
+			}
+		}
+	}
+
+	protected void executeSqlScripts() {
+		try {
+			SortedSet<String> scripts = new TreeSet<String>();
+			for (Resource resource : applicationContext
+					.getResources("classpath:dbscripts/???_*.sql")) {
+				scripts.add(resource.getFilename());
+			}
+			for (String fileName : scripts) {
+				executeSqlScript("classpath:dbscripts/" + fileName, false);
+			}
+		} catch (IOException e) {
+			logger.error("Failure opening sql script", e);
+		}
+	}
 
 	public GenericDao<Customer, Integer> getCustomerDao() {
 		return customerDao;
-	}
-
-	public void setCustomerDao(GenericDao<Customer, Integer> customerDao) {
-		this.customerDao = customerDao;
 	}
 
 	@Override
@@ -198,7 +234,7 @@ public abstract class AbstractGenericDaoTest extends
 		assertEquals(44, customers.size());
 	}
 
-	public void testFindByModelPattern_relationBug() {
+	public void testFindByModelPattern_toManyRelation() {
 		int INVOICE_ID = 1;
 		CustomerPattern pattern = new CustomerPattern();
 		pattern.setInvoiceId(INVOICE_ID);
@@ -222,15 +258,15 @@ public abstract class AbstractGenericDaoTest extends
 
 	}
 
-	public void testFindByModelPattern_sexRelation() {
-		CustomerPattern pattern = new CustomerPattern();
-		pattern.setSexDescription("MALE");
+	public void testFindByModelPattern_toOneRelation() {
+		InvoicePattern pattern = new InvoicePattern();
+		pattern.setCustomerAddressCity("Dallas");
 		pattern.disablePaging();
 
-		List<Customer> customers = customerDao.find(pattern);
-		assertEquals(25, customers.size());
-		for (Customer c : customers)
-			assertEquals(c.getSex().getDescription(), "MALE");
+		List<Invoice> invoices = invoiceDao.find(pattern);
+		assertEquals(10, invoices.size());
+		for (Invoice i : invoices)
+			assertEquals(i.getCustomer().getAddress().getCity(), "Dallas");
 	}
 
 	public void testFindByModelPattern_lessThan() {
@@ -394,36 +430,5 @@ public abstract class AbstractGenericDaoTest extends
 		List<Customer> customers = customerDao.getAll();
 
 		assertEquals(50, customers.size());
-	}
-
-	@Override
-	protected void onSetUpBeforeTransaction() {
-		int count = 0;
-		try {
-			count = countRowsInTable("CUSTOMER");
-		} catch (Exception e) {
-			// table can be missing
-		} finally {
-			logger.debug("Table CUSTOMER record count: " + count);
-			if (count == 0) {
-				executeSqlScripts();
-				//executeSqlScript("classpath:dbscripts/001_test_data.sql", false);
-			}
-		}
-	}
-
-	protected void executeSqlScripts() {
-		try {
-			SortedSet<String> scripts = new TreeSet<String>();
-			for (Resource resource : applicationContext
-					.getResources("classpath:dbscripts/???_*.sql")) {
-				scripts.add(resource.getFilename());
-			}
-			for (String fileName : scripts) {
-				executeSqlScript("classpath:dbscripts/" + fileName, false);
-			}
-		} catch (IOException e) {
-			logger.error("Failure opening sql script", e);
-		}
 	}
 }

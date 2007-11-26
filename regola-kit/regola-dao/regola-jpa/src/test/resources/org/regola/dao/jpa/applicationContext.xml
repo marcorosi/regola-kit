@@ -17,6 +17,10 @@
 		</property>
 	</bean>
 
+	<bean id="invoiceDao" class="org.regola.dao.jpa.JpaGenericDao">
+		<constructor-arg value="org.regola.model.Invoice" />
+	</bean>
+
 	<bean id="transactionManager"
 		class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory"

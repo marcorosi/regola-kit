@@ -1,22 +1,23 @@
-package org.regola.filter.criteria.hibernate;
+package org.regola.filter.criteria.jpa;
 
 import java.util.Collection;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.Order;
 import org.regola.filter.criteria.impl.AbstractQueryBuilder;
 
-public class HibernateQueryBuilder extends AbstractQueryBuilder {
+public class JpaQueryBuilder extends AbstractQueryBuilder {
 
-	private Session session;
+	private EntityManager entityManager;
 	private int firstResult = -1;
 	private int maxResults = -1;
 	private boolean rowCount;
 
-	public HibernateQueryBuilder(Class<?> entityClass, Session session) {
-		this.session = session;
+	public JpaQueryBuilder(Class<?> entityClass, EntityManager entityManager) {
+		this.entityManager = entityManager;
 		setEntityClass(entityClass);
 		addRootEntity();
 	}
@@ -24,7 +25,7 @@ public class HibernateQueryBuilder extends AbstractQueryBuilder {
 	public Query getQuery() {
 		String queryString = buildQuery();
 		log.debug("Query: " + queryString);
-		Query query = session.createQuery(queryString);
+		Query query = entityManager.createQuery(queryString);
 		for (String param : getParams().keySet()) {
 			query.setParameter(param, getParams().get(param));
 		}
@@ -118,8 +119,8 @@ public class HibernateQueryBuilder extends AbstractQueryBuilder {
 	public void addIlike(String propertyPath, String value) {
 		Property property = getProperty(propertyPath);
 		addFilter("lower(" + property.getEntity().getAlias() + "."
-				+ property.getName() + ") like lower(:"
-				+ newParameter(value + "%") + ")");
+				+ property.getName() + ") like :"
+				+ newParameter(value.toLowerCase() + "%"));
 	}
 
 	@Override
@@ -168,7 +169,7 @@ public class HibernateQueryBuilder extends AbstractQueryBuilder {
 	public void addNotEquals(String propertyPath, Object value) {
 		Property property = getProperty(propertyPath);
 		addFilter(property.getEntity().getAlias() + "." + property.getName()
-				+ " != :" + newParameter(value));
+				+ " <> :" + newParameter(value));
 	}
 
 	@Override
