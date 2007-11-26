@@ -17,7 +17,6 @@
 			<key column="CUSTOMERID" />
 			<one-to-many class="Invoice" />
 		</set>
-        <many-to-one name="sex" class="org.regola.model.Sex" column="SEX" />
 	</class>
 
 	<query name="Customer.findByLastNameAndCity">
