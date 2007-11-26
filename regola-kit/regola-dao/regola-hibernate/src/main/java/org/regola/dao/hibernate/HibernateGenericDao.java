@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.regola.dao.GenericDao;
 import org.regola.filter.ModelPatternParser;
 import org.regola.filter.criteria.hibernate.HibernateCriteria;
+import org.regola.filter.criteria.hibernate.HibernateQueryBuilder;
 import org.regola.filter.impl.DefaultPatternParser;
 import org.regola.finder.FinderExecutor;
 import org.regola.model.ModelPattern;
@@ -54,30 +55,33 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 	public List<T> find(final ModelPattern pattern) {
 		return getHibernateTemplate().executeFind(new HibernateCallback() {
 			public Object doInHibernate(Session session) {
-//				HibernateCriteria criteriaBuilder = new HibernateCriteria(
-//						session.createCriteria(persistentClass));
-				HibernateCriteria criteriaBuilder = new HibernateCriteria(
-						session, persistentClass, getSessionFactory());
+				// HibernateCriteria criteriaBuilder = new HibernateCriteria(
+				// session.createCriteria(persistentClass));
+				// HibernateCriteria criteriaBuilder = new HibernateCriteria(
+				// session, persistentClass, getSessionFactory());
+				HibernateQueryBuilder criteriaBuilder = new HibernateQueryBuilder(
+						session, persistentClass);
 				getPatternParser().createQuery(criteriaBuilder, pattern);
-				return criteriaBuilder.getCriteria().list();
+				return criteriaBuilder.getQuery().list();
 			}
 		});
 	}
 
 	public int count(final ModelPattern pattern) {
 		// TODO controllare null result?
-		return (Integer) getHibernateTemplate().execute(
+		return ((Number) getHibernateTemplate().execute(
 				new HibernateCallback() {
 					public Object doInHibernate(Session session) {
-//						HibernateCriteria criteriaBuilder = new HibernateCriteria(
-//								session.createCriteria(persistentClass));
-						HibernateCriteria criteriaBuilder = new HibernateCriteria(
-								session, persistentClass, getSessionFactory());
+						// HibernateCriteria criteriaBuilder = new
+						// HibernateCriteria(
+						// session.createCriteria(persistentClass));
+						HibernateQueryBuilder criteriaBuilder = new HibernateQueryBuilder(
+								session, persistentClass);
 						getPatternParser().createCountQuery(criteriaBuilder,
 								pattern);
-						return criteriaBuilder.getCriteria().uniqueResult();
+						return criteriaBuilder.getQuery().uniqueResult();
 					}
-				});
+				})).intValue();
 	}
 
 	public ModelPatternParser getPatternParser() {
