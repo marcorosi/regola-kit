@@ -13,7 +13,6 @@
 				<value>org/regola/model/Customer.hbm.xml</value>
 				<value>org/regola/model/Invoice.hbm.xml</value>
 				<value>org/regola/model/Product.hbm.xml</value>
-				<value>org/regola/model/Sex.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
