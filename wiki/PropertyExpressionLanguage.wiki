@@ -44,13 +44,13 @@ invoices[].items[].product.name
 {{{
 Customer: invoices[].items[].product.name
 }}}
-||HQL||{{{from Customer e1 join e1.invoices e2 join e2.items e3 where e3.product.name = :p1}}}||
+||HQL||{{{select distinct e1 from Customer e1 join e1.invoices e2 join e2.items e3 where e3.product.name = :p1}}}||
 ||JPQL||{{{select e1 from Customer e1 join e1.invoices e2 join e2.items e3 where e3.product.name = :p1}}}||
 ||JDOQL||{{{select from org.regola.model.Customer where invoices.contains(e2) && e2.items.contains(e3) && e3.product.name == :p1}}}||
 
 {{{
 Customer: address.street
 }}}
-||HQL||{{{from Customer e1 where e1.address.street = :p1}}}||
+||HQL||{{{select distinct e1 from Customer e1 where e1.address.street = :p1}}}||
 ||JPQL||{{{select e1 from Customer e1 where e1.address.street = :p1}}}||
 ||JDOQL||{{{select from org.regola.model.Customer where address.street == :p1}}}||
