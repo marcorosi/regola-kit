@@ -13,9 +13,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.Order;
-import org.regola.filter.criteria.impl.AbstractQueryBuilder;
+import org.regola.filter.criteria.impl.AbstractCriteriaBuilder;
 
-public class JdoCriteria extends AbstractQueryBuilder {
+public class JdoCriteria extends AbstractCriteriaBuilder {
 
 	protected static final Log log = LogFactory.getLog(JdoCriteria.class);
 

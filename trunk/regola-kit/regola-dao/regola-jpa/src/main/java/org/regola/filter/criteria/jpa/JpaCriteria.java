@@ -11,14 +11,14 @@ import net.bzdyl.ejb3.criteria.restrictions.Restrictions;
 
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.Order;
-import org.regola.filter.criteria.impl.AbstractQueryBuilder;
+import org.regola.filter.criteria.impl.AbstractCriteriaBuilder;
 
-public class JpaCriteria extends AbstractQueryBuilder {
+public class JpaCriteria extends AbstractCriteriaBuilder {
 
 	private net.bzdyl.ejb3.criteria.Criteria criteria;
 	private EntityManager entityManager;
-	private Integer firstResult;
-	private Integer maxResults;
+	private int firstResult = -1;
+	private int maxResults = -1;
 
 	public JpaCriteria(Class<?> persistentClass, EntityManager entityManager) {
 		this.entityManager = entityManager;
@@ -103,10 +103,10 @@ public class JpaCriteria extends AbstractQueryBuilder {
 	public Query getQuery() {
 		Query query = criteria.prepareQuery(entityManager);
 
-		if (firstResult != null) {
+		if (firstResult != -1) {
 			query.setFirstResult(firstResult);
 		}
-		if (maxResults != null) {
+		if (maxResults != -1) {
 			query.setMaxResults(maxResults);
 		}
 

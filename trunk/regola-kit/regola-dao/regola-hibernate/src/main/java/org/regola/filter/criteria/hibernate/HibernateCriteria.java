@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -14,10 +16,11 @@ import org.hibernate.type.AssociationType;
 import org.hibernate.type.Type;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.criteria.Order;
-import org.regola.filter.criteria.impl.AbstractQueryBuilder;
+import org.regola.filter.criteria.impl.AbstractCriteriaBuilder;
 
-public class HibernateCriteria<T> extends AbstractQueryBuilder {
+public class HibernateCriteria<T> extends AbstractCriteriaBuilder {
 
+	private static final Log log = LogFactory.getLog(HibernateCriteria.class);
 	private static final String ROOT = "CriteriaPseudoBuilder_ROOT";
 	private Map<String, org.hibernate.Criteria> criteriaMap;
 
@@ -69,42 +72,41 @@ public class HibernateCriteria<T> extends AbstractQueryBuilder {
 	}
 
 	/*
-	public HibernateCriteria(org.hibernate.Criteria criteria) {
-		criteriaMap = new HashMap<String, org.hibernate.Criteria>();
-		criteriaMap.put(ROOT, criteria);
-	}
-	*/
+	 * public HibernateCriteria(org.hibernate.Criteria criteria) { criteriaMap =
+	 * new HashMap<String, org.hibernate.Criteria>(); criteriaMap.put(ROOT,
+	 * criteria); }
+	 */
 
 	private ClassMetadata classMetadata;
 
 	private SessionFactory sessionFactory;
-	
-	public HibernateCriteria(Session session, Class<T> persistentClass, SessionFactory sessionFactory) {
+
+	public HibernateCriteria(Session session, Class<T> persistentClass,
+			SessionFactory sessionFactory) {
 		criteriaMap = new HashMap<String, org.hibernate.Criteria>();
 		criteriaMap.put(ROOT, session.createCriteria(persistentClass));
 		classMetadata = sessionFactory.getClassMetadata(persistentClass);
 		this.sessionFactory = sessionFactory;
-		if(log.isDebugEnabled())
-		{
-			log.debug("Initializing "+this.getClass()+" for "+persistentClass);
-			for(String s : classMetadata.getPropertyNames())
-			{
+		if (log.isDebugEnabled()) {
+			log.debug("Initializing " + this.getClass() + " for "
+					+ persistentClass);
+			for (String s : classMetadata.getPropertyNames()) {
 				Type t = classMetadata.getPropertyType(s);
 				log.debug(String.format(
-						"property name: %s type: %s isAssociation: %s"
-						, s, t.getName(), t.isAssociationType()));
+						"property name: %s type: %s isAssociation: %s", s, t
+								.getName(), t.isAssociationType()));
 			}
-		}		
+		}
 	}
-	
+
 	private CriteriaBuilder getCriteria(String path) {
 		if (path == null) {
 			throw new RuntimeException("propertyPath non può essere null");
 		}
 
-		String propertyPath=path;
+		String propertyPath = path;
 		ClassMetadata metadata = classMetadata;
-		
+
 		StringBuilder fullPath = new StringBuilder();
 		org.hibernate.Criteria criteria = getRootCriteria();
 		if (propertyPath.contains(".")) {
@@ -113,25 +115,27 @@ public class HibernateCriteria<T> extends AbstractQueryBuilder {
 				propertyPath = paths[i];
 				if (i < paths.length - 1) {
 					fullPath.append(paths[i]);
-					//Type type = classMetadata.getPropertyType(fullPath.toString());
+					// Type type =
+					// classMetadata.getPropertyType(fullPath.toString());
 					Type type = metadata.getPropertyType(paths[i]);
-					if(type.isAssociationType())
-					{
+					if (type.isAssociationType()) {
 						if (criteriaMap.containsKey(fullPath)) {
 							criteria = criteriaMap.get(fullPath);
 						} else {
 							criteria = criteria.createCriteria(paths[i]);
 							criteriaMap.put(fullPath.toString(), criteria);
-							metadata = sessionFactory.getClassMetadata(((AssociationType)type).getAssociatedEntityName((SessionFactoryImplementor)sessionFactory));
+							metadata = sessionFactory
+									.getClassMetadata(((AssociationType) type)
+											.getAssociatedEntityName((SessionFactoryImplementor) sessionFactory));
 						}
 						fullPath.append(".");
-						path = paths[i+1];
+						path = paths[i + 1];
 					}
 				}
 			}
 		}
 		log.debug("getCriteria(): path=" + path + ", fullPath=" + fullPath);
-		
+
 		return new CriteriaBuilder(path, criteria);
 	}
 
