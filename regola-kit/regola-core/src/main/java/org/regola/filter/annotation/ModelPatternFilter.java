@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * annotazione per poter essere elaborate. <br>
  * Ad esempio per essere tradotte in un oggetto query da un
  * {@link org.regola.filter.ModelPatternParser} attraverso un'implementazione
- * concreta di {@link org.regola.filter.criteria.impl.AbstractQueryBuilder}.
+ * concreta di {@link org.regola.filter.criteria.impl.AbstractCriteriaBuilder}.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.ANNOTATION_TYPE)
