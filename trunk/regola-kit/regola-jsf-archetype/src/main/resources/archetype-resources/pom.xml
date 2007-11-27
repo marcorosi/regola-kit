@@ -224,6 +224,13 @@
          <artifactId>regola-hibernate</artifactId>
          <version>1.0-M1</version>
       </dependency>
+      <!-- questa dipendenza serve solo al plugin del generatore di codice -->
+      <dependency>
+		 <groupId>org.regola</groupId>
+		 <artifactId>regola-codeassistence</artifactId>
+		 <version>1.0-M1</version>
+		 <scope>test</scope>
+	  </dependency>
       
       <dependency>
          <groupId>org.springframework</groupId>
