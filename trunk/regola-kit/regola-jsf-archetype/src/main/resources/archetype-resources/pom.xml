@@ -60,9 +60,9 @@
             <version>6.1.0</version>
             <configuration>
                <jettyEnvXml>
-                  ${basedir}/src/test/resources/jetty/env.xml
+                  ${basedir}/${artifactId}/src/test/resources/jetty/env.xml
                </jettyEnvXml>
-               <contextPath>/simple</contextPath>
+               <contextPath>/${artifactId}</contextPath>
                <scanIntervalSeconds>30</scanIntervalSeconds>
             </configuration>
          </plugin>
