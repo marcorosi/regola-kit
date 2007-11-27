@@ -3,6 +3,7 @@ package org.regola.events;
 
 import java.lang.reflect.Method;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -92,5 +93,18 @@ public class DuckTypingEventBroker {
 		List<Object> list = listeners.get(area);
 		return list.remove(listener);
 	}
-
+	
+	/*
+	 * Rimozione listener da tutte le aree.
+	 */
+	public void unsubscribe(Object listener) 
+	{
+		for (String area : listeners.keySet())
+		{
+			List<Object> list = listeners.get(area);
+			boolean b = list.remove(listener);
+			if(b)
+				log.info("[DuckTypingEventBroker] - effettuata unsubscribe di "+listener + " dall'area " + area);
+		}
+	}
 }
