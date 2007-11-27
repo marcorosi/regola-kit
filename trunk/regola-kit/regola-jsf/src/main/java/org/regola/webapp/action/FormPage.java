@@ -24,6 +24,7 @@ import org.regola.jsfValidators.event.ConversionErrorEvent;
 import org.regola.model.ModelPattern;
 import org.regola.service.GenericManager;
 import org.regola.util.Ognl;
+import org.regola.util.wrapper.FormPageWrapper;
 import org.regola.webapp.action.lookup.LookupStrategy;
 
 
@@ -54,7 +55,8 @@ public  class FormPage<T, ID extends Serializable, F extends ModelPattern> exten
 	 */
 	//protected String amendmentConfiguration;
 	protected String validationContext = "";
-	protected boolean subscribe = false; //subscribe all'event broker già effettuata/non effettuata
+	
+	protected boolean subscribeDone = false;
 	
 	/**
 	 * @return true if the model behind this form has validation errors
@@ -126,13 +128,13 @@ public  class FormPage<T, ID extends Serializable, F extends ModelPattern> exten
 	{
 		getComponent().setPage(this);
 		if(id != null) log.info("Init con id " + id);
-
+		
 		//registrazione all'eventbroker per notifica eventi errori conversione
-		if(getEventBroker() != null /* per i form che non ne hanno bisogno non lo facciamo iniettare da spring */ 
-				&& !subscribe) //per eventuali richiami multipli del metodo init()
+		if(getEventBroker() != null /* alcuni form non hanno bisogno del broker e non lo facciamo iniettare da spring */
+			&& !subscribeDone /* per eventuali richiami multipli della init*/ )
 		{
 			getEventBroker().subscribe(this, "form.errors.conversion");
-			subscribe = true;
+			subscribeDone = true;
 		}
 		
 		getComponent().init();
@@ -410,6 +412,11 @@ public  class FormPage<T, ID extends Serializable, F extends ModelPattern> exten
 	public void setComponent(FormPageComponent<T, ID, F> component) 
 	{
 	    super.setComponent(component);
+	}
+	
+	public FormPageWrapper getWrapper()
+	{
+		return new FormPageWrapper(this);
 	}
 	
 }

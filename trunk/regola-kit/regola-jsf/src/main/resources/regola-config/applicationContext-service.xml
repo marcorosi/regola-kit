@@ -93,11 +93,9 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
     <!-- =================================================================== -->
 	
     <!--  bean id="eventBroker" class="org.regola.events.EventBroker" /-->
-    <bean id="eventBroker" class="org.regola.events.DuckTypingEventBroker" />
+    <!-- bean id="eventBroker" class="org.regola.events.DuckTypingEventBroker" / -->
 
-    <!-- definitivo: però va adeguata l'annotazione di rimozione dalla session
     <bean id="eventBroker" class="org.regola.events.DuckTypingEventBroker" scope="session" />
-    --> 
     
     <!-- 
 	Le form page leggono il parametro id dalla request: 
