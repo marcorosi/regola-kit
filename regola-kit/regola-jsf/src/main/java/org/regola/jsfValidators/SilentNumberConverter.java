@@ -49,12 +49,10 @@ public class SilentNumberConverter implements Converter
 		{
 			if(e.getCause().getClass().getCanonicalName().equals("java.lang.NumberFormatException"))
 			{
-				//TODO: generare msg errore e trasmetterlo
 				String propertyName = getPropertyName(uiComponent.getValueBinding("value").getExpressionString());
 				
 				notifyError(facesContext, propertyName, CONVERSION_ERROR_MESSAGE);
 				
-				//System.out.println("Errore di conversione per " + propertyName);
 				return null;
 			}else
 				throw new RuntimeException(e);
