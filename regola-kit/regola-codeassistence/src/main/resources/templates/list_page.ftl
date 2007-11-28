@@ -51,7 +51,7 @@
 		</ice:panelGrid>
 		
 		<ice:dataTable id="${field(mbean_list_name)}" var="item"
-				rows="${r"#{"}${field(mbean_list_name)}.filter.pageSize}"
+				rows="${r"#{"}${field(mbean_list_name)}.listPage.filter.pageSize}"
 				rowClasses="rigaPari,rigaDispari"
 				value="${r"#{"}${field(mbean_list_name)}.listPage.rowDataModel}">
 		

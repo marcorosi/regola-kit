@@ -21,7 +21,7 @@ public class ${mbean_list_name}
 		
 		listPage.getEventBroker().subscribe(this, "${field(model_name)}.persistence.changes");
 		
-		listPage..init();
+		listPage.init();
 	}
 	
 	/**
