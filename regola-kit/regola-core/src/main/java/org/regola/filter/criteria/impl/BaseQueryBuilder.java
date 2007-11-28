@@ -374,7 +374,7 @@ public class BaseQueryBuilder extends AbstractCriteriaBuilder {
 
 	protected String joinFilters() {
 		StringBuilder text = new StringBuilder();
-		int count = getOrderBy().size();
+		int count = getFilters().size();
 		for (int i = 0; i < count; i++) {
 			text.append("(");
 			text.append(getFilters().get(i));
