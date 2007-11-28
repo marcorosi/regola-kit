@@ -1,6 +1,10 @@
 package org.regola.filter.criteria.jdo;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
@@ -10,6 +14,7 @@ import org.regola.filter.criteria.impl.BaseQueryBuilder;
 public class JdoQueryBuilder extends BaseQueryBuilder {
 
 	private Query jdoQuery;
+	private Map<Entity, List<String>> filtersByEntity = new HashMap<Entity, List<String>>();
 
 	public JdoQueryBuilder(Class<?> entityClass, PersistenceManager pm) {
 		super(entityClass);
@@ -24,23 +29,66 @@ public class JdoQueryBuilder extends BaseQueryBuilder {
 	 * @return
 	 */
 	public Query getJdoQuery() {
-		StringBuilder joinedEntities = new StringBuilder();
+		StringBuilder jdoFilters = new StringBuilder();
+		// boolean first = true;
+		// if (filtersByEntity.containsKey(getRootEntity())) {
+		// if (!first) {
+		// joinedEntities.append(getAndOperator()).append(" ");
+		// }
+		// first = false;
+		// for (String filter : filtersByEntity.get(getRootEntity())) {
+		// joinedEntities.append(filter).append(" ");
+		// }
+		// }
 		int entityCount = getEntities().size();
-		for (int i = 1; i < entityCount; i++) {
-			Entity e = getEntities().get(i);
-			String alias = e.getJoinedBy().getEntity().getAlias();
-			if (alias.length() > 0) {
-				joinedEntities.append(alias).append(".");
+		for (int i = 0; i < entityCount; i++) {
+			if (jdoFilters.length() > 0) {
+				jdoFilters.append(getAndOperator()).append(" ");
 			}
-			joinedEntities.append(e.getJoinedBy().getName());
-			joinedEntities.append(".contains(");
-			joinedEntities.append(e.getAlias());
-			joinedEntities.append(") ");
-			if (i < entityCount - 1) {
-				joinedEntities.append(getAndOperator()).append(" ");
+
+			StringBuilder joins = new StringBuilder();
+			Entity e = getEntities().get(i);
+			if (e.getJoinedBy() != null) {
+				String alias = e.getJoinedBy().getEntity().getAlias();
+				if (alias.length() > 0) {
+					joins.append(alias).append(".");
+				}
+				joins.append(e.getJoinedBy().getName());
+				joins.append(".contains(");
+				joins.append(e.getAlias());
+				joins.append(") ");
+			}
+
+			StringBuilder filters = new StringBuilder();
+			if (filtersByEntity.containsKey(e)) {
+				for (String filter : filtersByEntity.get(e)) {
+					filters.append(filter).append(" ");
+				}
+			}
+
+			if (joins.length() > 0 || filters.length() > 0) {
+				jdoFilters.append("(");
+				jdoFilters.append(joins);
+				if (joins.length() > 0 && filters.length() > 0) {
+					jdoFilters.append(getAndOperator()).append(" ");
+				}
+				jdoFilters.append(filters);
+				jdoFilters.append(") ");
 			}
 		}
-		jdoQuery.setFilter(joinedEntities + joinFilters());
+		if (log.isDebugEnabled()) {
+			log.debug("JDO filters: " + jdoFilters);
+		}
+
+		// String filters = joinFilters();
+		// if (log.isDebugEnabled()) {
+		// log.debug("Filters: " + filters);
+		// }
+		// if (joinedEntities.length() > 0 && filters.length() > 0) {
+		// joinedEntities.append(" ").append(getAndOperator()).append(" ");
+		// }
+		// jdoQuery.setFilter(joinedEntities + filters);
+		jdoQuery.setFilter(jdoFilters.toString());
 
 		StringBuffer declaredParams = new StringBuffer();
 		boolean first = true;
@@ -52,6 +100,9 @@ public class JdoQueryBuilder extends BaseQueryBuilder {
 			// java type
 			declaredParams.append(parameterClass(paramName)).append(" ")
 					.append(paramName);
+		}
+		if (log.isDebugEnabled()) {
+			log.debug("Declared parameters: " + declaredParams);
 		}
 		jdoQuery.declareParameters(declaredParams.toString());
 
@@ -73,9 +124,6 @@ public class JdoQueryBuilder extends BaseQueryBuilder {
 		}
 
 		jdoQuery.compile();
-		if (log.isDebugEnabled()) {
-			log.debug("Generated JDOQL query: " + jdoQuery.toString());
-		}
 		return jdoQuery;
 	}
 
@@ -108,11 +156,27 @@ public class JdoQueryBuilder extends BaseQueryBuilder {
 	}
 
 	@Override
+	protected String parameterReference(String parameter) {
+		return parameter;
+	}
+
+	@Override
 	public void addLike(String propertyPath, String value) {
 		addFilter(propertyReference(getProperty(propertyPath))
 				+ ".matches("
 				+ parameterReference(newParameter(likePattern(value, ".", ".*")))
 				+ ")");
+		addFilterByEntity(propertyPath);
+	}
+
+	protected void addFilterByEntity(String propertyPath) {
+		Property property = getProperty(propertyPath);
+		Entity entity = property.getEntity();
+		if (!filtersByEntity.containsKey(entity)) {
+			filtersByEntity.put(entity, new ArrayList<String>());
+		}
+		filtersByEntity.get(entity).add(
+				getFilters().get(getFilters().size() - 1));
 	}
 
 	@Override
@@ -121,11 +185,49 @@ public class JdoQueryBuilder extends BaseQueryBuilder {
 				+ ".matches("
 				+ parameterReference(newParameter(likePattern("(?i)" + value,
 						".", ".*"))) + ")");
+		addFilterByEntity(propertyPath);
 	}
 
 	@Override
 	public void addIn(String propertyPath, Collection<?> value) {
 		addFilter(parameterReference(newParameter(value)) + ".contains("
 				+ propertyReference(getProperty(propertyPath)) + ")");
+		addFilterByEntity(propertyPath);
+	}
+
+	@Override
+	public void addEquals(String propertyPath, Object value) {
+		super.addEquals(propertyPath, value);
+		addFilterByEntity(propertyPath);
+	}
+
+	@Override
+	public void addNotEquals(String propertyPath, Object value) {
+		super.addNotEquals(propertyPath, value);
+		addFilterByEntity(propertyPath);
+	}
+
+	@Override
+	public void addGreaterThan(String propertyPath, Object value) {
+		super.addGreaterThan(propertyPath, value);
+		addFilterByEntity(propertyPath);
+	}
+
+	@Override
+	public void addGreaterEquals(String propertyPath, Object value) {
+		super.addGreaterEquals(propertyPath, value);
+		addFilterByEntity(propertyPath);
+	}
+
+	@Override
+	public void addLessThan(String propertyPath, Object value) {
+		super.addLessThan(propertyPath, value);
+		addFilterByEntity(propertyPath);
+	}
+
+	@Override
+	public void addLessEquals(String propertyPath, Object value) {
+		super.addLessEquals(propertyPath, value);
+		addFilterByEntity(propertyPath);
 	}
 }

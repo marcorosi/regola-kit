@@ -10,6 +10,7 @@ import javax.jdo.Query;
 import org.regola.dao.GenericDao;
 import org.regola.filter.ModelPatternParser;
 import org.regola.filter.criteria.jdo.JdoCriteria;
+import org.regola.filter.criteria.jdo.JdoQueryBuilder;
 import org.regola.filter.impl.DefaultPatternParser;
 import org.regola.finder.FinderExecutor;
 import org.regola.model.ModelPattern;
@@ -51,11 +52,11 @@ public class JdoGenericDao<T, ID extends Serializable> extends JdoDaoSupport
 	public int count(final ModelPattern filter) {
 		Long count = (Long) getJdoTemplate().execute(new JdoCallback() {
 			public Object doInJdo(PersistenceManager pm) {
-				JdoCriteria criteriaBuilder = new JdoCriteria(persistentClass,
-						pm);
+				JdoQueryBuilder criteriaBuilder = new JdoQueryBuilder(
+						persistentClass, pm);
 				getFilterBuilder().createCountQuery(criteriaBuilder, filter);
 				Query q = criteriaBuilder.getJdoQuery();
-				return q.executeWithMap(criteriaBuilder.getParametersMap());
+				return q.executeWithMap(criteriaBuilder.getParameters());
 			}
 		});
 		return count.intValue();
@@ -73,11 +74,11 @@ public class JdoGenericDao<T, ID extends Serializable> extends JdoDaoSupport
 	public List<T> find(final ModelPattern filter) {
 		return new ArrayList<T>(getJdoTemplate().executeFind(new JdoCallback() {
 			public Object doInJdo(PersistenceManager pm) {
-				JdoCriteria criteriaBuilder = new JdoCriteria(persistentClass,
-						pm);
+				JdoQueryBuilder criteriaBuilder = new JdoQueryBuilder(
+						persistentClass, pm);
 				getFilterBuilder().createQuery(criteriaBuilder, filter);
 				Query q = criteriaBuilder.getJdoQuery();
-				return q.executeWithMap(criteriaBuilder.getParametersMap());
+				return q.executeWithMap(criteriaBuilder.getParameters());
 
 			}
 		}));

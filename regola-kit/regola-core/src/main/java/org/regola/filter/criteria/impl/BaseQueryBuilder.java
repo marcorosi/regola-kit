@@ -376,9 +376,9 @@ public class BaseQueryBuilder extends AbstractCriteriaBuilder {
 		StringBuilder text = new StringBuilder();
 		int count = getFilters().size();
 		for (int i = 0; i < count; i++) {
-			text.append("(");
+			// text.append("(");
 			text.append(getFilters().get(i));
-			text.append(") ");
+			// text.append(") ");
 			if (i < count - 1) {
 				text.append(" ").append(getAndOperator()).append(" ");
 			}
