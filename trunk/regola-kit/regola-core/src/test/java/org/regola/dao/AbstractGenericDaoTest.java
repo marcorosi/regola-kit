@@ -289,7 +289,7 @@ public abstract class AbstractGenericDaoTest extends
 
 	public void testFindByModelPattern_like() {
 		CustomerPattern pattern = new CustomerPattern();
-		pattern.setAddressStreet("5");
+		pattern.setAddressStreet("5*");
 
 		List<Customer> customers = customerDao.find(pattern);
 
@@ -298,7 +298,7 @@ public abstract class AbstractGenericDaoTest extends
 
 	public void testFindByModelPattern_ilike() {
 		CustomerPattern pattern = new CustomerPattern();
-		pattern.setAddressCity("o");
+		pattern.setAddressCity("o*");
 
 		List<Customer> customers = customerDao.find(pattern);
 
@@ -361,7 +361,7 @@ public abstract class AbstractGenericDaoTest extends
 
 	public void testCount_like() {
 		CustomerPattern pattern = new CustomerPattern();
-		pattern.setAddressStreet("5");
+		pattern.setAddressStreet("5*");
 
 		int count = customerDao.count(pattern);
 
@@ -370,7 +370,7 @@ public abstract class AbstractGenericDaoTest extends
 
 	public void testCount_ilike() {
 		CustomerPattern pattern = new CustomerPattern();
-		pattern.setAddressCity("o");
+		pattern.setAddressCity("o*");
 
 		int count = customerDao.count(pattern);
 
