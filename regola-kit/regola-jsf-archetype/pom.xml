@@ -6,7 +6,7 @@
   <artifactId>regola-jsf-archetype</artifactId>
   <version>1.0-M1</version>
   <packaging>maven-plugin</packaging>
-  <name>Regola-kit IceFaces/Hibernate template</name>
-  
-  <description>Regola-kit IceFaces/Hibernate template</description>
+  <name>REGOLA Toolkit :: IceFaces/Hibernate template</name>
+   
+  <description>REGOLA Toolkit :: IceFaces/Hibernate template</description>
 </project>
