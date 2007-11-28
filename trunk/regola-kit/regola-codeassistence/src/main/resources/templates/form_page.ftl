@@ -33,7 +33,7 @@
 					<ice:outputText value="${r"#{"}${field(mbean_form_name)}.formPage.errors['${same(proprieta.name)}']}" />
 		  </#list>
 		  
-		           <ice:outputText value="${r"#{"}${field(mbean_form_name)}.errore}" />
+		           <ice:outputText value="${r"#{"}${field(mbean_form_name)}.formPage.errore}" />
 					<ice:outputText value=" " />
 					<ice:outputText value=" " />
 					<ice:outputText value=" " />

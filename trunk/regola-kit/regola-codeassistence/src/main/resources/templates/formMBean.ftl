@@ -21,6 +21,7 @@ public class ${mbean_form_name}
 	{
 		formPage.setPlug(new FormPagePlugProxy(this));
 		formPage.init();
+                formPage.setValidationContext("${mbean_form_name}Amendments.xml");
 		
 		if(StringUtils.isNotEmpty(formPage.getEncodedId()))
 		{
@@ -32,8 +33,8 @@ public class ${mbean_form_name}
 		else
 		{
 			// edit a new model item
-			formPage.setModel (${model_name});
-			formPage.getModel().setId(id);
+			formPage.setModel (new ${model_name}();
+			formPage.getModel().setId(null);
 		}
 	}
 
@@ -62,7 +63,5 @@ public class ${mbean_form_name}
 	public FormPage<${model_name}, ${id_name}, ${filter_name}> getFormPage() {
 		return formPage;
 	}
-	
-
 	
 }
