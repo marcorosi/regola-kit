@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.regola</groupId>
-	<artifactId>regola-kit</artifactId>
+		<artifactId>regola-kit</artifactId>
         <version>1.0-M1</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     
     <artifactId>regola-codeassistence</artifactId>
     <packaging>jar</packaging>
-    <name>REGOLA Framework :: Code Assistence module</name>
+    <name>REGOLA Toolkit :: Code Assistence module</name>
     <description>REGOLA Framework :: Code Assistence module</description>
     
     <build>
