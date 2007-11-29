@@ -245,7 +245,11 @@
    <resource filtered="false">src/site/site.xml</resource>
  </siteResources>
  <testSources>
-   <source>src/test/java/DummyTest.java</source>
+   <source>src/test/java/org/regola/dao/hibernate/BaseDaoTestCase.java</source>
+   <source>src/test/java/org/regola/service/BaseManagerTestCase.java</source>
+   <source>src/test/java/pojo/ExamplePojoTest.java</source>   
+   <source>src/test/java/dao/ExampleDaoTest.java</source>
+   <source>src/test/java/service/ExampleServiceTest.java</source>
  </testSources>
  <sources>
    <source>src/main/java/org/regola/webapp/security/impl/ExampleAuthenticationDao.java</source>
