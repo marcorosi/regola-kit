@@ -244,4 +244,10 @@
  <siteResources>
    <resource filtered="false">src/site/site.xml</resource>
  </siteResources>
+ <testSources>
+   <source>src/test/java/DummyTest.java</source>
+ </testSources>
+ <sources>
+   <source>src/main/java/org/regola/webapp/security/impl/ExampleAuthenticationDao.java</source>
+ </sources> 
 </archetype>
