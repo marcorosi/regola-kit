@@ -53,10 +53,11 @@ public abstract class CodeGenerationAbstract implements IObjectActionDelegate {
 				IJavaLaunchConfigurationConstants.ATTR_PROGRAM_ARGUMENTS, "-c "
 						+ modelTarget.findPrimaryType().getFullyQualifiedName()
 						+ " -g " + generatorLine);
-
+		
 		ILaunchConfiguration config = wc.doSave();
 		config.launch(ILaunchManager.RUN_MODE, null);
 
+		
 	}
 
 	public void runCodeAssistence(IJavaProject javaProject)
