@@ -12,9 +12,9 @@
 
 	<artifactId>regola-example-simple</artifactId>
 	<packaging>war</packaging>
-	<name>REGOLA Framework :: First simple example module</name>
+	<name>REGOLA Toolkit :: First simple example module</name>
 	<description>
-		REGOLA Framework :: First simple example module
+		REGOLA Toolkit :: First simple example module
 	</description>
 
 	<properties>
