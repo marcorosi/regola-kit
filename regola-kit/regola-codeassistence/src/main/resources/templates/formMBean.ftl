@@ -33,7 +33,7 @@ public class ${mbean_form_name}
 		else
 		{
 			// edit a new model item
-			formPage.setModel (new ${model_name}();
+			formPage.setModel (new ${model_name}() );
 			formPage.getModel().setId(null);
 		}
 	}

@@ -24,10 +24,10 @@ public class FilterGenerator implements Generator
 	}
 	
 	public String getName() {
-		return "filter";
+		return "modelPattern";
 	}
 
 	public String getDisplayName() {
-		return "filter class";
+		return "model pattern class";
 	}
 }

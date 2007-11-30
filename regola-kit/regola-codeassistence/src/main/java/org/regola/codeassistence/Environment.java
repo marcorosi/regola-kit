@@ -296,7 +296,7 @@ public class Environment {
 			log.info("Scrittura del file " + path);
 
 			File dir = new File(dirPath);
-			
+						
 			if(!dir.exists())
 				dir.mkdirs();
 			
