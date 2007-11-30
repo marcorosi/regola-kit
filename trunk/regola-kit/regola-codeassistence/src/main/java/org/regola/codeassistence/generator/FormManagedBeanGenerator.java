@@ -25,8 +25,8 @@ public class FormManagedBeanGenerator implements Generator
 		env.writeXmlSource(env.getSpringServiceFileName(), beanId, template, pb.getParameters());
 		
                 
-                template = env.getTemplate(VALIDATION_TEMPLATE);
-		env.writeResource( pb.getParameters().get("${mbean_form_name}") + "Amendments.xml", template,  pb.getParameters());
+        template = env.getTemplate(VALIDATION_TEMPLATE);
+		env.writeResource( pb.getParameters().get("mbean_form_name") + "Amendments.xml", template,  pb.getParameters());
 		
 	}
 
