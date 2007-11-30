@@ -26,7 +26,7 @@ public class ${mbean_form_name}
 		if(StringUtils.isNotEmpty(formPage.getEncodedId()))
 		{
 			// update an existing model item
-			Integer id = new Integer(formPage.getEncodedId());
+			${id_name} id = new ${id_name}(formPage.getEncodedId());
 			formPage.setTypedID(id);
 			formPage.setModel(formPage.getServiceManager().get(id));
 		}
