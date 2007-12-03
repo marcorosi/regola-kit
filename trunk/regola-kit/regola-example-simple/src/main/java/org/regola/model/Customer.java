@@ -1,5 +1,8 @@
 package org.regola.model;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 import org.hibernate.validator.NotEmpty;
 
 public class Customer {
@@ -9,6 +12,15 @@ public class Customer {
 	private String lastName;
 	private Address address;
 	//private Integer age;  //solo per prove conversione-validazione tipi numerici
+	private Collection<Invoice> invoices = new HashSet<Invoice>();
+
+	public Collection<Invoice> getInvoices() {
+		return invoices;
+	}
+
+	public void setInvoices(Collection<Invoice> invoices) {
+		this.invoices = invoices;
+	}
 
 	public static class Address {
 
