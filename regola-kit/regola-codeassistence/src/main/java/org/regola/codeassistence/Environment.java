@@ -22,7 +22,9 @@ import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 import org.jdom.xpath.XPath;
 import org.regola.descriptor.DescriptorService;
+import org.regola.descriptor.IClassDescriptor;
 import org.regola.descriptor.ReflectionDescriptorFactory;
+import org.regola.descriptor.RegolaDescriptorService;
 import org.regola.descriptor.TrailsDescriptorService;
 import org.regola.util.ValueReader;
 
@@ -34,155 +36,26 @@ import freemarker.template.Template;
  * @author  nicola
  */
 public class Environment {
+	
+	protected final Log log = LogFactory.getLog(getClass());
+	
 	private Configuration freemarkerConfiguration;
-
 	private DescriptorService descriptorService;
-
 	private String projectDir = "";
-
 	private String outputDir = "";
-
 	private String packageName = "";
-
 	private String springServiceFileName = "applicationContext-service.xml";
 	private String springDaoFileName = "applicationContext-dao.xml";
 	private String facesConfigFileName = "faces-config.xml";
-	
 	private boolean simulate=false;
-	
-	protected final Log log = LogFactory.getLog(getClass());
-
-	/**
-	 * Una classe di callback che consente di navigare un ramo del file system.
-	 * In particolare cerca tutti i file .class contenuti direttamente od
-	 * indirettamente nella cartella di nome "model".
-	 */
-	public class ClassDirectoryWalker extends DirectoryWalker {
-		public ClassDirectoryWalker(IOFileFilter filter) {
-			super(null, filter, -1);
-
-		}
-
-		@SuppressWarnings("unchecked")
-		public void go(File startDirectory, Collection results)
-				throws IOException {
-
-			walk(startDirectory, results);
-		}
-
-		@Override
-		@SuppressWarnings("unchecked")
-		protected void handleFile(File file, int depth, Collection results)
-				throws IOException {
-
-			if (file.getPath().matches(".*/model/.*"))
-				results.add(file.getPath());
-
-		}
-
-	} 
-	
-	@SuppressWarnings("unchecked")
-	static Class[] wrappedTypes = { Character.class, Byte.class, Short.class,  Integer.class, Long.class, Float.class, 
-		Double.class, Boolean.class, String.class};
-
-	/**
-	 * Legge tutti il ramo del file system che inizia da classDirPath
-	 * e costruisce una lista con tutte le classi di modello. Ovvero che 
-	 * sono contenute direttamente od indirettamente dentro un package 
-	 * che contiene la parola "model" 
-	 * 
-	 * 
-	 * @param classDirPath
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public List<Class> findModelClassesFromDir(String classDirPath) {
-
-		List<Class> list = new ArrayList<Class>();
-		ClassLoader loader = Thread.currentThread().getContextClassLoader();
-
-		if (loader == null) {
-			loader = FullStack.class.getClassLoader();
-		}
-
-		List<String> fileNames = new ArrayList<String>();
-
-		ClassDirectoryWalker walker = new ClassDirectoryWalker(
-				new SuffixFileFilter(".class"));
-
-		// String classDirPath = "./target/classes/";
-		try {
-			walker.go(new File(classDirPath), fileNames);
-		} catch (IOException e1) {
-			log.error("Error processing dir " + classDirPath, e1);
-		}
-
-		log.info("Search for model classes inside directory: " + classDirPath);
-		for (String name : fileNames) {
-			name = name.replaceAll(classDirPath, "");
-			name = name.substring(0, name.length() - 6);
-			name = name.replace('/', '.');
-			Class clazz = null;
-			try {
-				clazz = loader.loadClass(name);
-			} catch (Exception e) {
-
-				log.error("Could not load class :" + name, e);
-			}
-
-			if (clazz != null) {
-				list.add(clazz);
-				log.info("added class " + clazz.getCanonicalName());
-			}
-
-		}
-		
-		for (Class wrappedType : wrappedTypes)
-		{
-			list.add(wrappedType);
-		}
-
-		return list;
-	}
-	
-	/**
-	 * Verifica l'estenza di un file, o directory sul file system.
-	 * @param filePath
-	 * @return true   - se il file esiste
-	 *         false  - se non esiste
-	 */
-	public boolean existsFile(String filePath)
-	{
-		return new File(filePath).exists();
-	}
 
 	@SuppressWarnings( { "unchecked", "unchecked" })
 	public Environment() {
 		Configuration cfg = new Configuration();
 		cfg.setClassForTemplateLoading(getClass(), "/templates");
 		cfg.setObjectWrapper(new DefaultObjectWrapper());
-
 		setFreemarkerConfiguration(cfg);
-
-		TrailsDescriptorService descriptorService = new TrailsDescriptorService();
-
-		// descriptorService.setTypes(Arrays.asList(Anagrafica.class,
-		// Verbale.class, VerbaleId.class));
-
-		descriptorService
-				.setTypes(findModelClassesFromDir("./target/classes/"));
-		
-		
-
-		descriptorService
-				.setDescriptorFactory(new ReflectionDescriptorFactory());
-		try {
-			descriptorService.init();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-		setDescriptorService(descriptorService);
+		setDescriptorService(new RegolaDescriptorService());
 	}
 
 	/**
@@ -205,7 +78,7 @@ public class Environment {
 	 * @return  the descriptorService
 	 * @uml.property  name="descriptorService"
 	 */
-	public DescriptorService getDescriptorService() {
+	private DescriptorService getDescriptorService() {
 		return descriptorService;
 	}
 
@@ -213,7 +86,7 @@ public class Environment {
 	 * @param descriptorService  the descriptorService to set
 	 * @uml.property  name="descriptorService"
 	 */
-	public void setDescriptorService(DescriptorService descriptorService) {
+	private void setDescriptorService(DescriptorService descriptorService) {
 		this.descriptorService = descriptorService;
 	}
 
@@ -551,6 +424,10 @@ public class Environment {
 	public String getFacesConfigFileName() {
 		
 		return facesConfigFileName;
+	}
+
+	public IClassDescriptor getClassDescriptor(Class<?> type) {
+		return getDescriptorService().getClassDescriptor(type);
 	}
 
 }
