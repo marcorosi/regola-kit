@@ -92,7 +92,7 @@ public class BaseQueryBuilder extends AbstractCriteriaBuilder {
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
-			result = prime * result + ((alias == null) ? 0 : alias.hashCode());
+			//result = prime * result + ((alias == null) ? 0 : alias.hashCode());
 			result = prime * result
 					+ ((joinedBy == null) ? 0 : joinedBy.hashCode());
 			result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -108,11 +108,11 @@ public class BaseQueryBuilder extends AbstractCriteriaBuilder {
 			if (getClass() != obj.getClass())
 				return false;
 			final Entity other = (Entity) obj;
-			if (alias == null) {
-				if (other.alias != null)
-					return false;
-			} else if (!alias.equals(other.alias))
-				return false;
+			// if (alias == null) {
+			// if (other.alias != null)
+			// return false;
+			// } else if (!alias.equals(other.alias))
+			// return false;
 			if (joinedBy == null) {
 				if (other.joinedBy != null)
 					return false;
@@ -217,6 +217,9 @@ public class BaseQueryBuilder extends AbstractCriteriaBuilder {
 	}
 
 	protected Property getProperty(String propertyPath) {
+		if (log.isDebugEnabled()) {
+			log.debug("Processing property path " + propertyPath);
+		}
 		String[] paths = propertyPath.split("\\[\\].?");
 		Entity parentEntity = getRootEntity();
 		Property property = null;
@@ -231,7 +234,9 @@ public class BaseQueryBuilder extends AbstractCriteriaBuilder {
 			}
 			if ((i < paths.length - 1) && !entities.contains(parentEntity)) {
 				entities.add(parentEntity);
-				log.debug("Adding joined entity " + parentEntity);
+				if (log.isDebugEnabled()) {
+					log.debug("Adding joined entity " + parentEntity);
+				}
 			}
 		}
 		return property;
@@ -359,13 +364,13 @@ public class BaseQueryBuilder extends AbstractCriteriaBuilder {
 
 		count = getFilters().size();
 		if (count > 0) {
-			query.append("where ");
+			query.append(" where ");
 			query.append(joinFilters());
 		}
 
 		count = getOrderBy().size();
 		if (count > 0) {
-			query.append("order by ");
+			query.append(" order by ");
 			query.append(joinOrderBy());
 		}
 

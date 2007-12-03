@@ -48,6 +48,9 @@ public class JdoQueryBuilder extends BaseQueryBuilder {
 
 			StringBuilder joins = new StringBuilder();
 			Entity e = getEntities().get(i);
+			if (log.isDebugEnabled()) {
+				log.debug("JDOQL: processing entity " + e);
+			}
 			if (e.getJoinedBy() != null) {
 				String alias = e.getJoinedBy().getEntity().getAlias();
 				if (alias.length() > 0) {
@@ -61,6 +64,10 @@ public class JdoQueryBuilder extends BaseQueryBuilder {
 
 			StringBuilder filters = new StringBuilder();
 			if (filtersByEntity.containsKey(e)) {
+				if (log.isDebugEnabled()) {
+					log.debug("JDOQL: filters by entity "
+							+ filtersByEntity.get(e));
+				}
 				for (String filter : filtersByEntity.get(e)) {
 					filters.append(filter).append(" ");
 				}
@@ -162,15 +169,19 @@ public class JdoQueryBuilder extends BaseQueryBuilder {
 
 	@Override
 	public void addLike(String propertyPath, String value) {
-		addFilter(propertyReference(getProperty(propertyPath))
+		Property property = getProperty(propertyPath);
+		addFilter(propertyReference(property)
 				+ ".matches("
 				+ parameterReference(newParameter(likePattern(value, ".", ".*")))
 				+ ")");
-		addFilterByEntity(propertyPath);
+		addFilterByEntity(property);
 	}
 
 	protected void addFilterByEntity(String propertyPath) {
-		Property property = getProperty(propertyPath);
+		addFilterByEntity(getProperty(propertyPath));
+	}
+
+	protected void addFilterByEntity(Property property) {
 		Entity entity = property.getEntity();
 		if (!filtersByEntity.containsKey(entity)) {
 			filtersByEntity.put(entity, new ArrayList<String>());
