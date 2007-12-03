@@ -28,4 +28,9 @@ public class HibernateQueryBuilder extends BaseQueryBuilder {
 		}
 		return query;
 	}
+
+	@Override
+	protected String getRootEntityCountAlias() {
+		return "*";
+	}
 }
