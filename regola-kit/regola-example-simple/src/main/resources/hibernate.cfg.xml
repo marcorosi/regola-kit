@@ -18,6 +18,9 @@
         <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
         
         <mapping resource="org/regola/model/Customer.hbm.xml" />
+        <mapping resource="org/regola/model/Product.hbm.xml" />
+        <mapping resource="org/regola/model/Item.hbm.xml" />
+        <mapping resource="org/regola/model/Invoice.hbm.xml" />
      
     </session-factory>
 </hibernate-configuration>
