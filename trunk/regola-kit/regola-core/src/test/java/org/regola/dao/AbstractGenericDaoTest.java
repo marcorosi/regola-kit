@@ -252,12 +252,8 @@ public abstract class AbstractGenericDaoTest extends
 		pattern.setInvoiceId(null);
 		pattern.setProductName("Iron Iron");
 
-		assertEquals(18,customerDao.count(pattern));
-		
 		customers = customerDao.find(pattern);
-
 		assertEquals(18, customers.size());
-
 	}
 
 	public void testFindByModelPattern_toOneRelation() {
@@ -377,6 +373,32 @@ public abstract class AbstractGenericDaoTest extends
 		int count = customerDao.count(pattern);
 
 		assertEquals(11, count);
+	}
+
+	public void testCount_toManyRelation() {
+		int INVOICE_ID = 1;
+		CustomerPattern pattern = new CustomerPattern();
+		pattern.setInvoiceId(INVOICE_ID);
+		pattern.disablePaging();
+
+		int customersCount = customerDao.count(pattern);
+
+		assertEquals(1, customersCount);
+
+		pattern.setInvoiceId(null);
+		pattern.setProductName("Iron Iron");
+
+		customersCount = customerDao.count(pattern);
+		assertEquals(18, customersCount);
+	}
+
+	public void testCount_toOneRelation() {
+		InvoicePattern pattern = new InvoicePattern();
+		pattern.setCustomerAddressCity("Dallas");
+		pattern.disablePaging();
+
+		int invoicesCount = invoiceDao.count(pattern);
+		assertEquals(10, invoicesCount);
 	}
 
 	public void testCount_emptyFilter() {

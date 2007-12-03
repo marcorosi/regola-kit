@@ -92,7 +92,8 @@ public class BaseQueryBuilder extends AbstractCriteriaBuilder {
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
-			//result = prime * result + ((alias == null) ? 0 : alias.hashCode());
+			// result = prime * result + ((alias == null) ? 0 :
+			// alias.hashCode());
 			result = prime * result
 					+ ((joinedBy == null) ? 0 : joinedBy.hashCode());
 			result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -332,11 +333,20 @@ public class BaseQueryBuilder extends AbstractCriteriaBuilder {
 	protected String buildQuery() {
 		StringBuilder query = new StringBuilder();
 		if (isRowCount()) {
-			query.append("select count(distinct ");
-			query.append(getRootEntity().getAlias());
+			query.append("select count(");
+			if (getEntities().size() > 1) {
+				query.append("distinct ");
+				query.append(getRootEntity().getAlias());
+				// query.append(getRootEntityCountAlias());
+			} else {
+				query.append(getRootEntityCountAlias());
+			}
 			query.append(") from ");
 		} else {
-			query.append("select distinct ");
+			query.append("select ");
+			if (getEntities().size() > 1) {
+				query.append("distinct ");
+			}
 			query.append(getRootEntity().getAlias());
 			query.append(" from ");
 		}
@@ -375,6 +385,10 @@ public class BaseQueryBuilder extends AbstractCriteriaBuilder {
 		}
 
 		return query.toString();
+	}
+
+	protected String getRootEntityCountAlias() {
+		return getRootEntity().getAlias();
 	}
 
 	protected String joinFilters() {
@@ -450,11 +464,11 @@ public class BaseQueryBuilder extends AbstractCriteriaBuilder {
 				+ parameterReference(newParameter(likePattern(value))) + ")");
 	}
 
-	protected String likePattern(String value) {
+	public static String likePattern(String value) {
 		return likePattern(value, "_", "%");
 	}
 
-	protected String likePattern(String value, String dot, String star) {
+	public static String likePattern(String value, String dot, String star) {
 		return value.replace(".", dot).replace("*", star);
 	}
 
