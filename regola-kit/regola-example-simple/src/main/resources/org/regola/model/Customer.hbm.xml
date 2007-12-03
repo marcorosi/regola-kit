@@ -16,5 +16,9 @@
 			<property name="city" />
 		</component>
 		<!--  property name="age" / --> <!-- solo per prova conversione e validazione tipi numerici -->
+		<set name="invoices" inverse="true">
+			<key column="CUSTOMERID" />
+			<one-to-many class="Invoice" />
+		</set>
 	</class>
 </hibernate-mapping>
