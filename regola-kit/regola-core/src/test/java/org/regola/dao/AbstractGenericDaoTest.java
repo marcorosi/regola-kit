@@ -252,6 +252,8 @@ public abstract class AbstractGenericDaoTest extends
 		pattern.setInvoiceId(null);
 		pattern.setProductName("Iron Iron");
 
+		assertEquals(18,customerDao.count(pattern));
+		
 		customers = customerDao.find(pattern);
 
 		assertEquals(18, customers.size());
