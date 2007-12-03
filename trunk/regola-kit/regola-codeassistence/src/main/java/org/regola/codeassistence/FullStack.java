@@ -20,10 +20,6 @@ import org.regola.descriptor.IPropertyDescriptor;
  */
 public class FullStack {
 	
-	
-	
-	
-
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 
@@ -61,11 +57,11 @@ public class FullStack {
 		if (cmd.hasOption("s"))
 		env.setSimulate(true);
 
-		env.setProjectDir("../regola-example-simple");
+		env.setProjectDir(".");
 		
 		if (!cmd.hasOption("d"))
 		{
-			env.setOutputDir(new File(".").getCanonicalPath()+"/../regola-example-simple");
+			env.setOutputDir(new File(".").getCanonicalPath());
 		}
 		else
 		{
@@ -73,10 +69,9 @@ public class FullStack {
 		}
 		
 		
-		IClassDescriptor modelDescriptor = env.getDescriptorService()
-				.getClassDescriptor(Class.forName(ourOpt.getModelClass()));
-		
-		
+		//IClassDescriptor modelDescriptor = env.getDescriptorService()
+		//		.getClassDescriptor(Class.forName(ourOpt.getModelClass()));
+		IClassDescriptor modelDescriptor = env.getClassDescriptor(Class.forName(ourOpt.getModelClass()));	
 		
 		IPropertyDescriptor idProperty = modelDescriptor.getIdentifierDescriptor(); 
 		if (idProperty==null)
@@ -85,19 +80,18 @@ public class FullStack {
 			System.exit(1);
 		}
 		
-		
-		
-		IClassDescriptor idDescriptor = null;
-		
+		IClassDescriptor idDescriptor = null;		
 		if (idProperty.getPropertyType().getPackage().getName().startsWith("java.") )
 		{
-			idDescriptor = env.getDescriptorService()
-			.getClassDescriptor(idProperty.getPropertyType());
+			//idDescriptor = env.getDescriptorService()
+			//.getClassDescriptor(idProperty.getPropertyType());
+			idDescriptor = env.getClassDescriptor(idProperty.getPropertyType());
 		}
 		else
 		{
-			idDescriptor = env.getDescriptorService()
-				.getClassDescriptor(Class.forName(ourOpt.getModelClass()+"Id"));
+			//idDescriptor = env.getDescriptorService()
+			//	.getClassDescriptor(Class.forName(ourOpt.getModelClass()+"Id"));
+			idDescriptor = env.getClassDescriptor(Class.forName(ourOpt.getModelClass()+"Id"));
 		}
 		// env.setPackageName(getPackageName(descriptor));
 
