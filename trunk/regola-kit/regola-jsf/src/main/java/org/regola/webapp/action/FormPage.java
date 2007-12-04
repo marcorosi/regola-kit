@@ -8,6 +8,7 @@ import org.regola.webapp.action.plug.FormPagePlug;
 import org.regola.webapp.action.plug.ListPagePlug;
 
 import java.io.Serializable;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,6 @@ import org.regola.webapp.action.lookup.LookupStrategy;
 
 public  class FormPage<T, ID extends Serializable, F extends ModelPattern> extends org.regola.webapp.action.BasePage
 {
-	
 	private GenericManager<T, ID> serviceManager;
 	
 	String errore;
@@ -47,6 +47,7 @@ public  class FormPage<T, ID extends Serializable, F extends ModelPattern> exten
 	//serve per i form dove viene modificata la chiave
 	private String originalId;
 	
+	//iniettato da Spring (normalmente preso dai parametri della richiesta)
 	private String encodedId;
 	
 	/*
@@ -78,6 +79,8 @@ public  class FormPage<T, ID extends Serializable, F extends ModelPattern> exten
 	public void setId(String s) {
 		if (s != null)
 		{
+			id = rebuildId(s);
+			/*
 			if(id instanceof String)
 			{
 				id = (ID) s;
@@ -86,13 +89,16 @@ public  class FormPage<T, ID extends Serializable, F extends ModelPattern> exten
 				Ognl.setValue("encoded", id, s);
 				//id.setEncoded(s);	
 			}
+			*/
 			init();
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void setTypedID(ID id)
 	{
 		this.id=id;
+		this.idClass = (Class<ID>) id.getClass();
 	}
 	
     public  <MODEL, MODELID extends Serializable, FILTER extends ModelPattern> 
@@ -138,8 +144,8 @@ public  class FormPage<T, ID extends Serializable, F extends ModelPattern> exten
 		}
 		
 		getComponent().init();
-
 	}
+	
 	/*
 	@SuppressWarnings("unchecked")
 	public <T> InvalidValue[] validate(T object)
@@ -325,7 +331,8 @@ public  class FormPage<T, ID extends Serializable, F extends ModelPattern> exten
 		try
 		{
 			//ID id = this.id.getClass().newInstance();
-			ID id = idClass.newInstance();
+			/*
+			ID id = idClass.newInstance();			
 			if(id instanceof String)
 			{
 				id = (ID) encodedId;
@@ -333,7 +340,11 @@ public  class FormPage<T, ID extends Serializable, F extends ModelPattern> exten
 			{
 				Ognl.setValue("encoded", id, encodedId);	
 			}
+			*/
 
+			Method m = idClass.getMethod("valueOf", String.class);
+			ID id = (ID) m.invoke(null, encodedId);
+			
 			return id;
 			
 		} catch (Exception e) {
@@ -389,9 +400,6 @@ public  class FormPage<T, ID extends Serializable, F extends ModelPattern> exten
 		ConversionErrorEvent error = (ConversionErrorEvent)e;
 		conversionErrors.put(error.getPropertyName(), error.getMsg());
 	}
-	
-	
-	
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -418,5 +426,26 @@ public  class FormPage<T, ID extends Serializable, F extends ModelPattern> exten
 	{
 		return new FormPageWrapper(this);
 	}
-	
+
+	/**
+	 * initialize this form for an update operation
+	 * 
+	 * @param id
+	 */
+	public void initUpdate(ID id) 
+	{
+		setTypedID(id);
+		setModel(getServiceManager().get(id));
+		setOriginalId(id.toString());
+	}
+
+	/**
+	 * initialize this form for an insert operation
+	 * 
+	 * @param modello
+	 */
+	public void initInsert(T modello) 
+	{
+		setModel(modello);
+	}
 }
