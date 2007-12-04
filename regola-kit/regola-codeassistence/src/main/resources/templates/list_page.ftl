@@ -72,7 +72,7 @@
 
 				  <ice:outputLink value="${field(model_name)}-form.html" styleClass="buttonNew">
 				    <ice:outputText value="Edita"/>
-			        <f:param name="id" value="${r"#{"}item.id.encoded}"/>
+			        <f:param name="id" value="${r"#{"}item.id}"/>
 				  </ice:outputLink>
 
   				  <ice:commandLink value="Cancella"
@@ -84,7 +84,7 @@
 				
 			</ice:dataTable>
 			
-						<ice:panelGrid columns="4">
+			<ice:panelGrid columns="4">
 		
 					<ice:dataPaginator for="${field(mbean_list_name)}" fastStep="3"
 					actionListener="${r"#{"}${field(mbean_list_name)}.listPage.paginatorListener}"
