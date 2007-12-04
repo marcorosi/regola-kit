@@ -31,6 +31,7 @@ public class ${mbean_list_name}
 	 */
 	public void onRegolaEvent(Event e)
 	{
+		listPage.getFilter().setCurrentPage(0);
 		listPage.refresh();
 	}
 	
