@@ -21,20 +21,18 @@ public class ${mbean_form_name}
 	{
 		formPage.setPlug(new FormPagePlugProxy(this));
 		formPage.init();
-                formPage.setValidationContext("${mbean_form_name}Amendments.xml");
+        formPage.setValidationContext("${mbean_form_name}Amendments.xml");
 		
 		if(StringUtils.isNotEmpty(formPage.getEncodedId()))
 		{
 			// update an existing model item
-			${id_name} id = new ${id_name}(formPage.getEncodedId());
-			formPage.setTypedID(id);
-			formPage.setModel(formPage.getServiceManager().get(id));
+			${id_name} id = ${id_name}.valueOf(formPage.getEncodedId());
+			formPage.initUpdate(id);
 		}
 		else
 		{
 			// edit a new model item
-			formPage.setModel (new ${model_name}() );
-			formPage.getModel().setId(null);
+			formPage.initInsert(new ${model_name}());
 		}
 	}
 
