@@ -10,6 +10,7 @@
    <resource filtered="false">src/test/resources/jetty/env.xml</resource>
   </testResources>
  <resources>
+   <resource filtered="false">src/main/webapp/error.xhtml</resource>
    <resource filtered="false">src/main/webapp/404.xhtml</resource>
    <resource filtered="false">src/main/webapp/404.jsp</resource>
    <resource filtered="false">src/main/webapp/403.xhtml</resource>
