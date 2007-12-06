@@ -22,15 +22,11 @@ public abstract class BaseManagerTestCase extends AbstractDependencyInjectionSpr
 	protected String[] getConfigLocations() {
         setAutowireMode(AUTOWIRE_BY_NAME);
         return new String[] {
-        		"classpath*:/applicationContext-resources-test.xml",
-            "classpath*:/regola-config/applicationContext-dao.xml",
+        	"classpath*:/applicationContext-resources-test.xml",
             "classpath*:/applicationContext-dao-test.xml",
-            "classpath*:/regola-config/applicationContext-service.xml",
-            "classpath*:/applicationContext-service.xml",
+            "classpath*:/applicationContext-service-test.xml",
             "classpath*:/mock/*-mock.xml"
-            
         };
-  
     }
 
     //~ Constructors ===========================================================
