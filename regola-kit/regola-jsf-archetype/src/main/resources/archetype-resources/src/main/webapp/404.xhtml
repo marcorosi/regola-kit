@@ -6,17 +6,17 @@
 	xmlns:ice="http://www.icesoft.com/icefaces/component">
 <body>
 <ui:composition template="/common/anonimo.xhtml">
-  <ui:define name="titolo">#{text['404.title']}</ui:define>
-  <ui:define name="titolobarra">#{text['404.title']}</ui:define>
+  <ui:define name="titolo">#{msg['404.title']}</ui:define>
+  <ui:define name="titolobarra">#{msg['404.title']}</ui:define>
   
 	<ui:define name="centro">
 
 	  <br />
 	  <h2>
-	     #{text['404.title']}
+	     #{msg['404.title']}
 	  </h2>
 	  <p>
-	     #{text['404.message']}
+	     #{msg['404.message']}
 	  </p>
 
 	</ui:define>
