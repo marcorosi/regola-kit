@@ -238,6 +238,9 @@
    <resource filtered="false">src/main/resources/applicationContext-service.xml</resource>
    <resource filtered="false">src/main/resources/ApplicationResources_it.properties</resource>
    <resource filtered="false">src/main/resources/applicationContext-resources.xml</resource>
+   <resource filtered="false">src/main/webapp/WEB-INF/facelets/regola.taglib.xml</resource>
+   <resource filtered="false">src/main/webapp/WEB-INF/facelets/autoComplete.xhtml</resource>
+   <resource filtered="false">src/main/webapp/WEB-INF/facelets/inputErrors.xhtml</resource>
    <resource>pom.xml</resource>
  </resources>
  <siteResources>
