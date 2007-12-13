@@ -1,29 +1,33 @@
  
 package org.regola.webapp.action;
 
-import org.regola.service.GenericManager;
-import org.regola.util.ELFunction;
-import org.regola.util.Ognl;
-import org.regola.validation.LazyLoadingArrayList;
-import org.regola.model.ModelPattern;
-import org.regola.validation.LazyLoadingArrayList.Fetcher;
-import org.regola.webapp.action.component.FormPageComponent;
-import org.regola.webapp.action.component.ListPageComponent;
-import org.regola.webapp.action.plug.ListPagePlug;
-import org.regola.webapp.jsf.ColumnsDlg;
-import org.regola.webapp.jsf.OrderDlg;
-import org.regola.webapp.jsf.Dialog.DialogCallback;
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.servlet.ServletContext;
+
+import org.apache.myfaces.context.servlet.ServletExternalContextImpl;
+import org.regola.model.ModelPattern;
+import org.regola.service.GenericManager;
+import org.regola.util.ELFunction;
+import org.regola.util.Ognl;
+import org.regola.validation.LazyLoadingArrayList;
+import org.regola.validation.LazyLoadingArrayList.Fetcher;
+import org.regola.webapp.action.component.ListPageComponent;
+import org.regola.webapp.action.plug.ListPagePlug;
+import org.regola.webapp.jsf.ColumnsDlg;
+import org.regola.webapp.jsf.OrderDlg;
+import org.regola.webapp.jsf.Dialog.DialogCallback;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 
 
@@ -446,12 +450,19 @@ public class ListPage<T, ID extends Serializable, F extends ModelPattern> extend
 	    super.setComponent(component);
 	}
 	
+	/*
+	 * Mette il valore dell'id in sessione per valorizzare il bean Spring "id",
+	 * che poi sarà iniettato nel form page.
+	 */
+	public void storeCurrentId()
+	{
+		String encodedId = getId(getCurrentModelItem()).toString();
+		putIdInSession(encodedId);
+	}
 	
-	
-	
-
-
-
-
+	public void putIdInSession(String encodedId)
+	{		
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", encodedId);		
+	}	
 
 }

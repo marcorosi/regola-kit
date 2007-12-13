@@ -337,4 +337,5 @@ public class BasePage {
 	public void setPlug(BasePagePlug plug) {
 		this.plug = plug;
 	}
+	
 }
