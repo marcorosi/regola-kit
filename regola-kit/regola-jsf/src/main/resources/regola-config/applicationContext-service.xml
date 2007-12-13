@@ -102,7 +102,14 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 	il message filter provvede a copiarlo tra gli attributi
 	della request in modo che il bean qui sotto sia valorizzato
     -->
-    <bean id="id" scope="request" class="java.lang.String" />
+    <!-- bean id="id" scope="request" class="java.lang.String" / -->
+    
+    <!-- 
+	Nuova versione a causa dei problemi di navigazione delle jsf.
+	I list page mettono in sessione l'attributo id in modo che il seguente bean
+	venga valorizzato.
+    -->
+    <bean id="id" scope="session" class="java.lang.String" />
     
     <import resource="classpath*:/regola-config/components.xml" />        
     
