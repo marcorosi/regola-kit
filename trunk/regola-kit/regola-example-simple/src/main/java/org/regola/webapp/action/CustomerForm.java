@@ -2,24 +2,27 @@ package org.regola.webapp.action;
 
 import org.regola.model.Customer;
 
-import java.io.Serializable;
 import java.lang.Integer;
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import org.regola.model.pattern.CustomerPattern;
 import org.regola.webapp.action.FormPage;
-import org.regola.webapp.action.plug.FormPagePlug;
 import org.regola.webapp.action.plug.FormPagePlugProxy;
 import org.regola.webapp.annotation.ScopeEnd;
 import org.apache.commons.lang.StringUtils;
+import org.regola.webapp.action.plug.FormPagePlugAnnotationProxy;
 
-public class CustomerForm //implements Serializable,FormPagePlug<Customer, Integer, CustomerPattern>
+public class CustomerForm 
 {
 	
-	private static final String VALIDATION_AMENDMENTS_CFG_FILE = "validationAmendments.xml";
-
+        @PostConstruct
 	public void init() {
 		
-		formPage.setPlug(new FormPagePlugProxy(this));
-		formPage.init();
+		formPage.setPlug(new FormPagePlugAnnotationProxy(this));
+		
+                formPage.setValidationContext("validationAmendments.xml");
+                formPage.init();
+                
 		
 		if(StringUtils.isNotEmpty(formPage.getEncodedId()))
 		{
@@ -34,9 +37,6 @@ public class CustomerForm //implements Serializable,FormPagePlug<Customer, Integ
 			formPage.setModel (new Customer());
 			formPage.getModel().setId(null);
 		}
-
-		
-		formPage.setValidationContext(VALIDATION_AMENDMENTS_CFG_FILE);
 		
 	}
 	
@@ -56,12 +56,14 @@ public class CustomerForm //implements Serializable,FormPagePlug<Customer, Integ
 	
 	FormPage<Customer, Integer, CustomerPattern> formPage;
 
-	public void setFormPage(
+	@Resource
+        public void setFormPage(
 			FormPage<Customer, Integer, CustomerPattern> formPage) {
 		this.formPage=formPage;
 		
 	}
 
+        
 	public FormPage<Customer, Integer, CustomerPattern> getFormPage() {
 		return formPage;
 	}
