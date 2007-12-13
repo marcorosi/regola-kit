@@ -5,20 +5,23 @@ import org.regola.model.Customer;
 import java.lang.Integer;
 import org.regola.model.pattern.CustomerPattern;
 import org.regola.webapp.action.ListPage;
-import org.regola.webapp.action.plug.ListPagePlug;
+import org.regola.webapp.action.plug.BasePagePlug;
+import org.regola.webapp.action.plug.ListPagePlugAnnotationProxy;
 import org.regola.webapp.action.plug.ListPagePlugProxy;
 
-public class CustomerList //implements ListPagePlug<Customer, Integer, CustomerPattern>
+public class CustomerList 
 {
-	
-	public void init()
+    
+       public void init()
 	{
-		listPage.setPlug(new ListPagePlugProxy(this));
+		listPage.setPlug(new ListPagePlugAnnotationProxy(this));
 		
 		listPage.setFilter(new CustomerPattern());
 		listPage.init();
 		
 		listPage.getEventBroker().subscribe(this, "customer.persistence.changes");
+                
+                
 		
 	}
 	
