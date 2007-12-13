@@ -69,11 +69,11 @@
 					<f:facet name="header">
 						<ice:outputText value="" />
 					</f:facet>
-
-				  <ice:outputLink value="${field(model_name)}-form.html" styleClass="buttonNew">
-				    <ice:outputText value="Edita"/>
-			        <f:param name="id" value="${r"#{"}item.id}"/>
-				  </ice:outputLink>
+				  
+				  <ice:commandLink value="Edita"
+				  		styleClass="buttonNew"
+				  		action="edit"
+				  		actionListener="${r"#{"}${field(mbean_list_name)}.listPage.storeId}" />				  
 
   				  <ice:commandLink value="Cancella"
 					  styleClass="buttonNew"
