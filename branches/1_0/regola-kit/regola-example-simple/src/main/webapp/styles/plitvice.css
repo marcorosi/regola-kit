@@ -1,0 +1,742 @@
+table.testata {
+	color: #FFFFFF;
+	padding-right: 4px;
+}
+
+table
+{
+	font-size: 9pt;
+}
+
+.bordoRosso {
+	border: #cc0000 1px solid; 
+}
+
+.elementoPianiEManifesti {
+	DISPLAY: block; WIDTH: 100%
+}
+.elementoPiani {
+	DISPLAY: block; WIDTH: 100%; COLOR: #888888
+}
+.elementoManifesti {
+	DISPLAY: block; WIDTH: 100%; COLOR: red
+}
+TABLE.pulsanti TD {
+	PADDING-TOP: 2px
+}
+A.linkTB:link {
+	BORDER-RIGHT: #808080 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #808080 1px solid; PADDING-LEFT: 1px; FONT-WEIGHT: bold; PADDING-BOTTOM: 1px; BORDER-LEFT: #808080 1px solid; CURSOR: pointer; COLOR: #333333; PADDING-TOP: 1px; BORDER-BOTTOM: #808080 1px solid; HEIGHT: 24px; BACKGROUND-COLOR: #e0e0e0; TEXT-DECORATION: none
+}
+A.linkTB_true:link {
+	BORDER-RIGHT: #808080 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #808080 1px solid; PADDING-LEFT: 1px; FONT-WEIGHT: bold; PADDING-BOTTOM: 1px; BORDER-LEFT: #808080 1px solid; CURSOR: pointer; COLOR: #333333; PADDING-TOP: 1px; BORDER-BOTTOM: #808080 1px solid; HEIGHT: 24px; BACKGROUND-COLOR: #e0e0e0; TEXT-DECORATION: none
+}
+A.linkTB:visited {
+	BORDER-RIGHT: #808080 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #808080 1px solid; PADDING-LEFT: 1px; FONT-WEIGHT: bold; PADDING-BOTTOM: 1px; BORDER-LEFT: #808080 1px solid; CURSOR: pointer; COLOR: #333333; PADDING-TOP: 1px; BORDER-BOTTOM: #808080 1px solid; HEIGHT: 24px; BACKGROUND-COLOR: #e0e0e0; TEXT-DECORATION: none
+}
+A.linkTB_true:visited {
+	BORDER-RIGHT: #808080 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #808080 1px solid; PADDING-LEFT: 1px; FONT-WEIGHT: bold; PADDING-BOTTOM: 1px; BORDER-LEFT: #808080 1px solid; CURSOR: pointer; COLOR: #333333; PADDING-TOP: 1px; BORDER-BOTTOM: #808080 1px solid; HEIGHT: 24px; BACKGROUND-COLOR: #e0e0e0; TEXT-DECORATION: none
+}
+A.linkTB:hover {
+	BORDER-RIGHT: #000099 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #000099 1px solid; PADDING-LEFT: 1px; FONT-WEIGHT: bold; PADDING-BOTTOM: 1px; BORDER-LEFT: #000099 1px solid; CURSOR: pointer; COLOR: #000099; PADDING-TOP: 1px; BORDER-BOTTOM: #000099 1px solid; HEIGHT: 24px; BACKGROUND-COLOR: #c6d3ef; TEXT-DECORATION: none
+}
+A.linkTB_true:hover {
+	BORDER-RIGHT: #000099 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #000099 1px solid; PADDING-LEFT: 1px; FONT-WEIGHT: bold; PADDING-BOTTOM: 1px; BORDER-LEFT: #000099 1px solid; CURSOR: pointer; COLOR: #000099; PADDING-TOP: 1px; BORDER-BOTTOM: #000099 1px solid; HEIGHT: 24px; BACKGROUND-COLOR: #c6d3ef; TEXT-DECORATION: none
+}
+DIV.opzioni_stampa {
+	BORDER-RIGHT: #666666 4px solid; BORDER-TOP: #999999 4px solid; Z-INDEX: 9; LEFT: 300px; OVERFLOW: auto; BORDER-LEFT: #999999 4px solid; WIDTH: 300px; BORDER-BOTTOM: #666666 4px solid; POSITION: absolute; TOP: 3px; HEIGHT: 165px; BACKGROUND-COLOR: white
+}
+DIV.specialistiche {
+	OVERFLOW: auto; WIDTH: 99%; HEIGHT: 80px
+}
+DIV.specialisticheaf {
+	OVERFLOW: auto; WIDTH: 99%; HEIGHT: 70px
+}
+TABLE.pannello {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; BORDER-LEFT: #999999 1px solid; BORDER-BOTTOM: #999999 1px solid
+}
+.titoloLogin {
+	FONT-WEIGHT: bold; FONT-SIZE: 15px
+}
+.BottoneAttivo_true {
+	BORDER-RIGHT: #000000 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #000000 1px solid; DISPLAY: block; PADDING-LEFT: 3px; FONT-WEIGHT: bold; PADDING-BOTTOM: 4px; OVERFLOW: visible; BORDER-LEFT: #000000 1px solid; CURSOR: pointer; COLOR: #ffffff; PADDING-TOP: 3px; BORDER-BOTTOM: #000000 1px solid; BACKGROUND-COLOR: #0000ff; TEXT-DECORATION: none
+}
+.BottoneAttivo_false {
+	BORDER-RIGHT: #666666 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #666666 1px solid; DISPLAY: block; PADDING-LEFT: 3px; FONT-WEIGHT: bold; PADDING-BOTTOM: 4px; OVERFLOW: visible; BORDER-LEFT: #666666 1px solid; CURSOR: default; COLOR: #666666; PADDING-TOP: 3px; BORDER-BOTTOM: #666666 1px solid; BACKGROUND-COLOR: #cccccc; TEXT-DECORATION: none
+}
+DIV.tab {
+	BORDER-BOTTOM: #cc0000 2px solid
+}
+.etichetta {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; TEXT-ALIGN: right
+}
+.etichetta_copia {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; TEXT-ALIGN: left
+}
+.campo {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; TEXT-ALIGN: left
+}
+.pannelloGrigio INPUT {
+	MARGIN-LEFT: 1px; MARGIN-RIGHT: 12px
+}
+.pannelloGrigio SELECT {
+	MARGIN-LEFT: 1px; MARGIN-RIGHT: 12px
+}
+.tabellaScomposizione TR {
+	
+}
+.pannelloGrigio {
+	BORDER-RIGHT: #000000 1px solid; PADDING-RIGHT: 4px; BORDER-TOP: #000000 1px solid; FONT-WEIGHT: bold; PADDING-BOTTOM: 4px; BORDER-LEFT: #000000 1px solid; COLOR: #000000; PADDING-TOP: 4px; BORDER-BOTTOM: #000000 1px solid; BACKGROUND-COLOR: #cccccc; TEXT-ALIGN: left
+}
+TD SPAN.pannelloGrigio .titoloBoxScuro {
+	FONT-WEIGHT: bold; FONT-SIZE: large; COLOR: #333333
+}
+TD.separatore {
+	WIDTH: 20px
+}
+DIV.dettaglio_regolamento {
+	BORDER-RIGHT: #666666 4px solid; BORDER-TOP: #999999 4px solid; Z-INDEX: 7; LEFT: 110px; OVERFLOW: auto; BORDER-LEFT: #999999 4px solid; WIDTH: 660px; BORDER-BOTTOM: #666666 4px solid; POSITION: absolute; TOP: 3px; HEIGHT: 390px; BACKGROUND-COLOR: white
+}
+DIV.dettaglio_nuovo_regolamento {
+	BORDER-RIGHT: #666666 4px solid; BORDER-TOP: #999999 4px solid; Z-INDEX: 7; LEFT: 110px; OVERFLOW: auto; BORDER-LEFT: #999999 4px solid; WIDTH: 660px; BORDER-BOTTOM: #666666 4px solid; POSITION: absolute; TOP: 3px; HEIGHT: 220px; BACKGROUND-COLOR: white
+}
+BODY.stampa {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; FONT-SIZE: 11pt; PADDING-BOTTOM: 5px; MARGIN: 10px; COLOR: #000000; PADDING-TOP: 5px; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; BACKGROUND-COLOR: #ffffff
+}
+BODY.stampa .titolo {
+	FONT-WEIGHT: bold; FONT-SIZE: 13pt; BACKGROUND-COLOR: #ffffff
+}
+BODY.stampa .sottotitolo {
+	FONT-WEIGHT: bold; TEXT-TRANSFORM: capitalize; BACKGROUND-COLOR: #dddddd
+}
+bgRigaGrigia testoBoxScuro .descrizionePiani {
+	MARGIN-LEFT: 16px; POSITION: relative; TOP: -14px
+}
+.immagineDettaglio {
+	PADDING-RIGHT: 1px; PADDING-LEFT: 1px; PADDING-TOP: 2px; TEXT-ALIGN: center
+}
+.menuBox {
+	BORDER-RIGHT: #808080 1px solid; BORDER-TOP: #808080 1px solid; BORDER-LEFT: #808080 1px solid; BORDER-BOTTOM: #808080 1px solid; BACKGROUND-COLOR: #e1e1e1
+}
+.menuBoxLink {
+	BORDER-RIGHT: #808080 1px solid; BORDER-LEFT: #808080 1px solid; BORDER-BOTTOM: #808080 1px solid
+}
+.menuHeader {
+	FONT-WEIGHT: bold; COLOR: #333333; WHITE-SPACE: nowrap
+}
+.menuLink {
+	FONT-WEIGHT: bold; COLOR: #333333; TEXT-DECORATION: none
+}
+.menuLink:hover {
+	TEXT-DECORATION: underline
+}
+INPUT.inline {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; BORDER-LEFT: #999999 1px solid; BORDER-BOTTOM: #999999 1px solid
+}
+DIV.menu_colonna_inline {
+	BORDER-RIGHT: #999999 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #999999 1px solid; PADDING-LEFT: 1px; BACKGROUND: #eeeeee; BORDER-LEFT: #999999 1px solid; COLOR: #333333; BORDER-BOTTOM: #999999 1px solid; POSITION: relative
+}
+.panel_colonna_inline {
+	PADDING-RIGHT: 1px; PADDING-LEFT: 1px; PADDING-BOTTOM: 1px; PADDING-TOP: 1px
+}
+DIV.griglia_attivita {
+	LEFT: 0px; OVERFLOW: auto; POSITION: relative; TOP: 0px
+}
+DIV.opzioni_colonne {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; LEFT: 0px; OVERFLOW: auto; BORDER-LEFT: #999999 1px solid; WIDTH: 500px; BORDER-BOTTOM: #999999 1px solid; POSITION: relative; TOP: 0px; HEIGHT: 250px
+}
+DIV.ordinamento {
+	BORDER-RIGHT: #666666 4px solid; PADDING-RIGHT: 5px; BORDER-TOP: #999999 4px solid; PADDING-LEFT: 5px; Z-INDEX: 5; LEFT: 0px; PADDING-BOTTOM: 5px; OVERFLOW: auto; BORDER-LEFT: #999999 4px solid; WIDTH: 422px; PADDING-TOP: 5px; BORDER-BOTTOM: #666666 4px solid; POSITION: absolute; TOP: 22px; HEIGHT: 200px; BACKGROUND-COLOR: white
+}
+DIV.regola {
+	BORDER-RIGHT: #666666 4px solid; BORDER-TOP: #999999 4px solid; Z-INDEX: 5; LEFT: 10px; OVERFLOW: auto; BORDER-LEFT: #999999 4px solid; WIDTH: 750px; BORDER-BOTTOM: #666666 4px solid; POSITION: absolute; TOP: 10px; HEIGHT: 340px; BACKGROUND-COLOR: white
+}
+DIV.elemento_speciale {
+	BORDER-RIGHT: #666666 4px solid; BORDER-TOP: #999999 4px solid; Z-INDEX: 7; LEFT: 10px; OVERFLOW: auto; BORDER-LEFT: #999999 4px solid; WIDTH: 860px; BORDER-BOTTOM: #666666 4px solid; POSITION: absolute; TOP: 3px; HEIGHT: 350px; BACKGROUND-COLOR: white
+}
+DIV.piani {
+	BORDER-RIGHT: #666666 4px solid; BORDER-TOP: #999999 4px solid; Z-INDEX: 5; LEFT: 110px; OVERFLOW: auto; BORDER-LEFT: #999999 4px solid; WIDTH: 660px; BORDER-BOTTOM: #666666 4px solid; POSITION: absolute; TOP: 3px; HEIGHT: 250px; BACKGROUND-COLOR: white
+}
+DIV.elementoaf {
+	BORDER-RIGHT: #666666 4px solid; BORDER-TOP: #999999 4px solid; Z-INDEX: 5; LEFT: 5px; OVERFLOW: auto; BORDER-LEFT: #999999 4px solid; WIDTH: 930px; BORDER-BOTTOM: #666666 4px solid; POSITION: absolute; TOP: 3px; HEIGHT: 430px; BACKGROUND-COLOR: white
+}
+DIV.elementoafintegrata {
+	BORDER-RIGHT: #666666 4px solid; BORDER-TOP: #999999 4px solid; Z-INDEX: 5; LEFT: 15px; OVERFLOW: auto; BORDER-LEFT: #999999 4px solid; WIDTH: 920px; BORDER-BOTTOM: #666666 4px solid; POSITION: absolute; TOP: 3px; HEIGHT: 420px; BACKGROUND-COLOR: white
+}
+DIV.pianiRegolamenti {
+	BORDER-RIGHT: #666666 4px solid; BORDER-TOP: #999999 4px solid; Z-INDEX: 5; LEFT: 10px; OVERFLOW: auto; BORDER-LEFT: #999999 4px solid; WIDTH: 770px; BORDER-BOTTOM: #666666 4px solid; POSITION: absolute; TOP: 3px; HEIGHT: 340px; BACKGROUND-COLOR: white
+}
+DIV.pianiRegolamenti_copia {
+	BORDER-RIGHT: #666666 4px solid; BORDER-TOP: #999999 4px solid; Z-INDEX: 5; LEFT: 110px; OVERFLOW: auto; BORDER-LEFT: #999999 4px solid; WIDTH: 700px; BORDER-BOTTOM: #666666 4px solid; POSITION: absolute; TOP: 3px; HEIGHT: 140px; BACKGROUND-COLOR: white
+}
+DIV.pianiRegolamenti_copiaORiferimento {
+	BORDER-RIGHT: #666666 4px solid; BORDER-TOP: #999999 4px solid; Z-INDEX: 5; LEFT: 110px; OVERFLOW: auto; BORDER-LEFT: #999999 4px solid; WIDTH: 700px; BORDER-BOTTOM: #666666 4px solid; POSITION: absolute; TOP: 3px; HEIGHT: 202px; BACKGROUND-COLOR: white
+}
+TABLE.dialog {
+	MARGIN: 0px
+}
+TABLE.dialog TD {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 1px; PADDING-TOP: 1px
+}
+TABLE.dialog TR.dialogTitle TD {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; FONT-WEIGHT: bold; FONT-SIZE: 13px; PADDING-BOTTOM: 3px; COLOR: white; PADDING-TOP: 3px; BACKGROUND-COLOR: #cc0000; TEXT-ALIGN: left
+}
+.elementoGrigliaPianiSelezionabile_false {
+	DISPLAY: block; WIDTH: 100%; COLOR: #888888
+}
+.elementoGrigliaPianiSelezionabile_true {
+	DISPLAY: block; WIDTH: 100%
+}
+DIV.messaggi {
+	BORDER-RIGHT: #666666 4px solid; BORDER-TOP: #999999 4px solid; FONT-SIZE: 13px; Z-INDEX: 5; LEFT: 110px; OVERFLOW: auto; BORDER-LEFT: #999999 4px solid; WIDTH: 520px; BORDER-BOTTOM: #666666 4px solid; POSITION: absolute; TOP: 10px; HEIGHT: 100px; BACKGROUND-COLOR: white
+}
+DIV.conferma {
+	BORDER-RIGHT: #666666 4px solid; BORDER-TOP: #999999 4px solid; FONT-SIZE: 13px; Z-INDEX: 5; LEFT: 110px; OVERFLOW: auto; BORDER-LEFT: #999999 4px solid; WIDTH: 520px; BORDER-BOTTOM: #666666 4px solid; POSITION: absolute; TOP: 10px; HEIGHT: 200px; BACKGROUND-COLOR: white
+}
+DIV.filtroElementoSpeciale {
+	BORDER-RIGHT: #666666 4px solid; BORDER-TOP: #999999 4px solid; Z-INDEX: 5; LEFT: 110px; OVERFLOW: auto; BORDER-LEFT: #999999 4px solid; WIDTH: 650px; BORDER-BOTTOM: #666666 4px solid; POSITION: absolute; TOP: 10px; HEIGHT: 350px; BACKGROUND-COLOR: white
+}
+DIV.pannello_ore {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; LEFT: 0px; OVERFLOW: auto; BORDER-LEFT: #999999 1px solid; WIDTH: 452px; BORDER-BOTTOM: #999999 1px solid; POSITION: relative; TOP: 0px; HEIGHT: 57px
+}
+BODY {
+	PADDING-RIGHT: 1px; 
+	PADDING-LEFT: 1px; 
+	FONT-SIZE: 9pt;
+	MARGIN: 0px;
+	COLOR: #333333; 
+	FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; 
+	BACKGROUND-COLOR: #ffffff
+}
+.testoFooter {
+	COLOR: #666666
+}
+A.linkFooter {
+	COLOR: #666666; TEXT-DECORATION: none
+}
+A.linkFooter:hover {
+	COLOR: #666666; TEXT-DECORATION: underline
+}
+A.linkFooter:visited {
+	COLOR: #666666
+}
+.seiIn {
+	COLOR: #000000; TEXT-DECORATION: none
+}
+.testoErrore {
+	FONT-WEIGHT: bold; COLOR: #ff0000
+}
+.verificaErrore {
+	FONT-WEIGHT: bold; COLOR: #a00000
+}
+.testoErrorePiccolo {
+	FONT-WEIGHT: bold; COLOR: #ff0000
+}
+TD.testoNormale {
+	COLOR: #333333
+}
+.testoErroreNormale {
+	FONT-WEIGHT: bold; COLOR: #ff0000
+}
+.tabRicerca {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; BORDER-LEFT: #999999 1px solid; COLOR: #000000; BORDER-BOTTOM: #999999 1px solid; BACKGROUND-COLOR: #f4f4f4
+}
+.bgTestataExt {
+	BACKGROUND-IMAGE: url(/plitvice/programmazione/images/testata_servizi_small_unibo.gif); 
+	COLOR: #ffffff; 
+	BACKGROUND-REPEAT: no-repeat; 
+	BACKGROUND-COLOR: #666666
+}
+.bgTestata {
+	COLOR: #ffffff; BACKGROUND-COLOR: #666666
+}
+.testoBoxScuro {
+	FONT-WEIGHT: bold; COLOR: #333333
+}
+.testoBoxSommario {
+	FONT-WEIGHT: bold; COLOR: #ffffff
+}
+.testoBoxChiaro {
+	FONT-WEIGHT: bold; COLOR: #666666
+}
+.testoBoxRosso {
+	FONT-WEIGHT: bold; COLOR: #cc0000; TEXT-ALIGN: justify
+}
+TABLE.helpdesk {
+	BORDER-RIGHT: #dddddd 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #dddddd 1px solid; MARGIN-TOP: 20px; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; BORDER-LEFT: #dddddd 1px solid; PADDING-TOP: 5px; BORDER-BOTTOM: #dddddd 1px solid
+}
+TABLE.helpdesk .titolo {
+	FONT-WEIGHT: bold; FONT-SIZE: 15px; COLOR: #333333
+}
+TABLE.redBorder {
+	BORDER-RIGHT: #cc0000 1px solid; PADDING-RIGHT: 4px; BORDER-TOP: #cc0000 1px solid; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; BORDER-LEFT: #cc0000 1px solid; PADDING-TOP: 4px; BORDER-BOTTOM: #cc0000 1px solid
+}
+TABLE.redBorderData {
+	BORDER-RIGHT: #cc0000 1px solid; PADDING-RIGHT: 4px; BORDER-TOP: #cc0000 1px solid; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; BORDER-LEFT: #cc0000 1px solid; PADDING-TOP: 4px; BORDER-BOTTOM: #cc0000 1px solid
+}
+TABLE.redBorderData TD {
+	PADDING-RIGHT: 5px
+}
+.redBoxHeader {
+	FONT-WEIGHT: bold; COLOR: #ffffff; BACKGROUND-COLOR: #bb0000
+}
+TR.bgRigaGrigiaTestata {
+	HEIGHT: 4px; BACKGROUND-COLOR: #dddddd
+}
+TABLE.bgRigaGrigiaTestata {
+	HEIGHT: 4px; BACKGROUND-COLOR: #dddddd
+}
+TR.bgRigaGrigia {
+	HEIGHT: 20px; BACKGROUND-COLOR: #dddddd
+}
+TABLE.toolBar {
+	PADDING-RIGHT: 2px; PADDING-LEFT: 2px; FONT-WEIGHT: bold; PADDING-BOTTOM: 4px; COLOR: #333333; PADDING-TOP: 4px; BACKGROUND-COLOR: #dddddd
+}
+.greyBorder {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; BORDER-LEFT: #999999 1px solid; BORDER-BOTTOM: #999999 1px solid
+}
+.treeBorder {
+	BORDER-RIGHT: #999999 1px outset; BORDER-TOP: #999999 1px outset; BORDER-LEFT: #999999 1px outset; BORDER-BOTTOM: #999999 1px outset
+}
+.testoNormale {
+	COLOR: #333333
+}
+.testoGhost {
+	FONT-SIZE: 0px; COLOR: #ffffff
+}
+.testoErrore {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: red
+}
+.bgCellaGrigia {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; FONT-WEIGHT: bold; VERTICAL-ALIGN: bottom; BORDER-LEFT: #999999 1px solid; COLOR: #333333; BORDER-BOTTOM: #999999 1px solid; BACKGROUND-COLOR: #dddddd; TEXT-ALIGN: left
+}
+.buttonNew {
+	BORDER-RIGHT: #000000 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #000000 1px solid; PADDING-LEFT: 5px; FONT-WEIGHT: bold; PADDING-BOTTOM: 1px; BORDER-LEFT: #000000 1px solid; CURSOR: pointer; COLOR: #ffffff; PADDING-TOP: 1px; BORDER-BOTTOM: #000000 1px solid; BACKGROUND-COLOR: #0000ff; TEXT-DECORATION: none
+}
+.buttonBlue {
+	BORDER-RIGHT: #000000 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #000000 1px solid; DISPLAY: block; PADDING-LEFT: 3px; FONT-WEIGHT: bold; PADDING-BOTTOM: 4px; OVERFLOW: visible; BORDER-LEFT: #000000 1px solid; CURSOR: pointer; COLOR: #ffffff; PADDING-TOP: 3px; BORDER-BOTTOM: #000000 1px solid; BACKGROUND-COLOR: #0000ff; TEXT-DECORATION: none
+}
+.smallButtonBlue {
+	BORDER-RIGHT: #000000 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #000000 1px solid; DISPLAY: block; PADDING-LEFT: 3px; FONT-WEIGHT: bold; PADDING-BOTTOM: 1px; OVERFLOW: visible; BORDER-LEFT: #000000 1px solid; CURSOR: pointer; COLOR: #ffffff; PADDING-TOP: 1px; BORDER-BOTTOM: #000000 1px solid; BACKGROUND-COLOR: #0000ff; TEXT-DECORATION: none
+}
+.tinyButtonBlue {
+	BORDER-RIGHT: #000000 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #000000 1px solid; DISPLAY: block; PADDING-LEFT: 1px; FONT-WEIGHT: bold; PADDING-BOTTOM: 1px; OVERFLOW: visible; BORDER-LEFT: #000000 1px solid; CURSOR: pointer; COLOR: #ffffff; PADDING-TOP: 1px; BORDER-BOTTOM: #000000 1px solid; BACKGROUND-COLOR: #0000ff; TEXT-DECORATION: none
+}
+.buttonGhost {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; FONT-WEIGHT: bold; PADDING-BOTTOM: 3px; WIDTH: 0px; COLOR: #ffffff; PADDING-TOP: 3px; HEIGHT: 0px; BACKGROUND-COLOR: #ffffff; TEXT-DECORATION: none
+}
+.buttonText {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; FONT-WEIGHT: bold; PADDING-BOTTOM: 3px; COLOR: #666666; PADDING-TOP: 3px; BACKGROUND-COLOR: #ffffff; TEXT-DECORATION: none
+}
+A.linkNew:link {
+	BORDER-RIGHT: #000000 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #000000 1px solid; DISPLAY: block; PADDING-LEFT: 3px; FONT-WEIGHT: bold; PADDING-BOTTOM: 4px; OVERFLOW: visible; BORDER-LEFT: #000000 1px solid; CURSOR: pointer; COLOR: #ffffff; PADDING-TOP: 3px; BORDER-BOTTOM: #000000 1px solid; BACKGROUND-COLOR: #0000ff; TEXT-DECORATION: none
+}
+A.linkNew:visited {
+	BORDER-RIGHT: #000000 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #000000 1px solid; DISPLAY: block; PADDING-LEFT: 3px; FONT-WEIGHT: bold; PADDING-BOTTOM: 4px; OVERFLOW: visible; BORDER-LEFT: #000000 1px solid; CURSOR: pointer; COLOR: #ffffff; PADDING-TOP: 3px; BORDER-BOTTOM: #000000 1px solid; BACKGROUND-COLOR: #0000ff; TEXT-DECORATION: none
+}
+A.linkNew:hover {
+	BORDER-RIGHT: #000000 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #000000 1px solid; DISPLAY: block; PADDING-LEFT: 3px; FONT-WEIGHT: bold; PADDING-BOTTOM: 4px; OVERFLOW: visible; BORDER-LEFT: #000000 1px solid; CURSOR: pointer; COLOR: #ffffff; PADDING-TOP: 3px; BORDER-BOTTOM: #000000 1px solid; BACKGROUND-COLOR: #0000ff; TEXT-DECORATION: none
+}
+.headerTabella {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; FONT-WEIGHT: bold; VERTICAL-ALIGN: bottom; BORDER-LEFT: #999999 1px solid; COLOR: #333333; PADDING-TOP: 0px; BORDER-BOTTOM: #999999 1px solid; BACKGROUND-COLOR: #dddddd; TEXT-ALIGN: left
+}
+.OraTableColumnHeader {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; FONT-WEIGHT: bold; VERTICAL-ALIGN: bottom; BORDER-LEFT: #999999 1px solid; COLOR: #333333; PADDING-TOP: 0px; BORDER-BOTTOM: #999999 1px solid; BACKGROUND-COLOR: #dddddd; TEXT-ALIGN: left
+}
+.x1r {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; FONT-WEIGHT: bold; VERTICAL-ALIGN: bottom; BORDER-LEFT: #999999 1px solid; COLOR: #333333; PADDING-TOP: 0px; BORDER-BOTTOM: #999999 1px solid; BACKGROUND-COLOR: #dddddd; TEXT-ALIGN: left
+}
+.headerTabBottoni {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; FONT-WEIGHT: bold; VERTICAL-ALIGN: bottom; BORDER-LEFT: #999999 1px solid; COLOR: #333333; PADDING-TOP: 0px; BORDER-BOTTOM: #999999 1px solid; BACKGROUND-COLOR: #dddddd; TEXT-ALIGN: left
+}
+.OraTableColumnHeaderIconButton {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; FONT-WEIGHT: bold; VERTICAL-ALIGN: bottom; BORDER-LEFT: #999999 1px solid; COLOR: #333333; PADDING-TOP: 0px; BORDER-BOTTOM: #999999 1px solid; BACKGROUND-COLOR: #dddddd; TEXT-ALIGN: left
+}
+.x1t {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; FONT-WEIGHT: bold; VERTICAL-ALIGN: bottom; BORDER-LEFT: #999999 1px solid; COLOR: #333333; PADDING-TOP: 0px; BORDER-BOTTOM: #999999 1px solid; BACKGROUND-COLOR: #dddddd; TEXT-ALIGN: left
+}
+.af_column_header-text {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; FONT-WEIGHT: bold; VERTICAL-ALIGN: bottom; BORDER-LEFT: #999999 1px solid; COLOR: #333333; PADDING-TOP: 0px; BORDER-BOTTOM: #999999 1px solid; BACKGROUND-COLOR: #dddddd; TEXT-ALIGN: left
+}
+.x2d {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; FONT-WEIGHT: bold; VERTICAL-ALIGN: bottom; BORDER-LEFT: #999999 1px solid; COLOR: #333333; PADDING-TOP: 0px; BORDER-BOTTOM: #999999 1px solid; BACKGROUND-COLOR: #dddddd; TEXT-ALIGN: left
+}
+.x2f {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; FONT-WEIGHT: bold; VERTICAL-ALIGN: bottom; BORDER-LEFT: #999999 1px solid; COLOR: #333333; PADDING-TOP: 0px; BORDER-BOTTOM: #999999 1px solid; BACKGROUND-COLOR: #dddddd; TEXT-ALIGN: left
+}
+.OraTableBorder0001 {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; FONT-WEIGHT: bold; VERTICAL-ALIGN: bottom; BORDER-LEFT: #999999 1px solid; COLOR: #333333; PADDING-TOP: 0px; BORDER-BOTTOM: #999999 1px solid; BACKGROUND-COLOR: #dddddd; TEXT-ALIGN: left
+}
+.af_column_header-icon-format {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; FONT-WEIGHT: bold; VERTICAL-ALIGN: bottom; BORDER-LEFT: #999999 1px solid; COLOR: #333333; PADDING-TOP: 0px; BORDER-BOTTOM: #999999 1px solid; BACKGROUND-COLOR: #dddddd; TEXT-ALIGN: left
+}
+.bordoTabella {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; BORDER-LEFT: #999999 1px solid; BORDER-BOTTOM: #999999 1px solid
+}
+.OraTableBorder0001 {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; BORDER-LEFT: #999999 1px solid; BORDER-BOTTOM: #999999 1px solid
+}
+.x4j_OLD {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; BORDER-LEFT: #999999 1px solid; BORDER-BOTTOM: #999999 1px solid
+}
+.x50 {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; BORDER-LEFT: #999999 1px solid; BORDER-BOTTOM: #999999 1px solid
+}
+.x42 {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; BORDER-LEFT: #999999 1px solid; BORDER-BOTTOM: #999999 1px solid
+}
+.collapseTabella {
+	BORDER-COLLAPSE: collapse
+}
+.OraTableContent {
+	BORDER-COLLAPSE: collapse
+}
+.x1h {
+	BORDER-COLLAPSE: collapse
+}
+.af_table_content {
+	BORDER-COLLAPSE: collapse
+}
+.af_treeTable_content {
+	BORDER-COLLAPSE: collapse
+}
+.x1v {
+	BORDER-COLLAPSE: collapse
+}
+.x1w {
+	BORDER-COLLAPSE: collapse
+}
+TABLE.NavigationBarSuperiore {
+	BORDER-RIGHT: 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 1px; BORDER-LEFT: 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: 0px solid
+}
+.OraTableControlBarTop {
+	BORDER-RIGHT: 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 1px; BORDER-LEFT: 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: 0px solid
+}
+.x1i {
+	BORDER-RIGHT: 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 1px; BORDER-LEFT: 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: 0px solid
+}
+.x1x {
+	BORDER-RIGHT: 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 1px; BORDER-LEFT: 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: 0px solid
+}
+TABLE.NavigationBarInferiore {
+	BORDER-RIGHT: 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 1px; BORDER-LEFT: 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: 1px solid
+}
+.OraTableControlBarBottom {
+	BORDER-RIGHT: 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 1px; BORDER-LEFT: 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: 1px solid
+}
+.x1j {
+	BORDER-RIGHT: 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: 0px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 1px; BORDER-LEFT: 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: 1px solid
+}
+.testoSegnalazioneErrore {
+	FONT-WEIGHT: bold; COLOR: #cc0000
+}
+.testoTabella {
+	VERTICAL-ALIGN: bottom; TEXT-TRANSFORM: capitalize; COLOR: #333333; TEXT-ALIGN: left
+}
+.OraTableCellText {
+	VERTICAL-ALIGN: bottom; TEXT-TRANSFORM: capitalize; COLOR: #333333; TEXT-ALIGN: left
+}
+.x1l {
+	VERTICAL-ALIGN: bottom; TEXT-TRANSFORM: capitalize; COLOR: #333333; TEXT-ALIGN: left
+}
+.x23 {
+	VERTICAL-ALIGN: bottom; TEXT-TRANSFORM: capitalize; COLOR: #333333; TEXT-ALIGN: left
+}
+.af_column_cell-text {
+	VERTICAL-ALIGN: bottom; TEXT-TRANSFORM: capitalize; COLOR: #333333; TEXT-ALIGN: left
+}
+.bordoCella {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; BORDER-LEFT: #999999 1px solid; BORDER-BOTTOM: #999999 1px solid
+}
+.OraTableBorder1111 {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; BORDER-LEFT: #999999 1px solid; BORDER-BOTTOM: #999999 1px solid
+}
+.x4x {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; BORDER-LEFT: #999999 1px solid; BORDER-BOTTOM: #999999 1px solid
+}
+.x5e {
+	BORDER-RIGHT: #999999 1px solid; BORDER-TOP: #999999 1px solid; BORDER-LEFT: #999999 1px solid; BORDER-BOTTOM: #999999 1px solid
+}
+.linkInattivoNavBar {
+	COLOR: #999999
+}
+.OraNavBarInactiveLink {
+	COLOR: #999999
+}
+.x4j {
+	COLOR: #999999
+}
+SELECT {
+	FONT-SIZE: 9pt; COLOR: #333333; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+INPUT {
+	FONT-SIZE: 9pt; COLOR: #333333; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.TestoComboNavBar {
+	FONT-SIZE: 9pt; COLOR: #333333; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.OraFieldText {
+	FONT-SIZE: 9pt; COLOR: #333333; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.x4 {
+	FONT-SIZE: 9pt; COLOR: #333333; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.LabelDisabilitataNavBar {
+	COLOR: #333333
+}
+.p_OraHiddenLabel {
+	COLOR: #333333
+}
+.x38 {
+	COLOR: #333333
+}
+.OraInstructionText {
+	FONT-WEIGHT: normal; TEXT-TRANSFORM: uppercase; COLOR: #000000
+}
+.x0 {
+	FONT-WEIGHT: normal; TEXT-TRANSFORM: uppercase; COLOR: #000000
+}
+.OraFieldTextLTR {
+	FONT-WEIGHT: normal; TEXT-TRANSFORM: uppercase; COLOR: #000000
+}
+.x2y {
+	FONT-WEIGHT: normal; TEXT-TRANSFORM: uppercase; COLOR: #000000
+}
+.OraPhoneFieldText {
+	FONT-WEIGHT: normal; TEXT-TRANSFORM: uppercase; COLOR: #000000
+}
+.x30 {
+	FONT-WEIGHT: normal; TEXT-TRANSFORM: uppercase; COLOR: #000000
+}
+.OraPostalCodeFieldText {
+	FONT-WEIGHT: normal; TEXT-TRANSFORM: uppercase; COLOR: #000000
+}
+.x32 {
+	FONT-WEIGHT: normal; TEXT-TRANSFORM: uppercase; COLOR: #000000
+}
+.OraAddressFieldText {
+	FONT-WEIGHT: normal; TEXT-TRANSFORM: uppercase; COLOR: #000000
+}
+.x34 {
+	FONT-WEIGHT: normal; TEXT-TRANSFORM: uppercase; COLOR: #000000
+}
+.OraMessageBoxText {
+	FONT-WEIGHT: normal; TEXT-TRANSFORM: uppercase; COLOR: #000000
+}
+.x68 {
+	FONT-WEIGHT: normal; TEXT-TRANSFORM: uppercase; COLOR: #000000
+}
+.OraProcessingStatusFixed {
+	FONT-WEIGHT: normal; TEXT-TRANSFORM: uppercase; COLOR: #000000
+}
+.x6a {
+	FONT-WEIGHT: normal; TEXT-TRANSFORM: uppercase; COLOR: #000000
+}
+.OraFieldNumber {
+	FONT-WEIGHT: normal; COLOR: #333333; TEXT-ALIGN: right
+}
+.x6 {
+	FONT-WEIGHT: normal; COLOR: #333333; TEXT-ALIGN: right
+}
+.OraPromptText {
+	FONT-WEIGHT: normal; COLOR: #333333; TEXT-ALIGN: right
+}
+.x8 {
+	FONT-WEIGHT: normal; COLOR: #333333; TEXT-ALIGN: right
+}
+.p_OraTreeRow {
+	FONT-WEIGHT: normal; TEXT-TRANSFORM: capitalize
+}
+.x5c {
+	FONT-WEIGHT: normal; TEXT-TRANSFORM: capitalize
+}
+A.OraLink:hover {
+	COLOR: #333333
+}
+A.xd:hover {
+	COLOR: #333333
+}
+A.OraNavBarActiveLink:hover {
+	COLOR: #333333
+}
+A.x41:hover {
+	COLOR: #333333
+}
+A.OraLink:active {
+	COLOR: #333333
+}
+A.xd:active {
+	COLOR: #333333
+}
+A.OraNavBarActiveLink:active {
+	COLOR: #333333
+}
+A.x41:active {
+	COLOR: #333333
+}
+A.OraLink:visited {
+	COLOR: #333333; TEXT-DECORATION: none
+}
+A.xd:visited {
+	COLOR: #333333; TEXT-DECORATION: none
+}
+A.OraNavBarActiveLink:visited {
+	COLOR: #333333; TEXT-DECORATION: none
+}
+A.x41:visited {
+	COLOR: #333333; TEXT-DECORATION: none
+}
+A.OraLink:hover {
+	COLOR: #333333; TEXT-DECORATION: underline
+}
+A.xd:hover {
+	COLOR: #333333; TEXT-DECORATION: underline
+}
+A.OraNavBarActiveLink:hover {
+	COLOR: #333333; TEXT-DECORATION: underline
+}
+A.x41:hover {
+	COLOR: #333333; TEXT-DECORATION: underline
+}
+A.OraLink:link {
+	COLOR: #333333; TEXT-DECORATION: none
+}
+A.xd:link {
+	COLOR: #333333; TEXT-DECORATION: none
+}
+A.OraNavBarActiveLink:link {
+	COLOR: #333333; TEXT-DECORATION: none
+}
+A.x41:link {
+	COLOR: #333333; TEXT-DECORATION: none
+}
+.TextForeground {
+	COLOR: #000000
+}
+.TextBackground {
+	BACKGROUND-COLOR: #ffffff
+}
+.DarkBackground {
+	BACKGROUND-COLOR: #cccccc
+}
+.DarkAccentBackground {
+	BACKGROUND-COLOR: #cc0000
+}
+.auto_complete {
+	BACKGROUND: #fff; WIDTH: 350px
+}
+DIV.auto_complete UL {
+	BORDER-RIGHT: #888 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #888 1px solid; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; BORDER-LEFT: #888 1px solid; WIDTH: 100%; PADDING-TOP: 0px; BORDER-BOTTOM: #888 1px solid; LIST-STYLE-TYPE: none
+}
+DIV.auto_complete UL LI {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; MARGIN: 0px; PADDING-TOP: 3px
+}
+DIV.auto_complete UL LI.selected {
+	BACKGROUND-COLOR: #ffb
+}
+DIV.auto_complete UL STRONG.highlight {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; COLOR: #800; PADDING-TOP: 0px
+}
+.rigaEvidenziata {
+	COLOR: #f2f2b2; BACKGROUND-COLOR: #333333
+}
+
+.dialogBody {
+	BACKGROUND-COLOR: #ffffff
+}
+
+.dialogHeader {
+	text-align: center;
+	font-size: 10pt;
+	font-weight: bold;
+	color: #FFFFFF; 
+	cursor: move;
+}
+
+.columnsHeader {
+	font-weight: bold;
+	padding-bottom: 4px;	
+}
+
+.buttonGroup
+{
+	text-align: right;
+	margin-right: 4px;
+	margin-bottom: 2px;	
+}
+
+.buttonGroup .iceBtn {
+    font-family: Arial, Helvetica, sans-serif;
+	border: #000000 1px solid;
+	padding-right:  5px;
+	padding-left:   5px;
+	padding-top:    1px;	
+   	padding-bottom: 1px;
+   	font-weight: bold;
+   	color: #FFFFFF;
+   	background-color: #0000FF; 
+   	text-decoration: none;
+   	cursor: pointer;
+}
+
+input.toolbar 
+{
+   	background-color: #CCCCCC; 
+   	border: 1px solid #000000; 
+}
+
+input.toolbar:hover 
+{
+   	background-color: #C6D3EF; 
+   	border: 1px solid #000000; 
+}
+
+.rigaPari
+{
+	background-color: #FFFFFF;
+}
+
+.selezionabile
+{
+	cursor: pointer;
+}
+
+.rigaDispari
+{
+	background-color: #e8e8e8; 
+}
+
+.ptoolbar
+{
+	border: 1px solid #CCCCCC;
+	padding: 4px;
+	padding-bottom: 2px;
+}
+
+.dialogColumn
+{
+	border: 1px solid #CCCCCC;
+	padding: 4px;
+	vertical-align: top;
+}
+
+.loginForm
+{
+	margin-top: 50px; 
+	width: 400px;
+}
+
+.loginError
+{
+	font-weight: bold; 
+	color: #CC0000;"
+}
+
+.loginColumn
+{
+	width: 33%;
+}
+
+.right
+{
+	text-align: right;
+}
