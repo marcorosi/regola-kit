@@ -454,11 +454,16 @@ public class ListPage<T, ID extends Serializable, F extends ModelPattern> extend
 	 * Mette il valore dell'id in sessione per valorizzare il bean Spring "id",
 	 * che poi sarà iniettato nel form page.
 	 */
+	public void storeId(ActionEvent evt)
+	{
+		storeCurrentId();
+	}
+	
 	public void storeCurrentId()
 	{
 		String encodedId = getId(getCurrentModelItem()).toString();
 		putIdInSession(encodedId);
-	}
+	}	
 	
 	public void putIdInSession(String encodedId)
 	{		
