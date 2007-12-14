@@ -91,11 +91,13 @@ public class ParameterBuilder {
 
 		parameters.put("mbean_list_name", modelDescriptor.getType().getSimpleName()
 				+ "List");
-		parameters.put("mbean_list_page",Utils.lowerFirstLetter(parameters.get("model_name")+"-list.html"));
+		parameters.put("mbean_list_page",Utils.lowerFirstLetter(parameters.get("model_name")+"-list.xhtml"));
+		parameters.put("mbean_list_page_url",Utils.lowerFirstLetter(parameters.get("model_name")+"-list.html"));
 		
 		parameters.put("mbean_form_name", modelDescriptor.getType().getSimpleName()
 				+ "Form");
 		parameters.put("mbean_form_page",Utils.lowerFirstLetter(parameters.get("model_name")+"-form.xhtml"));
+		parameters.put("mbean_form_page_url",Utils.lowerFirstLetter(parameters.get("model_name")+"-form.html"));
 		
 		parameters.put("filter_name", modelDescriptor.getType().getSimpleName()
 				+ "Pattern");
