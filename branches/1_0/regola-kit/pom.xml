@@ -7,7 +7,7 @@
 	<groupId>org.regola</groupId>
 	<artifactId>regola-kit</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0-M1</version>
+	<version>1.0-RC1</version>
 
 	<name>REGOLA Toolkit</name>
 	<description>Regola conventional framework</description>
@@ -39,6 +39,11 @@
 			<id>davide</id>
 			<name>Davide Romanini</name>
 			<email>davide.romanini@gmail.com</email>
+		</developer>
+		<developer>
+			<id>fabio</id>
+			<name>Fabio Cognigni</name>
+			<email>fabio.cognigni@gmail.com</email>
 		</developer>
 	</developers>
 	<scm>
@@ -82,6 +87,12 @@
 	<modules>
 		<module>regola-core</module>
 		<module>regola-dao</module>
+		<module>regola-jsf</module>
+		<module>regola-jsf-components</module>
+		<module>regola-jsf-archetype</module>
+		<module>regola-validation</module>
+		<module>regola-event-broker</module>
+		<module>regola-codeassistence</module>
 	</modules>
 
 	<build>
