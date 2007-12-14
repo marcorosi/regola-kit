@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<import resource="classpath:org/regola/dao/applicationContext.xml" />
+
+	<bean id="customerDao"
+		class="org.regola.finder.FinderFactoryBean">
+		<property name="proxyInterfaces"
+			value="org.regola.dao.CustomerDao" />
+		<property name="target">
+			<bean id="customerDaoTarget"
+				class="org.regola.dao.jpa.JpaGenericDao">
+				<constructor-arg value="org.regola.model.Customer" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="invoiceDao" class="org.regola.dao.jpa.JpaGenericDao">
+		<constructor-arg value="org.regola.model.Invoice" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory"
+			ref="entityManagerFactory" />
+	</bean>
+
+	<bean id="persistenceExceptionTranslator"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<bean id="persistenceAnnotationProcessor"
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+</beans>

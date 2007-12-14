@@ -1,0 +1,26 @@
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- DB locale Hypersonic -->
+        <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
+        
+        <!-- property name="hibernate.connection.url">jdbc:hsqldb:${jboss.server.data.dir}${/}hypersonic${/}regola-exampleDB</property -->
+        <!-- property name="hibernate.connection.url">jdbc:hsqldb:${jboss.server.data.dir}/hypersonic/regola-exampleDB</property -->
+        <!-- property name="hibernate.connection.url">jdbc:hsqldb:/usr/local/jboss/server/regola-kit/data/hypersonic/regola-exampleDB</property -->
+        <!-- property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost:9001/usr/local/jboss/server/regola-kit/data/hypersonic/regola-exampleDB</property -->
+        <property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost:1701</property>
+        
+        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.connection.username">sa</property>
+        
+        <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
+        
+        <mapping resource="org/regola/model/Customer.hbm.xml" />
+        <mapping resource="org/regola/model/Product.hbm.xml" />
+        <mapping resource="org/regola/model/Item.hbm.xml" />
+        <mapping resource="org/regola/model/Invoice.hbm.xml" />
+     
+    </session-factory>
+</hibernate-configuration>

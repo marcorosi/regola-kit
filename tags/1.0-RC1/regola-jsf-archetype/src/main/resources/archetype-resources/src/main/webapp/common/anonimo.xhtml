@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+<f:view>
+
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="-1" />
+	<title><ui:insert name="titolo">Plitvice</ui:insert></title>
+	<link media="screen" href="styles/icefaces/xp.css" type="text/css" rel="stylesheet" />
+	<link media="screen" href="styles/plitvice.css" rel="stylesheet" type="text/css" />	
+	<script language="javascript"> function flip(foo)  {   var s = document.getElementById(foo).style;      if (s.display == 'none')      s.display = 'block';   else    {     if (s.display == 'block')      s.display = 'none';     else s.display = 'block';    } }  function flipH(foo1, foo2, foo3) {   flip(foo1);   flip(foo2);   flip(foo3) } </script>
+	</head>
+	<body>
+
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody>
+			<tr>
+				<td><ui:insert name="testata">
+					<ui:include src="anonimo-testata.xhtml" />
+				</ui:insert>				
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<table summary="" border="0" cellpadding="0" cellspacing="0"
+					width="100%">
+					<tbody>
+						<tr>
+							<td valign="top" width="182">
+								<ui:insert name="confirmDlg">
+									<ui:include src="../dialogs/confirm.xhtml" />
+								</ui:insert>
+								<ui:insert name="columnsDlg">
+									<ui:include src="../dialogs/columns.xhtml" />
+								</ui:insert>
+								<ui:insert name="orderDlg">
+									<ui:include src="../dialogs/order.xhtml" />
+								</ui:insert>
+								<ui:insert name="menu">
+									<ui:include src="anonimo-spalla-sx.xhtml" />
+								</ui:insert>
+							</td>
+							<td valign="top">
+							<table summary="" border="0" cellpadding="0" cellspacing="0"
+								width="100%">
+								<tbody>
+									<tr>
+										<td valign="top">
+										<table class="toolBar greyBorder" summary="" border="0"
+											cellpadding="0" cellspacing="0" width="100%">
+											<tbody>
+												<tr>
+													<td height="16px;" valign="center">&nbsp;</td>
+													<td class="testoBoxScuro" align="right"><ui:insert
+														name="sottotitolo"> </ui:insert></td>
+												</tr>
+											</tbody>
+										</table>
+										</td>
+									</tr>
+									<tr>
+										<td valign="top">
+											<ui:insert name="centro">
+												<ui:include src="anonimo-corpo.xhtml" />
+											</ui:insert>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</body>
+
+</f:view>
+</html>

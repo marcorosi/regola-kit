@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<import resource="classpath:org/regola/dao/applicationContext.xml" />
+
+	<bean id="persistenceManagerFactory"
+		class="kodo.jdo.PersistenceManagerFactoryImpl">
+		<property name="connectionFactory" ref="dataSource" />
+		<property name="nontransactionalRead" value="true" />
+		<property name="detachAllOnCommit" value="true" />
+	</bean>
+
+	<bean id="customerDao"
+		class="org.regola.finder.FinderFactoryBean">
+		<property name="proxyInterfaces"
+			value="org.regola.dao.CustomerDao" />
+		<property name="target">
+			<bean id="customerDaoTarget"
+				class="org.regola.dao.jdo.JdoGenericDao">
+				<constructor-arg value="org.regola.model.Customer" />
+				<property name="persistenceManagerFactory"
+					ref="persistenceManagerFactory" />
+			</bean>
+		</property>
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.jdo.JdoTransactionManager">
+		<property name="persistenceManagerFactory"
+			ref="persistenceManagerFactory" />
+	</bean>
+
+</beans>
