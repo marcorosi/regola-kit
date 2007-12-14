@@ -1,12 +1,5 @@
 package org.regola.webapp.action;
 
-import org.regola.service.GenericManager;
-import org.regola.util.Ognl;
-import org.regola.webapp.action.component.FormPageComponent;
-import org.regola.webapp.action.lookup.LookupStrategy;
-import org.regola.webapp.action.plug.FormPagePlug;
-import org.regola.webapp.action.plug.ListPagePlug;
-
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -26,7 +19,9 @@ import org.regola.model.ModelPattern;
 import org.regola.service.GenericManager;
 import org.regola.util.Ognl;
 import org.regola.util.wrapper.FormPageWrapper;
+import org.regola.webapp.action.component.FormPageComponent;
 import org.regola.webapp.action.lookup.LookupStrategy;
+import org.regola.webapp.action.plug.FormPagePlug;
 
 
 public  class FormPage<T, ID extends Serializable, F extends ModelPattern> extends org.regola.webapp.action.BasePage

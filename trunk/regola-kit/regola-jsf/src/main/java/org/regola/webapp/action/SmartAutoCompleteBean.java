@@ -1,7 +1,6 @@
 package org.regola.webapp.action;
 
 import org.regola.service.GenericManager;
-import org.regola.util.Ognl;
 import org.regola.model.ModelPattern;
 import org.regola.webapp.action.lookup.BaseLookupStrategy;
 
@@ -16,8 +15,6 @@ import javax.faces.model.SelectItem;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-
 
 public abstract class SmartAutoCompleteBean<M, T, ID extends Serializable, F extends ModelPattern>
 		extends BaseLookupStrategy<T, ID, F> {

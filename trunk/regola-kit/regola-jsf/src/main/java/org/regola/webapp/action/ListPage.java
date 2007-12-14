@@ -12,9 +12,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
-import javax.servlet.ServletContext;
 
-import org.apache.myfaces.context.servlet.ServletExternalContextImpl;
 import org.regola.model.ModelPattern;
 import org.regola.service.GenericManager;
 import org.regola.util.ELFunction;
@@ -26,8 +24,6 @@ import org.regola.webapp.action.plug.ListPagePlug;
 import org.regola.webapp.jsf.ColumnsDlg;
 import org.regola.webapp.jsf.OrderDlg;
 import org.regola.webapp.jsf.Dialog.DialogCallback;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 
 
@@ -465,6 +461,7 @@ public class ListPage<T, ID extends Serializable, F extends ModelPattern> extend
 		putIdInSession(encodedId);
 	}	
 	
+	@SuppressWarnings("unchecked")
 	public void putIdInSession(String encodedId)
 	{		
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id", encodedId);		

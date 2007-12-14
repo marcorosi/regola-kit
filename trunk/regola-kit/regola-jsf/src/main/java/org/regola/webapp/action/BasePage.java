@@ -4,13 +4,6 @@ package org.regola.webapp.action;
  * Adapted from org.appfuse.webapp.action.BasePage
  */
 
-import org.regola.Constants;
-import org.regola.events.DuckTypingEventBroker;
-import org.regola.events.EventBroker;
-import org.regola.webapp.annotation.ScopeEnd;
-import org.regola.webapp.jsf.ConfirmDlg;
-
-import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,8 +29,12 @@ import org.apache.commons.collections.comparators.NullComparator;
 import org.apache.commons.collections.comparators.ReverseComparator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.regola.Constants;
+import org.regola.events.DuckTypingEventBroker;
 import org.regola.webapp.action.component.BasePageComponent;
 import org.regola.webapp.action.plug.BasePagePlug;
+import org.regola.webapp.annotation.ScopeEnd;
+import org.regola.webapp.jsf.ConfirmDlg;
 
 public class BasePage {
 	public static final String jstlBundleParam = "javax.servlet.jsp.jstl.fmt.localizationContext";
@@ -64,7 +61,7 @@ public class BasePage {
 		this.component = component;
 	}
 
-	protected Application getApplication() {
+	public Application getApplication() {
 		ApplicationFactory appFactory = (ApplicationFactory) FactoryFinder
 				.getFactory(FactoryFinder.APPLICATION_FACTORY);
 		return appFactory.getApplication();
@@ -215,7 +212,7 @@ public class BasePage {
 	 * 
 	 * @return HttpServletRequest from the FacesContext
 	 */
-	protected HttpServletRequest getRequest() {
+	public HttpServletRequest getRequest() {
 		return (HttpServletRequest) getFacesContext().getExternalContext()
 				.getRequest();
 	}
@@ -225,7 +222,7 @@ public class BasePage {
 	 * 
 	 * @return the current user's session
 	 */
-	protected HttpSession getSession() {
+	public HttpSession getSession() {
 		return getRequest().getSession();
 	}
 
@@ -234,7 +231,7 @@ public class BasePage {
 	 * 
 	 * @return HttpServletResponse from the FacesContext
 	 */
-	protected HttpServletResponse getResponse() {
+	public HttpServletResponse getResponse() {
 		return (HttpServletResponse) getFacesContext().getExternalContext()
 				.getResponse();
 	}
@@ -244,7 +241,7 @@ public class BasePage {
 	 * 
 	 * @return the ServletContext form the FacesContext
 	 */
-	protected ServletContext getServletContext() {
+	public ServletContext getServletContext() {
 		return (ServletContext) getFacesContext().getExternalContext()
 				.getContext();
 	}
@@ -255,6 +252,7 @@ public class BasePage {
 	 * 
 	 * @return the user's populated form from the session
 	 */
+	@SuppressWarnings("unchecked")
 	protected Map getConfiguration() {
 		Map config = (HashMap) getServletContext().getAttribute(
 				Constants.CONFIG);
