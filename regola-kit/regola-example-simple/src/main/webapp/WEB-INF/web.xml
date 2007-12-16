@@ -67,6 +67,14 @@
 		<param-name>com.icesoft.faces.concurrentDOMViews</param-name>
 		<param-value>true</param-value>
 	</context-param>
+	
+	<!-- taglib di regola per autocompletamento -->
+	<context-param>
+		<param-name>facelets.LIBRARIES</param-name>
+		<param-value>
+			/WEB-INF/facelets/regola.taglib.xml
+		</param-value>
+	</context-param>
 
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -280,6 +288,6 @@
 	<error-page>
 	    <exception-type>java.lang.Throwable</exception-type>
 	    <location>/error.html</location>
-	</error-page> 
-
+	</error-page>
+	
 </web-app>
