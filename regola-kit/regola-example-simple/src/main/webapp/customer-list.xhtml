@@ -21,9 +21,13 @@
 		
 		<ice:panelGrid columns="2">
 		
-			<ice:outputLink value="customer-form.html" styleClass="buttonNew">
+			<!-- ice:outputLink value="customer-form.html" styleClass="buttonNew">
 			   <ice:outputText value="#{msg['customer.title']}" />
-			</ice:outputLink>
+			</ice:outputLink -->
+			
+			<ice:commandLink value="#{msg['customer.title']}"
+				  		styleClass="buttonNew"
+				  		action="edit" />
 			
 			<ice:panelGrid styleClass="ptoolbar" columns="100">
 			  <ice:commandButton image="images/option.gif" 
@@ -70,10 +74,15 @@
 						<ice:outputText value="" />
 					</f:facet>
 
-				  <ice:outputLink value="customer-form.html" styleClass="buttonNew">
+				  <!-- ice:outputLink value="customer-form.html" styleClass="buttonNew">
 				    <ice:outputText value="Edita"/>
 			        <f:param name="id" value="#{item.id}"/>
-				  </ice:outputLink>
+				  </ice:outputLink -->
+				  
+				  <ice:commandLink value="Edita"
+				  		styleClass="buttonNew"
+				  		action="edit"
+				  		actionListener="#{customerList.listPage.storeId}" />
 
   				  <ice:commandLink value="Cancella"
 					  styleClass="buttonNew"

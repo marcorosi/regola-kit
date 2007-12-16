@@ -19,19 +19,26 @@
         <message-bundle>ApplicationResources</message-bundle>
     </application>
     
-    
+	<navigation-rule>
+		<from-view-id>/customer-list.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/customer-form.html</to-view-id>
+			<!--redirect/ -->
+		</navigation-case>
+	</navigation-rule>         
     
 	<navigation-rule>
 		<from-view-id>/customer-form.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>save</from-outcome>
 			<to-view-id>/customer-list.html</to-view-id>
-			<redirect/>
+			<!-- redirect/ -->
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>cancel</from-outcome>
 			<to-view-id>/customer-list.html</to-view-id>			
-			<redirect/>
+			<!-- redirect/ -->
 		</navigation-case>
 	</navigation-rule> 
 	
@@ -77,24 +84,7 @@
 			org.regola.jsfValidators.SilentNumberConverter
 		</converter-class>
 	</converter>
-	
 
-
-	<navigation-rule>
-		<from-view-id>/customer-form.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>save</from-outcome>
-			<to-view-id>/customer-list.xhtml</to-view-id>
-			<redirect/>
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>cancel</from-outcome>
-			<to-view-id>/customer-list.xhtml</to-view-id>
-			<redirect/>			
-		</navigation-case>
-	</navigation-rule>
-
-    
 </faces-config>
 
 
