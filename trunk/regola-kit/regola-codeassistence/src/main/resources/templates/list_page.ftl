@@ -21,9 +21,9 @@
 		
 		<ice:panelGrid columns="2">
 		
-			<ice:outputLink value="${field(model_name)}-form.html" styleClass="buttonNew">
-			   <ice:outputText value="${r"#{"}msg['${field(model_name)}.title']}" />
-			</ice:outputLink>
+			<ice:commandLink value="${r"#{"}msg['${field(model_name)}.title']}"
+				  		styleClass="buttonNew"
+				  		action="edit" />
 			
 			<ice:panelGrid styleClass="ptoolbar" columns="100">
 			  <ice:commandButton image="images/option.gif" 
