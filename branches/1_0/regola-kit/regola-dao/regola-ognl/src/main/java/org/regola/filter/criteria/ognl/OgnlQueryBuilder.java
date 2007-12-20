@@ -32,6 +32,11 @@ public class OgnlQueryBuilder extends AbstractCriteriaBuilder {
 
 			return null;
 		}
+		
+		public boolean isEmpty()
+		{
+			return filters.size()==0 && listContexts.size()==0;
+		}
 
 		public List<String> getFilters() {
 			return filters;
@@ -93,7 +98,6 @@ public class OgnlQueryBuilder extends AbstractCriteriaBuilder {
 	public static String likePattern(String value) {
 
 		return value.replace(".", "_").replace("*", ".*");
-
 	}
 
 	DynamicComparator comparator = new DynamicComparator();
@@ -108,7 +112,7 @@ public class OgnlQueryBuilder extends AbstractCriteriaBuilder {
 
 	private boolean rowCount = false;
 
-	public OgnlQueryBuilder(Class<?> entityClass) {
+	public OgnlQueryBuilder() {
 		rootListContext = new ListContext("#root");
 	}
 
@@ -217,7 +221,12 @@ public class OgnlQueryBuilder extends AbstractCriteriaBuilder {
 		return property;
 	}
 
-	protected void buildQuery(ListContext context, StringBuilder query) {
+	/**
+	 * Ricorsivamente costruisce la query Ognl
+	 * @param context
+	 * @param query
+	 */
+	protected void buildQueryString(ListContext context, StringBuilder query) {
 
 		int count = context.getFilters().size();
 		if (count > 0) {
@@ -232,7 +241,7 @@ public class OgnlQueryBuilder extends AbstractCriteriaBuilder {
 			query.append(childContext.getPath());
 			query.append(".{^ ");
 
-			buildQuery(childContext, query);
+			buildQueryString(childContext, query);
 
 			query.append("}.size>0");
 		}
@@ -241,7 +250,21 @@ public class OgnlQueryBuilder extends AbstractCriteriaBuilder {
 
 	@SuppressWarnings("unchecked")
 	public Object executeQuery(Object target) {
-		String ognl = getQueryString();
+		
+		if (getRootListContext().isEmpty())
+		{
+			if (isRowCount()) {
+				if (target instanceof Collection)
+				{
+					return ((Collection) target).size();
+				} return 1;
+			}
+			else return target;
+		}
+		
+		
+		
+		String ognl = buildQueryString();
 		Object result = getValue(ognl, target);
 
 		if (isRowCount()) {
@@ -288,13 +311,13 @@ public class OgnlQueryBuilder extends AbstractCriteriaBuilder {
 		return "!=";
 	}
 
-	public String getQueryString() {
+	public String buildQueryString() {
 
 		StringBuilder query = new StringBuilder();
 
 		query.append("#root.{? ");
 
-		buildQuery(getRootListContext(), query);
+		buildQueryString(getRootListContext(), query);
 		query.append("}");
 
 		if (isRowCount()) {

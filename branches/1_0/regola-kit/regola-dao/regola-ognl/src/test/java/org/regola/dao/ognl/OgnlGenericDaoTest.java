@@ -180,6 +180,21 @@ public class OgnlGenericDaoTest extends
 		assertEquals(0,customerDao.count(pattern));
 		
 	}
+	
+	public void testAll() {
+
+		List<Customer> target = fixtureCustomer();
+		
+		customerDao.setTarget(target);
+
+		CustomerPattern pattern = new CustomerPattern();
+		
+		List<Customer> list = customerDao.find(pattern);
+
+		assertTrue(list.size() == target.size());
+		assertEquals(target.size(),customerDao.count(pattern));
+		
+	}
 
 
 }

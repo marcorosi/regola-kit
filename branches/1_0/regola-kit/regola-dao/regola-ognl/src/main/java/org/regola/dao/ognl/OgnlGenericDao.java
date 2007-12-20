@@ -16,6 +16,8 @@ import org.regola.model.ModelPattern;
 
 import static org.regola.util.Ognl.getValue;
 
+
+
 /**
  * @author nicola
  */
@@ -30,7 +32,7 @@ public class OgnlGenericDao<T, ID extends Serializable> implements
 
 	public OgnlGenericDao(Class<T> persistentClass) {
 		this.persistentClass = persistentClass;
-		criteria = new OgnlQueryBuilder(persistentClass);
+		criteria = new OgnlQueryBuilder();
 	}
 
 	protected Collection<T> target;
@@ -45,6 +47,15 @@ public class OgnlGenericDao<T, ID extends Serializable> implements
 
 	@SuppressWarnings("unchecked")
 	public T get(ID id) {
+		for (T item: target)
+		{
+			ID itemID = (ID) getValue("id", item);
+			
+			if (id.equals(itemID))
+				return (T) itemID;
+			
+		}
+		
 		return null;
 	}
 
@@ -66,16 +77,14 @@ public class OgnlGenericDao<T, ID extends Serializable> implements
 
 	@SuppressWarnings("unchecked")
 	public List<T> find(final ModelPattern pattern) {
-		criteria = new OgnlQueryBuilder(persistentClass);
-		
+		criteria = new OgnlQueryBuilder();
 		getPatternParser().createQuery(criteria, pattern);
-		
 		return (List<T>) criteria.executeQuery(target);
 
 	}
 
 	public int count(final ModelPattern pattern) {
-		criteria = new OgnlQueryBuilder(persistentClass);
+		criteria = new OgnlQueryBuilder();
 		
 		getPatternParser().createCountQuery(criteria,pattern);
 		
@@ -94,7 +103,7 @@ public class OgnlGenericDao<T, ID extends Serializable> implements
 
 	@SuppressWarnings("unchecked")
 	public List<T> getAll() {
-		return null; // getHibernateTemplate().loadAll(persistentClass);
+		return (List<T>) target;
 	}
 
 	public boolean exists(ID id) {
