@@ -51,8 +51,8 @@ public class OgnlGenericDao<T, ID extends Serializable> implements
 		{
 			ID itemID = (ID) getValue("id", item);
 			
-			if (id.equals(itemID))
-				return (T) itemID;
+			if (id != null && id.equals(itemID))
+				return item;
 			
 		}
 		
@@ -60,18 +60,27 @@ public class OgnlGenericDao<T, ID extends Serializable> implements
 	}
 
 	public void removeEntity(T entity) {
-
+		target.remove(entity);
 	}
 
 	public void remove(ID id) {
 		T entity = get(id);
 		if (entity != null) {
-			// getHibernateTemplate().delete(entity);
+			removeEntity(entity);
 		}
 	}
 
 	public T save(T entity) {
-		// getHibernateTemplate().saveOrUpdate(entity);
+		ID itemID = (ID) getValue("id", entity);
+		T item = get(itemID);
+		if(item == null)	//nuovo entity
+			target.add(entity);
+		else //entity già esistente in target, ma l'istanza potrebbe avere un diverso reference
+		{
+			target.remove(item);
+			target.add(entity);
+		}
+		
 		return entity;
 	}
 
@@ -112,6 +121,7 @@ public class OgnlGenericDao<T, ID extends Serializable> implements
 
 	@SuppressWarnings("unchecked")
 	public List<T> executeFinder(String finder, Object... args) {
+		//TODO
 		// final Query namedQuery = prepareQuery(queryName(finder), args);
 		// return namedQuery.list();
 		return null;
