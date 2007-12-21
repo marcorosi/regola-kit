@@ -195,6 +195,136 @@ public class OgnlGenericDaoTest extends
 		assertEquals(target.size(),customerDao.count(pattern));
 		
 	}
-
-
+	
+	public void testExists()
+	{
+		List<Customer> target = fixtureCustomer();
+		
+		customerDao.setTarget(target);
+		
+		assertTrue( customerDao.exists(new Integer(2)) );
+	}
+	
+	public void testRemove()
+	{
+		List<Customer> target = fixtureCustomer();
+		
+		customerDao.setTarget(target);
+		
+		int size = customerDao.getAll().size();
+		customerDao.remove(new Integer(2));
+		assertEquals(size-1, customerDao.getAll().size());
+		assertNull(customerDao.get(new Integer(2)));
+	}
+	
+	public void testRemoveEntity()
+	{
+		List<Customer> target = fixtureCustomer();
+		
+		customerDao.setTarget(target);
+		Customer c = customerDao.get(new Integer(2));
+		int size = customerDao.getAll().size();
+		customerDao.removeEntity(c);
+		assertEquals(size-1, customerDao.getAll().size());
+		assertNull(customerDao.get(new Integer(2)));		
+	}
+	
+	public void testSave_InsertNew1()
+	{
+		List<Customer> target = fixtureCustomer();
+		
+		customerDao.setTarget(target);
+		
+		int size = customerDao.getAll().size();
+		
+		//inserimento nuovo con id già impostato 
+		Customer customer = new Customer();
+		customer.setId(4);
+		customer.setFirstName("Paul");
+		customer.setLastName("Johnson");
+		customer.setAddress(new Customer.Address());
+		customer.getAddress().setStreet("via Vittorio Alfieri");
+		customer.getAddress().setCity("Verona");
+		customer.setInvoices(new ArrayList<Invoice>());
+		
+		customerDao.save(customer);
+		
+		assertEquals(size+1, customerDao.getAll().size());
+		customer = customerDao.get(4);
+		assertEquals("Paul", customer.getFirstName());
+		assertEquals("Johnson", customer.getLastName());
+		
+	}
+	
+	public void testSave_InsertNew2()
+	{
+		List<Customer> target = fixtureCustomer();
+		
+		customerDao.setTarget(target);
+		
+		int size = customerDao.getAll().size();
+		
+		//inserimento nuovo con id  non impostato (null) 
+		Customer customer = new Customer();
+		customer.setId(null);
+		customer.setFirstName("Paul");
+		customer.setLastName("Johnson");
+		customer.setAddress(new Customer.Address());
+		customer.getAddress().setStreet("via Vittorio Alfieri");
+		customer.getAddress().setCity("Verona");
+		customer.setInvoices(new ArrayList<Invoice>());
+		
+		customerDao.save(customer);
+		
+		assertEquals(size+1, customerDao.getAll().size());	
+	}
+	
+	public void testSave_Update1()
+	{
+		List<Customer> target = fixtureCustomer();
+		
+		customerDao.setTarget(target);
+		
+		int size = customerDao.getAll().size();
+		
+		//update di un oggetto  già esistente (stesso reference)
+		Customer customer = customerDao.get(2);
+		customer.setFirstName("firstNameModificato");
+		
+		customerDao.save(customer);
+		
+		assertEquals(size, customerDao.getAll().size());
+		customer = customerDao.get(2);
+		assertEquals("firstNameModificato", customer.getFirstName());
+	}
+	
+	public void testSave_Update2()
+	{
+		List<Customer> target = fixtureCustomer();
+		
+		customerDao.setTarget(target);
+		
+		int size = customerDao.getAll().size();
+		
+		//update di un oggetto  già esistente (diverso reference)
+		Customer customer = new Customer();
+		customer.setId(2);
+		customer.setFirstName("Adam");
+		customer.setLastName("Smith");
+		customer.setAddress(new Customer.Address());
+		customer.getAddress().setStreet("piazza Leopardi");
+		customer.getAddress().setCity("Bologna");
+		customer.setInvoices(new ArrayList<Invoice>());
+		Invoice invoice = new Invoice(); invoice.setId(201);
+		customer.getInvoices().add(invoice);
+		
+		customer.setFirstName("firstNameModificato");
+		
+		customerDao.save(customer);
+		
+		assertEquals(size, customerDao.getAll().size());
+		customer = customerDao.get(2);
+		assertEquals("firstNameModificato", customer.getFirstName());
+	}	
+	
 }
