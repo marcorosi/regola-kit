@@ -259,7 +259,13 @@ public class OgnlQueryBuilder extends AbstractCriteriaBuilder {
 					return ((Collection) target).size();
 				} return 1;
 			}
-			else return target;
+			//else return target; //bug: in questo caso non viene mai fatto l'ordinamento
+			//fix
+			else 
+			{
+				Collections.sort((List)target, comparator);
+				return target;
+			}
 		}
 		
 		

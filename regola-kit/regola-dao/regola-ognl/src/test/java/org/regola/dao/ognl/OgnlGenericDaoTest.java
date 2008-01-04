@@ -11,6 +11,7 @@ import org.regola.dao.MemoryGenericDao;
 import org.regola.model.Customer;
 import org.regola.model.CustomerPattern;
 import org.regola.model.Invoice;
+import org.regola.model.ModelProperty;
 import org.regola.model.Order;
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
@@ -326,5 +327,34 @@ public class OgnlGenericDaoTest extends
 		customer = customerDao.get(2);
 		assertEquals("firstNameModificato", customer.getFirstName());
 	}	
+	
+	public void testOrder()
+	{
+		List<Customer> target = fixtureCustomer();
+		
+		customerDao.setTarget(target);
+		
+		CustomerPattern pattern = new CustomerPattern();
+		pattern.addSortedProperty("id", Order.asc);
+		
+		List<Customer> list = customerDao.find(pattern);
+		assertEquals(3, list.size());
+		assertEquals(new Integer(1), list.get(0).getId());
+		assertEquals(new Integer(2), list.get(1).getId());
+		assertEquals(new Integer(3), list.get(2).getId());
+		
+		ModelProperty property = pattern.getSortedProperties().get(0);
+		assertEquals("id", property.getName());
+		assertEquals(true, property.isOrderAscending());
+		property.flipOrderDirection();
+		assertEquals(true, property.isOrderDescending());
+		
+		list = customerDao.find(pattern);
+		assertEquals(3, list.size());
+		assertEquals(new Integer(3), list.get(0).getId());
+		assertEquals(new Integer(2), list.get(1).getId());
+		assertEquals(new Integer(1), list.get(2).getId());
+		
+	}
 	
 }
