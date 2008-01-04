@@ -365,6 +365,12 @@
         </dependency>
         
         <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>regola-ognl</artifactId>
+            <version>${version}</version>
+        </dependency>
+        
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-mock</artifactId>
             <scope>test</scope>

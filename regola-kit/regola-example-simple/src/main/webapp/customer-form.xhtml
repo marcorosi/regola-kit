@@ -50,14 +50,19 @@
 					<ice:outputText value=" " />
 					<ice:outputText value=" " />
 					<ice:outputText value=" " />
-
-					<ice:commandButton value="Salva"
-						styleClass="buttonNew"
-						action="#{customerForm.save}" />
-					<ice:commandButton value="Annulla"
-						styleClass="buttonNew"
-						immediate="true"
-						action="#{customerForm.cancel}" />
+				</ice:panelGrid>
+				<ice:panelGrid columns="1">	
+					<!-- inner list per gestione invoices del customer -->
+					<ui:include src="./innerLists/invoice-innerList.xhtml" />
+					<ice:panelGrid columns="2">	
+						<ice:commandButton value="Salva"
+							styleClass="buttonNew"
+							action="#{customerForm.save}" />
+						<ice:commandButton value="Annulla"
+							styleClass="buttonNew"
+							immediate="true"
+							action="#{customerForm.cancel}" />
+					</ice:panelGrid>
 				</ice:panelGrid>
 			</ice:panelGroup>
 		</ice:form>

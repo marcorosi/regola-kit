@@ -26,6 +26,11 @@
 			<to-view-id>/customer-form.html</to-view-id>
 			<!--redirect/ -->
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>listInvoices</from-outcome>
+			<to-view-id>/invoice-list.html</to-view-id>
+			<!--redirect/ -->
+		</navigation-case>
 	</navigation-rule>         
     
 	<navigation-rule>
@@ -85,7 +90,59 @@
 		</converter-class>
 	</converter>
 
+
+	<navigation-rule>
+		<from-view-id>/invoice-list.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/invoice-form.html</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>customers</from-outcome>
+			<to-view-id>/customer-list.html</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/invoice-form.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>save</from-outcome>
+			<to-view-id>/invoice-list.html</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/invoice-list.html</to-view-id>	
+		</navigation-case>
+	</navigation-rule>
+    
+
+	<navigation-rule>
+		<from-view-id>/item-list.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/item-form.html</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/item-form.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>save</from-outcome>
+			<to-view-id>/item-list.html</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/item-list.html</to-view-id>	
+		</navigation-case>
+	</navigation-rule>
+    
 </faces-config>
+
+
+
+
+
+
 
 
 
