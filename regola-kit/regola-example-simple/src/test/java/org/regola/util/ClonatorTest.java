@@ -15,15 +15,12 @@ public class ClonatorTest extends TestCase
 		CustomerPattern cp = new CustomerPattern();
 		cp.setFirstName("firstName");
 		cp.addSortedProperty("firstName", Order.asc);
-		assertEquals(3, cp.getAllProperties().size());
-		assertEquals(3, cp.getVisibleProperties().size());
-		assertEquals(2, cp.getSortedProperties().size());
 		
 		CustomerPattern cp1 = Clonator.clone(cp);
 		assertEquals("firstName", cp1.getFirstName());
-		assertEquals(3, cp1.getAllProperties().size());
-		assertEquals(3, cp1.getVisibleProperties().size());
-		assertEquals(2, cp1.getSortedProperties().size());
+		assertEquals(cp.getAllProperties().size(), cp1.getAllProperties().size());
+		assertEquals(cp.getVisibleProperties().size(), cp1.getVisibleProperties().size());
+		assertEquals(cp.getSortedProperties().size(), cp1.getSortedProperties().size());
 			
 	}
 	
@@ -33,15 +30,12 @@ public class ClonatorTest extends TestCase
 		ItemPattern ip = new ItemPattern();
 		ip.setQuantity(200);
 		ip.addSortedProperty("cost", Order.asc);
-		assertEquals(3, ip.getAllProperties().size());
-		assertEquals(3, ip.getVisibleProperties().size());
-		assertEquals(1, ip.getSortedProperties().size());
 		
 		ItemPattern ip1 = Clonator.clone(ip);
 		assertEquals(new Integer(200), ip1.getQuantity());
-		assertEquals(3, ip1.getAllProperties().size());
-		assertEquals(3, ip1.getVisibleProperties().size());
-		assertEquals(1, ip1.getSortedProperties().size());
+		assertEquals(ip.getAllProperties().size(), ip1.getAllProperties().size());
+		assertEquals(ip.getVisibleProperties().size(), ip1.getVisibleProperties().size());
+		assertEquals(ip.getSortedProperties().size(), ip1.getSortedProperties().size());
 				
 	}
 	
