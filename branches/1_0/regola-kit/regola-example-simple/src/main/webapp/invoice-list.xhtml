@@ -138,9 +138,19 @@
                 </ice:selectOneMenu>
 			</ice:panelGrid>
 			<ice:panelGrid>
+				<!-- danno dei problemi con i css (capire cos'è)
 				<h:commandLink value="Torna ai clienti"
 				  		styleClass="buttonNew"
 				  		action="customers" />
+				<h:commandButton value="Torna ai clienti"
+				  		styleClass="buttonNew"
+				  		action="customers" />
+				 -->
+				<ice:outputLink value="customer-list.html"
+					styleClass="buttonNew">
+					<ice:outputText value="Gestione Clienti"
+						title="vai alla gestione dei clienti" />
+				</ice:outputLink>
 			</ice:panelGrid>
 		
 		</ice:form>

@@ -22,38 +22,42 @@
 			  	title="#{msg['button.tooltip.option']}" 
 			  	styleClass="toolbar" 
 			  	partialSubmit="true" 
-			  	actionListener="#{customerForm.invoiceList.listPage.doColumnsDlg}" />
+			  	actionListener="#{customerForm.invoiceMemoryList.listPage.doColumnsDlg}" />
 			  <ice:commandButton image="images/order.gif" 
 			  	title="#{msg['button.tooltip.order']}" 
 			  	styleClass="toolbar" 
 			  	partialSubmit="true" 
-			  	actionListener="#{customerForm.invoiceList.listPage.doOrderDlg}" />
+			  	actionListener="#{customerForm.invoiceMemoryList.listPage.doOrderDlg}" />
 			  
 			  <!--TODO: aggiungi i filtri rapidi -->
 			  <ice:outputText value="#{msg['invoice.column.id']}" />
- 			  <ice:inputText value="#{customerForm.invoiceList.listPage.filter.id}" />
+ 			  <ice:inputText value="#{customerForm.invoiceMemoryList.listPage.filter.id}" />
 			  
 			  <ice:commandButton image="images/search.gif" 
 			  	title="#{msg['button.tooltip.search']}" 
 			  	styleClass="toolbar" 
 			  	partialSubmit="true" 
-			  	actionListener="#{customerForm.invoiceList.listPage.refresh}" />
+			  	actionListener="#{customerForm.invoiceMemoryList.listPage.refresh}" />	
 		
 			</ice:panelGrid>
 		</ice:panelGrid>
 		
-		<ice:dataTable id="invoiceList" var="item"
-				rows="#{customerForm.invoiceList.listPage.filter.pageSize}"
-				rowClasses="rigaPari,rigaDispari"
-				value="#{customerForm.invoiceList.listPage.rowDataModel}">
+		<ice:commandLink value="Nuovo"
+			  styleClass="buttonNew"
+			  action="#{customerForm.doNewInvoiceDialog}" />		
 		
-			<ice:columns value="#{customerForm.invoiceList.listPage.columnDataModel}" var="column">
+		<ice:dataTable id="invoiceList" var="item"
+				rows="#{customerForm.invoiceMemoryList.listPage.filter.pageSize}"
+				rowClasses="rigaPari,rigaDispari"
+				value="#{customerForm.invoiceMemoryList.listPage.rowDataModel}">
+		
+			<ice:columns value="#{customerForm.invoiceMemoryList.listPage.columnDataModel}" var="column">
 					<f:facet name="header">
 						<ice:outputText value="#{msg[column.label]}" />
 					</f:facet>
 					<!-- il prossimo outputText fissa un baco delle icefaces -->
-					<ice:outputText value="#{customerForm.invoiceList.listPage.currentCulumnCallback[column.name]}" />
-					<ice:outputText value="#{customerForm.invoiceList.listPage.cellValue}" />
+					<ice:outputText value="#{customerForm.invoiceMemoryList.listPage.currentCulumnCallback[column.name]}" />
+					<ice:outputText value="#{customerForm.invoiceMemoryList.listPage.cellValue}" />
 				</ice:columns>
 				<!--
 				<ice:column>
@@ -65,22 +69,39 @@
 				  <ice:commandLink value="Edita"
 				  		styleClass="buttonNew"
 				  		action="edit"
-				  		actionListener="#{customerForm.invoiceList.listPage.storeId}" />				  
+				  		actionListener="#{customerForm.invoiceMemoryList.listPage.storeId}" />				  
 
   				  <ice:commandLink value="Cancella"
 					  styleClass="buttonNew"
 					  partialSubmit="true"
-					  actionListener="#{customerForm.invoiceList.listPage.remove}" />
+					  actionListener="#{customerForm.invoiceMemoryList.listPage.remove}" />
 
 				</ice:column>
 				-->
+				<ice:column>
+
+					<f:facet name="header">
+						<ice:outputText value="" />
+					</f:facet>
+				  	  
+				  	<ice:commandLink action="#{customerForm.doEditInvoiceDialog}">
+					  <ice:graphicImage value="images/bottone_freccia.gif" title="Edita"/>
+				  	</ice:commandLink>				  
+
+				 	<ice:commandLink 
+					  partialSubmit="true"
+					  actionListener="#{customerForm.invoiceMemoryList.listPage.remove}">
+					  <ice:graphicImage value="images/rimuovi.gif" title="Elimina"/>
+				  	</ice:commandLink>
+
+				</ice:column>				
 				
 			</ice:dataTable>
 			
 			<ice:panelGrid columns="4">
 		
 					<ice:dataPaginator for="invoiceList" fastStep="3"
-					actionListener="#{customerForm.invoiceList.listPage.paginatorListener}"
+					actionListener="#{customerForm.invoiceMemoryList.listPage.paginatorListener}"
 					pageCountVar="pageCount" pageIndexVar="pageIndex" paginator="true"
 					paginatorMaxPages="4" vertical="false" rendered="true"
 					styleClass="formBorderHighlight">
@@ -120,8 +141,8 @@
 				</ice:dataPaginator>
 
 				<ice:outputText value="#{msg['paginator.pageSize']}" />
-                <ice:selectOneMenu value="#{customerForm.invoiceList.listPage.filter.pageSize}"
-					               valueChangeListener="#{customerForm.invoiceList.listPage.refresh}"
+                <ice:selectOneMenu value="#{customerForm.invoiceMemoryList.listPage.filter.pageSize}"
+					               valueChangeListener="#{customerForm.invoiceMemoryList.listPage.refresh}"
 					               partialSubmit="true">
                     <f:selectItem itemValue="10" itemLabel="10"/>
                     <f:selectItem itemValue="20" itemLabel="20"/>

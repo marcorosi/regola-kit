@@ -1,27 +1,26 @@
 package org.regola.webapp.action;
 
+import java.util.Collection;
+
+import org.apache.commons.lang.StringUtils;
+import org.regola.dao.ognl.OgnlGenericDao;
 import org.regola.model.Invoice;
 import org.regola.model.Item;
-
-import java.lang.Integer;
+import org.regola.model.ItemId;
 import org.regola.model.pattern.InvoicePattern;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import org.regola.webapp.action.FormPage;
+import org.regola.service.MemoryGenericManager;
+import org.regola.service.impl.ItemManagerImpl;
 import org.regola.webapp.action.plug.FormPagePlugProxy;
 import org.regola.webapp.annotation.ScopeEnd;
-import org.apache.commons.lang.StringUtils;
+import org.regola.webapp.dialogs.ItemDialog;
+import org.regola.webapp.jsf.Dialog.DialogCallback;
+import org.springframework.aop.framework.Advised;
 
 public class InvoiceForm
 {
 	
-	private ItemList itemList;
+	private ItemList itemMemoryList;
+	private ItemDialog itemDialog;
 	
     @SuppressWarnings("unchecked")
 	public void init()
@@ -44,21 +43,10 @@ public class InvoiceForm
 		
 		//========== customizzazione per gestione inner-list degli items =======
 		Collection<Item> items = formPage.getModel().getItems();
-		/* -- non va (proxy di spring) --
-		OgnlGenericDao<Invoice, Integer> ognlInvoiceDao = (OgnlGenericDao<Invoice, Integer>)((InvoiceManagerImpl)invoiceList.getListPage().getServiceManager()).getGenericDao();
-		ognlInvoiceDao.setTarget(invoices);
-		*/
-		try{
-			Object itemManager = itemList.getListPage().getServiceManager();
-			Object ognlItemDao = itemManager.getClass().getMethod("getGenericDao").invoke(itemManager);
-			ognlItemDao.getClass().getMethod("setTarget", Collection.class).invoke(ognlItemDao, items);
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-			throw new RuntimeException();
-		}
+		MemoryGenericManager<Item, ItemId> manager = (MemoryGenericManager<Item, ItemId>)itemMemoryList.getListPage().getServiceManager();
+		manager.setTarget(items);
 		
-		itemList.init();
+		itemMemoryList.init();
 		//=========================================================================		
 	}
 
@@ -88,12 +76,89 @@ public class InvoiceForm
 		return formPage;
 	}
 
-	public ItemList getItemList() {
-		return itemList;
+	public ItemList getItemMemoryList() {
+		return itemMemoryList;
 	}
 
-	public void setItemList(ItemList itemList) {
-		this.itemList = itemList;
+	public void setItemMemoryList(ItemList itemMemoryList) {
+		this.itemMemoryList = itemMemoryList;
 	}
+
+	public ItemDialog getItemDialog() {
+		return itemDialog;
+	}
+
+	public void setItemDialog(ItemDialog itemDialog) {
+		this.itemDialog = itemDialog;
+	}
+	
+	public void doEditItemDialog()
+	{	
+		getItemDialog().openEdit(itemMemoryList.getListPage().getCurrentModelItem());
+		
+		getItemDialog().show("Item", "", new DialogCallback()
+		{
+			public void onConfirm()
+			{
+				//occorre solo modificare l'oggetto nella collection
+				//boolean unico = controllaUnicitaInterAteneo(getInterAteneoDlg().getForm().getModel());
+				
+				//if(getItemDialog().getForm().validate() /*&& unico*/)
+				{
+					getItemDialog().setVisible(false);					
+				}
+				/*
+				else
+					if(!unico)
+					{
+						getInterAteneoDlg().getForm().setErrore("Ateneo già esistente!");
+						setEffectPanel(new Shake());
+					}
+					*/
+			}
+
+			public void onCancel()
+			{
+				getItemDialog().setVisible(false);
+			}
+		});		
+	}
+	
+	public void doNewItemDialog()
+	{
+		getItemDialog().openEdit(new Item());
+		
+		getItemDialog().show("Nuovo Item", "", new DialogCallback()
+		{
+
+			public void onConfirm()
+			{
+				//getInterAteneoDlg().onSaveEvent();
+				//boolean unico = controllaUnicitaInterAteneo(getInterAteneoDlg().getForm().getModel());
+				
+				//validazione
+				//if(getItemDialog().getForm().validate() /*&& unico*/)
+				{
+					getItemDialog().setVisible(false);
+					
+					//riprendo il model del dialog e lo aggiungo alla Collection dell'ori corrente				
+					//getItemList().getListPage().getServiceManager().save((Item)getItemDialog().getForm().getModel() );
+					getItemMemoryList().getListPage().getServiceManager().save((Item)getItemDialog().getModel() );
+				} /*else
+					if(!unico)
+					{
+						getInterAteneoDlg().getForm().setErrore("Ateneo già esistente!");
+						setEffectPanel(new Shake());
+					}*/
+				
+			}
+
+			public void onCancel()
+			{
+				//getItemDialog().onCancelEvent();
+				getItemDialog().setVisible(false);
+			}
+		});	
+	}	
 	
 }

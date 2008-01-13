@@ -259,18 +259,30 @@ public class OgnlQueryBuilder extends AbstractCriteriaBuilder {
 					return ((Collection) target).size();
 				} return 1;
 			}
+			
 			//else return target; //bug: in questo caso non viene mai fatto l'ordinamento
 			//fix
 			else 
 			{
-				Collections.sort((List)target, comparator);
+				Collection targetCollection = (Collection)target;
+				/*
+				 * target potrebbe essere anche di tipo Set, e un cating a List fallirebbe
+				 * (ad esempio persistentSet di Hibernate)
+				 * N.B. Si perde il reference: ma cmq lo si perderebbe in caso di filtraggi
+				 * con la getValue di ognl.
+				 */
+				List targetList = new ArrayList(targetCollection);
+				Collections.sort(targetList, comparator);
+				return targetList;				
+				/*
+				//Collections.sort((List)target, comparator);
 				return target;
+				*/	
 			}
+			
 		}
 		
-		
-		
-		String ognl = buildQueryString();
+		String ognl = buildQueryString();	
 		Object result = getValue(ognl, target);
 
 		if (isRowCount()) {
@@ -285,8 +297,10 @@ public class OgnlQueryBuilder extends AbstractCriteriaBuilder {
 
 			// forse è zero-offset?
 			if (list.size() >= getFirstResult()) {
+				
 				for (int i = 0; i++ < getFirstResult(); list.remove(0))
 					;
+							
 			} else
 				list.clear();
 
@@ -294,9 +308,11 @@ public class OgnlQueryBuilder extends AbstractCriteriaBuilder {
 		if (hasMaxResults()) {
 
 			if (list.size() > getMaxResults()) {
+				
 				for (int i = 0; i++ < getMaxResults(); list
 						.remove(getMaxResults()))
 					;
+			;
 			}
 
 		}

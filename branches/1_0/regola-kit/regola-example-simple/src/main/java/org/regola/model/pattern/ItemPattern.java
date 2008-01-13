@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import org.regola.filter.annotation.Equals;
 import org.regola.model.ModelPattern;
-import org.regola.model.ModelProperty;
-import org.regola.model.Order;
 
 public class ItemPattern extends ModelPattern implements Serializable
 {
@@ -13,14 +11,16 @@ public class ItemPattern extends ModelPattern implements Serializable
 
    public ItemPattern()
    {
-	  //addProperty("id.invoiceId","item.column.");
-	  //addProperty("id.itemNumber","item.column.");
+	  addProperty("id.invoiceId","item.column.");
+	  addProperty("id.itemNumber","item.column.");
 	  addProperty("cost","item.column.");
 	  //addProperty("invoice","item.column.");
 	  addProperty("product.name","item.column.");
 	  addProperty("quantity","item.column.");
 	  
 	  //getSortedProperties().add(new ModelProperty("id.invoiceId","item.column.",Order.asc));
+	  
+	  setPageSize(10);
 	}
 
     protected	java.lang.Integer invoiceId;
@@ -95,4 +95,5 @@ public class ItemPattern extends ModelPattern implements Serializable
 	{
 		this.quantity = quantity;
 	}
+	
 }

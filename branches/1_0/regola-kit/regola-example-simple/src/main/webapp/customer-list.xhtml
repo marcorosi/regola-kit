@@ -148,9 +148,19 @@
 			</ice:panelGrid>
 			
 			<ice:panelGrid>
+				<!-- danno dei problemi con i css (capire cos'è)
 				<h:commandLink value="Gestione Fatture"
 				 	styleClass="buttonNew"
 				  	action="listInvoices" />
+				<h:commandButton value="Gestione Fatture"
+				 	styleClass="buttonNew"
+				  	action="listInvoices" />
+				 -->
+				<ice:outputLink value="invoice-list.html"
+					styleClass="buttonNew">
+					<ice:outputText value="Gestione Fatture"
+						title="vai alla gestione delle fatture" />
+				</ice:outputLink>
 			</ice:panelGrid>			
 		
 		</ice:form>

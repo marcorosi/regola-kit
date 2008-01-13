@@ -8,5 +8,5 @@ import java.lang.Integer;
 
 public interface InvoiceManager extends GenericManager<Invoice,Integer>
 {
-	public GenericDao<Invoice,Integer> getGenericDao();
+
 }

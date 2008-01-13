@@ -9,7 +9,5 @@ import org.regola.model.ItemId;
 
 public interface ItemManager extends GenericManager<Item,ItemId>
 {
-	
-	public GenericDao<Item,ItemId> getGenericDao();
 
 }
