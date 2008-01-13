@@ -18,6 +18,11 @@
   
 	<ui:define name="corpo">
 
+		<!-- dialog per invoice -->
+		<ui:insert name="invoiceDlg">
+			<ui:include src="./dialogs/invoiceDialog.xhtml" />
+		</ui:insert>
+
 		<ice:form>
 		<ice:inputText id="originalId" value="#{customerForm.formPage.originalId}" visible="false" />
 		<ice:outputConnectionStatus style="align: right;"/>

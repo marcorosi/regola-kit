@@ -3,6 +3,8 @@ package org.regola.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 public class Invoice implements Serializable {
@@ -13,6 +15,7 @@ public class Invoice implements Serializable {
 	private Customer customer;
 	private BigDecimal total;
 	private List<Item> items = new ArrayList<Item>();
+	//private Collection<Item> items = new HashSet<Item>();
 
 	public Customer getCustomer() {
 		return customer;
@@ -29,20 +32,26 @@ public class Invoice implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
+	
 	public List<Item> getItems() {
 		return items;
 	}
-
+	
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+	/*
 	protected void setItems(List<Item> items) {
 		this.items = items;
 	}
+	*/
 
 	public BigDecimal getTotal() {
 		return total;
 	}
 
-	protected void setTotal(BigDecimal total) {
+	//protected void setTotal(BigDecimal total) {
+	public void setTotal(BigDecimal total) {
 		this.total = total;
 	}
 

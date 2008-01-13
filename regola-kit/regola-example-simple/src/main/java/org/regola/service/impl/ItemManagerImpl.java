@@ -14,10 +14,5 @@ public class ItemManagerImpl extends GenericManagerImpl<Item,ItemId> implements 
 		super(genericDao);
 		// TODO Auto-generated constructor stub
 	}
-	
-	public GenericDao<Item,ItemId> getGenericDao()
-	{
-		return genericDao;
-	}
 
 }

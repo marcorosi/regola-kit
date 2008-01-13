@@ -13,10 +13,5 @@ public class InvoiceManagerImpl extends GenericManagerImpl<Invoice,Integer> impl
 		super(genericDao);
 		// TODO Auto-generated constructor stub
 	}
-	
-	public GenericDao<Invoice,Integer> getGenericDao()
-	{
-		return genericDao;
-	}
 
 }

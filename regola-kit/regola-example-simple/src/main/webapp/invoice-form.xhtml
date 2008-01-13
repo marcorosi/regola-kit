@@ -18,7 +18,12 @@
   
 	<ui:define name="corpo">
 
-		<ice:form>
+		<!-- dialog per item -->
+		<ui:insert name="itemDlg">
+			<ui:include src="./dialogs/itemDialog.xhtml" />
+		</ui:insert>
+
+		<ice:form id="invFrm">
 		<ice:inputText id="originalId" value="#{invoiceForm.formPage.originalId}" visible="false" />
 		<ice:outputConnectionStatus style="align: right;"/>
 			<ice:panelGroup>
@@ -44,21 +49,13 @@
 					<ice:outputText value=" " />
 					<ice:outputText value="#{invoiceForm.formPage.errors['lastName']}" />														
 			
-					<!-- items 
-					<ice:outputText value="#{msg['invoice.column.items']}" />
-					<ice:inputText  value="#{invoiceForm.formPage.model.items}">
-					</ice:inputText>
-					<ice:outputText value=" " />
-					<ice:outputText value="#{invoiceForm.formPage.errors['items']}" />
-					-->
-			
 					<!-- total -->
 					<ice:outputText value="#{msg['invoice.column.total']}" />
 					<ice:inputText  value="#{invoiceForm.formPage.model.total}">
 					</ice:inputText>
 					<ice:outputText value=" " />
 					<ice:outputText value="#{invoiceForm.formPage.errors['total']}" />
-		  
+		  			
 		           <ice:outputText value="#{invoiceForm.formPage.errore}" />
 					<ice:outputText value=" " />
 					<ice:outputText value=" " />

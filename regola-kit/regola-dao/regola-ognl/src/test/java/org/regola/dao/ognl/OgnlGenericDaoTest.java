@@ -1,5 +1,7 @@
 package org.regola.dao.ognl;
 
+import static org.regola.util.Ognl.getValue;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.regola.dao.ognl.OgnlGenericDao;
@@ -355,6 +357,20 @@ public class OgnlGenericDaoTest extends
 		assertEquals(new Integer(2), list.get(1).getId());
 		assertEquals(new Integer(1), list.get(2).getId());
 		
+	}
+	
+	public void testOgnl()
+	{
+		List<Customer> target = fixtureCustomer();
+		String ognl = "#root";
+		Object result = getValue(ognl, target);
+		assertEquals(target, result);
+		assertEquals(target.size(), ((List)result).size());
+		
+		ognl = "#root.{?  #this.address.street.matches(\".*Gio.*\")}";
+		result = getValue(ognl, target);
+		assertFalse(target.equals(result));
+		assertTrue(target.size() > ((List)result).size());
 	}
 	
 }

@@ -49,7 +49,8 @@ http://www.springframework.org/schema/lang http://www.springframework.org/schema
                 <property name="eventBroker" ref="eventBroker" />
             </bean>
         </property>
-        <property name="invoiceList" ref="invoiceInnerList" />
+        <property name="invoiceMemoryList" ref="invoiceMemoryList" />
+        <property name="invoiceDialog" ref="invoiceDialog" />
     </bean>
     
     
@@ -87,20 +88,21 @@ http://www.springframework.org/schema/lang http://www.springframework.org/schema
                 <property name="eventBroker" ref="eventBroker" />
             </bean>
         </property>
-        <property name="itemList" ref="itemInnerList" />
+        <property name="itemMemoryList" ref="itemMemoryList" />
+        <property name="itemDialog" ref="itemDialog" />
     </bean>
 	
 
 	<!-- bean id="invoiceList" class="org.regola.webapp.action.InvoiceList" scope="session" init-method="init" -->
 	<!-- elimino l'init-method: inizializzazione fatta esplicitamente dopo setTarget dell'ognlDao -->
-	<bean id="invoiceInnerList" class="org.regola.webapp.action.InvoiceList" scope="session">
+	<bean id="invoiceMemoryList" class="org.regola.webapp.action.InvoiceList" scope="session">
         <property name="listPage">
             <bean class="org.regola.webapp.action.ListPage"  >
                 <property name="component">
                     <bean class="org.regola.webapp.action.icefaces.ListPageIceFaces">
                     </bean>
                 </property>
-                <property name="serviceManager" ref="invoiceInnerManager" />
+                <property name="serviceManager" ref="invoiceMemoryManager" />
                 <property name="eventBroker" ref="eventBroker"  />
                 <property name="confirmDlg" ref="confirmDlg" />
                 <property name="columnsDlg" ref="columnsDlg" />
@@ -126,7 +128,7 @@ http://www.springframework.org/schema/lang http://www.springframework.org/schema
     </bean>	
     
     
-    <bean id="invoiceInnerManager" class="org.regola.service.impl.InvoiceManagerImpl">      
+    <bean id="invoiceMemoryManager" class="org.regola.service.impl.InvoiceMemoryManagerImpl">      
 	    <constructor-arg>          
 	        <bean class="org.regola.dao.ognl.OgnlGenericDao" autowire="byType" scope="prototype">              
 	            <constructor-arg value="org.regola.model.Invoice"/>          
@@ -174,14 +176,14 @@ http://www.springframework.org/schema/lang http://www.springframework.org/schema
     </bean>	
     
     <!-- eliminato l'init-method: inizializzazione fatta esplicitamente dopo setTarget dell'ognlDao -->
-	<bean id="itemInnerList" class="org.regola.webapp.action.ItemList" scope="session">
+	<bean id="itemMemoryList" class="org.regola.webapp.action.ItemList" scope="session">
         <property name="listPage">
             <bean class="org.regola.webapp.action.ListPage"  >
                 <property name="component">
                     <bean class="org.regola.webapp.action.icefaces.ListPageIceFaces">
                     </bean>
                 </property>
-                <property name="serviceManager" ref="itemInnerManager" />
+                <property name="serviceManager" ref="itemMemoryManager" />
                 <property name="eventBroker" ref="eventBroker"  />
                 <property name="confirmDlg" ref="confirmDlg" />
                 <property name="columnsDlg" ref="columnsDlg" />
@@ -199,14 +201,25 @@ http://www.springframework.org/schema/lang http://www.springframework.org/schema
     </constructor-arg>  
    </bean>
    
-    <bean id="itemInnerManager" class="org.regola.service.impl.ItemManagerImpl">      
+    <bean id="itemMemoryManager" class="org.regola.service.impl.ItemMemoryManagerImpl">      
 	    <constructor-arg>          
 	        <bean class="org.regola.dao.ognl.OgnlGenericDao" autowire="byType" scope="prototype">              
 	            <constructor-arg value="org.regola.model.Item"/>          
 	        </bean>      
     	</constructor-arg>  
    </bean>   
-    
+   
+   <!-- ======================================================================================================== -->
+   <!-- Dialogs																									 -->
+   <!-- ======================================================================================================== -->
+    <bean id="itemDialog"
+		class="org.regola.webapp.dialogs.ItemDialog" scope="session">
+		<!-- property name="form" ref="itemForm" / -->
+	</bean>
+    <bean id="invoiceDialog"
+		class="org.regola.webapp.dialogs.InvoiceDialog" scope="session">
+		<!-- property name="form" ref="itemForm" / -->
+	</bean>    
 </beans>        	
         	
 
