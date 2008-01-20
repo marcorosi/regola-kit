@@ -43,6 +43,7 @@ public class AmendmentUtils
 		String dummy;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Amendment> readDSLAmendments(String validationAmendmentsCfgFile , Class amendedModelClass) {
 		//caricamento dsl emendamenti
 		
@@ -54,13 +55,14 @@ public class AmendmentUtils
 		xstream.alias("Amendment", Amendment.class);
 				
 		URL url = getClass().getClassLoader().getResource(validationAmendmentsCfgFile);
-		
 		try {
-			List<AmendedModelClass> emendedClasses = (List<AmendedModelClass>)xstream.fromXML(new FileReader(url.getFile()));
+			//List<AmendedModelClass> emendedClasses = (List<AmendedModelClass>)xstream.fromXML(new FileReader(url.getFile()));
+			List<AmendedModelClass> emendedClasses = (List<AmendedModelClass>)xstream.fromXML(new FileReader(url.toURI().getPath()));
 			return retrieveAmendments(emendedClasses , amendedModelClass);
 		} catch (Exception e) {
 			//throw new RuntimeException(e);
 			log.error("Errore nella lettura del file di configurazione degli emendamenti: " + validationAmendmentsCfgFile);
+			e.printStackTrace();
 			return new ArrayList<Amendment>();
 		}
 	}
@@ -68,6 +70,7 @@ public class AmendmentUtils
 	/*
 	 * ritorna gli emendamenti riferiti alla classe corrente del bean
 	 */
+	@SuppressWarnings("unchecked")
 	protected List<Amendment> retrieveAmendments(List<AmendedModelClass> emendedModelClasses , Class amendedModelClass)
 	{
 		List<Amendment> emendaments = new ArrayList<Amendment>();
