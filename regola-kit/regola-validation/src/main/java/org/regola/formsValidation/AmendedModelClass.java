@@ -1,5 +1,6 @@
 package org.regola.formsValidation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -9,8 +10,7 @@ public class AmendedModelClass
 	
 	private String modelClass;
 	
-	private List<Amendment> amendments;
-	
+	private List<Amendment> amendments = new ArrayList<Amendment>();
 	
 	public List<Amendment> getAmendments()
 	{
