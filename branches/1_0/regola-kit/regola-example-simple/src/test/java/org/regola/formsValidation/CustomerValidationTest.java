@@ -80,7 +80,6 @@ public class CustomerValidationTest //extends TestCase
 	@Test
 	public void testEmendamentsValidator6() 
 	{
-		//con emendamenti che tolgono entrambe le validazioni
 		validator = new AmendmentsClassValidator<Customer>(Customer.class, "validationAmendments_add&remove.xml");
 		InvalidValue[] msgs = validator.getInvalidValues(customer);
 		assertTrue(msgs != null);

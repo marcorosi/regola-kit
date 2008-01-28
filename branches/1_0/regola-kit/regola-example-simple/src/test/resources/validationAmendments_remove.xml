@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<list>
+<model class="org.regola.model.Customer">
+	<remove type="org.hibernate.validator.NotEmpty" property="firstName"/>
+	<remove type="org.hibernate.validator.NotEmpty" property="lastName"/>
+</model>
+
+
+
+<!-- OLD list>
   <AmendedModelClass>
   	<modelClass>
   		org.regola.model.Customer
@@ -20,4 +27,4 @@
 		</Amendment>
 		</amendments>
   </AmendedModelClass>
-</list>
+</list -->
