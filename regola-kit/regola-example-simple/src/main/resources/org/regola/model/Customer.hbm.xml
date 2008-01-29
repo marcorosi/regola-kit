@@ -16,7 +16,9 @@
 			<property name="city" />
 		</component>
 		<!--  property name="age" / --> <!-- solo per prova conversione e validazione tipi numerici -->
-		<set name="invoices" inverse="true">
+		<!-- set name="invoices" inverse="true" -->
+		<!-- set name="invoices" inverse="true" cascade="save-update" -->
+		<set name="invoices" inverse="true" cascade="all">
 			<key column="CUSTOMERID" />
 			<one-to-many class="Invoice" />
 		</set>

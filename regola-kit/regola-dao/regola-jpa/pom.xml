@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.regola</groupId>
 		<artifactId>regola-dao</artifactId>
-		<version>1.0-M1</version>
+		<version>1.0-RC2</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -51,6 +51,10 @@
 			<artifactId>hsqldb</artifactId>
 		</dependency>
 		<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>toplink.essentials</groupId>
 			<artifactId>toplink-essentials</artifactId>
 		</dependency>
@@ -64,7 +68,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-mock</artifactId>
+			<artifactId>spring-test</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>${pom.groupId}</groupId>
@@ -72,7 +76,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-jpa</artifactId>
+			<artifactId>spring-orm</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>

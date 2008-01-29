@@ -2,6 +2,8 @@ package org.regola.formsValidation;
 
 import java.io.Serializable;
 
+import org.apache.commons.lang.StringUtils;
+
 public class Amendment implements Serializable
 {
 	private static final long serialVersionUID = -1679251192375123381L;
@@ -24,7 +26,8 @@ public class Amendment implements Serializable
 	
 	public String getModelProperty()
 	{
-		return modelProperty;
+		//pulizia da eventuali caratteri di controllo provenienti dall'xml
+		return StringUtils.trimToEmpty(modelProperty);
 	}
 	public void setModelProperty(String modelProperty)
 	{
@@ -32,7 +35,9 @@ public class Amendment implements Serializable
 	}
 	public String getValidationType()
 	{
-		return validationType;
+		//pulizia da eventuali caratteri di controllo provenienti dall'xml
+		return StringUtils.trimToEmpty(validationType);
+			
 	}
 	public void setValidationType(String validationType)
 	{
@@ -40,8 +45,10 @@ public class Amendment implements Serializable
 	}
 	public String getAmendmentType()
 	{
-		return amendmentType;
+		//pulizia da eventuali caratteri di controllo provenienti dall'xml
+		return StringUtils.trimToEmpty(amendmentType);
 	}
+	
 	public void setAmendmentType(String emendamentType)
 	{
 		this.amendmentType = emendamentType;

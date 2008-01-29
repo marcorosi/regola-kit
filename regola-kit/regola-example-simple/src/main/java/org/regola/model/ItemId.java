@@ -90,5 +90,25 @@ public class ItemId implements Serializable {
 					"Stringa di inizializzazione nulla o vuota");
 		}
 	}	
+	
+	public static ItemId valueOf(String encodedId)
+	{
+		ItemId id = new ItemId();
+		if (encodedId != null && encodedId.trim().length() > 0) {
+			encodedId = URLDecoder.decode(encodedId);
+			StringTokenizer st = new StringTokenizer(encodedId, DELIMITATORE);
+			id.setItemNumber(Integer.valueOf(st.nextToken()));
+			id.setInvoiceId(Integer.valueOf(st.nextToken()));
+		} else {
+			throw new IllegalArgumentException(
+					"Stringa di inizializzazione nulla o vuota");
+		}
+		return id;
+	}
+	
+	public String toString()
+	{
+		return getEncoded();
+	}
 
 }

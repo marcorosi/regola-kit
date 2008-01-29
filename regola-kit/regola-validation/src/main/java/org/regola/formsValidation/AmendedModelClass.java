@@ -1,14 +1,16 @@
 package org.regola.formsValidation;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 
 public class AmendedModelClass
 {
 	
 	private String modelClass;
 	
-	private List<Amendment> amendments;
-	
+	private List<Amendment> amendments = new ArrayList<Amendment>();
 	
 	public List<Amendment> getAmendments()
 	{
@@ -20,7 +22,8 @@ public class AmendedModelClass
 	}
 	public String getModelClass()
 	{
-		return modelClass;
+		//pulizia da eventuali caratteri di controllo provenienti dall'xml
+		return StringUtils.trimToEmpty(modelClass);
 	}
 	public void setModelClass(String modelClass)
 	{
