@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.regola</groupId>
 		<artifactId>regola-kit</artifactId>
-		<version>1.0-RC1</version>
+		<version>1.0-RC2</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -38,11 +38,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-mock</artifactId>
+			<artifactId>spring-test</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-dao</artifactId>
+			<artifactId>spring-tx</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
