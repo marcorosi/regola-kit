@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+<body>
+<ui:composition template="common/anonimo.xhtml">
+	<ui:define name="titolo">
+		<ice:outputText value="#{msg['customer.title']}" />
+	</ui:define>
+	<ui:define name="sottotitolo">
+		<ice:outputText value="#{msg['customer.subtitle']}" />
+	</ui:define>
+	<ui:define name="titolobarra">
+		<ice:outputText value="#{msg['customer.bartitle']}" />
+	</ui:define>
+
+	<ui:define name="corpo">
+		<ice:form>
+		
+		<ice:panelGrid columns="2">
+		
+			<!-- ice:outputLink value="customer-form.html" styleClass="buttonNew">
+			   <ice:outputText value="#{msg['customer.title']}" />
+			</ice:outputLink -->
+			
+			<ice:commandLink value="#{msg['customer.title']}"
+				  		styleClass="buttonNew"
+				  		action="edit" />
+			
+			<ice:panelGrid styleClass="ptoolbar" columns="100">
+			  <ice:commandButton image="images/option.gif" 
+			  	title="#{msg['button.tooltip.option']}" 
+			  	styleClass="toolbar" 
+			  	partialSubmit="true" 
+			  	actionListener="#{customerList.listPage.doColumnsDlg}" />
+			  <ice:commandButton image="images/order.gif" 
+			  	title="#{msg['button.tooltip.order']}" 
+			  	styleClass="toolbar" 
+			  	partialSubmit="true" 
+			  	actionListener="#{customerList.listPage.doOrderDlg}" />
+			  
+			  <!--TODO: aggiungi i filtri rapidi -->
+			  <ice:outputText value="#{msg['customer.column.id']}" />
+ 			  <ice:inputText value="#{customerList.listPage.filter.id}" />
+			  
+			  <ice:commandButton image="images/search.gif" 
+			  	title="#{msg['button.tooltip.search']}" 
+			  	styleClass="toolbar" 
+			  	partialSubmit="true" 
+			  	actionListener="#{customerList.listPage.refresh}" />
+		
+			</ice:panelGrid>
+		</ice:panelGrid>
+		
+		<ice:dataTable id="customerList" var="item"
+				rows="#{customerList.listPage.filter.pageSize}"
+				rowClasses="rigaPari,rigaDispari"
+				value="#{customerList.listPage.rowDataModel}">
+		
+			<ice:columns value="#{customerList.listPage.columnDataModel}" var="column">
+					<f:facet name="header">
+						<ice:outputText value="#{msg[column.label]}" />
+					</f:facet>
+					<!-- il prossimo outputText fissa un baco delle icefaces -->
+					<ice:outputText value="#{customerList.listPage.currentCulumnCallback[column.name]}" />
+					<ice:outputText value="#{customerList.listPage.cellValue}" />
+				</ice:columns>
+
+				<ice:column>
+
+					<f:facet name="header">
+						<ice:outputText value="" />
+					</f:facet>
+
+				  <!-- ice:outputLink value="customer-form.html" styleClass="buttonNew">
+				    <ice:outputText value="Edita"/>
+			        <f:param name="id" value="#{item.id}"/>
+				  </ice:outputLink -->
+				  
+				  <ice:commandLink value="Edita"
+				  		styleClass="buttonNew"
+				  		action="edit"
+				  		actionListener="#{customerList.listPage.storeId}" />
+
+  				  <ice:commandLink value="Cancella"
+					  styleClass="buttonNew"
+					  partialSubmit="true"
+					  actionListener="#{customerList.listPage.remove}" />
+
+				</ice:column>
+				
+			</ice:dataTable>
+			
+						<ice:panelGrid columns="4">
+		
+					<ice:dataPaginator for="customerList" fastStep="3"
+					actionListener="#{customerList.listPage.paginatorListener}"
+					pageCountVar="pageCount" pageIndexVar="pageIndex" paginator="true"
+					paginatorMaxPages="4" vertical="false" rendered="true"
+					styleClass="formBorderHighlight">
+					<f:facet name="first">
+						<ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-first.gif"
+							style="border:none;" title="#{msg['paginator.first']}" />
+					</f:facet>
+					<f:facet name="last">
+						<ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-last.gif"
+							style="border:none;" title="#{msg['paginator.last']}" />
+					</f:facet>
+					<f:facet name="previous">
+						<ice:graphicImage
+							url="./xmlhttp/css/xp/css-images/arrow-previous.gif"
+							style="border:none;" title="#{msg['paginator.previous']}" />
+					</f:facet>
+					<f:facet name="next">
+						<ice:graphicImage url="./xmlhttp/css/xp/css-images/arrow-next.gif"
+							style="border:none;" title="#{msg['paginator.next']}" />
+					</f:facet>
+				</ice:dataPaginator>
+	
+				<ice:dataPaginator for="customerList" rowsCountVar="rowsCount"
+					displayedRowsCountVar="displayedRowsCountVar"
+					firstRowIndexVar="firstRowIndex" lastRowIndexVar="lastRowIndex"
+					pageCountVar="pageCount" pageIndexVar="pageIndex">
+	
+					<ice:outputFormat
+						value="#{msg['paginator.state']}"
+						styleClass="standard">
+						<f:param value="#{firstRowIndex}" />
+						<f:param value="#{lastRowIndex}" />
+						<f:param value="#{rowsCount}" />
+						<f:param value="#{pageIndex}" />
+						<f:param value="#{pageCount}" />
+					</ice:outputFormat>
+				</ice:dataPaginator>
+
+				<ice:outputText value="#{msg['paginator.pageSize']}" />
+                <ice:selectOneMenu value="#{customerList.listPage.filter.pageSize}"
+					               valueChangeListener="#{customerList.listPage.refresh}"
+					               partialSubmit="true">
+                    <f:selectItem itemValue="10" itemLabel="10"/>
+                    <f:selectItem itemValue="20" itemLabel="20"/>
+                    <f:selectItem itemValue="30" itemLabel="30"/>
+                    <f:selectItem itemValue="40" itemLabel="40"/>
+                    <f:selectItem itemValue="50" itemLabel="50"/>
+                </ice:selectOneMenu>
+			</ice:panelGrid>
+			
+			<ice:panelGrid>
+				<!-- danno dei problemi con i css (capire cos'è)
+				<h:commandLink value="Gestione Fatture"
+				 	styleClass="buttonNew"
+				  	action="listInvoices" />
+				<h:commandButton value="Gestione Fatture"
+				 	styleClass="buttonNew"
+				  	action="listInvoices" />
+				 -->
+				<ice:outputLink value="invoice-list.html"
+					styleClass="buttonNew">
+					<ice:outputText value="Gestione Fatture"
+						title="vai alla gestione delle fatture" />
+				</ice:outputLink>
+			</ice:panelGrid>			
+		
+		</ice:form>
+	</ui:define>
+</ui:composition>
+</body>
+</html>
