@@ -52,5 +52,11 @@
 			<version>2.3</version>
 		</dependency>
 		
+		<dependency>
+    		<groupId>jdom</groupId>
+    		<artifactId>jdom</artifactId>
+    		<version>1.0</version>
+		</dependency>
+		
 	</dependencies>
 </project>
