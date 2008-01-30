@@ -9,7 +9,24 @@
         	<constructor-arg value="org.regola.model.Customer" />
 		    <property name="sessionFactory" ref="sessionFactory"/>
     </bean> 
+    
+	<!-- bean id="invoiceDao" class="org.regola.dao.ognl.OgnlGenericDao">
+		<constructor-arg value="org.regola.model.Invoice" />
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean -->
     	
-</beans>	
+    
+    <bean id="itemDao" class="org.regola.dao.hibernate.ItemDaoHibernate">
+        	<constructor-arg value="org.regola.model.Item" />
+		    <property name="sessionFactory" ref="sessionFactory"/>
+    </bean> 
+     
+    
+    <bean id="invoiceDao" class="org.regola.dao.hibernate.InvoiceDaoHibernate">
+        	<constructor-arg value="org.regola.model.Invoice" />
+		    <property name="sessionFactory" ref="sessionFactory"/>
+    </bean> 
+     
+</beans>        	
 	
             

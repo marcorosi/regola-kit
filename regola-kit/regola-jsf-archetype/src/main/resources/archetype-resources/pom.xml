@@ -226,18 +226,18 @@
       <dependency>
          <groupId>org.regola</groupId>
          <artifactId>regola-jsf-icefaces</artifactId>
-         <version>1.0-M1</version>
+         <version>${version}</version>
       </dependency>
       <dependency>
          <groupId>org.regola</groupId>
          <artifactId>regola-hibernate</artifactId>
-         <version>1.0-M1</version>
+         <version>${version}</version>
       </dependency>
       <!-- questa dipendenza serve solo al plugin del generatore di codice -->
       <dependency>
 		 <groupId>org.regola</groupId>
 		 <artifactId>regola-codeassistence</artifactId>
-		 <version>1.0-M1</version>
+		 <version>${version}</version>
 		 <scope>test</scope>
 	  </dependency>
       

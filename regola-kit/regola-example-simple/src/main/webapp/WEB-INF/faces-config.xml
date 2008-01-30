@@ -4,7 +4,6 @@
 
 <faces-config>
 
-
     <application>
         <view-handler>
             com.icesoft.faces.facelets.D2DFaceletViewHandler
@@ -18,7 +17,7 @@
         </locale-config>
         <message-bundle>ApplicationResources</message-bundle>
     </application>
-
+ 
 	<navigation-rule>
 		<from-view-id>/customer-list.xhtml</from-view-id>
 		<navigation-case>
@@ -26,8 +25,12 @@
 			<to-view-id>/customer-form.html</to-view-id>
 			<!--redirect/ -->
 		</navigation-case>
-	</navigation-rule>     
-    
+		<navigation-case>
+			<from-outcome>listInvoices</from-outcome>
+			<to-view-id>/invoice-list.html</to-view-id>
+			<!--redirect/ -->
+		</navigation-case>
+	</navigation-rule>         
     
 	<navigation-rule>
 		<from-view-id>/customer-form.xhtml</from-view-id>
@@ -85,19 +88,17 @@
 			org.regola.jsfValidators.SilentNumberConverter
 		</converter-class>
 	</converter>
-	
-	<!-- navigation-rule>
-		<from-view-id>/product-form.xhtml</from-view-id>
+
+	<navigation-rule>
+		<from-view-id>/invoice-list.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>save</from-outcome>
-			<to-view-id>/product-list.html</to-view-id>
-			<redirect/>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/invoice-form.html</to-view-id>
 		</navigation-case>
 		<navigation-case>
-			<from-outcome>cancel</from-outcome>
-			<to-view-id>/product-list.html</to-view-id>
-			<redirect/>			
-		</navigation-case>
+			<from-outcome>customers</from-outcome>
+			<to-view-id>/customer-list.html</to-view-id>
+		</navigation-case>		
 	</navigation-rule>
 
 	<navigation-rule>
@@ -105,55 +106,32 @@
 		<navigation-case>
 			<from-outcome>save</from-outcome>
 			<to-view-id>/invoice-list.html</to-view-id>
-			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>cancel</from-outcome>
-			<to-view-id>/invoice-list.html</to-view-id>
-			<redirect/>			
+			<to-view-id>/invoice-list.html</to-view-id>	
 		</navigation-case>
 	</navigation-rule>
     
+	<navigation-rule>
+		<from-view-id>/item-list.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/item-form.html</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 
 	<navigation-rule>
 		<from-view-id>/item-form.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>save</from-outcome>
 			<to-view-id>/item-list.html</to-view-id>
-			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-outcome>cancel</from-outcome>
-			<to-view-id>/item-list.html</to-view-id>
-			<redirect/>			
+			<to-view-id>/item-list.html</to-view-id>	
 		</navigation-case>
-	</navigation-rule -->
+	</navigation-rule>
     
 </faces-config>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

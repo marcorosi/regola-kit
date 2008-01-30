@@ -24,9 +24,10 @@
 			<!-- ice:outputLink value="customer-form.html" styleClass="buttonNew">
 			   <ice:outputText value="#{msg['customer.title']}" />
 			</ice:outputLink -->
+			
 			<ice:commandLink value="#{msg['customer.title']}"
 				  		styleClass="buttonNew"
-				  		action="edit" />			
+				  		action="edit" />
 			
 			<ice:panelGrid styleClass="ptoolbar" columns="100">
 			  <ice:commandButton image="images/option.gif" 
@@ -73,10 +74,15 @@
 						<ice:outputText value="" />
 					</f:facet>
 				<!-- per i problemi di navigazione delle jsf meglio non utilizzare gli outputlink 
-				  <ice:outputLink value="customer-form.html" styleClass="buttonNew">
+				  <!-- ice:outputLink value="customer-form.html" styleClass="buttonNew">
 				    <ice:outputText value="Edita"/>
 			        <f:param name="id" value="#{item.id}"/>
-				  </ice:outputLink>
+				  </ice:outputLink -->
+				  
+				  <ice:commandLink value="Edita"
+				  		styleClass="buttonNew"
+				  		action="edit"
+				  		actionListener="#{customerList.listPage.storeId}" />
 				-->
 				  <ice:commandLink value="Edita"
 				  		styleClass="buttonNew"
@@ -146,6 +152,22 @@
                     <f:selectItem itemValue="50" itemLabel="50"/>
                 </ice:selectOneMenu>
 			</ice:panelGrid>
+			
+			<ice:panelGrid>
+				<!-- danno dei problemi con i css (capire cos'è)
+				<h:commandLink value="Gestione Fatture"
+				 	styleClass="buttonNew"
+				  	action="listInvoices" />
+				<h:commandButton value="Gestione Fatture"
+				 	styleClass="buttonNew"
+				  	action="listInvoices" />
+				 -->
+				<ice:outputLink value="invoice-list.html"
+					styleClass="buttonNew">
+					<ice:outputText value="Gestione Fatture"
+						title="vai alla gestione delle fatture" />
+				</ice:outputLink>
+			</ice:panelGrid>			
 		
 		</ice:form>
 	</ui:define>

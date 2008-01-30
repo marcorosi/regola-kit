@@ -74,7 +74,7 @@
 		<param-value>
 			/WEB-INF/facelets/regola.taglib.xml
 		</param-value>
-	</context-param>
+	</context-param>	
 
 	<filter>
 		<filter-name>encodingFilter</filter-name>

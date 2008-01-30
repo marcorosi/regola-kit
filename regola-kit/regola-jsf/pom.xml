@@ -6,20 +6,19 @@
 	<parent>
 		<groupId>org.regola</groupId>
 		<artifactId>regola-kit</artifactId>
-		<version>1.0-M1</version>
+		<version>1.0-RC2</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-
+ 
 	<artifactId>regola-jsf</artifactId>
 	<packaging>jar</packaging>
 	<name>REGOLA Toolkit :: JSF presentation module</name>
 	<description>REGOLA Toolkit :: JSF presentation module</description>
 
 	<properties>
-		<!-- icefaces.version>1.5.3</icefaces.version-->
 		<icefaces.version>1.6.1</icefaces.version>
 	</properties>
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>${groupId}</groupId>
@@ -67,15 +66,10 @@
 			<version>${spring.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-remoting</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-dao</artifactId>
+			<artifactId>spring-tx</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 
@@ -87,7 +81,7 @@
 
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-support</artifactId>
+			<artifactId>spring-context-support</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 
@@ -109,7 +103,7 @@
 				</exclusion>
 				<exclusion>
 					<groupId>org.springframework</groupId>
-					<artifactId>spring-remoting</artifactId>
+					<artifactId>spring-context</artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId>org.springframework</groupId>
@@ -221,5 +215,90 @@
     		<artifactId>jsr250-api</artifactId>
     		<version>1.0</version>
 		</dependency>
+		
+		<!-- dependency>
+    		<groupId>org.springframework</groupId>
+    		<artifactId>spring-webflow</artifactId>
+    		<version>1.0.5</version>
+		</dependency-->
+		
+		<dependency>
+    		<groupId>org.springframework</groupId>
+    		<artifactId>spring-webflow</artifactId>
+    		<version>2.0-m3</version>
+    		<exclusions>
+    			<exclusion>
+    				<groupId>org.springframework</groupId>
+					<artifactId>spring-beans</artifactId>
+    			</exclusion>
+    			<exclusion>
+    				<groupId>org.springframework</groupId>
+					<artifactId>spring-context</artifactId>
+    			</exclusion>
+    			<exclusion>
+    				<groupId>org.springframework</groupId>
+					<artifactId>spring-core</artifactId>
+    			</exclusion>
+    			<exclusion>
+    				<groupId>org.springframework</groupId>
+					<artifactId>spring-orm</artifactId>
+    			</exclusion>
+    			<exclusion>
+    				<groupId>org.springframework</groupId>
+					<artifactId>spring-tx</artifactId>
+    			</exclusion>
+    			<exclusion>
+    				<groupId>org.springframework</groupId>
+					<artifactId>spring-web</artifactId>
+    			</exclusion>
+    			<exclusion>
+    				<groupId>org.springframework</groupId>
+					<artifactId>spring-webmvc</artifactId>
+    			</exclusion>
+    			<exclusion>
+    				<groupId>org.springframework</groupId>
+					<artifactId>spring-webmvc-portlet</artifactId>
+				</exclusion>
+    		</exclusions>
+		</dependency>
+    		<dependency>
+    			<groupId>org.springframework</groupId>
+    			<artifactId>spring-faces</artifactId>
+    			<version>2.0-m3</version>
+    			<exclusions>
+					<exclusion>
+						<groupId>org.apache.myfaces.core</groupId>
+						<artifactId>myfaces-api</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.apache.myfaces.core</groupId>
+						<artifactId>myfaces-impl</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.apache.shale</groupId>
+						<artifactId>shale-remoting</artifactId>
+					</exclusion>
+    			</exclusions>
+    		</dependency>
+    		<dependency>
+    			<groupId>jboss</groupId>
+    			<artifactId>jboss-el</artifactId>
+    			<version>1.0</version>
+    		</dependency>
+        
 	</dependencies>
+	
+	<repositories>
+		<repository>
+    		<id>spring-milestone</id>
+    		<name>Spring Portfolio Milestone Repository</name>
+    		<url>http://s3.amazonaws.com/maven.springframework.org/milestone</url>
+		</repository>
+		<repository>
+    		<id>spring-repo-ext</id>
+    		<name>Spring Portfolio Milestone Repository</name>
+    		<url>https://springframework.svn.sourceforge.net/svnroot/springframework/repos/repo-ext</url>
+		</repository>
+	</repositories>
+	
 </project>
