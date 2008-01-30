@@ -13,6 +13,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.validator.NotEmpty;
 import org.hibernate.validator.NotNull;
+import org.hibernate.validator.Valid;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
@@ -48,6 +49,7 @@ public class AmendmentUtils
 	{
 		@NotNull
 		@NotEmpty
+		@Valid
 		String dummy;
 	}
 

@@ -436,6 +436,38 @@ public class AmendmentsClassValidator<T> implements Serializable
 	@SuppressWarnings("unchecked")
 	private void createChildValidator( XMember member) {
 		if ( member.isAnnotationPresent( Valid.class ) ) {
+			//controllo presenza emendamento
+			String memberName = member.getName().replace("get", "").replace("set", "");
+			Iterator iterator = amendments.iterator();
+			boolean found = false;
+			Amendment emendament = null;
+			while(!found && iterator.hasNext())
+			{
+				emendament = (Amendment)iterator.next();
+				//N.B. XMember è un'astrazione sia per i methods che per i fields
+				if( (Valid.class).getCanonicalName().equals(emendament.getValidationType()) 
+						&& memberName.equalsIgnoreCase(emendament.getModelProperty()) )
+					found = true;
+			}
+			if( !found || ( found && !emendament.getAmendmentType().equals(EMENDAMENT_REMOVE)) )
+			{		
+				setAccessible( member );
+				childGetters.add( member );
+				XClass clazz;
+				if ( member.isCollection() || member.isArray() ) {
+					clazz = member.getElementClass();
+				}
+				else {
+					clazz = member.getType();
+				}
+				if ( !childClassValidators.containsKey( clazz ) ) {
+					//ClassValidator added by side effect (added to childClassValidators during CV construction)
+					new AmendmentsClassValidator( clazz, messageBundle, userInterpolator, childClassValidators, reflectionManager, (String)null );
+				}
+			}
+			/*
+			 * Codice originale 
+			 *
 			setAccessible( member );
 			childGetters.add( member );
 			XClass clazz;
@@ -449,7 +481,30 @@ public class AmendmentsClassValidator<T> implements Serializable
 				//ClassValidator added by side effect (added to childClassValidators during CV construction)
 				new AmendmentsClassValidator( clazz, messageBundle, userInterpolator, childClassValidators, reflectionManager, (String)null );
 			}
+			*
+			*/
 		}
+	}
+	
+	/*
+	 * Aggiunta validatore per @Valid da emendamento
+	 */
+	protected void addAmendmentValid( XMember member )
+	{
+		//if ( member.isAnnotationPresent( Valid.class ) ) {
+		setAccessible( member );
+		childGetters.add( member );
+		XClass clazz;
+		if ( member.isCollection() || member.isArray() ) {
+			clazz = member.getElementClass();
+		}
+		else {
+			clazz = member.getType();
+		}
+		if ( !childClassValidators.containsKey( clazz ) ) {
+			//ClassValidator added by side effect (added to childClassValidators during CV construction)
+			new AmendmentsClassValidator( clazz, messageBundle, userInterpolator, childClassValidators, reflectionManager, (String)null );
+		}		
 	}
 
 	private void createMemberValidator(XMember member) {
@@ -490,7 +545,7 @@ public class AmendmentsClassValidator<T> implements Serializable
 		//Aggiungo gli eventuali validatori dati dalla configurazione DSL degli emendamenti
 		for (Amendment amendment : amendments)
 		{
-			if(amendment.getModelProperty().equals(memberName)
+			if(amendment.getModelProperty().equalsIgnoreCase(memberName)
 					&& amendment.getAmendmentType().equals(EMENDAMENT_ADD))
 			{
 				
@@ -500,13 +555,20 @@ public class AmendmentsClassValidator<T> implements Serializable
 					
 					if(annotation != null) //l'annotazione è tra quelle permesse per gli emendamenti di aggiunta
 					{
-						Validator propertyValidator = createValidator( annotation );
-						if ( propertyValidator != null ) 
+						if(amendment.getValidationType().equals("org.hibernate.validator.Valid"))
 						{
-							memberValidators.add( propertyValidator );
-							setAccessible( member );
-							memberGetters.add( member );
-							validatorPresent = true;
+							if(!member.getName().startsWith("set"))
+								addAmendmentValid(member);
+						}else
+						{
+							Validator propertyValidator = createValidator( annotation );
+							if ( propertyValidator != null ) 
+							{
+								memberValidators.add( propertyValidator );
+								setAccessible( member );
+								memberGetters.add( member );
+								validatorPresent = true;
+							}
 						}
 					}else
 						log.error("Non è possibile aggiungere il tipo di validazione " + amendment.getValidationType() + " tramite emendamenti!");
