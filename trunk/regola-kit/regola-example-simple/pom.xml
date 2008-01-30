@@ -6,10 +6,10 @@
     <parent>
         <groupId>org.regola</groupId>
         <artifactId>regola-kit</artifactId>
-        <version>1.0-M1</version>
+        <version>1.0-RC2</version>
         <relativePath>../pom.xml</relativePath>
-    </parent>
-    
+    </parent> 
+     
     <artifactId>regola-example-simple</artifactId>
     <packaging>war</packaging>
     <name>REGOLA Toolkit :: An example for IceFaces/Hibernate</name>
@@ -36,7 +36,7 @@
 			java:comp/env/jdbc/RegolaExampleDS
 			</jee.datasource-->
         <jee.datasource>
-            java:comp/env/jdbc/RegolaExampleDS
+            java:jdbc/RegolaExampleDS
         </jee.datasource>
         <!-- Jetty e Tomcat java:comp/env/jdbc/RegolaExampleDS 
 			JBoss java:jdbc/RegolaExampleDS
@@ -365,8 +365,14 @@
         </dependency>
         
         <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>regola-ognl</artifactId>
+            <version>${version}</version>
+        </dependency>
+        
+        <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-mock</artifactId>
+            <artifactId>spring-test</artifactId>
             <scope>test</scope>
         </dependency>
         

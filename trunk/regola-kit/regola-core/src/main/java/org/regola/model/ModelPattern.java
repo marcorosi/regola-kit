@@ -1,6 +1,7 @@
 package org.regola.model;
 
 import java.beans.PropertyDescriptor;
+import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import org.regola.filter.annotation.LessThan;
 import org.regola.util.Clonator;
 import org.springframework.beans.BeanUtils;
 
-public abstract class ModelPattern {
+public abstract class ModelPattern implements Serializable{
 
 	int pageSize = 20;
 	boolean pagingEnabled = true;
