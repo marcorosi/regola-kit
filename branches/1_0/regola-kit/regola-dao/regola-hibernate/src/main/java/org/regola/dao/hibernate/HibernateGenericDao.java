@@ -45,10 +45,28 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 		}
 	}
 
+	/**
+	 * saveOrUpdate() si limita a fare un reattach
+	 * per cui, se nel contesto di persistenza,
+	 * è già stato caricato entity (ovvero un istanza
+	 * diversa da entity ma relativa alla stesso record
+	 * sul database) si solleva un'eccezione di
+	 * NotUniqueObjectException.
+	 */
+	public T save(T entity) {
+		
+		if (getHibernateTemplate().contains(entity))  
+				getHibernateTemplate().merge(entity);
+		else getHibernateTemplate().saveOrUpdate(entity);
+	
+		return entity;
+	}	
+	/*
 	public T save(T entity) {
 		getHibernateTemplate().saveOrUpdate(entity);
 		return entity;
 	}
+	*/
 
 	@SuppressWarnings("unchecked")
 	public List<T> find(final ModelPattern pattern) {

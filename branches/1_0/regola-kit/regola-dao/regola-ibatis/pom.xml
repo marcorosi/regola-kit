@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>regola-dao</artifactId>
 		<groupId>org.regola</groupId>
-		<version>1.0-RC2</version>
+		<version>1.0-RC3</version>
 	</parent>
 	<artifactId>regola-ibatis</artifactId>
 	<name>REGOLA Toolkit :: DAO :: iBATIS module</name>
