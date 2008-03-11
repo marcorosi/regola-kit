@@ -7,7 +7,7 @@
 	<groupId>org.regola</groupId>
 	<artifactId>regola-kit</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0-RC2</version>
+	<version>1.0-RC3</version>
 
 	<name>REGOLA Toolkit</name>
 	<description>Regola conventional framework</description>
@@ -131,9 +131,8 @@
 	</build>
 
 	<properties>
-		<!--spring.version>2.0.7</spring.version-->
-		<spring.version>2.5</spring.version>
-		<regola.version>1.0-RC2</regola.version>
+		<spring.version>2.5.1</spring.version>
+		<regola.version>1.0-RC3</regola.version>
 	</properties>
 
 	<dependencyManagement>
@@ -354,6 +353,23 @@
 			</url>
 		</repository>
 	</repositories>
+	
+	<distributionManagement>
+		<repository>
+			<id>kion.cerbero</id>
+			<name>Kion Distribution Repository</name>
+			<url>
+				scp://cerbero/usr/share/jboss/server/default/deploy/maven-proxy-webapp.war/WEB-INF/target
+			</url>
+		</repository>
+		<snapshotRepository>
+			<id>kion.cerbero</id>
+			<name>Kion Development Snapshot Repository</name>
+			<url>
+				scp://cerbero/usr/share/jboss/server/default/deploy/maven-proxy-webapp.war/WEB-INF/target
+			</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 </project>
 
