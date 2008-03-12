@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
+import org.hibernate.NonUniqueObjectException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.regola.dao.GenericDao;
@@ -55,12 +56,23 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 	 */
 	public T save(T entity) {
 		
-		if (getHibernateTemplate().contains(entity))  
-				getHibernateTemplate().merge(entity);
-		else getHibernateTemplate().saveOrUpdate(entity);
-	
+		if (!getHibernateTemplate().contains(entity))
+		{
+			try 
+			{
+				getHibernateTemplate().saveOrUpdate(entity);
+				return entity;
+			}
+			catch(RuntimeException e)
+			{
+				if (!(e.getCause() instanceof NonUniqueObjectException))
+					throw e;
+			}
+		}
+		
+		getHibernateTemplate().merge(entity);
 		return entity;
-	}	
+	}
 	/*
 	public T save(T entity) {
 		getHibernateTemplate().saveOrUpdate(entity);
