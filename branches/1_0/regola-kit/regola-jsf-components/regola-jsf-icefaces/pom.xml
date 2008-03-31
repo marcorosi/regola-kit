@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.regola</groupId>
 		<artifactId>regola-jsf-components</artifactId>
-		<version>1.0-RC3</version>
+		<version>1.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
