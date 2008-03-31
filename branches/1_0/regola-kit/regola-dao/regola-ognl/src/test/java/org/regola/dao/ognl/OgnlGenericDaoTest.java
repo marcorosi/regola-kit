@@ -198,6 +198,21 @@ public class OgnlGenericDaoTest extends
 		assertEquals(target.size(),customerDao.count(pattern));
 		
 	}
+
+	public void testMaxResults() {
+
+		int PAGE_SIZE = 2;
+		
+		List<Customer> target = fixtureCustomer();
+		
+		customerDao.setTarget(target);
+
+		CustomerPattern pattern = new CustomerPattern();
+		pattern.setPageSize(PAGE_SIZE);
+		List<Customer> list = customerDao.find(pattern);
+
+		assertEquals(PAGE_SIZE,list.size());
+	}
 	
 	public void testExists()
 	{
