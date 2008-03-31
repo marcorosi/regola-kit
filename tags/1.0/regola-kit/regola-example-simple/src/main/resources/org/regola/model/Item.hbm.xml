@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="org.regola.model"
+	default-access="property">
+	<class name="Item" batch-size="20">
+		<composite-id name="id"
+			class="org.regola.model.ItemId">
+			<key-property name="invoiceId" type="java.lang.Integer">
+				<column name="INVOICEID"/>
+			</key-property>
+			<key-property name="itemNumber"
+				type="java.lang.Integer">
+				<column name="ITEM"/>
+			</key-property>
+		</composite-id>	
+		<many-to-one name="product"
+			class="org.regola.model.Product" update="false"
+			insert="false" fetch="select">
+			<column name="PRODUCTID"/>
+		</many-to-one>
+		<property name="quantity" />
+		<property name="cost" />
+	</class>
+</hibernate-mapping>
