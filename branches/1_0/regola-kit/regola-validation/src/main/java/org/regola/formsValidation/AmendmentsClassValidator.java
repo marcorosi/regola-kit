@@ -508,9 +508,10 @@ public class AmendmentsClassValidator<T> implements Serializable
 	}
 
 	private void createMemberValidator(XMember member) {
+		
 		boolean validatorPresent = false;
 		Annotation[] memberAnnotations = member.getAnnotations();
-		String memberName = member.getName().replace("get", "").replace("set", "");//fabio
+		String memberName = member.getName().replace("get", ""); //.replace("set", "");//fabio
 		for ( Annotation methodAnnotation : memberAnnotations ) 
 		{
 			
@@ -557,8 +558,7 @@ public class AmendmentsClassValidator<T> implements Serializable
 					{
 						if(amendment.getValidationType().equals("org.hibernate.validator.Valid"))
 						{
-							if(!member.getName().startsWith("set"))
-								addAmendmentValid(member);
+							addAmendmentValid(member);
 						}else
 						{
 							Validator propertyValidator = createValidator( annotation );
