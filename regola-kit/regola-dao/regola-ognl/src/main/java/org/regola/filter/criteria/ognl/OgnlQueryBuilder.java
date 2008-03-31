@@ -251,74 +251,52 @@ public class OgnlQueryBuilder extends AbstractCriteriaBuilder {
 	@SuppressWarnings("unchecked")
 	public Object executeQuery(Object target) {
 		
-		if (getRootListContext().isEmpty())
+		if(esisteEspressioneDaApplicare())
 		{
-			if (isRowCount()) {
-				if (target instanceof Collection)
-				{
-					return ((Collection) target).size();
-				} return 1;
-			}
+			String ognl = buildQueryString();	
+			Object result = getValue(ognl, target);
 			
-			//else return target; //bug: in questo caso non viene mai fatto l'ordinamento
-			//fix
+			if (isRowCount())
+				return result;
+			else
+				return applyOrderingAndMaxRows((List) result);				
+		} else 
+		{
+			if (isRowCount()) 
+				return (target instanceof Collection) ? ((Collection) target).size() : 1; 
 			else 
-			{
-				Collection targetCollection = (Collection)target;
-				/*
-				 * target potrebbe essere anche di tipo Set, e un cating a List fallirebbe
-				 * (ad esempio persistentSet di Hibernate)
-				 * N.B. Si perde il reference: ma cmq lo si perderebbe in caso di filtraggi
-				 * con la getValue di ognl.
-				 */
-				List targetList = new ArrayList(targetCollection);
-				Collections.sort(targetList, comparator);
-				return targetList;				
-				/*
-				//Collections.sort((List)target, comparator);
-				return target;
-				*/	
-			}
-			
-		}
+				return applyOrderingAndMaxRows((Collection)target);							
+		}		
+	}
+
+	private boolean esisteEspressioneDaApplicare() {
+		return !getRootListContext().isEmpty();
+	}
+
+	@SuppressWarnings("unchecked")
+	private List applyOrderingAndMaxRows(Collection targetCollection) {
+		List targetList = new ArrayList(targetCollection);
+		Collections.sort(targetList, comparator);
 		
-		String ognl = buildQueryString();	
-		Object result = getValue(ognl, target);
-
-		if (isRowCount()) {
-			return result;
-		}
-
-		List list = (List) result;
-
-		Collections.sort(list, comparator);
-
 		if (hasFirstResult()) {
 
 			// forse è zero-offset?
-			if (list.size() >= getFirstResult()) {
+			if (targetList.size() >= getFirstResult()) {
 				
-				for (int i = 0; i++ < getFirstResult(); list.remove(0))
+				for (int i = 0; i++ < getFirstResult(); targetList.remove(0))
 					;
 							
 			} else
-				list.clear();
+				targetList.clear();
 
 		}
+
 		if (hasMaxResults()) {
-
-			if (list.size() > getMaxResults()) {
-				
-				for (int i = 0; i++ < getMaxResults(); list
-						.remove(getMaxResults()))
-					;
-			;
-			}
-
+			while(targetList.size() > getMaxResults())
+				targetList.remove(targetList.size()-1);
 		}
-
-		return result;
-
+		
+		return targetList;
 	}
 
 	public int getFirstResult() {
