@@ -2,13 +2,13 @@
   <id>webapp-archetype</id>
  <testResources>
    <resource filtered="false">src/test/resources/log4j.xml</resource>
-   <resource filtered="false">src/test/resources/hibernate.cfg.xml</resource>
-   <resource filtered="false">src/test/resources/jdbc.test.properties</resource>
+   <resource filtered="false">src/test/resources/designtime.properties</resource>
    <resource filtered="false">src/test/resources/applicationContext-dao-test.xml</resource>
    <resource filtered="false">src/test/resources/applicationContext-service-test.xml</resource>
    <resource filtered="false">src/test/resources/applicationContext-resources-test.xml</resource>
    <resource filtered="false">src/test/resources/jetty/env.xml</resource>
-  </testResources>
+   <resource filtered="false">src/test/resources/hibernate.reveng.xml</resource>
+ </testResources>
  <resources>
    <resource filtered="false">src/main/webapp/error.xhtml</resource>
    <resource filtered="false">src/main/webapp/404.xhtml</resource>
@@ -232,7 +232,7 @@
    <resource filtered="false">src/main/webapp/dialogs/inputText.xhtml</resource>
    <resource filtered="false">src/main/resources/log4j.xml</resource>
    <resource filtered="false">src/main/resources/hibernate.cfg.xml</resource>
-   <resource filtered="false">src/main/resources/jdbc.properties</resource>
+   <resource filtered="false">src/main/resources/runtime.properties</resource>
    <resource filtered="false">src/main/resources/ApplicationResources_en.properties</resource>
    <resource filtered="false">src/main/resources/applicationContext-dao.xml</resource>
    <resource filtered="false">src/main/resources/applicationContext-service.xml</resource>
@@ -242,6 +242,7 @@
    <resource filtered="false">src/main/webapp/WEB-INF/facelets/autoComplete.xhtml</resource>
    <resource filtered="false">src/main/webapp/WEB-INF/facelets/inputErrors.xhtml</resource>
    <resource>pom.xml</resource>
+   <resource filtered="false">show_test_failure</resource>
  </resources>
  <siteResources>
    <resource filtered="false">src/site/site.xml</resource>

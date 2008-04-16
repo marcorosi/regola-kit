@@ -7,7 +7,7 @@
    <version>${version}</version>
    <packaging>war</packaging>
    
-   <name>REGOLA Framework :: JSF application archetype</name>
+   <name>Your application with regola-kit</name>
    <description>...</description>
    
    <properties>
@@ -15,8 +15,6 @@
       <integration.host>http://localhost:8080</integration.host>
       <integration.context>/${project.artifactId}-${project.version}</integration.context>
       <ping.url>${integration.host}${integration.context}/welcome.html</ping.url>
-      <jee.datasource>java:jdbc/YourDataSource</jee.datasource>
-	  
    </properties>
    
    <build>
@@ -86,8 +84,56 @@
             </configuration>
          </plugin>
          
-         
-      </plugins>
+          <plugin>
+						  	<groupId>org.codehaus.mojo</groupId>
+						  	<artifactId>hibernate3-maven-plugin</artifactId>
+								<version>2.2-SNAPSHOT</version>
+								<configuration>
+								  <components>
+								    <component>
+								      <name>hbm2java</name>
+								      <implementation>jdbcconfiguration</implementation>
+											<outputDirectory>src/main/java</outputDirectory>
+								    </component>
+								    <component>
+								      <name>hbm2hbmxml</name>
+								      <outputDirectory>src/main/resources</outputDirectory>
+								    </component>
+								    <component>
+								      <name>hbm2cfgxml</name>
+											<outputDirectory>src/main/resources</outputDirectory>
+								    </component>
+								  </components>
+								  <componentProperties>
+								    <configurationfile>src/main/resources/hibernate.cfg.xml</configurationfile>
+										<propertyfile>src/test/resources/designtime.properties</propertyfile>
+							  	  <revengfile>src/test/resources/hibernate.reveng.xml</revengfile>
+										<packagename>${groupId}.model</packagename>
+										<detectmanytomany>false</detectmanytomany>
+										<jdk5>true</jdk5>
+										<ejb3>false</ejb3>
+								  </componentProperties>
+								</configuration>
+						</plugin> 
+
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>exec-maven-plugin</artifactId>
+							 <configuration>
+					    	<mainClass>org.regola.codeassistence.FullStack</mainClass>
+						  </configuration>
+						</plugin>      
+        
+				</plugins>
+				
+				<extensions>
+					<extension>
+							<groupId>mysql</groupId>
+							<artifactId>mysql-connector-java</artifactId>
+							<version>5.1.6</version>
+					</extension>
+				</extensions>
+		
    </build>
    
    <profiles>
@@ -217,7 +263,7 @@
                      </execution>
                   </executions>
                </plugin>
-            </plugins>
+            	</plugins>
          </build>
       </profile>
    </profiles>
@@ -226,28 +272,35 @@
       <dependency>
          <groupId>org.regola</groupId>
          <artifactId>regola-jsf-icefaces</artifactId>
-         <version>${version}</version>
+         <version>1.1-SNAPSHOT</version>
       </dependency>
       <dependency>
          <groupId>org.regola</groupId>
          <artifactId>regola-hibernate</artifactId>
-         <version>${version}</version>
+         <version>1.1-SNAPSHOT</version>
       </dependency>
-      <!-- questa dipendenza serve solo al plugin del generatore di codice -->
+     
       <dependency>
-		 <groupId>org.regola</groupId>
-		 <artifactId>regola-codeassistence</artifactId>
-		 <version>${version}</version>
-		 <scope>test</scope>
-	  </dependency>
+		 			<groupId>org.regola</groupId>
+				  <artifactId>regola-codeassistence</artifactId>
+		 			<version>1.1-SNAPSHOT</version>
+	  	</dependency>
       
       <dependency>
-         <groupId>org.springframework</groupId>
-         <artifactId>spring-mock</artifactId>
-         <version>2.0.7</version>
-         <scope>test</scope>
-      </dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>2.5.1</version>
+				<scope>test</scope>
+		  </dependency>
+
+      <dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>5.0.4</version>
+		  </dependency>
       
+
+
       <dependency>
          <groupId>commons-dbcp</groupId>
          <artifactId>commons-dbcp</artifactId>
