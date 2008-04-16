@@ -1,0 +1,48 @@
+\chapter{Struttura di un progetto}\label{chap:struttura}
+Questo capitolo funziona un po' come una cartina stradale e rimanda ad altri capitoli per l'approfondimento.
+
+\begin{center}
+{
+  \begin{tabular}{ | l | l | p{6cm} | }
+  \hline
+  / & pom.xml  & il file principale di Maven 2 \\ \hline
+
+  src/main/resources/ & runtime.properties  & proprietà di runtime \\ \hline
+  src/main/resources/ & log4j.xml & la verbosità dei log \\ \hline
+  src/main/resources/ & hibernate.cfg.xml & la configurazione principale di Hibernate  \\ \hline
+  src/main/resources/ & ApplicationResources.properties & i testi tradotti nelle varie lingue  \\ \hline
+  src/main/resources/ & applicationContext-*.xml & le configurazioni di Spring  \\ \hline
+  src/main/resources/ & <stesse cartelle dei packages> & i mappaggi di Hibernate  \\ \hline
+
+  src/test/resources/ & designtime.properties  & proprietà a design time \\ \hline
+  src/test/resources/ & log4j.xml & la verbosità dei log \\ \hline
+  src/main/resources/ &  hibernate.reveng.xml & Hibernate tools  \\ \hline
+  src/main/resources/ & applicationContext-*-test.xml & le configurazioni di Spring  \\ \hline
+  src/main/resources/ & jetty/env.xml & datasource per Jetty  \\ \hline
+
+  \end{tabular}
+}
+\end{center}
+
+
+\section{Lo standard Maven 2}
+TODO: Si descrive lo standard utilizzato e si fa una prima panoramica delle cartelle coinvolte
+
+\section{L'iniezione delle dipendenze}
+TODO: La distinzione tra i tre livelli di bean
+
+\section{La localizzazione}
+TODO: I file di localizzazione
+
+\section{Le connessioni al database}
+TODO: I file di localizzazione
+
+
+\section{Verbosità dei log}
+TODO: log4j e come interagisce con JBoss
+
+\section{La sezione dei test}
+TODO: come configurare i test e quali file utilizzano.
+
+\section{Applicazione Servlet}
+TODO: Davvero in breve la struttura
