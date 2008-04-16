@@ -33,6 +33,7 @@ public class FullStack {
 		options.addOption("c", true, "la classe di modello da utilizzare");
 		options.addOption("d", true, "la directory dove generare i file");
 		options.addOption("s", false, "non scrive su disco: simulazione");
+		options.addOption("m", false, "master/detail, come: -g dao,modelPattern,properties,list-handler,list,form,form-handler");
 
 		System.out.println("Regola: assistente alla scrittura di codice");
 
@@ -46,10 +47,12 @@ public class FullStack {
 			usage(options);
 		}
 		
-		if (!cmd.hasOption("g") || !cmd.hasOption("c") )
+		if (!( cmd.hasOption("g") || cmd.hasOption("m") ) || !cmd.hasOption("c") )
 			usage(options);
 		
-		String generatorsString = cmd.getOptionValue("g");
+		String masterDetail = "dao,modelPattern,properties,list-handler,list,form,form-handler";
+		
+		String generatorsString = cmd.hasOption("m") ? masterDetail: cmd.getOptionValue("g");
 		Options ourOpt = new Options(cmd.getOptionValue("c"));
 		
 		Environment env = new Environment();
@@ -68,7 +71,12 @@ public class FullStack {
 			env.setOutputDir(cmd.getOptionValue("d"));
 		}
 		
+		generate(env, ourOpt,generatorsString);
 		
+	}
+	
+	private static void generate(Environment env, Options ourOpt, String generatorsString) throws ClassNotFoundException
+	{
 		//IClassDescriptor modelDescriptor = env.getDescriptorService()
 		//		.getClassDescriptor(Class.forName(ourOpt.getModelClass()));
 		IClassDescriptor modelDescriptor = env.getClassDescriptor(Class.forName(ourOpt.getModelClass()));	
@@ -76,7 +84,7 @@ public class FullStack {
 		IPropertyDescriptor idProperty = modelDescriptor.getIdentifierDescriptor(); 
 		if (idProperty==null)
 		{
-			System.out.println("Errore: la classe "+ modelDescriptor.getType().getCanonicalName()  +" non presenta la proprieta' id ");
+			System.out.println("error: the class "+ modelDescriptor.getType().getCanonicalName()  +" doesn't have a property named 'id' ");
 			System.exit(1);
 		}
 		
@@ -99,13 +107,14 @@ public class FullStack {
 		//env.setPackageName((String) pb.getParameters().get("package"));
 		
 		for (Generator generator : ourOpt.getGeneratorListByNames(generatorsString.split(","))) {
-			System.out.println(String.format("Processo %s con %s",
+			System.out.println(String.format("process type %s with generator %s",
 					modelDescriptor.getDisplayName(), generator.getDisplayName()));
 
 			generator.generate(env, pb);
 		}
 		
-		System.out.println("Generazione completata");
+		System.out.println("generation completed.");
+
 	}
 
 	private static void usage(org.apache.commons.cli.Options options) {
