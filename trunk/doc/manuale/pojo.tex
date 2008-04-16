@@ -1,0 +1,100 @@
+% This file was converted to LaTeX by Writer2LaTeX ver. 0.4
+% see http://www.hj-gym.dk/~hj/writer2latex for more info
+\documentclass[12pt,twoside]{article}
+\usepackage[ascii]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+\usepackage{color}
+\usepackage{calc}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, filecolor=blue, pagecolor=blue, urlcolor=blue}
+% Outline numbering
+\setcounter{secnumdepth}{0}
+% List styles
+\newcommand\liststyleLi{%
+\renewcommand\labelitemi{[25CF?]}
+\renewcommand\labelitemii{[25CB?]}
+\renewcommand\labelitemiii{[25A0?]}
+\renewcommand\labelitemiv{[25CF?]}
+}
+% Pages styles (master pages)
+\makeatletter
+\newcommand\ps@Standard{%
+\renewcommand\@oddhead{}%
+\renewcommand\@evenhead{}%
+\renewcommand\@oddfoot{}%
+\renewcommand\@evenfoot{}%
+\setlength\paperwidth{20.999cm}\setlength\paperheight{29.699cm}\setlength\voffset{-1in}\setlength\hoffset{-1in}\setlength\topmargin{2cm}\setlength\headheight{12pt}\setlength\headsep{0cm}\setlength\footskip{12pt+0cm}\setlength\textheight{29.699cm-2cm-2cm-0cm-12pt-0cm-12pt}\setlength\oddsidemargin{2cm}\setlength\textwidth{20.999cm-2cm-2cm}
+\renewcommand\thepage{\arabic{page}}
+\setlength{\skip\footins}{0.101cm}\renewcommand\footnoterule{\vspace*{-0.018cm}\noindent\textcolor{black}{\rule{0.25\columnwidth}{0.018cm}}\vspace*{0.101cm}}
+}
+\makeatother
+\pagestyle{Standard}
+\begin{document}
+\subsection{EJB: la delusione}
+La versione 1.0 \`e stata rilasciata nel 1998. Le versione 2.0 ha
+aggiunto i message driven bean. 
+
+Tra le caratteristiche pi\`u appetibili transazioni e sicurezza definite
+in modo dichiarativo.
+
+
+\bigskip
+
+Ma la delusione era dietro l{\textquotesingle}angolo. Pur risolvendo
+diversi problemi gli EJB aprivano la strada ad altri forse pi\`u grosse
+difficolt\`a tanto che iniziavano a vedersi dei libri che spiegavano
+come risolvere questi nuovi problemi piuttosto che concentrarsi su come
+realizzare un migliore design.
+
+
+\bigskip
+
+I problemi pi\`u grossi e derivati sono:
+
+\liststyleLi
+\begin{enumerate}
+\item richiedono un container per funzionare
+
+\begin{enumerate}
+\item ciclo edit{}-compile{}-debug pi\`u lungo
+\item maggiore difficolt\`a nel testare una parte alla volta
+\end{enumerate}
+\item gli entity hanno limitazioni gravi: (1a) non prevedono
+l{\textquotesingle}ereditariet\`a, (1b) non supportano chiamate
+ricorsive o di loopback, \ (2) non conviene passarli ai client \ e a
+volte \`e impossibile perch\'e sono oggetti transazionali collegati al
+motore di persistenza.)
+
+\begin{enumerate}
+\item impediscono di realizzare un modello ricco
+\item spingono ad uno sviluppo di tipo procedurale, piuttosto che
+orientato agli oggetti
+\item l{\textquotesingle}utilizzo pi\`u comodo porta a realizzare
+modelli anemici
+\item dto per il problema (2)
+\end{enumerate}
+\item richiedono molto codice per funzionare (home interface, component
+interface, remote interface, il bean ed i descrittori)
+\end{enumerate}
+
+\bigskip
+
+
+\bigskip
+
+\liststyleLi
+\begin{enumerate}
+\item[] 
+\bigskip
+
+
+\bigskip
+\end{enumerate}
+
+\bigskip
+
+
+\bigskip
+\end{document}
