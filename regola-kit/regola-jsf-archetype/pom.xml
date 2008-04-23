@@ -7,13 +7,13 @@
 	<parent>
 		<groupId>org.regola</groupId>
 		<artifactId>regola-kit</artifactId>
-		<version>1.0</version>
+		<version>1.0.1</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<groupId>org.regola</groupId>
 	<artifactId>regola-jsf-archetype</artifactId>
-	<version>1.0</version>
+	<version>1.0.1</version>
 	<packaging>maven-plugin</packaging>
 	<name>REGOLA Toolkit :: IceFaces/Hibernate Application Template</name>
 

@@ -7,7 +7,7 @@
 	<groupId>org.regola</groupId>
 	<artifactId>regola-kit</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0</version>
+	<version>1.0.1</version>
 
 	<name>REGOLA Toolkit</name>
 	<description>Regola conventional framework</description>
@@ -132,7 +132,7 @@
 
 	<properties>
 		<spring.version>2.5.1</spring.version>
-		<regola.version>1.0</regola.version>
+		<regola.version>1.0.1</regola.version>
 	</properties>
 
 	<dependencyManagement>
