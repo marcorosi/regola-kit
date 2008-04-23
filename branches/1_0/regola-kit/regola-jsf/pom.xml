@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.regola</groupId>
 		<artifactId>regola-kit</artifactId>
-		<version>1.0</version>
+		<version>1.0.1</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
  
@@ -14,10 +14,6 @@
 	<packaging>jar</packaging>
 	<name>REGOLA Toolkit :: JSF presentation module</name>
 	<description>REGOLA Toolkit :: JSF presentation module</description>
-
-	<properties>
-		<icefaces.version>1.6.1</icefaces.version>
-	</properties>
 	
 	<dependencies>
 		<dependency>
