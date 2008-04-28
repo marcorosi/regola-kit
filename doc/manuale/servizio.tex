@@ -10,7 +10,109 @@ TODO: Come crearlo. Si ricorda che esiste un generatore per questo.
 TODO: come sono demarcate e come aggiungere politiche diverse per aprire e chiudere transazioni
 
 \section{Politiche di detach}
-TODO: come usare oggetti detacciati, la sessione lunga, il lazy loading ecc.
+Gli EJB, fin dal loro esordio nel 1998, hanno nascosto le classi di modello al livello di presentazione ed utilizzato in loro vece delle classi apposite, i Data Transfer Object. Questi DTO avevano il compito di raccogliere una visione appiattita del modello che però contenesse tutte e sole le informazioni necessarie al livello di presentazione. Erano oggetti di passaggio, tutti dati e nessuna logica che nascondevano la complessità del modello agli strati superiori, realizzando di fatto un disaccoppiamento forte tra questi livelli. 
+Nonostante questo pregio i DTO hanno contribuito molto alla fama di pesantezza degli EJB in quanto, anche in progetti piccoli, risultava evidente che il lavoro per creare, popolare e sincronizzare i DTO con la classi di modello era di gran lunga superiore ai benefici. La domanda sorta spontanea a molti era: perché non passare ai livelli superiori direttamente le classi di modello? Molti progetti hanno dimostrato che la strada è praticabile con successo e formalizzato i vari modi per farlo.
+In questo paragrafo presenteremo due pattern per utilizzare direttamente le classi di modello nel livello di presentazione conosciuti rispettivamente come pojo façade e modello  esposto.
+
+\subsection{Pojo façade}
+Questo pattern per utilizzare le classi di modello mantiene l'architettura complessiva degli EJB interponendo tra la presentazione ed il modello un apposito livello (façade) il cui compito è ancora quello di fornire servizi per la presentazione. La differenza principale con gli EJB però risiede in due aspetti:
+\begin{enumerate*}
+  \item  Il livello façade è costituito da semplici pojo
+  \item Invece che DTO si passano oggetti di modello, opportunamente trattati
+\end{enumerate*}
+
+Del primo punto bisogna sottolineare che il livello façade, come negli EJB, è ancora responsabile di aprire e chiudere le transazioni così come della sicurezza (autenticazione ed autorizzazione). La differenza è che non è necessario un container JEE per ottenere questi servizi ma sono realizzati tramite un container invertito (come Spring) e la programmazione orientata agli aspetti (AOP). Con il vantaggio di poter effettuare tutti i test fuori dal container.
+Il secondo punto invece richiede alcuni approfondimenti che discuterò di seguito.
+
+\subsubsection{incapsulamento del modello}
+Il modello, secondo la definizione più accettata di Model Driven Development (MDD), è una realtà attiva in grado di utilizzare risorse esterne, ad esempio può presentare dei metodi per salvarsi su database. Se il livello di presentazione chiamasse direttamente questi metodi verrebbe meno la funzione centralizzatrice dei pojo façade ed il sistema solleverebbe diverse eccezioni legate all'assenza di transazioni attive sul livello di presentazione.
+Per ovviare a questo problema esistono alcune tecniche:
+\begin{description*}
+  \item[convenzione] si stabilisce che nessun sviluppatore chiami mai questi metodi e si limiti ad ignorarli. Per gruppi numerosi potrebbe essere necessario rafforzare la convenzione magari marcando i metodi da ignorare con delle annotazioni ed utilizzare un compilatore ad aspetti che riporti come errore ogni chiamata a questi metodi effettuata nel livello di presentazione.
+  \item[visibilità dei metodi]  ovvero marcare i metodi come private o protected. Spesso però il modello è sparso in vari package Java per cui questa possibilità non è praticabile.
+ \item[utilizzare interfacce] il livello di presentazione è scritto non in termini delle classi del modello ma in termini di sotto interfacce che ne espongano solo alcuni metodi nascondendone altri. Può essere realizzato in due modi:
+    \begin{description*}
+      \item[realizzare le interfacce direttamente sul modello] è una strada tecnicamente complessa perché richiede di scrivere metodi covarianti, di affrontare il problema delle collezioni immutabili ed inoltre non consente comunque di esporre quei metodi che richiedevano computazioni realizzabili solo nel livello di modello (perché ad esempio richiedono l'accesso al database)
+      \item[creare degli adapter] hanno lo svantaggio principale di essere terribilmente complicati e finiscono spesso per somigliare ai DTO (in termini dei soli svantaggi).
+    \end{description*}
+\end{description*}
+
+\subsubsection{oggetti staccati (detached)}
+Gli elementi del modello possono effettuare implicitamente delle richieste al motore di persistenza in modo invisibile per i client. Il caso più esemplare è quello delle collezioni che gli ORM gestiscono a volte in modalità di caricamento differito (lazy o late loading). Ovvero gli elementi delle collezione sono recuperati dal database solo al momento del primo accesso ad un elemento, in modo trasparente. Il problema è che nel livello di presentazione sessioni ORM e transazioni non sono disponibili con conseguente errore a run time. Esistono in generale due tipi di soluzioni:
+
+\begin{description*}
+  \item [Eliminare i caricamenti differiti] ovvero effettuare delle configurazioni per gli ORM (dette mappaggi) che carichino subito tutte le collezioni leggendole dal database assieme all'oggetto che le contiene. Bisogna però ricordare che  questa strada non è percorribile quando la mole dei dati è notevole o lo schema del database non lo consenta; circostanze, queste, molte frequenti nella pratica.
+  \item[Fare scattare i caricamenti differiti] ovvero prima di passare al livello di presentazione gli oggetti del modello fare scattare tutti i caricamenti differiti. Spesso gli ORM hanno metodi appositi per fare questo (ad esempio Hibernate ha il metodo Hibernate.initialize() ).
+\end{description*}
+
+\subsubsection{Vantaggi di Pojo Façade}
+Confrontando Pojo Façade, in particolare con gli EJB Façade, emergono diversi punti di forza che riassumo brevemente:
+\begin{description*}
+  \item[sviluppo più facile e (quindi) veloce] per la possibilità di testare fuori dal container e l'assenza di DTO che, come visto, possono essere molto onerosi in termini di tempo.
+  \item[possono eliminare la necessità di un container] visto che non è più necessario per transazioni e sicurezza potrebbe non essere necessario utilizzare un container completo JEE nel progetto.
+ \item[demarcazione flessibile delle transazioni] la configurazione tramite AOP delle transazione può avere un livello di flessibilità inaudito nel mondo EJB.
+\end{description*}
+
+Confrontando invece Pojo Façade con il pattern del modello esposto (presentato nel prossimo paragrafo) si possono isolare i seguenti vantaggi:
+
+\begin{description*}
+  \item[livello di presentazione facilitato] perché non è richiesta una tecnica particolare di gestione delle transazioni sul livello di presentazione, come vedremo
+ \item[vista coerente dei dati del database] tutti i dati sono esposti dai pojo façade e sono quindi raccolti all'interno di un'unica transazione. Questo può non essere vero nel pattern del modello esposto.
+\end{description*}
+
+\subsubsection{Svantaggi di Pojo Façade}
+Gli svantaggi principali rispetto agli EJB façade sono:
+\begin{description*}
+\item[mancanza di standard] lo standard JEE non prevede Spring (per ora e purtroppo) quindi i problemi possono essere di vario genere. In verità Spring è largamente riconosciuto nella comunità di sviluppatori tanto che  moltissime librerie o sono espressamente dedicata a Spring oppure sono facilmente integrabili. Inoltre molte configurazioni standard sono riconosciute da Spring (ad esempio le annotazioni per i web service o per la persistenza). Comunque a titolo di esempio i problemi legati alla mancanza di standard possono essere:
+   \begin{description*}
+     \item[ottenere il pojo façade] il client potrebbe non sapere come ottenere un'istanza del façade, ad esempio un generatore che espone una classe come end point di un servizio web potrebbe non sapere come ottenere un'istanza del pojo façade.
+     \item[sicurezza] la dichiarazione dei vincoli di sicurezza avviene in modo fuori standard e quindi non portabile.
+    \end{description*}
+\item[transazioni iniziate su client remoti] attualmente non è supportato da framework come Spring: i pojo façade non possono partecipare a transazioni avviate esternamente.
+\end{description*}
+
+Con riferimento al pattern del modello esposto i principali svantaggi sono:
+  \begin{description*}
+    \item[problemi con gli oggetti staccati] come visto nei paragrafi precedenti può richiedere una codifica minuziosa e difficile accertare che tutti gli oggetti siano effettivamente staccati dal motore di persistenza. Inoltre gli errori si presentano solo a runtime, cosa che rende più difficile la loro individuazione.
+   \item[incapsulamento del modello] come abbiamo visto può risultare molto complesso nascondere alcuni metodi ai client.
+
+  \end{description*}
+
+\subsection{Modello esposto}
+Un altra tecnica per evitare l'impiego dei DTO non si limita ad utilizzare le classi di modello per la presentazione ma imbocca la strada più radicale di rinunciare ad un livello di façade fornendo direttamente accesso ad un modello non più staccato (detached) ma attivo e transazionale. 
+Il modello esposto è noto anche col nome di Open Session In View o anche Open Persistence Manager In View.
+
+\subsubsection{Quando è possibile utilizzare il modello esposto}
+Per poter utilizzare questo modello sono necessarie due condizioni inderogabili per il livello di presentazione che deve infatti:
+\begin{itemize*}
+  \item poter gestire la sessione dell'ORM
+  \item accedere da locale al modello (sono escluse connessioni remote)
+\end{itemize*}
+ 
+In assenza di queste due condizioni è necessario ripiegare su soluzioni alternative come pojo façade.
+
+\subsubsection{Come funziona}
+Per consentire al modello di funzionare nel livello di presentazione è necessario occuparsi di due aspetti fondamentali:
+\begin{description*}
+  \item[gestire la sessione] La sessione utilizzata dall'ORM deve rimanere aperta per tutta la durata di una richiesta HTTP o addirittura per diverse richieste. Per fare questo è una soluzione consolidata ricorrere ad un filtro HTTP che si occupi prima di mantenere aperta la sessione ed infine di chiuderla anche in presenza di eccezioni. Spring presenta già dei filtri per svolgere questa funzione, tra cui OpenSessionInViewFilter. I vantaggi dell'impiego di un filtro sono:
+    \begin{description*}
+      \item[sicurezza] il filtro viene sempre invocato all'inizio ed alla fine della richiesta
+      \item[riusabilità] lo stesso filtro può essere riusato in diverse applicazioni
+      \item[ortogonalità] è possibile aggiungere e rimuovere il filtro senza modificare il codice del livello di presentazione. 
+    \end{description*}      
+
+  \item[gestire le transazioni] La gestione delle transazioni potrebbe avvenire a livello di presentazione (ovvero essere delegata al filtro della sessione) oppure al livello del modello (ovvero gestita con AOP). Nel primo caso la transazione viene aperta all'inizio della richiesta dal filtro della sessione e chiusa al termine. Nel secondo caso (AOP) è possibile aprire e chiudere le transazioni in base ad uno schema molto più flessibile, come ad esempio attorno alle classi di modello che si occupano dei servizi.
+Entrambi gli approcci presentano vantaggi e svantaggi:
+\end{description*}
+
+\subsection{Conversazioni}
+Nelle applicazioni web una singola operazione di business può essere completata solo attraverso diverse richieste HTTP; ad esempio mediante la compilazione da parte dell'utente di alcune pagine in sequenza e solo al completamento dell'ultima l'operazione si considera o conclusa o annullata. In termini di interazione utente queste operazioni si chiamano conversazioni (o transazioni lunghe o anche transazioni utente) e sono gestite in modo completamente diverso nel pattern dei pojo façade piuttosto che nel modello esposto.
+Nei pojo façade la sessione dell'ORM inizia e si conclude all'interno della singola richiesta HTTP, per cui all'interno di una conversazione (che si compone di diverse richiesta HTTP) vengono usate sessioni diverse. Gli oggetti di modello prima di passare al livello di presentazione sono staccati (detached) dal motore di persistenza  e poi riattaccati (reattached) nella richiesta HTTP successiva. Questa modalità operativa prevede quindi transazioni sul database limitate all'interno delle richieste HTTP e dedica molta attenzione alla fase di attach e detach degli oggetti dall'ORM.
+Nel pattern del modello esposto invece si utilizza la stessa sessione dell'ORM per tutta la durata della conversazione. Gli oggetti di modello passati al livello di presentazione non sono mai staccati (detached) ma rimangono sempre nel contesto di persistenza dell'ORM. Le transazioni sul database sono invece aperte e chiuse all'interno delle richieste HTTP per evitare dei lock sulle righe delle tabelle ed il conseguente degrado per tutta l'applicazione. Per assicurare la coerenza dei dati tra le varie transazioni è necessario abilitare un meccanismo per individuare eventuali variazione sui dati trattati, ad esempio una politica di lock ottimistico. 
+
+
+
+
 
 \section{Web Services}
 TODO: esempi di configurazioni già pronte dentro Regola kit
