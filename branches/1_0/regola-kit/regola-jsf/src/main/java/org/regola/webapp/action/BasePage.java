@@ -4,6 +4,7 @@ package org.regola.webapp.action;
  * Adapted from org.appfuse.webapp.action.BasePage
  */
 
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -85,6 +86,23 @@ public class BasePage {
 		 * Auto-generated catch block e.printStackTrace(); }
 		 */
 	}
+	
+	/**
+	 * execute a jsf redirect to the specified viewId
+	 * 
+	 * @param viewId
+	 */
+	protected void redirect(String viewId) 
+	{
+		FacesContext facesCtx = getFacesContext();
+		try { 
+			facesCtx.getExternalContext().redirect(viewId);
+			facesCtx.responseComplete(); 
+		} catch (IOException e) {
+			throw new RuntimeException("Errore nella redirect a "+viewId); 
+		}
+		
+	}	
 
 	/**
 	 * Allow overriding of facesContext for unit tests
