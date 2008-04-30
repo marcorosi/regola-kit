@@ -1,5 +1,7 @@
 package org.regola.webapp.action;
 
+import java.io.IOException;
+
 import javax.faces.event.ActionEvent;
 
 import org.acegisecurity.AuthenticationException;
@@ -82,7 +84,8 @@ public class LoginForm {
 
                 log.debug(String.format("authentication successful, forwarding to %s obtained from %s", target, targetUrl));
 
-                formPage.forward(target);
+                //formPage.forward(target);
+                formPage.redirect(targetUrl);
             }
 
         } catch (AuthenticationException e) {
