@@ -2,13 +2,14 @@ package org.regola.webapp.action;
 
 import javax.faces.event.ActionEvent;
 
-import org.acegisecurity.AuthenticationException;
-import org.acegisecurity.AuthenticationManager;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.validator.NotEmpty;
 import org.regola.webapp.action.plug.FormPagePlugProxy;
 import org.regola.webapp.security.AuthenticationUtils;
+import org.springframework.security.AuthenticationException;
+import org.springframework.security.AuthenticationManager;
 
 /**
  * JSF backing bean for the login page 

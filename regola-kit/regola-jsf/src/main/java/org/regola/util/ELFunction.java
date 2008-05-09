@@ -1,10 +1,11 @@
 package org.regola.util;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-public abstract class ELFunction implements Map<String,String>
+public abstract class ELFunction implements Map<String,String>, Serializable
 {
 	public void clear()
 	{
@@ -30,7 +31,7 @@ public abstract class ELFunction implements Map<String,String>
 	
 	public boolean isEmpty()
 	{
-		return false;
+		return true;
 	}
 
 	public Set<String> keySet()

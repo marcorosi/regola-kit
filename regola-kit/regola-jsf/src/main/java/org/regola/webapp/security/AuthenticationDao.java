@@ -1,8 +1,10 @@
 package org.regola.webapp.security;
 
-import org.acegisecurity.AuthenticationServiceException;
-import org.acegisecurity.BadCredentialsException;
-import org.acegisecurity.userdetails.UserDetails;
+import org.springframework.security.AuthenticationServiceException;
+import org.springframework.security.BadCredentialsException;
+import org.springframework.security.userdetails.UserDetails;
+
+
 
 /**
  * Interfaccia per i servizi di autenticazione tramite username e password
