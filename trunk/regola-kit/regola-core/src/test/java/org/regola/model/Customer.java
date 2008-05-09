@@ -79,12 +79,13 @@ public class Customer implements Serializable {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("[");
-		sb.append(id);
+		if (id!=null) sb.append(id);
 		sb.append("] ");
-		sb.append(lastName);
+		if (lastName!=null) sb.append(lastName);
 		sb.append(" ");
-		sb.append(firstName);
+		if (firstName!=null) sb.append(firstName);
 		sb.append(", ");
+		if (address != null)
 		sb.append(address.toString());
 		return sb.toString();
 	}
