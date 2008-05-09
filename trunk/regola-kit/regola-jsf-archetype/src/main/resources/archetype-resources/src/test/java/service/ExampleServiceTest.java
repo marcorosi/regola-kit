@@ -7,7 +7,8 @@ import org.regola.service.GenericManager;
 
 public class ExampleServiceTest extends BaseManagerTestCase
 {
-	//tipizzarlo con l'oggetto di modello e la relativa public key
+	
+  /*tipizzarlo con l'oggetto di modello e la relativa public key
 	private GenericManager<Object,Serializable> myModelManager;
 	
 	
@@ -18,7 +19,7 @@ public class ExampleServiceTest extends BaseManagerTestCase
 	public void setMyModelManager(
 			GenericManager<Object,Serializable> myModelManager) {
 		this.myModelManager = myModelManager;
-	}
+	}*/
 	
 	public void testGet()
 	{

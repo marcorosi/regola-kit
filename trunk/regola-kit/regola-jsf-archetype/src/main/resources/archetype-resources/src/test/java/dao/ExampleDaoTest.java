@@ -8,10 +8,10 @@ import org.regola.model.ModelPattern;
 
 public class ExampleDaoTest extends BaseDaoTestCase
 {
-	//tipizzarlo con l'oggetto di modello ed il relativo id
+	
+	/* Inserire qui il Dao da utilizzare
 	private GenericDao<Object , Serializable> myModelDao;
 	
-
 	public GenericDao<Object, Serializable> getMyModelDao() {
 		return myModelDao;
 	}
@@ -19,7 +19,7 @@ public class ExampleDaoTest extends BaseDaoTestCase
 	public void setMyModelDao(
 			GenericDao<Object, Serializable> myModelDao) {
 		this.myModelDao = myModelDao;
-	}
+	}*/
 	
 	public void testGet()
 	{
