@@ -92,14 +92,14 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.acegisecurity</groupId>
-			<artifactId>acegi-security-tiger</artifactId>
-			<version>1.0.3</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>2.0.0</version>
 
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework</groupId>
-					<artifactId>spring-mock</artifactId>
+					<artifactId>spring-core</artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId>org.springframework</groupId>
@@ -107,19 +107,11 @@
 				</exclusion>
 				<exclusion>
 					<groupId>org.springframework</groupId>
-					<artifactId>spring-jdbc</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring-support</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.springframework</groupId>
 					<artifactId>spring-aop</artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId>org.springframework</groupId>
-					<artifactId>spring-dao</artifactId>
+					<artifactId>spring-support</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -223,9 +215,31 @@
 		</dependency-->
 		
 		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-faces</artifactId>
+			<version>2.0.0.RC1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-webflow</artifactId>
+			<version>2.0.0.RC1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-binding</artifactId>
+			<version>2.0.0.RC1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-js</artifactId>
+			<version>2.0.0.RC1</version>
+		</dependency>
+	
+	<!--  		
+		<dependency>
     		<groupId>org.springframework</groupId>
     		<artifactId>spring-webflow</artifactId>
-    		<version>2.0-m3</version>
+    		<version>2.0.0.RC1</version>
     		<exclusions>
     			<exclusion>
     				<groupId>org.springframework</groupId>
@@ -264,7 +278,7 @@
     		<dependency>
     			<groupId>org.springframework</groupId>
     			<artifactId>spring-faces</artifactId>
-    			<version>2.0-m3</version>
+    			<version>2.0.0.RC1</version>
     			<exclusions>
 					<exclusion>
 						<groupId>org.apache.myfaces.core</groupId>
@@ -285,7 +299,12 @@
     			<artifactId>jboss-el</artifactId>
     			<version>1.0</version>
     		</dependency>
-        
+        -->
+        <dependency>
+    			<groupId>jboss</groupId>
+    			<artifactId>jboss-el</artifactId>
+    			<version>1.0</version>
+    		</dependency>
 	</dependencies>
 	
 	<repositories>

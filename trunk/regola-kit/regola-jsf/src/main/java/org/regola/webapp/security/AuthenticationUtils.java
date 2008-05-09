@@ -4,18 +4,19 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.acegisecurity.Authentication;
-import org.acegisecurity.AuthenticationException;
-import org.acegisecurity.AuthenticationManager;
-import org.acegisecurity.context.HttpSessionContextIntegrationFilter;
-import org.acegisecurity.context.SecurityContext;
-import org.acegisecurity.context.SecurityContextHolder;
-import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
-import org.acegisecurity.ui.AbstractProcessingFilter;
-import org.acegisecurity.ui.WebAuthenticationDetails;
-import org.acegisecurity.ui.webapp.AuthenticationProcessingFilter;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.security.Authentication;
+import org.springframework.security.AuthenticationException;
+import org.springframework.security.AuthenticationManager;
+import org.springframework.security.context.HttpSessionContextIntegrationFilter;
+import org.springframework.security.context.SecurityContext;
+import org.springframework.security.context.SecurityContextHolder;
+import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
+import org.springframework.security.ui.AbstractProcessingFilter;
+import org.springframework.security.ui.WebAuthenticationDetails;
+import org.springframework.security.ui.webapp.AuthenticationProcessingFilter;
 
 public class AuthenticationUtils
 {
@@ -36,20 +37,20 @@ public class AuthenticationUtils
 
 		authReq.setDetails(new WebAuthenticationDetails(request));
 
-		session.setAttribute(AuthenticationProcessingFilter.ACEGI_SECURITY_LAST_USERNAME_KEY, userName);
+		session.setAttribute(AuthenticationProcessingFilter.SPRING_SECURITY_LAST_USERNAME_KEY, userName);
 
 		Authentication auth = am.authenticate(authReq);
 		SecurityContext sessionSecCtx = (SecurityContext) session
-				.getAttribute(HttpSessionContextIntegrationFilter.ACEGI_SECURITY_CONTEXT_KEY);
+				.getAttribute(HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY);
 		log.debug(String.format("SecurityContext from session [%s]", sessionSecCtx != null ? sessionSecCtx
 				.toString() : "null"));
 		SecurityContext secCtx = SecurityContextHolder.getContext();
 		secCtx.setAuthentication(auth);
 		log.debug(String.format("SecurityContext from holder [%s]", secCtx != null ? secCtx.toString() : "null"));
 		log.debug("placing SecurityContext from holder into session");
-		session.setAttribute(HttpSessionContextIntegrationFilter.ACEGI_SECURITY_CONTEXT_KEY, secCtx);
+		session.setAttribute(HttpSessionContextIntegrationFilter.SPRING_SECURITY_CONTEXT_KEY, secCtx);
 
-		return AbstractProcessingFilter.obtainFullRequestUrl(request);
+		return AbstractProcessingFilter.obtainFullSavedRequestUrl(request);
 	}
 	
 	/**

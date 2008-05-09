@@ -13,13 +13,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import org.acegisecurity.providers.AuthenticationProvider;
-import org.acegisecurity.providers.ProviderManager;
-import org.acegisecurity.providers.encoding.Md5PasswordEncoder;
-import org.acegisecurity.providers.rememberme.RememberMeAuthenticationProvider;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -39,7 +34,7 @@ public class StartupListener implements ServletContextListener {
 
     @SuppressWarnings("unchecked")
 	public void contextInitialized(ServletContextEvent event) {
-        log.debug("initializing context...");
+        log.debug("regola-kit 1.0: initializing context...");
 
         ServletContext context = event.getServletContext();
 
