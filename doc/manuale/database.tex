@@ -1,6 +1,6 @@
-\chapter{Database}\label{chap:database}
+\chapter{Database}\label{chap:database}\index{datasource|see{database}}
 
-\section{Configurazione di run-time}
+\section{Configurazione di run-time}\index{database!run-time config}
 Le applicazioni JEE generalmente lasciano la gestione delle connessioni database al container. In questo modo è possibile per i sistemisti modificare, ad esempio, la url di connessione oppure il numero di connessioni in pool senza modificare l'applicazione né dovere effettuare una riconsegna (redeploy). Ogni container configura in modo diverso però ogni datasource è caratterizzato necessariamenta da un nome JDNI, ad esempio java:comp/env/jdbc/miodatabase. Questo nome è utilizzato dall'applicazione per recuperare la connessione e, in definitiva, connettersi al database. 
 Nelle applicazioni Regola kit il nome JNDI del datasource è specificato nella proprietà di runtime jee.datasrouce (nel file  src/main/resource/runtime.properties). 
 
@@ -8,7 +8,9 @@ Nelle applicazioni Regola kit il nome JNDI del datasource è specificato nella p
 jee.datasource=java:comp/env/jdbc/Datasource
 \end{bash}
 
-Con questo la configurazione di runtime della vostra applicazione è terminata, non ci sono altre variabili da impostare. Un problema tipico di configurazione riportato di diversi utenti è l'impossibilità di connettersi al datasource per avere utilizzato un indirizzo JNDI sbagliato. La causa del problema  è che il nome con cui l'application server espone la connessione non è \emph{esattamente} quello specificato nella configurazione: perché ad esempio viene preposta la stringa `java:` o a volte `java:comp/env/`.  Per facilitare la soluzione di questo tipo di problema concludiamo il paragrafo riportando qualche configurazione di datasource per gli application server più diffusi. Ad esempio  JBoss richiede di ricopiare nella cartella di deploy del server utilizzato un file con il nome del tipo *-ds.xml (ad esempio miadatasource-ds.xml) con un contenuto simile al seguente:
+Con questo la configurazione di runtime della vostra applicazione è terminata, non ci sono altre variabili da impostare. Un problema tipico di configurazione riportato di diversi utenti è l'impossibilità di connettersi al datasource per avere utilizzato un indirizzo JNDI sbagliato. La causa del problema  è che il nome con cui l'application server espone la connessione non è \emph{esattamente} quello specificato nella configurazione: perché ad esempio viene preposta la stringa `java:` o a volte `java:comp/env/`.  
+\\\index{database!esempi!JBoss}
+Per facilitare la soluzione di questo tipo di problema concludiamo il paragrafo riportando qualche configurazione di datasource per gli application server più diffusi. Ad esempio  JBoss richiede di ricopiare nella cartella di deploy del server utilizzato un file con il nome del tipo *-ds.xml (ad esempio miadatasource-ds.xml) con un contenuto simile al seguente:
 
 \begin{xml}
 <?xml version="1.0" encoding="UTF-8"?>
@@ -39,8 +41,7 @@ jee.datasource=java:jdbc/services
 \end{bash}
 
 
-
-Per quanto riguarda Jetty il file di configurazione env.xml contiene l'indicazione del datasource.
+\index{database!esempi!Jetty}Per quanto riguarda Jetty il file di configurazione env.xml contiene l'indicazione del datasource.
 
 \begin{xml}
 <?xml version="1.0"?>
@@ -74,7 +75,7 @@ TODO: Mi chiedo come mai il dialetto sia specificato come proprietà di designti
 
 
 
-\section{Configurazione di design-time}
+\section{Configurazione di design-time}\index{database!design-time config}
 Tra le caratteristiche invidiabili del framework Spring vi è la possibilità di testare l'applicazione fuori dal container con notevoli risparmio di tempo e relativo aumento di produttività. I servizi necessari ai test sono offerti direttamente da Spring che si sostituisce al container, ad esempio, nella gestione delle transazioni e nei datasource. In quest'ultimo caso è necessario specificare tutte le proprietà di una connessione (come il driver, la url, la username e la password) come proprietà di designtime (nel file src/test/resources/designtime.properties).
 
 \begin{bash}

@@ -7,18 +7,25 @@ TODO: Molto in breve si spiega come ci si incentri sul modello.
 \section{Livelli}
 TODO: Si presentano i vari livelli e si rimanda a capitoli successivi per i dettagli
 
-\section{Model Pattern}
-Tra le innovazioni principali di Regola kit relativamente al design applicativo vi è il tentativo di soluzione di un problema ricorrente in applicazioni che si occupano di gestire e presentare a video popolazioni molto estese di entità (ad esempio persistite in tabelle con migliaia di record), problema che potremmo sinteticamente indicare come la questione dei sottoinsiemi. Ovvero la domanda a cui dare risposta è: come estrarre in modo conveniente sottoinsiemi di entità dall'insieme che tutte le contiene? E ancora come rappresentare in modo sintetico questi sottoinsiemi all'interno di un form html oppure in un'applicazione desktop? La soluzione proposta da Regola kit  riteniamo possa essere sufficientemente assodata e generica da ambire al rango di design pattern; se così fosse pensiamo che la descrizione del problema unitamente alla soluzione individuata possa essere identificata col nome di \emph{Model Pattern}  (oppure anche Selection). 
-La descrizione di ogni pattern si formalizza nello specificarne l'intento, le forze in gioco: 
+\section{Model Pattern}\label{sec:modelpatternTeoria}
+\index{filtri|see{model pattern}}
+\index{selezione|see{model pattern}}
+\index{model pattern!presentazione}
+\index{estrazione|see{model pattern}}
+Regola kit nasce per agevolare la realizzazione di applicazioni web destinate a gestire moli piuttosto ampie di dati generalmente persistite su un database relazionale. Un problema ricorrente in questi contesti è quello che si potrebbe sinteticamente indicare come  come la questione dei sottoinsiemi, ovvero fornire una risposta generale alle domande:  come estrarre in modo conveniente sottoinsiemi di una certa entità dal database? E come rappresentare in modo sintetico questi sottoinsiemi all'interno di un form html oppure in un'applicazione desktop?
+\\
+La soluzione proposta da Regola kit  riteniamo che possa essere ritenuta sufficientemente assodata e generica da ambire al rango di design pattern (magari un minore); se così fosse pensiamo che la descrizione del problema unitamente alla soluzione individuata possa essere identificata col nome di Model Pattern (o in alternativa Selection).\\
+ 
+Nei prossimi paragrafi cercheremo di formalizzare questo nuovo pattern descrivendone intenti e forze in gioco. Si avvisa fin d'ora che materremo il discorso a livello teorico presentando solo esempi astratti utili unicamente per comprendere la portata della soluzione proposta. Rimandiamo al paragrafo \vref{sec:modelpattern} per illustrare l'implementazione di riferimento di Model Pattern (quella contenuta in Regola kit) e spiegarne l'utilizzo all'interno delle vostre applicazioni. 
 
 \subsection{Intento}
 Model Pattern vuole fornire un design appropriato per individuare un sottoinsieme di oggetti del modello di dominio e rappresentare questo sottoinsieme in modo conveniente all'interno del livello di presentazione.
 
 \subsection{Forze}
 In una categoria piuttosto ampia di applicazioni (che comprende la quasi totalità di applicazioni web)  gli oggetti del modello salvano il loro stato in modo persistente su database, magari attraverso dei framework ORM (ad esempio Hibernate, JPA, ecc.). Non di rado il numero di istanze persistenti, per tipologia di classe, è veramente elevato cosa che complica in primis l'estrazione (1) (ovvero il filtraggio) delle istanze. Sempre dalla mole dei dati deriva la necessità di ordinare (2) e paginare (3) gli oggetti estratti: ovvero raggrupparli in sotto gruppi contenenti al più un certo numero di elementi.
-Un altra richiesta tipica delle applicazioni di cui stiamo parlando è quella di rappresentare gli oggetti del modello estratti in modo parziale, ovvero mostrare solo un sotto gruppo di proprietà, in modo da fornire, in un solo colpo d'occhio, tutti gli elementi necessari per prendere delle decisioni sui dati eliminando le proprietà superflue. Questo sezionamento delle classi del modello si chiama proiezione (4).
-Del sottoinsieme degli elementi del modello individuato e estratto dal database (reidratato) è inoltre necessario fornire delle rappresentazioni sintetiche da utilizzare in diversi punti dell'applicazione. Si prenda per esempio la classe Studente ed  il form html che consente di effetture le operazione di editing sulle sue proprietà quali nome, cognome ed altre. Si consideri poi che tra le proprietà della classe Studente vi sia anche la collezione di classi del tipo Esami che contenga gli esami sostenuti fino alla data corrente. Bene, il problema è spesso quello di mostrare nello stesso form html contenete le proprietà di Studente anche la collezione di Esami: in questo caso la rappresentazione corretta potrebbe variare in base alle finalità applicative. Ad esempio le segreterie di facoltà potrebbero essere interessati all'elenco completo di tutti gli esami (nessuna sintesi), i docenti potrebbero volere esclusivamente la media delle valutazione degli esami (applicare una metrica), l'ufficio delle imposte potrebbe essere interessato solo al fatto di aver sostenuto almeno un esame (e quindi un intero che esprime il numero di esami superati). Tutte queste rappresentazioni (elenco, metrica ed intero) sono una descrizione del sottoinsieme di oggetti del modello Esami.
-Inoltre si consideri il caso in cui la collezione di Esami fosse vuota o nulla, in questo caso diverse rappresentazioni tradurrebbero il valore null nel modo più appropriato rispetto al contesto (ad esempio con una stringa che indica l'assenza di esami, o con una segnalazione di errore o quant'altro).  In ogni caso per ogni sottoinsieme di oggetti del modello emerge prepotente la necessità di provvedere ad una o più rappresentazione sintetica (5).
+Un altra richiesta tipica delle applicazioni di cui stiamo parlando è quella di rappresentare gli oggetti del modello estratti in modo parziale, ovvero mostrare solo un sotto gruppo di proprietà, in modo da fornire, in un solo colpo d'occhio, tutti gli elementi necessari per prendere delle decisioni sui dati eliminando le proprietà superflue. Questo sezionamento delle classi del modello si chiama proiezione (4).\\
+Del sottoinsieme degli elementi del modello individuato e estratto dal database (reidratato) è inoltre necessario fornire delle rappresentazioni sintetiche da utilizzare in diversi punti dell'applicazione. Si prenda per esempio la classe Studente ed  il form html che consente di effetture le operazione di editing sulle sue proprietà quali nome, cognome ed altre. Si consideri poi che tra le proprietà della classe Studente vi sia anche la collezione di classi del tipo Esami che contenga gli esami sostenuti fino alla data corrente. Bene, il problema è spesso quello di mostrare nello stesso form html contenete le proprietà di Studente anche la collezione di Esami: in questo caso la rappresentazione corretta potrebbe variare in base alle finalità applicative. Ad esempio le segreterie di facoltà potrebbero essere interessati all'elenco completo di tutti gli esami (nessuna sintesi), i docenti potrebbero volere esclusivamente la media delle valutazione degli esami (applicare una metrica), l'ufficio delle imposte potrebbe essere interessato solo al fatto di aver sostenuto almeno un esame (e quindi un intero che esprime il numero di esami superati). Tutte queste rappresentazioni (elenco, metrica ed intero) sono una descrizione del sottoinsieme di oggetti del modello Esami.\\
+Inoltre si consideri il caso in cui la collezione di Esami fosse vuota o nulla, in questo caso diverse rappresentazioni tradurrebbero il valore null nel modo più appropriato rispetto al contesto (ad esempio con una stringa che indica l'assenza di esami, o con una segnalazione di errore o quant'altro).  In ogni caso per ogni sottoinsieme di oggetti del modello emerge prepotente la necessità di provvedere ad una o più rappresentazione sintetica (5).\\
 Quindi ricapitolando le forze che caratterizzano il problema:
 \begin{enumerate*}
   \item estrazione di dati efficiente da una mole ampia o ampissima
@@ -42,7 +49,7 @@ public class Prodotto {
 }
 \end{java}
 
-Il problema è quello di descrivere in modo sintetico sottoinsiemi di oggetti della classe Prodotto. Procederemo per gradi iniziando con il sottoinsieme diciamo $Alpha$ definito in modo sintetico, dalla descrizione seguente: il sottoinsieme di tutti gli oggetti la cui descrizione inizia con la parola 'manuale'. L'equivalente informatico di questa definizione è costiuito da un'instanza della classe seguente (che svolge il ruolo di Model Pattern):
+Il problema è quello di descrivere in modo sintetico sottoinsiemi di oggetti della classe Prodotto. Procederemo per gradi iniziando con il sottoinsieme diciamo $\Sigma$ definito in modo sintetico, dalla descrizione seguente: il sottoinsieme di tutti gli oggetti la cui descrizione inizia con la parola 'manuale'. L'equivalente informatico di questa definizione è costiuito da un'instanza della classe seguente (che svolge il ruolo di Model Pattern):
 
 \begin{java}
 public class ProdottoPattern  {
@@ -54,8 +61,8 @@ public class ProdottoPattern  {
 }
 \end{java}
 
-In particolare il sottoinsieme $Alpha$ può essere definito da un oggetto della classe ProdottoPattern che ha come proprietà inizioDescrizione la stringa 'manuale'. Si può notare che ProdottoPattern non contiene né il sottoinsieme $Alpha$ né il codice per estrarlo da database; si limita solo a fornirne una descrizione sintetica del sottoinsieme.
-Arricchiamo questo primo esempio includendo anche l'ordine degli oggetti contenuti nel sottoinsieme $Alpha$, ad esempio richiedendo che siano ordinati in base alla proprietà id. In questo caso la classe Model Pattern potrebbe modificarsi così:
+In particolare il sottoinsieme $\Sigma$ può essere definito da un oggetto della classe ProdottoPattern che ha come proprietà inizioDescrizione la stringa 'manuale'. Si può notare che ProdottoPattern non contiene né il sottoinsieme $\Sigma$ né il codice per estrarlo da database; si limita solo a fornirne una descrizione sintetica del sottoinsieme.
+Arricchiamo questo primo esempio includendo anche l'ordine degli oggetti contenuti nel sottoinsieme $\Sigma$, ad esempio richiedendo che siano ordinati in base alla proprietà id. In questo caso la classe Model Pattern potrebbe modificarsi così:
 
 \begin{java}
 public class ProdottoPattern  {
@@ -68,8 +75,8 @@ public class ProdottoPattern  {
 }
 \end{java}
 
-In questo modo sarebbe in grado di descrivere il sottoinsieme ordinato $Alpha$ anche se in modo un po' rozzo infatti si trascura la possibilità di ordinare in modo ascendente o discendente. Comunque l'esempio dovrebbe rendere l'idea di come le classi Model Pattern si limitino a descrivere i sottoinsiemi senza contenere codice per l'estrazione dello stesso. Questo servizio è infatti fornito dalle classi a corredo come quelle fornite da Regola kit che consentono, dato un oggetto del tipo Model Pattern, di ottenere il sottoinsieme voluto. La sfida consiste nella predisposizione di un architettura che consenta di utilizzare dei Model Pattern semplici come quelli mostrati in questi esempi ma in grado di funzionare correttamente (ad esempio indicando che la proprietà inizioDescrizione si riferisce alla proprietà descrizione di Prodotto) su diversi orm. Si rimanda al paragrafo successivo per una descrizione esatta dell'architettura.\\
-Fino a questo momento abbiamo trattato solo la capacità di Model Pattern di esprimere una selezione, adesso ci occuperemo della funzione di rappresentazione del sottoinsieme selezionato. Immaginiamo di dover mostrare in una pagina web il sottoinsieme $Alpha$ in modo sintetico (ovvero senza elencare in una colonna tutti i suoi elementi). Modifichiamo Model Pattern per aggiungere la proprietà sintesi.
+In questo modo sarebbe in grado di descrivere il sottoinsieme ordinato $\Sigma$ anche se in modo un po' rozzo infatti si trascura la possibilità di ordinare in modo ascendente o discendente. Comunque l'esempio dovrebbe rendere l'idea di come le classi Model Pattern si limitino a descrivere i sottoinsiemi senza contenere codice per l'estrazione dello stesso. Questo servizio è infatti fornito dalle classi a corredo come quelle fornite da Regola kit che consentono, dato un oggetto del tipo Model Pattern, di ottenere il sottoinsieme voluto. La sfida consiste nella predisposizione di un architettura che consenta di utilizzare dei Model Pattern semplici come quelli mostrati in questi esempi ma in grado di funzionare correttamente (ad esempio indicando che la proprietà inizioDescrizione si riferisce alla proprietà descrizione di Prodotto) su diversi orm. Si rimanda al paragrafo successivo per una descrizione esatta dell'architettura.\\
+Fino a questo momento abbiamo trattato solo la capacità di Model Pattern di esprimere una selezione, adesso ci occuperemo della funzione di rappresentazione del sottoinsieme selezionato. Immaginiamo di dover mostrare in una pagina web il sottoinsieme $\Sigma$ in modo sintetico (ovvero senza elencare in una colonna tutti i suoi elementi). Modifichiamo Model Pattern per aggiungere la proprietà sintesi.
 
 \begin{java}
 public class ProdottoPattern  {
@@ -89,7 +96,7 @@ public class ProdottoPattern  {
 }
 \end{java} 
 
-Come si vede la proprietà sintesi contiene la logica per fornire una semplice rappresentazione del sottoinsieme $\alpha$ anche nel caso in cui inizioDescrizione sia nullo.
+Come si vede la proprietà sintesi contiene la logica per fornire una semplice rappresentazione del sottoinsieme $\Sigma$ anche nel caso in cui inizioDescrizione sia nullo.
 
 
 

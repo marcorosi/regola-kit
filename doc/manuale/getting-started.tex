@@ -63,7 +63,7 @@ Regola kit è in grado di utilizzare diversi DBMS (ad esempio Oracle, Microsoft 
 
 
 
-\section{Creare un progetto con Regola kit}
+\section{Creare un progetto con Regola kit}\index{progetto!creazione}
 
 Posizionatevi nella cartella dove volete creare il vostro nuovo progetto e digitate un comando simile al seguente con l'accortezza però di modificare il parametro gruopId (nell'esempio \emph{com.acme}) con il nome del vostro package di default ed il parametro  artifactId (nell'esempio  \emph{clienti}) con il nome del nuovo progetto.
 
@@ -83,7 +83,7 @@ nicola@casper:~# cd clienti
 \end{bash}
 
 
-\section{Collegarsi al database}\label{sec:db-link}
+\section{Collegarsi al database}\label{sec:db-link}\index{database!run-time config}
 
 Prima di lanciare la nostra nuova applicazione è necessario informarla circa le coordinate del database da utilizzare, per farlo bisogna apportare un modifica al file src/test/resources/jetty/env.xml con il vostro editor di testo preferito. Dovete inserire cambiare solo il nome del database (alla riga 6) e lo username (riga 8) da utilizzare per ottenere qualcosa di simile al frammento di xml seguente:
 
@@ -107,8 +107,7 @@ Per avere maggiori informazioni sulle diverse configurazioni relative alle conne
 \end{nota}
 
 
-\section{Avviare l'applicazione}
- \index{applicazione!avviare}
+\section{Avviare l'applicazione}\index{applicazione!run}
 Ora tutto è pronto per avviare l'applicazione, se avete lasciato la cartella principale del progetto tornateci e da lì lanciate il comando seguente (e lasciate aperta la console):
 
 \begin{bash}
@@ -125,7 +124,7 @@ Complimenti, avete appena fatto il primo passo nel mondo delle applicazioni Rego
 Per visualizzare l'applicazione state utilizzando un piccolo (ma molto completo) application server di nome Jetty. Per la messa in produzione però si consiglia di utilizzare dei container diversi (ad esempio Tomcat o JBoss). Per imparare a come creare i pacchetti per questi application server si rimanda al capitolo \vref{chap:produzione} 
 \end{nota}
 
-\section{Struttura di un progetto Regola kit}
+\section{Struttura di un progetto Regola kit}\index{progetto!struttura}
 La struttura della cartella di un progetto Regola kit si impronta alla struttra standard di un progetto web di Maven 2. Al primo livello troviamo:
 
 \begin{center}
@@ -217,7 +216,7 @@ Adesso il database contiene una tabella con dei dati che possiamo usare per pers
 mysql> exit
 \end{bash}
 
-\section{(Ri)collegarsi al database}
+\section{(Ri)collegarsi al database}\index{database!design-time config}
 Al paragrafo \vref{sec:db-link} abbiamo configurato l'applicazione per utilizzare il nostro database in fase di esecuzione. Adesso dobbiamo fare in modo che anche in fase di sviluppo si possa accedere al database (ad esempio per usare i generatori di codice o lanciare la batteria di test). Il file da modificare è src/test/resources/designtime.properties e deve essere aggiornato in modo da contenere lo username, la password ed il nome del database. Il risultato finale deve risultare simile al seguente:
 
 \begin{bash}
@@ -231,7 +230,7 @@ hibernate.connection.password =
 \end{bash}
 
 
-\section{Classi di modello}\label{sec:gsmodello}
+\section{Classi di modello}\label{sec:gsmodello}\index{generatori!modello}\index{modello!generazione}\index{reverse engineering}
 Siete ora in grado di scrivere la classe di modello che sarà persistita sulla tabella prodotti... oppure potete farvela generare automaticamente e poi modificare convenientemente le classi prodotte. Userete gli Hibernate Tools che sono già configurati all'interno delle applicazioni prodotte con Regola kit e trovano nell'unico file src/test/resources/hibernate.reveng.xml la configurazione di tutto il processo di generazione inversa, a partire cioè dal database. Specificate il nome della tabella da cui partire (\emph{prodotti} alla riga 2), il nome della classe (\emph{Prodotto}, al singolare e con la prima lettera maiuscola nella riga 4), il package da utilizzare (\emph{com.acme.model} sempre alla riga 2).
 
 \begin{bash}
@@ -317,7 +316,7 @@ Esistono altri goal disponibili, ad esempio la generazione degli script sql per 
 \section{Dal modello alla presentazione}
 Adesso che avete creato la classe di modello è il momento di realizzare il codice per leggere e scrivere oggetti (della classe Prodotto) sul database, le pagine web che elenchino questi oggetti così come la pagine di dettaglio per effettuare modifiche. Questo codice può essere scritto a mano oppure potete partire facendovi generare automaticamente della classi di default che utilizzerete come modello di partenza per le vostre modifiche.
 
-Per avviare il generatore di Regola kit utilizzate il seguente comando:
+\index{generatori!master/detail} Per avviare il generatore di Regola kit utilizzate il seguente comando:
 
 \begin{bash}
 nicola@casper:~/projects/clienti# mvn exec:java -Dexec.args="-c com.acme.model.Prodotto -m"
