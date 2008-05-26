@@ -1,0 +1,108 @@
+\chapter{Application mashup}
+
+\section{Portlet}
+Le pagine di delle applicazioni Regola kit possono essere fruite normalmente attraverso il browser (come abbiamo descritto nei capitoli precedenti) e, nel contempo, esportate come Portlet; questo doppio canale di fruizione offre il vantaggio di poter esportare la vostra applicazione all'interno di portale, di testare la vostra Portlet semplicemente dal browser e, infine, di poter utilizzare lo stesso stack operativo di Regola kit  (dao, manager, Model Pattern, ecc.) per realizzare Portlet.
+
+Per trasformare una pagina web in una Portlet è necessario adottare alcune accortezza all'interno del  modello facelet (il file con estensione .xhtml) e specificare alcune configurazioni. Per quando riguardo il primo punto bisogna limitarsi ad inserire il tag ice:portlet dopo il tag f:view e prima di tutta la gerarchia di componenti. Ecco un semplice esempio di pagina abilitata ad essere un modello di Portlet:
+
+\begin{xml}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:ice="http://www.icesoft.com/icefaces/component">
+<body>
+  <f:view>
+     <ice:portlet>
+        Portlet di esempio realizzata con Regola kit
+     </ice:portlet>
+  </f:view>
+</body>
+</html>
+\end{xml}
+
+Per quanto riguarda le configurazioni bisogna intervenire prima di tutto sul file /WEB-INF/portlet.xml per elencare le Portlet esportate dall'applicazione e per ciascuna indicare il nome (nell'esempio MyPortlet) e la pagina web da utilizzare come modello (ad esempio /myportlet.html). Per le altre configurazioni si rimanda alla documentazione ufficiale relativa alle Portlet. Ecco un esempio di configurazione:
+
+\begin{xml}
+<?xml version="1.0"?>
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd" version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd">
+    <portlet>
+        <portlet-name>MyPortlet</portlet-name>
+        <display-name>Regola kit Portlet</display-name>
+        <portlet-class>com.icesoft.faces.webapp.http.portlet.MainPortlet</portlet-class>
+        <init-param>
+            <name>com.icesoft.faces.VIEW</name>
+            <value>/myportlet.html</value>
+        </init-param>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>view</portlet-mode>
+        </supports>
+        <portlet-info>
+            <title>Regola kit Portlet Example</title>
+            <short-title>My Portlet</short-title>
+            <keywords>regola-kit icefaces portlet</keywords>
+        </portlet-info>
+    </portlet>
+</portlet-app>
+  
+\end{xml}
+
+
+A questo punto la vostra applicazione è in grado di essere consegnata dentro un portale aderente alle specifiche Portlet 1.0, ad esempio LifeRay o JeetSpeed alla cui documentazione rimandiamo per i dettagli del deploy. Di seguito però illustreremo come importare la nostra applicazione all'interno di un container Pluto che consiste semplicemente nell'aggiungere all'interno del /WEB-INF/web.xml una servelt del tipo PortletServlet associata ad ogni Portlet esposta (nell'esempio MyPortlet)  e mappata all'indirizzo  /PlutoInvoker/NomePortlet. Ecco il frammento da aggiungere al file web.xml:
+
+\begin{xml}
+<servlet>
+        <servlet-name>MyPortlet</servlet-name>
+        <servlet-class>org.apache.pluto.core.PortletServlet</servlet-class>
+        <init-param>
+            <param-name>portlet-name</param-name>
+            <param-value>MyPortlet</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet-mapping>
+      <servlet-name>MyPortlet</servlet-name>
+      <url-pattern>/PlutoInvoker/MyPortlet</url-pattern>
+  </servlet-mapping>
+  
+\end{xml}
+
+Infine bisogna consegnare la nostra applicazione nella stessa istanza del container (ad esempio di Tomcat 5.5) in cui sta girando il container Pluto. Ricordiamo che le applicazioni Regola kit sono configurate di default per essere un container Pluto (oltre che un fornitore di Portlet)  e quindi possono visualizzare Portlet di altre applicazioni (realizzate o meno con Regola kit). Vediamo come.
+
+\section{Mashup}
+Un'applicazione realizza un mashup quando le proprie pagine raccolgono all'interno frammenti di altre applicazioni. Regola kit realizza il mashup di Portlet e fornisce strumenti per agevolare la realizzazioni di Portlet come descritto nel paragrafo precedente. Le applicazioni Regola kit sono di default dei contenitori di Portlet basati su Pluto, quindi non è necessario realizzare nessuna configurazione per abilitare questa funzionalità tranne ricordarsi di abilitare, a livello di container, la funzionalità di accedere al altri contesti. In Tomcat 5.5 questo si realizza specificando nel descrittore di contesto qualcosa di simile a questo:
+
+\begin{xml}
+<Context crossContext="true" />
+\end{xml}
+
+Ricordiamo che il contesto si può configurare dentro la cartella conf di Tomcat, oppure dentro conf/Catalina/localhost o addirittura dentro la web root nel file META-INF/context.xml. 
+
+I Portlet ad importare all'interno della vostra applicazione devono essere consegnati nello stesso application server dove gira il container. Attualmente è possibile utilizzare esclusivamente delle pagine jsp per effettuare il mashup dei vari portlet. Ecco un esempio di pagina in cui viene inclusa una Portlet chiamata MyPortlet, fornita da un'applicazione che si trova nel  contesto homes:
+
+\begin{xml}
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ taglib uri="http://portals.apache.org/pluto" prefix="pluto" %>
+<html>
+<head>
+    <title>Prova</title>
+    <style type="text/css" title="currentStyle" media="screen">
+        @import "<c:out value="${pageContext.request.contextPath}"/>/pluto.css";
+        @import "<c:out value="${pageContext.request.contextPath}"/>/portlet-spec-1.0.css";
+    </style>
+    <script type="text/javascript" src="<c:out value="${pageContext.request.contextPath}"/>/pluto.js"></script>
+</head>
+    <body>
+         <h1>Questa pagina include la portlet con nome MyPortlet</h1>
+         <pluto:portlet portletId="/homes.MyPortlet">
+            <pluto:render/>
+          </pluto:portlet>
+   </body>
+</html>
+\end{xml}
+
+
+

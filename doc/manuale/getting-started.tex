@@ -316,9 +316,10 @@ Esistono altri goal disponibili, ad esempio la generazione degli script sql per 
 \section{Dal modello alla presentazione}
 Adesso che avete creato la classe di modello è il momento di realizzare il codice per leggere e scrivere oggetti (della classe Prodotto) sul database, le pagine web che elenchino questi oggetti così come la pagine di dettaglio per effettuare modifiche. Questo codice può essere scritto a mano oppure potete partire facendovi generare automaticamente della classi di default che utilizzerete come modello di partenza per le vostre modifiche.
 
-\index{generatori!master/detail} Per avviare il generatore di Regola kit utilizzate il seguente comando:
+\index{generatori!master/detail} Prima di lanciare il generatore di Regola kit bisogna assicurarsi che il progetto sia compilato e poi invocare il goals exec:java che avvia il generatore. 
 
 \begin{bash}
+nicola@casper:~/projects/clienti# mvn compile
 nicola@casper:~/projects/clienti# mvn exec:java -Dexec.args="-c com.acme.model.Prodotto -m"
 \end{bash}
 
