@@ -69,7 +69,17 @@ Jetty aggiunge al nome configurato la stringa `java:comp/env/` per cui l'indiriz
 jee.datasource=java:comp/env/jdbc/Datasource
 \end{bash}
 
-TODO: Aggiungere la configurazione per Tomcat
+Lo stesso indirizzo JNDI può essere utilizzato anche per un datasource fornito da Tomcat, utilizzando una configurazione simile alla seguente per il file context.xml:
+
+\begin{xml}
+<Context >
+  ...
+  <Resource name="jdbc/Datasource" auth="Container" type="javax.sql.DataSource"
+            maxActive="100" maxIdle="30" maxWait="10000"
+            username="nicola" password="" driverClassName="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost/clienti"/>
+</Context>
+\end{xml}
 
 TODO: Mi chiedo come mai il dialetto sia specificato come proprietà di designtime ma non come proprietà di runtime.
 
