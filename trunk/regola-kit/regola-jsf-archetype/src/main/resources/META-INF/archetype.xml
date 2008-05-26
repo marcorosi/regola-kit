@@ -11,6 +11,8 @@
  </testResources>
  <resources>
    <resource filtered="false">src/main/webapp/error.xhtml</resource>
+   <resource filtered="false">src/main/webapp/portal.jsp</resource>
+   <resource filtered="false">src/main/webapp/myportlet.xhtml</resource>
    <resource filtered="false">src/main/webapp/404.xhtml</resource>
    <resource filtered="false">src/main/webapp/403.xhtml</resource>
    <resource filtered="false">src/main/webapp/welcome.jsp</resource>
@@ -80,12 +82,17 @@
    <resource filtered="false">src/main/webapp/WEB-INF/web.xml</resource>
    <resource filtered="false">src/main/webapp/WEB-INF/jboss-web.xml</resource>
    <resource filtered="false">src/main/webapp/WEB-INF/security.xml</resource>
+   <resource filtered="false">src/main/webapp/WEB-INF/portlet.xml</resource>
    <resource filtered="false">src/main/webapp/WEB-INF/urlrewrite.xml</resource>
    <resource filtered="false">src/main/webapp/WEB-INF/faces-config.xml</resource>
    <resource filtered="false">src/main/webapp/WEB-INF/orion-web.xml</resource>
    <resource filtered="false">src/main/webapp/WEB-INF/sun-web.xml</resource>
    <resource filtered="false">src/main/webapp/WEB-INF/taglibs/corejsf-validator.taglib.xml</resource>
    <resource filtered="false">src/main/webapp/WEB-INF/taglibs/tomahawk.taglib.xml</resource>
+   <resource filtered="false">src/main/webapp/WEB-INF/taglibs/ pluto.tld</resource>
+   <resource filtered="false">src/main/webapp/WEB-INF/taglibs/portlet.tld</resource>
+   <resource filtered="false">src/main/webapp/WEB-INF/taglibs/portlet-el.tld</resource>
+   <resource filtered="false">src/main/webapp/META-INF/context.xml</resource>
    <resource filtered="false">src/main/webapp/scripts/controls.js</resource>
    <resource filtered="false">src/main/webapp/scripts/slider.js</resource>
    <resource filtered="false">src/main/webapp/scripts/dragdrop.js</resource>
