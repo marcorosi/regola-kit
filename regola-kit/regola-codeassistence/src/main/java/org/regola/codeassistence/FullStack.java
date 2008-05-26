@@ -50,7 +50,7 @@ public class FullStack {
 		if (!( cmd.hasOption("g") || cmd.hasOption("m") ) || !cmd.hasOption("c") )
 			usage(options);
 		
-		String masterDetail = "dao,modelPattern,properties,list-handler,list,form,form-handler";
+		String masterDetail = "dao,modelPattern,manager,properties,list-handler,list,form,form-handler";
 		
 		String generatorsString = cmd.hasOption("m") ? masterDetail: cmd.getOptionValue("g");
 		Options ourOpt = new Options(cmd.getOptionValue("c"));
