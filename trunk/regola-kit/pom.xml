@@ -86,6 +86,7 @@
 	<modules>
 		<module>regola-core</module>
 		<module>regola-dao</module>
+		<module>regola-security</module>
 		<module>regola-jsf</module>
 		<module>regola-jsf-components</module>
 		<module>regola-jsf-archetype</module>
