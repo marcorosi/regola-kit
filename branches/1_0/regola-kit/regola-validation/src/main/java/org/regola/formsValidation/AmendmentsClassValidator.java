@@ -37,6 +37,7 @@ import org.hibernate.annotations.common.reflection.XMember;
 import org.hibernate.annotations.common.reflection.XMethod;
 import org.hibernate.annotations.common.reflection.XProperty;
 import org.hibernate.annotations.common.reflection.java.JavaReflectionManager;
+import org.hibernate.annotations.common.reflection.java.JavaXMethod;
 import org.hibernate.mapping.Component;
 import org.hibernate.mapping.PersistentClass;
 import org.hibernate.mapping.Property;
@@ -403,7 +404,8 @@ public class AmendmentsClassValidator<T> implements Serializable
 				while(!found && iterator.hasNext())
 				{
 					emendament = (Amendment)iterator.next();
-					String memberName = member.getName().replace("set", "").replace("get", "");
+					//String memberName = member.getName().replace("set", "").replace("get", "");
+					String memberName = retrieveMemberName(member);
 					if( annotation.annotationType().getCanonicalName().equals(emendament.getValidationType()) 
 							&& memberName.equalsIgnoreCase(emendament.getModelProperty()))
 						found = true;
@@ -413,7 +415,7 @@ public class AmendmentsClassValidator<T> implements Serializable
 				
 					Validator validator = createValidator( annotation );
 					if ( validator != null ) {
-						if ( member != null ) {
+						if ( member != null && member instanceof JavaXMethod && member.getName().startsWith("get") ) {
 							//member
 							memberValidators.add( validator );
 							setAccessible( member );
@@ -437,7 +439,8 @@ public class AmendmentsClassValidator<T> implements Serializable
 	private void createChildValidator( XMember member) {
 		if ( member.isAnnotationPresent( Valid.class ) ) {
 			//controllo presenza emendamento
-			String memberName = member.getName().replace("get", "").replace("set", "");
+			//String memberName = member.getName().replace("get", "").replace("set", "");
+			String memberName = retrieveMemberName(member);
 			Iterator iterator = amendments.iterator();
 			boolean found = false;
 			Amendment emendament = null;
@@ -511,7 +514,8 @@ public class AmendmentsClassValidator<T> implements Serializable
 		
 		boolean validatorPresent = false;
 		Annotation[] memberAnnotations = member.getAnnotations();
-		String memberName = member.getName().replace("get", ""); //.replace("set", "");//fabio
+		//String memberName = member.getName().replace("get", ""); //.replace("set", "");//fabio
+		String memberName = retrieveMemberName(member);
 		for ( Annotation methodAnnotation : memberAnnotations ) 
 		{
 			
@@ -547,7 +551,8 @@ public class AmendmentsClassValidator<T> implements Serializable
 		for (Amendment amendment : amendments)
 		{
 			if(amendment.getModelProperty().equalsIgnoreCase(memberName)
-					&& amendment.getAmendmentType().equals(EMENDAMENT_ADD))
+					&& amendment.getAmendmentType().equals(EMENDAMENT_ADD)
+					&& member instanceof JavaXMethod && member.getName().startsWith("get"))
 			{
 				
 				try
@@ -1047,6 +1052,25 @@ public class AmendmentsClassValidator<T> implements Serializable
 			}
 		}
 		return property;
+	}
+	
+	/*
+	 * XMemeber è un'astrazione che rappresenta sia metodi che campi di una classe
+	 * (cioè gli elementi annotabili)
+	 */
+	public String retrieveMemberName(XMember member)
+	{
+		/*
+		 * NO! errore nel caso in cui il campo contiene la sottostringa get
+		 * 
+		 * String memberName = member.getName().replace("get", "");
+		 */
+		
+		if( (member instanceof JavaXMethod) &&
+				(member.getName().startsWith("get") || member.getName().startsWith("set")) )
+			return member.getName().substring(3);
+		else
+			return member.getName();
 	}
 
 }
