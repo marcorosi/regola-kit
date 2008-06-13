@@ -1,4 +1,4 @@
-package org.regola.service;
+package ${package}.service;
 
 import org.regola.webapp.util.ConvertUtil;
 
