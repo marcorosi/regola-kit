@@ -1,9 +1,9 @@
-package dao;
+package ${package}.dao;
 
 import java.io.Serializable;
 
 import org.regola.dao.GenericDao;
-import org.regola.dao.hibernate.BaseDaoTestCase;
+import ${package}.dao.hibernate.BaseDaoTestCase;
 import org.regola.model.ModelPattern;
 
 public class ExampleDaoTest extends BaseDaoTestCase

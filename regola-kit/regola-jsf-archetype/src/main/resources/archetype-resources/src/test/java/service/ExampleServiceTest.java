@@ -1,8 +1,8 @@
-package service;
+package ${package}.service;
 
 import java.io.Serializable;
 
-import org.regola.service.BaseManagerTestCase;
+import ${package}.service.BaseManagerTestCase;
 import org.regola.service.GenericManager;
 
 public class ExampleServiceTest extends BaseManagerTestCase

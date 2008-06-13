@@ -1,5 +1,5 @@
 <archetype>
-  <id>webapp-archetype</id>
+  <id>regola-jsf</id>
  <testResources>
    <resource filtered="false">src/test/resources/log4j.xml</resource>
    <resource filtered="false">src/test/resources/designtime.properties</resource>
@@ -248,15 +248,14 @@
    <resource filtered="false">src/main/webapp/WEB-INF/facelets/regola.taglib.xml</resource>
    <resource filtered="false">src/main/webapp/WEB-INF/facelets/autoComplete.xhtml</resource>
    <resource filtered="false">src/main/webapp/WEB-INF/facelets/inputErrors.xhtml</resource>
-   <resource>pom.xml</resource>
+   <resource filtered="true">pom.xml</resource>
+   
    <resource filtered="false">show_test_failure</resource>
  </resources>
  <siteResources>
    <resource filtered="false">src/site/site.xml</resource>
  </siteResources>
  <testSources>
-   <source>src/test/java/org/regola/dao/hibernate/BaseDaoTestCase.java</source>
-   <source>src/test/java/org/regola/service/BaseManagerTestCase.java</source>
    <source>src/test/java/pojo/ExamplePojoTest.java</source>   
    <source>src/test/java/dao/ExampleDaoTest.java</source>
    <source>src/test/java/service/ExampleServiceTest.java</source>

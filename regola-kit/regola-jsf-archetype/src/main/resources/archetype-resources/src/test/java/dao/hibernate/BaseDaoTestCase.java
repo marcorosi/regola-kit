@@ -1,4 +1,4 @@
-package org.regola.dao.hibernate;
+package ${package}.dao.hibernate;
 
 import java.util.Enumeration;
 import java.util.HashMap;
