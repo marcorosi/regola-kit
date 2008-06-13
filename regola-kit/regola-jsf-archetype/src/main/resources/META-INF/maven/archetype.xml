@@ -83,6 +83,8 @@
    <resource filtered="false">src/main/webapp/WEB-INF/jboss-web.xml</resource>
    <resource filtered="false">src/main/webapp/WEB-INF/security.xml</resource>
    <resource filtered="false">src/main/webapp/WEB-INF/portlet.xml</resource>
+   <resource filtered="false">src/main/webapp/WEB-INF/pluto.xml</resource>
+   <resource filtered="false">src/main/webapp/WEB-INF/pluto-portal-driver.xml</resource>
    <resource filtered="false">src/main/webapp/WEB-INF/urlrewrite.xml</resource>
    <resource filtered="false">src/main/webapp/WEB-INF/faces-config.xml</resource>
    <resource filtered="false">src/main/webapp/WEB-INF/orion-web.xml</resource>
