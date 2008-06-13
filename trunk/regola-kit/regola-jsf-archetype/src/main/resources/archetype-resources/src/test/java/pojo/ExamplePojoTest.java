@@ -1,4 +1,4 @@
-package pojo;
+package ${package}.pojo;
 
 import junit.framework.TestCase;
 
