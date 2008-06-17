@@ -2,14 +2,14 @@
 <web-app version="2.3" xmlns="http://java.sun.com/xml/ns/j2ee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_3.xsd">
-  
+
 	<display-name>Regola-kit: Simple Example</display-name>
 	<description>
 		Un primo semplice esempio del toolkit grafico con JSF.
 	</description>
- 
+
 	<!-- Define the basename for a resource bundle for I18N -->
-	<context-param> 
+	<context-param>
 		<param-name>
 			javax.servlet.jsp.jstl.fmt.localizationContext
 		</param-name>
@@ -17,10 +17,10 @@
 	</context-param>
 	<!-- Fallback locale if no bundles found for browser's preferred locale -->
 	<!-- Force a single locale using param-name 'javax.servlet.jsp.jstl.fmt.locale' -->
-	<context-param> 
+	<context-param>
 		<param-name>
 			javax.servlet.jsp.jstl.fmt.fallbackLocale
-		</param-name> 
+		</param-name>
 		<param-value>en</param-value>
 	</context-param>
 
@@ -31,12 +31,11 @@
 			classpath*:/applicationContext-resources.xml
 			classpath*:/applicationContext-dao.xml
 			classpath*:/applicationContext-service.xml
-			/WEB-INF/applicationContext*.xml
-			/WEB-INF/security.xml
+			/WEB-INF/applicationContext*.xml /WEB-INF/security.xml
 			/WEB-INF/pluto.xml
 		</param-value>
 	</context-param>
-	
+
 	<!-- context-param>
 		<param-name>org.ajax4jsf.VIEW_HANDLERS</param-name>
 		<param-value>com.sun.facelets.FaceletViewHandler</param-value>
@@ -78,9 +77,7 @@
 	<!-- taglib di regola per autocompletamento -->
 	<context-param>
 		<param-name>facelets.LIBRARIES</param-name>
-		<param-value>
-			/WEB-INF/facelets/regola.taglib.xml
-		</param-value>
+		<param-value>/WEB-INF/facelets/regola.taglib.xml</param-value>
 	</context-param>
 
 	<filter>
@@ -129,22 +126,26 @@
 	</filter>
 
 	<!-- gestite il container portler, per i tag -->
-  <filter>
-    <filter-name>plutoPortalDriver</filter-name>
-    <filter-class>org.apache.pluto.driver.PortalDriverFilter</filter-class>
-  </filter>
+	<filter>
+		<filter-name>plutoPortalDriver</filter-name>
+		<filter-class>
+			org.apache.pluto.driver.PortalDriverFilter
+		</filter-class>
+	</filter>
 
-  <filter-mapping>
-    <filter-name>plutoPortalDriver</filter-name>
-    <url-pattern>/portal.jsp</url-pattern>
-  </filter-mapping>
-	
-		<!-- Enables Spring Security -->
- <filter>
-      <filter-name>springSecurityFilterChain</filter-name>
-      <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-  </filter>
-	
+	<filter-mapping>
+		<filter-name>plutoPortalDriver</filter-name>
+		<url-pattern>/portal.jsp</url-pattern>
+	</filter-mapping>
+
+	<!-- Enables Spring Security -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>
+			org.springframework.web.filter.DelegatingFilterProxy
+		</filter-class>
+	</filter>
+
 
 	<!--filter>
 		<description>gestione dell'autenticazione</description>
@@ -160,10 +161,10 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
- <filter-mapping>
-    <filter-name>springSecurityFilterChain</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<!--filter-mapping>
 		<filter-name>filtroAutenticazione</filter-name>
@@ -224,10 +225,12 @@
 		</listener-class>
 	</listener>
 
-  <!-- pluto container listener -->
-  <listener>
-    <listener-class>org.apache.pluto.driver.PortalStartupListener</listener-class>
-  </listener>
+	<!-- pluto container listener -->
+	<listener>
+		<listener-class>
+			org.apache.pluto.driver.PortalStartupListener
+		</listener-class>
+	</listener>
 
 	<listener>
 		<listener-class>
@@ -270,19 +273,21 @@
 	</servlet>
 
 	<servlet>
-        <servlet-name>MyPortlet</servlet-name>
-        <servlet-class>org.apache.pluto.core.PortletServlet</servlet-class>
-        <init-param>
-            <param-name>portlet-name</param-name>
-            <param-value>MyPortlet</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-  </servlet>
-  
-  <servlet-mapping>
-      <servlet-name>MyPortlet</servlet-name>
-      <url-pattern>/PlutoInvoker/MyPortlet</url-pattern>
-  </servlet-mapping>
+		<servlet-name>MyPortlet</servlet-name>
+		<servlet-class>
+			org.apache.pluto.core.PortletServlet
+		</servlet-class>
+		<init-param>
+			<param-name>portlet-name</param-name>
+			<param-value>MyPortlet</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MyPortlet</servlet-name>
+		<url-pattern>/PlutoInvoker/MyPortlet</url-pattern>
+	</servlet-mapping>
 
 
 	<!-- Persistent Faces Servlet Mappings -->
@@ -321,33 +326,37 @@
 	</welcome-file-list>
 
 	<error-page>
-	    <exception-type>java.lang.Throwable</exception-type>
-	    <location>/error.html</location>
-	</error-page> 
-	
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/error.html</location>
+	</error-page>
+
 	<error-page>
 		<error-code>403</error-code>
 		<location>/403.html</location>
 	</error-page>
-	
+
 	<error-page>
 		<error-code>404</error-code>
 		<location>/404.html</location>
 	</error-page>
 
 	<!-- portlet tag -->
-  <taglib>
-    <taglib-uri>http://java.sun.com/portlet</taglib-uri>
-    <taglib-location>/WEB-INF/taglibs/portlet.tld</taglib-location>
-  </taglib>
-  <taglib>
-    <taglib-uri>http://portals.apache.org/pluto/portlet-el</taglib-uri>
-    <taglib-location>/WEB-INF/taglibs/portlet-el.tld</taglib-location>
-  </taglib>
-  <taglib>
-    <taglib-uri>http://portals.apache.org/pluto</taglib-uri>
-    <taglib-location>/WEB-INF/taglibs/pluto.tld</taglib-location>
-  </taglib>
+	<taglib>
+		<taglib-uri>http://java.sun.com/portlet</taglib-uri>
+		<taglib-location>/WEB-INF/taglibs/portlet.tld</taglib-location>
+	</taglib>
+	<taglib>
+		<taglib-uri>
+			http://portals.apache.org/pluto/portlet-el
+		</taglib-uri>
+		<taglib-location>
+			/WEB-INF/taglibs/portlet-el.tld
+		</taglib-location>
+	</taglib>
+	<taglib>
+		<taglib-uri>http://portals.apache.org/pluto</taglib-uri>
+		<taglib-location>/WEB-INF/taglibs/pluto.tld</taglib-location>
+	</taglib>
 
-	
+
 </web-app>
