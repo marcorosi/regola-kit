@@ -4,11 +4,16 @@
 
 <faces-config>
 
+	<!-- lifecycle>
+    	<phase-listener>org.springframework.webflow.executor.jsf.FlowPhaseListener</phase-listener>
+	</lifecycle-->
+        
+
     <application>
-        <view-handler>
-            com.icesoft.faces.facelets.D2DFaceletViewHandler
-        </view-handler>
+        <view-handler>com.icesoft.faces.facelets.D2DFaceletViewHandler</view-handler>
         <!-- view-handler>com.sun.facelets.FaceletViewHandler</view-handler-->
+        <!-- navigation-handler>org.springframework.webflow.executor.jsf.FlowNavigationHandler</navigation-handler-->
+    	<!-- variable-resolver>org.springframework.webflow.executor.jsf.DelegatingFlowVariableResolver</variable-resolver -->
         <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
         <locale-config>
             <default-locale>it</default-locale>
@@ -17,7 +22,7 @@
         </locale-config>
         <message-bundle>ApplicationResources</message-bundle>
     </application>
- 
+    
 	<navigation-rule>
 		<from-view-id>/customer-list.xhtml</from-view-id>
 		<navigation-case>
@@ -89,6 +94,7 @@
 		</converter-class>
 	</converter>
 
+
 	<navigation-rule>
 		<from-view-id>/invoice-list.xhtml</from-view-id>
 		<navigation-case>
@@ -113,6 +119,7 @@
 		</navigation-case>
 	</navigation-rule>
     
+
 	<navigation-rule>
 		<from-view-id>/item-list.xhtml</from-view-id>
 		<navigation-case>
@@ -134,4 +141,24 @@
 	</navigation-rule>
     
 </faces-config>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

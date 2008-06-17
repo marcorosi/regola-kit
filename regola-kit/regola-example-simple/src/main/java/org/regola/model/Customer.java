@@ -1,11 +1,12 @@
 package org.regola.model;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 
 import org.hibernate.validator.NotEmpty;
 
-public class Customer {
+public class Customer implements Serializable {
 
 	private Integer id;
 	private String firstName;

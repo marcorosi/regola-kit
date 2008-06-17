@@ -17,7 +17,9 @@
 
 	<properties>
 		<!-- icefaces.version>1.5.3</icefaces.version-->
-		<icefaces.version>1.6.1</icefaces.version>
+		<!-- icefaces.version>1.6.1</icefaces.version -->
+		<icefaces.version>1.7.0</icefaces.version>
+		<!-- icefaces.version>1.7.0-DR3a</icefaces.version -->
 	</properties>
 
 	<dependencies>
