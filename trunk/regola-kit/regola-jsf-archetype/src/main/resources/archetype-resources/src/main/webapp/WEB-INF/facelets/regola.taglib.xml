@@ -12,4 +12,12 @@
 		<tag-name>viewInputErrors</tag-name>
 		<source>inputErrors.xhtml</source>
 	</tag>
+	<tag>
+    	<tag-name>expandibleTable</tag-name>
+		<component>
+			<component-type>com.icesoft.faces.HtmlDataTable</component-type>
+			<renderer-type>com.icesoft.faces.TableII</renderer-type>
+			<handler-class>com.icesoft.faces.component.facelets.IceComponentHandler</handler-class>
+		</component>
+	</tag>
 </facelet-taglib>

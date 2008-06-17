@@ -263,6 +263,6 @@
    <source>src/test/java/service/ExampleServiceTest.java</source>
  </testSources>
  <sources>
-   <source>src/main/java/org/regola/webapp/security/impl/ExampleAuthenticationDao.java</source>
+   <source>src/main/java/webapp/security/impl/ExampleAuthenticationDao.java</source>
  </sources> 
 </archetype>

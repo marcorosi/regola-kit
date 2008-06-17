@@ -1,4 +1,4 @@
-package org.regola.webapp.security.impl;
+package ${package}.webapp.security.impl;
 
 import org.springframework.security.AuthenticationServiceException;
 import org.springframework.security.BadCredentialsException;
