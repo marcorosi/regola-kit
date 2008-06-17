@@ -5,7 +5,7 @@
 
 
 # usa il meccanismo degli archetipi di maven per creare il progetto
-mvn archetype:create -DarchetypeGroupId=org.regola  -DarchetypeArtifactId=regola-jsf-archetype -DarchetypeVersion=1.1-SNAPSHOT -DgroupId=$1 -DartifactId=$2
+mvn archetype:generate -Darchetype.interactive=false  -DarchetypeGroupId=org.regola  -DarchetypeArtifactId=regola-jsf-archetype -DarchetypeVersion=1.1-SNAPSHOT -DgroupId=$1 -DartifactId=$2
 
 
 # entra nel progetto

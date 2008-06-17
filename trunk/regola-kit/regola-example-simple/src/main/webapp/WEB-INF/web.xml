@@ -3,48 +3,43 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
   
-	<display-name>Regola-kit: Simple Example</display-name>
-	<description> 
-		Un primo semplice esempio del toolkit grafico con JSF.
-	</description>
- 
+ 	<display-name>Regola-kit: Simple Example</display-name>
+	<description>JSF/WebFlow example</description>
+  
 	<!-- Define the basename for a resource bundle for I18N -->
 	<context-param> 
-		<param-name>
+		<param-name> 
 			javax.servlet.jsp.jstl.fmt.localizationContext
 		</param-name>
 		<param-value>ApplicationResources</param-value>
 	</context-param>
 	<!-- Fallback locale if no bundles found for browser's preferred locale -->
 	<!-- Force a single locale using param-name 'javax.servlet.jsp.jstl.fmt.locale' -->
-	<context-param> 
+	<context-param>
 		<param-name>
 			javax.servlet.jsp.jstl.fmt.fallbackLocale
-		</param-name> 
+		</param-name>
 		<param-value>en</param-value>
-	</context-param>
+	</context-param> 
 
-	<!-- Context Configuration locations for Spring XML files -->
-	<context-param>
+	<!-- Context Configuration locations for Spring XML files --> 
+	<context-param> 
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			classpath*:/applicationContext-resources.xml
-			classpath*:/applicationContext-dao.xml
-			classpath*:/applicationContext-service.xml
-			/WEB-INF/applicationContext*.xml
-			/WEB-INF/security.xml
+			/WEB-INF/config/applicationContext.xml
 		</param-value>
 	</context-param>
+	
 	
 	<!-- context-param>
 		<param-name>org.ajax4jsf.VIEW_HANDLERS</param-name>
 		<param-value>com.sun.facelets.FaceletViewHandler</param-value>
 		</context-param-->
-	<context-param>
+	<!--  context-param>
 		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
 		<param-value>client</param-value>
-	</context-param>
-	<context-param>
+	</context-param-->
+	<context-param> 
 		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
 		<param-value>.xhtml</param-value>
 	</context-param>
@@ -53,6 +48,25 @@
 		<param-name>facelets.DEVELOPMENT</param-name>
 		<param-value>true</param-value>
 	</context-param>
+	<!-- Cause Facelets to refresh templates during development -->
+  	<context-param>
+  		<param-name>facelets.REFRESH_PERIOD</param-name>
+  		<param-value>1</param-value>
+  	</context-param>
+  	
+  	<!-- Cause Facelets always reconstruct the component tree, cutting down on the amount of state that needs to be 
+  	serialized -->
+  	<context-param>
+  		<param-name>facelets.BUILD_BEFORE_RESTORE</param-name>
+  		<param-value>false</param-value>
+  	</context-param>
+
+    <context-param>
+        <param-name>com.icesoft.faces.standardRequestScope</param-name>
+        <param-value>false</param-value>
+    </context-param>
+	
+  	
 	<!-- Optional JSF-RI Parameters to Help Debug -->
 	<context-param>
 		<param-name>com.sun.faces.validateXml</param-name>
@@ -147,12 +161,12 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-	<filter-mapping>
+	<!-- filter-mapping>
 		<filter-name>securityFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>REQUEST</dispatcher>
-	</filter-mapping>
+	</filter-mapping-->
 
 	<!--filter-mapping>
 		<filter-name>filtroAutenticazione</filter-name>
@@ -218,14 +232,12 @@
 		</listener-class>
 	</listener>
 
+	<!-- Just here so the JSF implementation can initialize, *not* used at runtime -->
 	<servlet>
 		<servlet-name>faces</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
-
-
-
 
 	<servlet>
 		<servlet-name>SOAPServlet</servlet-name>
@@ -237,28 +249,69 @@
 	<!-- Persistent Faces Servlet -->
 	<servlet>
 		<servlet-name>Persistent Faces Servlet</servlet-name>
-		<servlet-class>
-			com.icesoft.faces.webapp.xmlhttp.PersistentFacesServlet
-		</servlet-class>
+		<servlet-class>com.icesoft.faces.webapp.xmlhttp.PersistentFacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
 	<!-- Blocking Servlet -->
 	<servlet>
 		<servlet-name>Blocking Servlet</servlet-name>
-		<servlet-class>
-			com.icesoft.faces.webapp.xmlhttp.BlockingServlet
-		</servlet-class>
+		<servlet-class>com.icesoft.faces.webapp.xmlhttp.BlockingServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
+	<!--  
+	<servlet>
+        <servlet-name>SpringWebFlowInstantiationServlet</servlet-name>
+        <servlet-class>com.icesoft.faces.webapp.http.servlet.SpringWebFlowInstantiationServlet</servlet-class>
+                <init-param>
+                        <param-name>configLocations</param-name>
+                        <param-value>/WEB-INF/webflow-config.xml</param-value>
+                </init-param>
+        <load-on-startup> 1 </load-on-startup>
+    </servlet> -->
+	 
+	 
+	<!--   The front controller of the Spring Web application, responsible for handling all application requests   
+	<servlet>
+		<servlet-name>Spring Web Servlet</servlet-name>
+		<servlet-class>org.springframework.webflow.servlet.SpringWebServlet</servlet-class>
+		<init-param>
+			<param-name>configLocations</param-name>
+			<param-value>/WEB-INF/webflow-config.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup> 
+	</servlet>  -->
 
+	<!--	--> 
+	<servlet>
+		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/empty.xml</param-value>
+		</init-param> 
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<!-- Map all *.spring requests to the Web Servlet for handling -->
+	<servlet-mapping>
+		<!-- servlet-name>Persistent Faces Servlet</servlet-name-->
+		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+		<url-pattern>/spring/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Just here so the JSF implementation can initialize -->
+	<servlet-mapping>
+		<servlet-name>faces</servlet-name>
+		<url-pattern>*.faces</url-pattern>
+	</servlet-mapping> 
 
 	<!-- Persistent Faces Servlet Mappings -->
 	<servlet-mapping>
 		<servlet-name>Persistent Faces Servlet</servlet-name>
 		<url-pattern>/xmlhttp/*</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> 
 
 	<servlet-mapping>
 		<servlet-name>Persistent Faces Servlet</servlet-name>
@@ -288,6 +341,6 @@
 	<error-page>
 	    <exception-type>java.lang.Throwable</exception-type>
 	    <location>/error.html</location>
-	</error-page>
-	
+	</error-page> 
+
 </web-app>

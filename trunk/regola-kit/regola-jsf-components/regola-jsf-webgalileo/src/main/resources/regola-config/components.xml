@@ -37,7 +37,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
             <bean class="org.regola.webapp.action.FormPage" scope="session">
                 <property name="component">
                     <bean  class="org.regola.webapp.action.webgalileo.FormPageWebGalileo" scope="session">
-                        <property name="renderManager" ref="renderManager" />
+                        
                     </bean>
                 </property>
             </bean>
