@@ -94,7 +94,8 @@
 		<module>regola-validation</module>
 		<module>regola-event-broker</module>
 		<module>regola-codeassistence</module>
-                <module>regola-example-simple</module>
+		<module>regola-cas-client</module>
+        <module>regola-example-simple</module>
 	</modules>
 
 	<build>
