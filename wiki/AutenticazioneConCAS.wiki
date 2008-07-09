@@ -1,4 +1,4 @@
-#Come configurare l'autenticazione tramite CAS
+#summary Come configurare l'autenticazione tramite CAS
 
 Regola-kit permette di integrare un'applicazione con un sistema di single sign on implementato con CAS (www.ja-sig.org/products/cas/).
 L'applicazione potrà così sfruttare l'autenticazione di un server CAS esistente e sfruttare anche il servizio di proxy authentication.
