@@ -93,8 +93,8 @@
 		<module>regola-validation</module>
 		<module>regola-event-broker</module>
 		<module>regola-codeassistence</module>
-    <module>regola-example-simple</module>
-    <module>regola-maven-plugin</module>
+    		<module>regola-example-simple</module>
+    		<!--module>regola-maven-plugin</module-->
   </modules>
 
 	<build>
@@ -132,7 +132,7 @@
 
 	<properties>
 		<!--spring.version>2.0.7</spring.version-->
-		<spring.version>2.5.3</spring.version>
+		<spring.version>2.5.4</spring.version>
 		<regola.version>1.1-SNAPSHOT</regola.version>
 	</properties>
 
@@ -354,5 +354,19 @@
 			</url>
 		</repository>
 	</repositories>
+
+	<distributionManagement>
+		<repository>
+			<id>cesia.proxy</id>
+			<name>Kion Distribution Repository</name>
+			<url>http://localhost:8081/artifactory/libs-snapshots@repo</url>
+		</repository>
+		<snapshotRepository>
+			<id>cesia.proxy</id>
+			<name>Kion Development Snapshot Repository</name>
+			<url>http://localhost:8081/artifactory/libs-snapshots@repo</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 
 </project>
