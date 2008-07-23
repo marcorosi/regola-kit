@@ -329,7 +329,85 @@ public class BaseQueryBuilder extends AbstractCriteriaBuilder {
 	public boolean isRowCount() {
 		return rowCount;
 	}
+	
+	/* 
+	 * Versione con subselect per problema distinct in presenza di CLOB.
+	 * Non praticabile in quanto l'ordinamento non può essere estratto dalla subquery.
+	 * 
+	protected String buildQuery() {
+		StringBuilder query = new StringBuilder();
+		
+		String rootEntityAlias = getRootEntity().getAlias();
+		if (getEntities().size() > 1) 
+			rootEntityAlias += "ext";	//alias root entity per la query esterna (mantengo il default per la subselect)
+		
+		if (isRowCount()) {
+			query.append("select count(");
+			query.append(getRootEntityCountAlias());
+			query.append(") from ");
+		} else {
+			query.append("select ");
+			query.append(rootEntityAlias);
+			query.append(" from ");
+		}
+		
+		if (getEntities().size() > 1) {
+			query.append(getRootEntity().getName());
+			query.append(" ");
+			//query.append(getRootEntity().getAlias());			
+			query.append(rootEntityAlias);
+			query.append(" where ");
+			
+			query.append(rootEntityAlias);
+			//query.append(getRootEntity().getAlias());
+			query.append(".id in ( ");
+			query.append("select distinct ");
+			query.append(getRootEntity().getAlias());
+			query.append(".id from ");
+		}
+		
+		int count = getEntities().size();
+		for (int i = 0; i < count; i++) {
+			Entity entity = getEntities().get(i);
+			if (entity.getName() != null) {
+				query.append(entity.getName());
+				query.append(" ");
+				query.append(entity.getAlias());
+			} else if (entity.getJoinedBy() != null) {
+				query.append(entity.getJoinedBy().getEntity().getAlias());
+				query.append(".");
+				query.append(entity.getJoinedBy().getName());
+				query.append(" ");
+				query.append(entity.getAlias());
+			}
+			if (i < count - 1) {
+				query.append(" join ");
+			} else {
+				query.append(" ");
+			}
+		}
 
+		count = getFilters().size();
+		if (count > 0) {
+			query.append(" where ");
+			query.append(joinFilters());
+		}
+
+		// N.B. ordinamento devo metterlo nella subselect perchè potrebbe essere su colonne di tabelle in join 
+		// --> ma su oracle non è supportata questa sintassi
+		count = getOrderBy().size();
+		if (count > 0) {
+			query.append(" order by ");
+			query.append(joinOrderBy());
+		}
+		
+		if (getEntities().size() > 1) 
+			query.append(" ) ");	
+
+		return query.toString();
+	}
+	*/
+	
 	protected String buildQuery() {
 		StringBuilder query = new StringBuilder();
 		if (isRowCount()) {
@@ -385,8 +463,8 @@ public class BaseQueryBuilder extends AbstractCriteriaBuilder {
 		}
 
 		return query.toString();
-	}
-
+	}	
+	
 	protected String getRootEntityCountAlias() {
 		return getRootEntity().getAlias();
 	}

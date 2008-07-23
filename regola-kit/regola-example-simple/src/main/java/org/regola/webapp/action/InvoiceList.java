@@ -3,6 +3,7 @@ package org.regola.webapp.action;
 import org.regola.model.Invoice;
 import java.lang.Integer;
 import org.regola.model.pattern.InvoicePattern;
+import org.regola.dao.ognl.OgnlGenericDao;
 import org.regola.events.Event;
 import org.regola.webapp.action.ListPage;
 import org.regola.webapp.action.plug.ListPagePlugProxy;
@@ -40,7 +41,6 @@ public class InvoiceList
 	public void setListPage(
 			ListPage<Invoice, Integer, InvoicePattern> listPage) {
 		this.listPage= listPage;
-		
 	}
 
 	public ListPage<Invoice, Integer, InvoicePattern> getListPage() {
