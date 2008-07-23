@@ -3,6 +3,7 @@ package org.regola.dao.hibernate;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.NonUniqueObjectException;
 import org.hibernate.Query;
@@ -10,6 +11,7 @@ import org.hibernate.Session;
 import org.regola.dao.GenericDao;
 import org.regola.filter.ModelPatternParser;
 import org.regola.filter.criteria.hibernate.HibernateQueryBuilder;
+import org.regola.filter.criteria.hibernate.support.HQLquery;
 import org.regola.filter.impl.DefaultPatternParser;
 import org.regola.finder.FinderExecutor;
 import org.regola.model.ModelPattern;
@@ -174,4 +176,37 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 			}
 		}
 	}
+	
+	// **************** parte custom del solo HibernateGenericDao *************************************
+	
+	public HQLquery getClausoleHQL(final ModelPattern pattern) {
+		HibernateQueryBuilder criteriaBuilder = new HibernateQueryBuilder(
+						persistentClass, getHibernateTemplate().getSessionFactory().getCurrentSession());
+		getPatternParser().createQuery(criteriaBuilder, pattern);
+		return criteriaBuilder.getClausoleHQL();
+	}	
+	
+	public List<T> find(String hql, Map<String, Object> parameters, int firstResult, int maxResults)
+	{
+		Query query = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(hql);
+		for (String param : parameters.keySet()) {
+			query.setParameter(param, parameters.get(param));
+		}
+		if (firstResult >= 0) {
+			query.setFirstResult(firstResult);
+		}
+		if (maxResults >= 0) {
+			query.setMaxResults(maxResults);
+		}
+		return query.list();		
+	}
+	
+	public int count(String hql, Map<String, Object> parameters) {
+		Query query = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(hql);
+		for (String param : parameters.keySet()) {
+			query.setParameter(param, parameters.get(param));
+		}
+		return ((Number)query.uniqueResult()).intValue();
+	}	
+	
 }
