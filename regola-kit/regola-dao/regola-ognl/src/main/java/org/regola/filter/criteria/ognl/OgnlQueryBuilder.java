@@ -192,6 +192,16 @@ public class OgnlQueryBuilder extends AbstractCriteriaBuilder {
 		filter.add(propertyReference(property) + " " + getNotEqualsOperator()
 				+ " " + rightValue(value));
 	}
+	
+	@Override
+	public void addIsNull(String property) {
+		//TODO
+	}	
+	
+	@Override
+	public void addIsNotNull(String property) {
+		//TODO
+	}			
 
 	@Override
 	public Criteria addOrder(Order order) {

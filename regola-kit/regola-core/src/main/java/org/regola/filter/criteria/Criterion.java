@@ -98,6 +98,18 @@ public class Criterion {
 							"L'operatore IN supporta solo valori di tipo Collection o Array");
 				}
 			}
+		},
+		ISNULL("ISNULL") {
+			public void dispatch(Builder builder, String property, Object value) {
+				//ignore value
+				builder.addIsNull(property);
+			}
+		},
+		ISNOTNULL("ISNOTNULL") {
+			public void dispatch(Builder builder, String property, Object value) {
+				//ignore value
+				builder.addIsNotNull(property);
+			}			
 		};
 
 		private String token;
@@ -133,6 +145,10 @@ public class Criterion {
 		public void addIlike(String property, String value);
 
 		public void addIn(String property, Collection<?> value);
+		
+		public void addIsNull(String property);
+		
+		public void addIsNotNull(String property);		
 	}
 
 	public Operator getOperator() {

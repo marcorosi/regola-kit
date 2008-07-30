@@ -175,6 +175,16 @@ public class JdoCriteria extends AbstractCriteriaBuilder {
 	public void addNotEquals(String property, Object value) {
 		and(property, "!=", value);
 	}
+	
+	@Override
+	public void addIsNull(String property) {
+		//TODO
+	}	
+	
+	@Override
+	public void addIsNotNull(String property) {
+		//TODO
+	}			
 
 	@Override
 	public Criteria addOrder(Order order) {
