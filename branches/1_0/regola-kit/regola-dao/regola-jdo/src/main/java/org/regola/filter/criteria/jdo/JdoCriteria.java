@@ -148,6 +148,16 @@ public class JdoCriteria extends AbstractCriteriaBuilder {
 	public void addIn(String property, Collection<?> values) {
 		and(addParameter(values) + ".contains(" + property + ")");
 	}
+	
+	@Override
+	public void addIsNull(String property) {
+		//TODO
+	}	
+	
+	@Override
+	public void addIsNotNull(String property) {
+		//TODO
+	}			
 
 	@Override
 	public void addLessEquals(String property, Object value) {
