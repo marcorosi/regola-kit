@@ -44,6 +44,10 @@ public abstract class AbstractCriteriaBuilder implements Criteria,
 	public abstract void addIlike(String property, String value);
 
 	public abstract void addIn(String property, Collection<?> value);
+	
+	public abstract void addIsNull(String property);
+	
+	public abstract void addIsNotNull(String property);
 
 	public abstract void setRowCount();
 }
