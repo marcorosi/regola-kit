@@ -228,11 +228,18 @@ public class BaseQueryBuilder extends AbstractCriteriaBuilder {
 			String joinProperty = paths[i];
 			if (parentEntity.getProperties().containsKey(joinProperty)) {
 				property = parentEntity.getProperties().get(joinProperty);
-				parentEntity = newEntity(property);
+				//parentEntity = newEntity(property);
 			} else {
 				property = new Property(parentEntity, joinProperty);
-				parentEntity = newEntity(property);
+				//parentEntity = newEntity(property);
 			}
+			//bug fix: se è un join già considerato non devo ricreare una nuova entity
+			Entity joinedEntity = isJoined(property);
+			if(joinedEntity == null)
+				parentEntity = newEntity(property);
+			else
+				parentEntity = joinedEntity;
+			//---			
 			if ((i < paths.length - 1) && !entities.contains(parentEntity)) {
 				entities.add(parentEntity);
 				if (log.isDebugEnabled()) {
@@ -242,6 +249,16 @@ public class BaseQueryBuilder extends AbstractCriteriaBuilder {
 		}
 		return property;
 	}
+	
+	protected Entity isJoined(Property property)
+	{
+		for (Entity entity : entities) {
+			if(entity.getJoinedBy() != null 
+					&& entity.getJoinedBy().getName().equals(property.getName()))
+				return entity;
+		}
+		return null;
+	}	
 
 	protected String newParameter(Object value) {
 		String param = PARAM_PREFIX + parameters.size();
