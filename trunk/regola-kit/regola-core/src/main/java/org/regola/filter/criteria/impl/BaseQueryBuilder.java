@@ -547,4 +547,25 @@ public class BaseQueryBuilder extends AbstractCriteriaBuilder {
 		}
 		return this;
 	}
+	
+	public void addIsNull(String propertyPath) {
+		addFilter( propertyReference(getProperty(propertyPath)) + 
+				getIsNullOperator() );
+	}
+	
+	public void addIsNotNull(String propertyPath) {
+		addFilter( propertyReference(getProperty(propertyPath)) + 
+				getIsNotNullOperator() );
+	}	
+	
+	protected String getIsNullOperator()
+	{
+		return " is null ";
+	}
+	
+	protected String getIsNotNullOperator()
+	{
+		return " is not null ";
+	}		
+	
 }
