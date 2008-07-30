@@ -21,7 +21,7 @@ public class CustomerPattern extends ModelPattern implements Serializable
 	  //addProperty("age","customer.column.");
 	  
 	  getSortedProperties().add(new ModelProperty("id","customer.column.",Order.asc));
-	  getSortedProperties().add(new ModelProperty("invoices[].total","customer.column.",Order.asc));
+	  //getSortedProperties().add(new ModelProperty("invoices[].total","customer.column.",Order.asc));
 	}
 
     protected	java.lang.Integer id;
@@ -29,6 +29,7 @@ public class CustomerPattern extends ModelPattern implements Serializable
     protected	java.lang.String lastName;
     
     protected BigDecimal total;
+    protected Integer invoiceId;
  
     @Equals("id")
 	public java.lang.Integer getId()
@@ -71,5 +72,14 @@ public class CustomerPattern extends ModelPattern implements Serializable
 
 	public void setTotal(BigDecimal total) {
 		this.total = total;
+	}
+	
+	@Equals("invoices[].id")
+	public Integer getInvoiceId() {
+		return invoiceId;
+	}
+
+	public void setInvoiceId(Integer invoiceId) {
+		this.invoiceId = invoiceId;
 	}
 }
