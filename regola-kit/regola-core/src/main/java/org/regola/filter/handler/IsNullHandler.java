@@ -17,12 +17,6 @@ import org.springframework.util.StringUtils;
  * Se il valore è false si applica un filtro "is not null".
  */
 public class IsNullHandler extends AbstractAnnotationHandler {
-
-	/* TODO
-	 * per apposizione su proprietà boolean:
-	 * - ridefinire checkValue per controllare che la proprietà sia booleana
-	 * - nella handlerfilter controllare il filterValue e agiungere la restriction solo se è true
-	 */	
 	
 	public IsNullHandler() {
 		super(IsNull.class);
