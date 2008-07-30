@@ -70,6 +70,16 @@ public class JpaCriteria extends AbstractCriteriaBuilder {
 	public void addIn(String property, Collection<?> value) {
 		criteria.add(Restrictions.in(property, value.toArray()));
 	}
+	
+	@Override
+	public void addIsNull(String property) {
+		//TODO
+	}	
+	
+	@Override
+	public void addIsNotNull(String property) {
+		//TODO
+	}				
 
 	@Override
 	public Criteria addOrder(Order order) {
