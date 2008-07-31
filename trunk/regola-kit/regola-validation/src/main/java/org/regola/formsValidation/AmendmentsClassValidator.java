@@ -71,6 +71,9 @@ public class AmendmentsClassValidator<T> implements Serializable
 	private static final String VALIDATOR_MESSAGE = "ValidatorMessages";
 	private static final Set<Class> INDEXABLE_CLASS = new HashSet<Class>();
 	
+	private static final String REGOLA_RESOURCEBUNDLE = "ApplicationResources";
+	private final Locale locale;
+	
 	private static final String EMENDAMENT_ADD = "add";
 	private static final String EMENDAMENT_REMOVE = "remove";
 
@@ -118,19 +121,27 @@ public class AmendmentsClassValidator<T> implements Serializable
 	 * create the validator engine for this bean type
 	 */
 	public AmendmentsClassValidator(Class<T> beanClass) {
-		this( beanClass, (ResourceBundle) null, (String) null );
+		this( beanClass, (ResourceBundle) null, (Locale)null, (String) null );
 	}
 	
 	public AmendmentsClassValidator(Class<T> beanClass , String validationAmendmentsCfgFile) {
-		this( beanClass, (ResourceBundle) null,  validationAmendmentsCfgFile);
+		this( beanClass, (ResourceBundle) null,  (Locale)null, validationAmendmentsCfgFile);
 	}	
 
+	public AmendmentsClassValidator(Class<T> beanClass, Locale locale) {
+		this( beanClass, (ResourceBundle) null, locale, (String) null );
+	}
+	
+	public AmendmentsClassValidator(Class<T> beanClass, String validationAmendmentsCfgFile,  Locale locale) {
+		this( beanClass, (ResourceBundle) null, locale, validationAmendmentsCfgFile);
+	}		
+	
 	/**
 	 * create the validator engine for a particular bean class, using a resource bundle
 	 * for message rendering on violation
 	 */
-	public AmendmentsClassValidator(Class<T> beanClass, ResourceBundle resourceBundle, String validationAmendmentsCfgFile) {
-		this( beanClass, resourceBundle, null, new HashMap<XClass, AmendmentsClassValidator>(), null, validationAmendmentsCfgFile );
+	public AmendmentsClassValidator(Class<T> beanClass, ResourceBundle resourceBundle, Locale locale, String validationAmendmentsCfgFile) {
+		this( beanClass, resourceBundle, locale, null, new HashMap<XClass, AmendmentsClassValidator>(), null, validationAmendmentsCfgFile );
 	}
 
 	/**
@@ -138,23 +149,24 @@ public class AmendmentsClassValidator<T> implements Serializable
 	 * for message rendering on violation
 	 */
 	public AmendmentsClassValidator(Class<T> beanClass, MessageInterpolator interpolator) {
-		this( beanClass, null, interpolator, new HashMap<XClass, AmendmentsClassValidator>(), null, (String) null );
+		this( beanClass, null, null, interpolator, new HashMap<XClass, AmendmentsClassValidator>(), null, (String) null );
 	}
-
-    /**
-     * Not a public API
-     */
+	
     public AmendmentsClassValidator(
-			Class<T> beanClass, ResourceBundle resourceBundle, MessageInterpolator interpolator,
+			Class<T> beanClass, ResourceBundle resourceBundle, Locale locale, MessageInterpolator interpolator,
             Map<XClass, AmendmentsClassValidator> childClassValidators, ReflectionManager reflectionManager, 
             String validationAmendmentsCfgFile
     ) {
         this.reflectionManager = reflectionManager != null ? reflectionManager : new JavaReflectionManager();
         XClass beanXClass = this.reflectionManager.toXClass( beanClass );
 		this.beanClass = beanClass;
+		this.locale = locale;
+		this.messageBundle = decidiResourceBundle(resourceBundle, locale);
+		/*
 		this.messageBundle = resourceBundle == null ?
 				getDefaultResourceBundle() :
 				resourceBundle;
+		*/
 		this.defaultMessageBundle = ResourceBundle.getBundle( DEFAULT_VALIDATOR_MESSAGE );
 		this.userInterpolator = interpolator;
 		this.childClassValidators = childClassValidators != null ?
@@ -162,7 +174,6 @@ public class AmendmentsClassValidator<T> implements Serializable
                 new HashMap<XClass, AmendmentsClassValidator>();
 		if(validationAmendmentsCfgFile != null && !validationAmendmentsCfgFile.trim().equals(""))
 		{
-			//amendments = readDSLEmendaments(validationAmendmentsCfgFile); //MY
 			amendments = new AmendmentUtils().readDSLAmendments(validationAmendmentsCfgFile, beanClass);
 			permittedAmendmentAddTypes = AmendmentUtils.getPermittedAddTypes();
 		}
@@ -171,59 +182,64 @@ public class AmendmentsClassValidator<T> implements Serializable
 
 	@SuppressWarnings("unchecked")
 	protected AmendmentsClassValidator(
-			XClass beanXClass, ResourceBundle resourceBundle, MessageInterpolator userInterpolator,
+			XClass beanXClass, ResourceBundle resourceBundle, Locale locale, MessageInterpolator userInterpolator,
 			Map<XClass, AmendmentsClassValidator> childClassValidators, ReflectionManager reflectionManager, 
 			String validationAmendmentsCfgFile
 	) {
 		this.reflectionManager = reflectionManager;
 		this.beanClass = reflectionManager.toClass( beanXClass );
+		this.locale = locale;
+		this.messageBundle = decidiResourceBundle(resourceBundle, locale);
+		/*
 		this.messageBundle = resourceBundle == null ?
 				getDefaultResourceBundle() :
 				resourceBundle;
+		*/
 		this.defaultMessageBundle = ResourceBundle.getBundle( DEFAULT_VALIDATOR_MESSAGE );
 		this.userInterpolator = userInterpolator;
 		this.childClassValidators = childClassValidators;
 		if(validationAmendmentsCfgFile != null && !validationAmendmentsCfgFile.trim().equals(""))
 		{
-			//amendments = readDSLEmendaments(validationAmendmentsCfgFile); //MY
 			amendments = new AmendmentUtils().readDSLAmendments(validationAmendmentsCfgFile, beanClass);
 			permittedAmendmentAddTypes = AmendmentUtils.getPermittedAddTypes();
 		}
 		initValidator( beanXClass, childClassValidators );
-	}
+	}	
 	
 	//==========================================================================================================
 	//----costruttori con parametro List di emendamenti
 	//==========================================================================================================
-	/**
-	 * create the validator engine for this bean type
-	 */
 	public AmendmentsClassValidator(Class<T> beanClass , List<Amendment> amendments) {
-		this( beanClass, (ResourceBundle) null,  amendments);
+		this( beanClass, (ResourceBundle) null, amendments, (Locale)null );
 	}	
 
-	/**
-	 * create the validator engine for a particular bean class, using a resource bundle
-	 * for message rendering on violation
-	 */
 	public AmendmentsClassValidator(Class<T> beanClass, ResourceBundle resourceBundle, List<Amendment> amendments) {
-		this( beanClass, resourceBundle, null, new HashMap<XClass, AmendmentsClassValidator>(), null, amendments );
+		this( beanClass, resourceBundle, (Locale)null, null, new HashMap<XClass, AmendmentsClassValidator>(), null, amendments );
 	}
+	
+	public AmendmentsClassValidator(Class<T> beanClass , List<Amendment> amendments, Locale locale) {
+		this( beanClass, (ResourceBundle) null, amendments, locale);
+	}	
 
-    /**
-     * Not a public API
-     */
+	public AmendmentsClassValidator(Class<T> beanClass, ResourceBundle resourceBundle, List<Amendment> amendments, Locale locale) {
+		this( beanClass, resourceBundle, locale, null, new HashMap<XClass, AmendmentsClassValidator>(), null, amendments );
+	}	
+
     public AmendmentsClassValidator(
-			Class<T> beanClass, ResourceBundle resourceBundle, MessageInterpolator interpolator,
+			Class<T> beanClass, ResourceBundle resourceBundle, Locale locale, MessageInterpolator interpolator,
             Map<XClass, AmendmentsClassValidator> childClassValidators, ReflectionManager reflectionManager, 
             List<Amendment> amendments
     ) {
         this.reflectionManager = reflectionManager != null ? reflectionManager : new JavaReflectionManager();
         XClass beanXClass = this.reflectionManager.toXClass( beanClass );
 		this.beanClass = beanClass;
+		this.locale = locale;
+		this.messageBundle = decidiResourceBundle(resourceBundle, locale);
+		/*
 		this.messageBundle = resourceBundle == null ?
 				getDefaultResourceBundle() :
 				resourceBundle;
+		*/
 		this.defaultMessageBundle = ResourceBundle.getBundle( DEFAULT_VALIDATOR_MESSAGE );
 		this.userInterpolator = interpolator;
 		this.childClassValidators = childClassValidators != null ?
@@ -236,56 +252,80 @@ public class AmendmentsClassValidator<T> implements Serializable
 
 	@SuppressWarnings("unchecked")
 	protected AmendmentsClassValidator(
-			XClass beanXClass, ResourceBundle resourceBundle, MessageInterpolator userInterpolator,
+			XClass beanXClass, ResourceBundle resourceBundle, Locale locale, MessageInterpolator userInterpolator,
 			Map<XClass, AmendmentsClassValidator> childClassValidators, ReflectionManager reflectionManager, 
 			List<Amendment> amendments
 	) {
 		this.reflectionManager = reflectionManager;
 		this.beanClass = reflectionManager.toClass( beanXClass );
+		this.locale = locale;
+		this.messageBundle = decidiResourceBundle(resourceBundle, locale);
+		/*
 		this.messageBundle = resourceBundle == null ?
 				getDefaultResourceBundle() :
 				resourceBundle;
+		*/
 		this.defaultMessageBundle = ResourceBundle.getBundle( DEFAULT_VALIDATOR_MESSAGE );
 		this.userInterpolator = userInterpolator;
 		this.childClassValidators = childClassValidators;
 		this.amendments = amendments;
 		permittedAmendmentAddTypes = AmendmentUtils.getPermittedAddTypes();
 		initValidator( beanXClass, childClassValidators );
-	}	
+	}
+	
 	
 	/*
-	 * logica spostata in AmendmentsUtils
-	 * 
-	protected List<Amendment> readDSLEmendaments(String validationAmendmentsCfgFile) { //MY
-		//caricamento dsl emendamenti
+	 * Ritorna il resource bundle da utilizzare:
+	 * se è impostato il locale ritorna quello di regola;
+	 * se è impostato dall'utente restituisce questo;
+	 * se non sono impostati entrambi restituisce quello di default di hibernate
+	 */
+	protected ResourceBundle decidiResourceBundle(ResourceBundle resourceBundle, Locale locale)
+	{
+		if(locale != null)
+			return getRegolaResourceBundle(locale);
 		
-		XStream xstream = new XStream(new DomDriver()); // does not require XPP3 library
-		xstream.alias("AmendedModelClass", AmendedModelClass.class);
-		xstream.alias("Amendment", Amendment.class);
-				
-		URL url = getClass().getClassLoader().getResource(validationAmendmentsCfgFile);
+		if(resourceBundle != null)
+			return resourceBundle;
 		
-		try {
-			List<AmendedModelClass> emendedClasses = (List<AmendedModelClass>)xstream.fromXML(new FileReader(url.getFile()));
-			return retrieveEmendaments(emendedClasses);
-		} catch (Exception e) {
-			//throw new RuntimeException(e);
-			log.error("Errore nella lettura del file di configurazione degli emendamenti: " + validationAmendmentsCfgFile);
-			return new ArrayList<Amendment>();
-		}
+		return getDefaultResourceBundle();
 	}
 	
-	protected List<Amendment> retrieveEmendaments(List<AmendedModelClass> emendedModelClasses)
+	protected ResourceBundle getRegolaResourceBundle(Locale locale)
 	{
-		List<Amendment> emendaments = new ArrayList<Amendment>();
-		for (AmendedModelClass emendedClass : emendedModelClasses)
-		{
-			if( beanClass.getCanonicalName().equals(emendedClass.getModelClass()) )
-				emendaments.addAll(emendedClass.getAmendments());
+		ResourceBundle rb;
+		try {
+			ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+			if ( contextClassLoader == null ) {
+				throw new MissingResourceException( "No context classloader", null, REGOLA_RESOURCEBUNDLE );
+			}
+			rb = ResourceBundle.getBundle(
+					REGOLA_RESOURCEBUNDLE,
+					locale,
+					contextClassLoader
+			);
 		}
-		return emendaments;
+		catch (MissingResourceException e) {
+			log.trace( "ResourceBundle " + REGOLA_RESOURCEBUNDLE + " not found in thread context classloader" );
+			//then use the Validator Framework classloader
+			try {
+				rb = ResourceBundle.getBundle(
+						VALIDATOR_MESSAGE,
+						Locale.getDefault(),
+						this.getClass().getClassLoader()
+				);
+			}
+			catch (MissingResourceException ee) {
+				log.debug(
+						"ResourceBundle ValidatorMessages not found in Validator classloader. Delegate to " + DEFAULT_VALIDATOR_MESSAGE
+				);
+				//the user did not override the default ValidatorMessages
+				rb = null;
+			}
+		}
+		isUserProvidedResourceBundle = true;
+		return rb;
 	}
-	*/
 
 	private ResourceBundle getDefaultResourceBundle() {
 		ResourceBundle rb;
@@ -465,7 +505,7 @@ public class AmendmentsClassValidator<T> implements Serializable
 				}
 				if ( !childClassValidators.containsKey( clazz ) ) {
 					//ClassValidator added by side effect (added to childClassValidators during CV construction)
-					new AmendmentsClassValidator( clazz, messageBundle, userInterpolator, childClassValidators, reflectionManager, (String)null );
+					new AmendmentsClassValidator( clazz, messageBundle, locale, userInterpolator, childClassValidators, reflectionManager, (String)null );
 				}
 			}
 			/*
@@ -506,7 +546,7 @@ public class AmendmentsClassValidator<T> implements Serializable
 		}
 		if ( !childClassValidators.containsKey( clazz ) ) {
 			//ClassValidator added by side effect (added to childClassValidators during CV construction)
-			new AmendmentsClassValidator( clazz, messageBundle, userInterpolator, childClassValidators, reflectionManager, (String)null );
+			new AmendmentsClassValidator( clazz, messageBundle, locale, userInterpolator, childClassValidators, reflectionManager, (String)null );
 		}		
 	}
 
