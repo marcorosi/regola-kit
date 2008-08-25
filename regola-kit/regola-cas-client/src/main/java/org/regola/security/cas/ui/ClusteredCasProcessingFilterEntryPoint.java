@@ -6,7 +6,6 @@ import java.net.URLEncoder;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,6 +13,7 @@ import org.acegisecurity.AuthenticationException;
 import org.acegisecurity.ui.cas.CasProcessingFilterEntryPoint;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.regola.security.cas.util.SessionIdExtractor;
 
 /**
  * ProcessingFilterEntryPoint x utilizzare CAS in un'applicazione in 
@@ -27,9 +27,8 @@ import org.apache.commons.logging.LogFactory;
 public class ClusteredCasProcessingFilterEntryPoint extends CasProcessingFilterEntryPoint
 {
 	protected static final Log logger = LogFactory.getLog(ClusteredCasProcessingFilterEntryPoint.class);
-	
-	private String sessionIdParamaterName = "jsessionid"; 
-	private String sessionIdParamaterNameForCas = "cas_aware_sessionid";
+
+	private SessionIdExtractor sessionIdExtractor; 
 	
     public void commence(final ServletRequest servletRequest, final ServletResponse servletResponse,
             final AuthenticationException authenticationException)
@@ -40,9 +39,7 @@ public class ClusteredCasProcessingFilterEntryPoint extends CasProcessingFilterE
 
             final StringBuffer buffer = new StringBuffer(255);
 
-            //String sessionid = getSessionId(request);
-            
-            String sessionid = urlEncodedService.substring(urlEncodedService.indexOf(";jsessionid=")+12);
+            String sessionid = getSessionId(request,urlEncodedService);
             
             synchronized (buffer) {
                 buffer.append(getLoginUrl());
@@ -50,48 +47,23 @@ public class ClusteredCasProcessingFilterEntryPoint extends CasProcessingFilterE
                 buffer.append(URLEncoder.encode(urlEncodedService, "UTF-8"));
                 buffer.append(getServiceProperties().isSendRenew() ? "&renew=true" : "");
                 if(sessionid != null && sessionid.trim().length() > 0)
-                	buffer.append("&").append(sessionIdParamaterNameForCas).append("=").append(sessionid);
+                	buffer.append("&").append(sessionIdExtractor.getSessionIdParamaterNameForCas()).append("=").append(sessionid);
             }
 
             logger.debug("redirect to: "+buffer.toString());
             response.sendRedirect(buffer.toString());
         }
 
-	private String getSessionId(HttpServletRequest request) 
+	public String getSessionId(HttpServletRequest request, String urlEncodedService) 
 	{
-		//prima guardo se c'e il cookie
-		if(request.getCookies() != null)
-		{
-			for(Cookie c : request.getCookies())
-			{
-				if(c.getName().equalsIgnoreCase(sessionIdParamaterName))
-					return c.getValue();
-			}			
-		}
-		System.out.println("QS: "+request.getQueryString());
-		System.out.println("uri: "+request.getRequestURI());
-		System.out.println("url: "+request.getRequestURL());
-		System.out.println("id: "+request.getRequestedSessionId());
-		//poi guardo sull'url
-		if(request.getRequestedSessionId() != null)
-			return request.getRequestedSessionId();
-
-		return null;
+		return sessionIdExtractor.getSessionId(request, urlEncodedService);
 	}
 
-	public String getSessionIdParamaterName() {
-		return sessionIdParamaterName;
+	public SessionIdExtractor getSessionIdExtractor() {
+		return sessionIdExtractor;
 	}
 
-	public void setSessionIdParamaterName(String sessionIdParamaterName) {
-		this.sessionIdParamaterName = sessionIdParamaterName;
-	}
-
-	public String getSessionIdParamaterNameForCas() {
-		return sessionIdParamaterNameForCas;
-	}
-
-	public void setSessionIdParamaterNameForCas(String sessionIdParamaterNameForCas) {
-		this.sessionIdParamaterNameForCas = sessionIdParamaterNameForCas;
+	public void setSessionIdExtractor(SessionIdExtractor sessionIdExtractor) {
+		this.sessionIdExtractor = sessionIdExtractor;
 	}
 }

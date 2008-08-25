@@ -3,6 +3,7 @@ package org.regola.security.cas.ui;
 import junit.framework.TestCase;
 
 import org.acegisecurity.ui.cas.ServiceProperties;
+import org.regola.security.cas.util.SessionIdExtractor;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
@@ -34,12 +35,17 @@ public class ClusteredCasProcessingFilterEntryPointTests extends TestCase {
         junit.textui.TestRunner.run(ClusteredCasProcessingFilterEntryPointTests.class);
     }
 
+    private SessionIdExtractor sessionIdExtractor;
+    private ClusteredCasProcessingFilterEntryPoint ep;
+    
     public final void setUp() throws Exception {
         super.setUp();
+        sessionIdExtractor = new SessionIdExtractor();
+        ep = new ClusteredCasProcessingFilterEntryPoint();
+        ep.setSessionIdExtractor(sessionIdExtractor);
     }
 
     public void testDetectsMissingLoginFormUrl() throws Exception {
-        ClusteredCasProcessingFilterEntryPoint ep = new ClusteredCasProcessingFilterEntryPoint();
         ep.setServiceProperties(new ServiceProperties());
 
         try {
@@ -51,7 +57,6 @@ public class ClusteredCasProcessingFilterEntryPointTests extends TestCase {
     }
 
     public void testDetectsMissingServiceProperties() throws Exception {
-        ClusteredCasProcessingFilterEntryPoint ep = new ClusteredCasProcessingFilterEntryPoint();
         ep.setLoginUrl("https://cas/login");
 
         try {
@@ -63,7 +68,6 @@ public class ClusteredCasProcessingFilterEntryPointTests extends TestCase {
     }
 
     public void testGettersSetters() {
-        ClusteredCasProcessingFilterEntryPoint ep = new ClusteredCasProcessingFilterEntryPoint();
         ep.setLoginUrl("https://cas/login");
         assertEquals("https://cas/login", ep.getLoginUrl());
 
@@ -76,7 +80,6 @@ public class ClusteredCasProcessingFilterEntryPointTests extends TestCase {
         sp.setSendRenew(false);
         sp.setService("https://mycompany.com/bigWebApp/j_spring_cas_security_check");
 
-        ClusteredCasProcessingFilterEntryPoint ep = new ClusteredCasProcessingFilterEntryPoint();
         ep.setLoginUrl("https://cas/login");
         ep.setServiceProperties(sp);
 
@@ -98,7 +101,6 @@ public class ClusteredCasProcessingFilterEntryPointTests extends TestCase {
         sp.setSendRenew(true);
         sp.setService("https://mycompany.com/bigWebApp/j_spring_cas_security_check");
 
-        ClusteredCasProcessingFilterEntryPoint ep = new ClusteredCasProcessingFilterEntryPoint();
         ep.setLoginUrl("https://cas/login");
         ep.setServiceProperties(sp);
 
@@ -121,7 +123,6 @@ public class ClusteredCasProcessingFilterEntryPointTests extends TestCase {
         sp.setSendRenew(false);
         sp.setService("https://mycompany.com/bigWebApp/j_spring_cas_security_check");
 
-        ClusteredCasProcessingFilterEntryPoint ep = new ClusteredCasProcessingFilterEntryPoint();
         ep.setLoginUrl("https://cas/login");
         ep.setServiceProperties(sp);
 
@@ -136,7 +137,7 @@ public class ClusteredCasProcessingFilterEntryPointTests extends TestCase {
 
         assertEquals("https://cas/login?service="
             + URLEncoder.encode("https://mycompany.com/bigWebApp/j_spring_cas_security_check", "UTF-8")
-            +"&"+ep.getSessionIdParamaterNameForCas()+"=1234567890",
+            +"&"+sessionIdExtractor.getSessionIdParamaterNameForCas()+"=1234567890",
             response.getRedirectedUrl());
     }
     
@@ -145,13 +146,12 @@ public class ClusteredCasProcessingFilterEntryPointTests extends TestCase {
         sp.setSendRenew(false);
         sp.setService("https://mycompany.com/bigWebApp/j_spring_cas_security_check");
 
-        ClusteredCasProcessingFilterEntryPoint ep = new ClusteredCasProcessingFilterEntryPoint();
         ep.setLoginUrl("https://cas/login");
         ep.setServiceProperties(sp);
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setRequestURI("/some_path");
-        Cookie cookie = new Cookie(ep.getSessionIdParamaterName(),"1234567890"); 
+        Cookie cookie = new Cookie(sessionIdExtractor.getSessionIdParamaterName(),"1234567890"); 
         request.setCookies(new Cookie[]{cookie});
 
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -161,7 +161,7 @@ public class ClusteredCasProcessingFilterEntryPointTests extends TestCase {
 
         assertEquals("https://cas/login?service="
             + URLEncoder.encode("https://mycompany.com/bigWebApp/j_spring_cas_security_check", "UTF-8")
-            +"&"+ep.getSessionIdParamaterNameForCas()+"=1234567890",
+            +"&"+sessionIdExtractor.getSessionIdParamaterNameForCas()+"=1234567890",
             response.getRedirectedUrl());
     }
 }
