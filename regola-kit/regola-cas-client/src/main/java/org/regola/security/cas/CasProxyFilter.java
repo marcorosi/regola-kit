@@ -44,6 +44,8 @@ public class CasProxyFilter extends AbstractProcessingFilter {
 	 * every request.
 	 */
 	public static final String CAS_STATELESS_IDENTIFIER = "_cas_stateless_";
+	
+	public static final String TICKET_ATTRIBUTE_NAME = "org.regola.security.cas.ticket.attribute";
 
 	// ~ Methods
 	// ========================================================================================================
@@ -57,6 +59,10 @@ public class CasProxyFilter extends AbstractProcessingFilter {
 		String username = CAS_STATEFUL_IDENTIFIER;
 		String password = request.getParameter("ticket");
 
+		if (password == null) {
+			password = (String) request.getAttribute(TICKET_ATTRIBUTE_NAME);
+		}
+		
 		if (password == null) {
 			password = "";
 		}
