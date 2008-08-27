@@ -12,7 +12,7 @@
 
 	<artifactId>regola-cas-client</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.4</version>
+	<version>1.0.5</version>
 	<name>REGOLA Toolkit :: Client for CAS Authentication Service</name>
 	<description>
 		Client dependency to plug a regola application in a single sign
