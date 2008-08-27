@@ -3,6 +3,7 @@ package org.regola.security.cas;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.StringTokenizer;
 import java.util.regex.PatternSyntaxException;
 
@@ -59,6 +60,15 @@ public class CasProxyFilter extends AbstractProcessingFilter {
 		String username = CAS_STATEFUL_IDENTIFIER;
 		String password = request.getParameter("ticket");
 
+		if (password == null) {
+			for (Enumeration e = request.getAttributeNames(); e.hasMoreElements();) {
+
+				String name = e.nextElement().toString();
+				if (name.endsWith(TICKET_ATTRIBUTE_NAME))
+					password = (String) request.getAttribute(name);
+			}
+		}
+		
 		if (password == null) {
 			password = (String) request.getAttribute(TICKET_ATTRIBUTE_NAME);
 		}
