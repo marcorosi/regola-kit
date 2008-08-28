@@ -253,6 +253,7 @@
    <resource filtered="true">pom.xml</resource>
    
    <resource filtered="false">show_test_failure</resource>
+   <resource filtered="false">autodeploy.sh</resource>
  </resources>
  <siteResources>
    <resource filtered="false">src/site/site.xml</resource>
