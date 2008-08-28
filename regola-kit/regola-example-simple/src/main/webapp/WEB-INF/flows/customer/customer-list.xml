@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+		
+	<var name="customerState" class="org.regola.webapp.flow.IceFacesStateBean" />
+	<var name="customerModelPattern" class="org.regola.model.pattern.CustomerPattern" />
+	<var name="customerModel" class="org.regola.model.Customer" /> 
+	
+    <on-start>
+        <set name="customerState.modelPattern" value="customerModelPattern" />
+        <set name="customerState.model" value="customerModel" />
+        <evaluate expression="listActions.init()" />
+        <evaluate expression="componentListActions.init()" />
+    </on-start>
+
+	
+	<!--view-state id="list" view="customer-list.xhtml"-->
+	<view-state id="list">
+		<on-render>
+		    <evaluate expression="listActions.refresh(customerState)" />
+			<evaluate expression="componentListActions.refresh(customerState)" />
+		</on-render>
+	</view-state>
+	
+	<!-- bean-import resource="customer-beans.xml"/-->
+</flow>
