@@ -44,6 +44,13 @@
       </includes>
     </fileSet>
     
+    <fileSet filtered="false" packaged="false">
+      <directory></directory>
+      <includes>
+        <include>autodeploy.sh</include>
+      </includes>
+    </fileSet>
+    
     <fileSet filtered="true" packaged="false">
       <directory></directory>
       <includes>
