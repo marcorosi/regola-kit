@@ -67,9 +67,9 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
           scope="singleton" />
     
     <!-- =================================================================== -->
-    <!-- Remoting: XFire                                                     -->
+    <!-- Remoting: CXF                                                       -->
     <!-- =================================================================== -->
-
+	<!--  
     <import resource="classpath:org/codehaus/xfire/spring/xfire.xml" />
     
     <bean id="webAnnotations"
@@ -81,7 +81,7 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
         <property name="xfire" ref="xfire" />
         <property name="webAnnotations" ref="webAnnotations" />
     </bean>
-    
+    -->
     
     <!-- =================================================================== -->
     <!-- Autenticazione e Autorizzazione                                     -->
