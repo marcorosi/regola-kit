@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+<ui:composition>
+		<ice:form>
+		<ice:panelPopup draggable="true" 
+						rendered="#{invoiceForm.itemDialog.visible}"
+						visible="#{invoiceForm.itemDialog.visible}"
+						style="z-index: 100; top: 350px; left: 30px; position: absolute; width: 350px; height: 200px">
+
+			<f:facet name="header">
+			  <ice:panelGrid width="100%" columns="1" styleClass="dialogHeader" title="#{msg['dialog.tooltip.header']}">
+				<ice:outputText value="#{invoiceForm.itemDialog.title}" />
+			  </ice:panelGrid>
+			</f:facet>
+
+			<f:facet name="body">
+			
+			<ice:panelGroup>
+				
+				<ice:panelGrid columns="4">
+			
+					<!-- cost -->
+					<ice:outputText value="#{msg['item.column.cost']}" />
+					<ice:inputText  value="#{invoiceForm.itemDialog.model.cost}">
+					</ice:inputText>
+					<ice:outputText value=" " />
+					<ice:outputText value=" " />
+					<!-- ice:outputText value="#{invoiceForm.itemDialog.errors['cost']}" / -->
+			
+					<!-- invoice 
+					<ice:outputText value="#{msg['item.column.invoice']}" />
+					<ice:inputText  value="#{invoiceForm.itemDialog.form.model.invoice}">
+					</ice:inputText>
+					<ice:outputText value=" " />
+					<ice:outputText value="#{invoiceForm.itemDialog.form.errors['invoice']}" />
+					-->
+			
+					<!-- product -->
+					<ice:outputText value="#{msg['item.column.product.name']}" />
+					<ice:inputText  value="#{invoiceForm.itemDialog.model.product.name}">
+					</ice:inputText>
+					<ice:outputText value=" " />
+					<ice:outputText value=" " />
+					<!-- ice:outputText value="#{invoiceForm.itemDialog.form.errors['product']}" / -->
+					
+					<ice:outputText value="#{msg['item.column.product.price']}" />
+					<ice:inputText  value="#{invoiceForm.itemDialog.model.product.price}">
+					</ice:inputText>
+					<ice:outputText value=" " />
+					<ice:outputText value=" " />
+					<!-- ice:outputText value="#{invoiceForm.itemDialog.form.errors['product']}" / -->
+			
+					<!-- quantity -->
+					<ice:outputText value="#{msg['item.column.quantity']}" />
+					<ice:inputText  value="#{invoiceForm.itemDialog.model.quantity}">
+					</ice:inputText>
+					<ice:outputText value=" " />
+					<ice:outputText value=" " />
+					<!-- ice:outputText value="#{invoiceForm.itemDialog.form.errors['quantity']}" / -->
+		  
+		            <!-- ice:outputText value="#{invoiceForm.itemDialog.form.errore}" / -->
+		            <ice:outputText value=" " />
+					<ice:outputText value=" " />
+					<ice:outputText value=" " />
+					<ice:outputText value=" " />
+				</ice:panelGrid>
+				<ice:panelGrid columns="2">		
+					<ice:commandButton id="OKItemDialog"
+							actionListener="#{invoiceForm.itemDialog.closePopupAfterValidation}" value="Salva"
+							style="z-index:2;" />
+					<ice:commandButton id="CancelItemDialog"
+							actionListener="#{invoiceForm.itemDialog.closePopup}" value="Annulla"
+							style="z-index:2;" />	
+				</ice:panelGrid>
+			</ice:panelGroup>
+			</f:facet>
+
+		</ice:panelPopup>			
+			
+		</ice:form>
+</ui:composition>
+</html>
