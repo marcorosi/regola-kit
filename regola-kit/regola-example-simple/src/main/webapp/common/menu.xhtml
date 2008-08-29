@@ -1,0 +1,142 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:v="http://corejsf.com/validator">
+<ui:composition>
+<table id="menuApplicazioni" border="0" cellpadding="0" cellspacing="0" height="550px">
+  <tbody>
+    <tr>
+      <td id="leftMenu" style="border-top: 1px solid rgb(128, 128, 128); border-left: 1px solid rgb(128, 128, 128); border-bottom: 1px solid rgb(128, 128, 128); padding: 5px; display: none;" valign="top">
+        <table border="0" cellpadding="2" cellspacing="0" width="100%">
+          <tbody>
+            <tr>
+              <td class="menuBox" valign="center" width="100%">
+                <table border="0" cellpadding="2" cellspacing="0" width="100%">
+                  <tbody>
+                    <tr>
+                      <td class="menuHeader" width="88%">Regolamento Didattico</td>
+                      <td width="12%"><a class="xd" href="javascript:flipH('Menu0','Down0','Up0');"><img id="Down0" style="display: block;" src="images/flipup.gif" align="right" border="0" height="16" width="16" /><img id="Up0" style="display: none;" src="images/flipdown.gif" align="right" border="0" height="16" width="16" /></a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr id="Menu0" style="display: block;">
+              <td class="menuBoxLink" width="100%">
+                <table border="0" cellpadding="2">
+                  <tbody>
+					<h:panelGroup rendered="#{menuList.autorizzazioni['regolamenti']}">
+                    <tr>
+                      <td><a class="menuLink" href="../plitvice/faces/redirect.jspx?page=regolamenti">Piano Didattico</a></td>
+                    </tr>
+                    </h:panelGroup>            
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td height="5"></td>
+            </tr>
+            <tr>
+              <td class="menuBox" valign="center" width="100%">
+                <table border="0" cellpadding="2" cellspacing="0" width="100%">
+                  <tbody>
+                    <tr>
+                      <td class="menuHeader" width="88%">Programmazione didattica</td>
+                      <td width="12%"><a class="xd" href="javascript:flipH('Menu1','Down1','Up1');"><img id="Down1" style="display: block;" src="images/flipup.gif" align="right" border="0" height="16" width="16" /><img id="Up1" style="display: none;" src="images/flipdown.gif" align="right" border="0" height="16" width="16" /></a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr id="Menu1" style="display: block;">
+              <td class="menuBoxLink" width="100%">
+                <table border="0" cellpadding="2">
+                  <tbody>
+                    <h:panelGroup rendered="#{menuList.autorizzazioni['formative']}">
+                    <tr>
+                      <td><a class="menuLink" href="../plitvice/faces/redirect.jspx?page=formative">Attività formative</a></td>
+                    </tr>
+                    </h:panelGroup>
+					<h:panelGroup rendered="#{menuList.autorizzazioni['coperture']}">
+                    <tr>
+                      <td><a class="menuLink" href="../plitvice/faces/redirect.jspx?page=coperture">Coperture</a></td>
+                    </tr>
+                    </h:panelGroup>
+					<h:panelGroup rendered="#{menuList.autorizzazioni['verbali']}">
+                    <tr>
+                      <td><a class="menuLink" href="../plitvice/faces/redirect.jspx?page=verbali">Verbali</a></td>
+                    </tr>
+                    </h:panelGroup>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td height="5"></td>
+            </tr>
+            <tr>
+              <td class="menuBox" valign="center" width="100%">
+                <table border="0" cellpadding="2" cellspacing="0" width="100%">
+                  <tbody>
+                    <tr>
+                      <td class="menuHeader" width="88%">Piani Di Studio</td>
+                      <td width="12%"><a class="xd" href="javascript:flipH('Menu2','Down2','Up2');"><img id="Down2" style="display: block;" src="images/flipup.gif" align="right" border="0" height="16" width="16" /><img id="Up2" style="display: none;" src="images/flipdown.gif" align="right" border="0" height="16" width="16" /></a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr id="Menu2" style="display: block;">
+              <td class="menuBoxLink" width="100%">
+                <table border="0" cellpadding="2">
+                  <tbody>
+					<h:panelGroup rendered="#{menuList.autorizzazioni['piani']}">
+                    <tr>
+                      <td><a class="menuLink" href="../plitvice/faces/redirect.jspx?page=piani">Regole dei Piani di Studio</a></td>
+                    </tr>
+                    </h:panelGroup>
+					<h:panelGroup rendered="#{menuList.autorizzazioni['manifesti']}">
+                    <tr>
+                      <td><a class="menuLink" href="../plitvice/faces/redirect.jspx?page=manifesti">Manifesti</a></td>
+                    </tr>
+                    </h:panelGroup>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td height="5"></td>
+            </tr>
+            <tr>
+              <td class="menuBox" valign="center" width="100%">
+                <table border="0" cellpadding="2" cellspacing="0" width="100%">
+                  <tbody>
+                    <tr>
+                      <td class="menuHeader" width="88%">Altro</td>
+                      <td width="12%"><a class="xd" href="javascript:flipH('Menu3','Down3','Up3');"><img id="Down3" style="display: block;" src="images/flipup.gif" align="right" border="0" height="16" width="16" /><img id="Up3" style="display: none;" src="images/flipdown.gif" align="right" border="0" height="16" width="16" /></a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr id="Menu3" style="display: block;">
+              <td class="menuBoxLink" width="100%">
+                <table border="0" cellpadding="2">
+                  <tbody>
+                    <tr>
+                      <td><a class="menuLink" href="aiuto.html">Aiuto</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td class="menuBox"><a class="xd" title="Apri/Chiudi il menu" href="javascript:flipH('leftMenu','closeImg','openImg');"><img id="closeImg" style="display: none;" src="images/closemenu.gif" border="0" /><img id="openImg" style="display: block;" src="images/openmenu.gif" border="0" /></a></td>
+    </tr>
+  </tbody>
+</table>
+</ui:composition>
+</html>

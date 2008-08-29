@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor name="regola-jsf">
+  <fileSets>
+     
+    <fileSet filtered="true" packaged="true">
+      <directory>src/main/java</directory>
+      <includes>
+        <include>**/*.java</include>
+      </includes>
+    </fileSet>
+     
+    <fileSet filtered="false" packaged="false">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>**/*</include>
+      </includes>
+    </fileSet>
+    
+    <fileSet filtered="false" packaged="false">
+      <directory>src/main/webapp</directory>
+      <includes>
+        <include>**/*</include>
+      </includes>
+    </fileSet>
+        
+    <fileSet filtered="true" packaged="true">
+      <directory>src/test/java</directory>
+      <includes>
+        <include>**/*.java</include>
+      </includes>
+    </fileSet>
+    
+    <fileSet filtered="false" packaged="false">
+      <directory>src/test/resources</directory>
+      <includes>
+        <include>**/*</include>
+      </includes>
+    </fileSet>
+    
+    <fileSet filtered="false" packaged="false">
+      <directory></directory>
+      <includes>
+        <include>show_test_failure</include>
+      </includes>
+    </fileSet>
+    
+    <fileSet filtered="false" packaged="false">
+      <directory></directory>
+      <includes>
+        <include>autodeploy.sh</include>
+      </includes>
+    </fileSet>
+    
+    <fileSet filtered="true" packaged="false">
+      <directory></directory>
+      <includes>
+        <include>cruisecontrol.xml</include>
+      </includes>
+    </fileSet>
+    
+  </fileSets>
+</archetype-descriptor>
