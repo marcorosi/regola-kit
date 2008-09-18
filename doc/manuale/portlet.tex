@@ -1,5 +1,215 @@
 \chapter{Application mashup}
 
+\section{Servizi Web SOAP}
+Un modo molto comune per consentire ad applicazioni esterne di accedere al livello di servizio delle applicazioni scritte con Regola kit è quello di esportare uno o più bean situati in quel livello tramite servizio web (web service). Per farlo è necessario che la classe sia progettata in modo da consentire la costruzione della busta SOAP o, in generale, in modo da consentire la conversione dei parametri scambiati in una qualche forma di XML; ad esempio è buona norma utilizzare tipo serializzabili, rendere transitorie le associazioni che non si intende trasferire nel servizio, gestire le ricorsioni nel grafo di oggetti, ecc.
+Regola kit utilizza CXF per gestire in toto i servizi web, per cui si rimanda alla documentazione ufficiale per le tante e utili opzioni disponibili. Di seguito presenteremo un esempio piuttosto comune di basato su JAX-WS realizzato a partire da codice Java esistente nel livello di presentazione. La prima cosa è marcare l'interfaccia del servizio con l'annotazione WebService :
+
+\begin{java}
+@WebService
+public interface HelloWorldManager {
+    String sayHi(@WebParam(name="text") String text);
+}
+\end{java}
+
+
+Anche la classe che realizza questa interfaccia deve essere annotata per precisare, ad esempio, il nome del servizio stesso:
+
+\begin{java}
+@WebService(endpointInterface = "demo.service.HelloWorld", 
+            serviceName = "HelloWorld")
+public class HelloWorldManagerImpl implements HelloWorldManager {
+
+    public String sayHi(String text) {
+        return "Hello " + text;
+    }
+
+}
+\end{java}
+
+
+ A questo punto rimane da configurare il bean in modo tale che costituisca un Service End Point. Nell'esempio di seguito viene modificato il file applicationContext-services.xml in modo da prevedere anche il protocollo di sicurezza WS-Security:
+
+\begin{xml}
+<jaxws:endpoint id="helloWorld"
+  implementor="demo..service.impl.HelloWorldManagerImpl" address="/services/HelloWorld">
+   <jaxws:features>
+     <bean class="org.apache.cxf.feature.LoggingFeature" />
+   </jaxws:features>
+   <jaxws:inInterceptors>
+   <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+  <constructor-arg>
+    <map>
+      <entry key="action" value="UsernameToken Timestamp" />
+      <entry key="passwordType" value="PasswordText" />
+      <entry key="passwordCallbackClass" value="ServerPasswordCallback" />
+   </map>
+      </constructor-arg>
+    </bean>
+   </jaxws:inInterceptors>
+</jaxws:endpoint>
+\end{xml}
+
+Da notare  tra le features l'abilitazione del log e tra gli inIntercaptors la configurazione della classe  WSS4JInInterceptor che predispone il servizio di sicurezza WS-Security, in questo caso basato su Timestamp e su semplice password in chiaro. Conclude il tutto la classe  ServerPasswordCallback che si occupa di verificare le password in ingresso.
+
+\begin{java}
+public class ServerPasswordCallback implements CallbackHandler {
+
+  public void handle(Callback[] callbacks) throws IOException,
+     UnsupportedCallbackException {
+    
+  WSPasswordCallback pc = (WSPasswordCallback) callbacks[0];
+  if (pc.getIdentifer().equals("joe")) {
+  if (!pc.getPassword().equals("password")) {
+      throw new SecurityException("wrong password");
+    }
+  }
+  } 
+}
+\end{java}
+
+CXF consente inoltre di configurare un client per il servizio in modo analogo ance se un po' prolisso:
+
+\begin{xml}
+<bean id="prenotazioni" class="demo.service.HelloWorldManager"
+  factory-bean="clientFactory" factory-method="create" />
+  
+<bean id="clientFactory" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+  <property name="serviceClass" value="it.kion.service.PrenotazioniManager" />
+  <property name="address" value="http://localhost/soap/services/HelloWorld" />
+  <property name="outInterceptors">
+   <list>
+    <bean class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
+     <constructor-arg>
+      <map>
+    <entry key="action" value="UsernameToken Timestamp" />
+    <entry key="passwordType" value="PasswordText" />
+    <entry key="user" value="joe" />
+        <entry key="passwordCallbackClass" value="ClientPasswordCallback" />
+  </map>
+     </constructor-arg>
+    </bean>
+    <bean class="org.apache.cxf.interceptor.LoggingOutInterceptor" />
+   </list>
+  </property>
+  <property name="inInterceptors">
+   <list>
+    <bean class="org.apache.cxf.interceptor.LoggingInInterceptor" />
+   </list>
+  </property>
+</bean>
+\end{xml}
+
+
+Qui è possibile vedere la configurazione per la sicurezza (speculare a quella lato server) , la configurazione del log e la classe  ClientPasswordCallback responsabile di presentare al server le password.
+
+\begin{java}
+public class ClientPasswordCallback implements CallbackHandler {
+
+  public void handle(Callback[] callbacks) throws IOException,
+      UnsupportedCallbackException {
+      WSPasswordCallback pc = (WSPasswordCallback) callbacks[0];
+  // set the password for our message.
+  pc.setPassword("password");
+   }
+}
+\end{java}
+
+
+CXF è una libreria davvero completa che consente di realizzare servizi web in modalità diversa (ad esempio partendo dal WSDL piuttosto che dal codice Java, oppure utilizzando SOAP o servizi di tipo REST, ecc.). Si invita quindi a consultare la documentazione per avere un quadro generale delle funzioni disponibili.
+
+\begin{nota}
+Per utilizzare CXF all'intenro di JBOSS è necessario impostare il parametro di avvio della virtual machine javax.xml.soap.MessageFactory al valore com.sun.xml.messaging.saaj.soap.ver1\_1.SOAPMessageFactory1\_1Impl.
+\end{nota}
+
+\section{Servizi Web REST}
+Un servizio di tipo REST può essere realizzato sempre annotando una classe di tipo manager (nel livello quindi di servizio) nel modo seguente:
+
+\begin{java}
+@Path("/nome-servizio/")
+@ProduceMime("text/xml")
+public class RestManager {
+
+  @POST @Path("/foo/{id}/{nome}")
+  public Dto postFoo(@PathParam("id") String id, @PathParam("nome") String nome, Dto parametro) {
+
+    return new Dto(id + ":" + nome + ":" + parametro.prova);
+  }
+
+  @PUT @Path("/foo/{id}/{nome}")
+  public Dto putFoo(@PathParam("id") String id, @PathParam("nome") String nome, Dto parametro) {
+
+    return new Dto(id + ":" + nome + ":" + parametro.prova);
+  }
+
+  @GET @Path("/foo/{id}/{nome}")
+  public String getFoo(@PathParam("id") int id, @PathParam("nome") String nome) {
+
+    return "GET di:" + id + ":" + nome;
+  }
+
+  @DELETE @Path("/foo/{id}/{nome}")
+  public String deleteFoo(@PathParam("id") int id, @PathParam("nome") String nome) {
+
+    return "DELETE di:" + id + ":" + nome;
+  }
+  
+}
+\end{java}
+
+
+Le cose importanti da sottolineare sono:
+\begin{enumerate*}
+\item l'annotazione @Path che specifica la url alla quale risponde il servizio ed le singole operazioni, nell'esempio /nome-servizio/foo. 
+\item I parametri di tipo primitivi (stringhe, diciamo) sono passati all'operazione aggiungendoli alla url. Sempre nell'annotazione @Path è possibile indicare i nomi dei parametri ( @Path("/foo/{id}/{nome}") )che poi saranno effettivamente passati al metodo Java con l'annotazione @PathParam (ad esempio @PathParam("id") ).
+\item il metodo http al quale l'operazione deve rispondere ad esempio @POST, @GET , @PUT e @DELETE
+\end{enumerate*}
+
+La registrazione del servizio in Spring richiede semplicemente qualcosa di simile ad questo:
+
+\begin{xml}
+  <jaxrs:server id="testService" address="/">
+    <jaxrs:serviceBeans>
+        <ref bean="testServiceImpl" />
+      </jaxrs:serviceBeans>
+  </jaxrs:server>
+
+  <bean id="testServiceImpl" class="it.kion.service.RestManager" />
+\end{xml}
+
+Per invocare i servizi di tipo REST Regola kit mette a disposizione RestClient,  una piccola classe che dovrebbe rendere agevole l'invocazione di servizi. Ad esempio: per un invocare un servizio col metodo http GET si può procedere come segue:
+
+\begin{java}
+ RestClient client = new RestClient(); 
+ String result = client.get(url, param1, param2, ..., paramN);
+ \end{java}
+
+I parametri sono utilizzati per costruire la url che diventa qualcosa di simile ad ( url/param1/param2/.../paramN). E\' anche possibile passare una singola entità nel body della richiesta HTTP, tipicamente una frammento di xml che rappresenta un'istanza di un oggetto (creato con la classe di utilità di Regola kit  JAXBMarshaller):
+
+\begin{java}
+ Dto dto = new Dto();
+ String dtoXml = toXml("org.regola.ws", "dto", dto);
+ String result = client.post(url, dtoXml, 1, "salve!");
+ \end{java}
+ 
+Anche il valore di ritorno dei servizi spesso sono dei documenti xml che rappresentano un oggetto; per ottenere l'oggetto di partenza si può ricorrere sempre alla classe  JAXBMarshaller:
+
+\begin{java}
+ String result = client.put(url, dtoXml, 1, "salve!");
+ Dto dto = fromXml("org.regola.ws", result);
+ \end{java} 
+
+Nota bene: prima di effettuare le conversioni oggetto/xml è  necessario utilizzare il compilatore di JAXB per annotare le classi coinvolte e produrre un oggetto del tipo ObjectFactory (si veda la documentazione di JAXB). Ad esempio, partendo da uno schema xml che descrive il documento relativo ad una certa classe, diciamo Dto, bisogna invocare il compilatore di JAXB come segue:
+
+\begin{bash}
+ xjc schema1.xsd -p it.il.tuo.package -d src/main/java  
+\end{bash}
+ 
+
+A questo punto tutte le classi coinvolte saranno create nel package it.il.tuo.package unitamente alla classe ObjectFactory.
+
+Infine se per qualche bizzarra circostanza si disponesse solo della classe e non dello schema relativo, sarà possibile usare il metodo di utilità JAXBMarshaller.generateSchema()  per ottenere uno schema di base.
+
+
 \section{Portlet}
 Le pagine di delle applicazioni Regola kit possono essere fruite normalmente attraverso il browser (come abbiamo descritto nei capitoli precedenti) e, nel contempo, esportate come Portlet; questo doppio canale di fruizione offre il vantaggio di poter esportare la vostra applicazione all'interno di portale, di testare la vostra Portlet semplicemente dal browser e, infine, di poter utilizzare lo stesso stack operativo di Regola kit  (dao, manager, Model Pattern, ecc.) per realizzare Portlet.
 

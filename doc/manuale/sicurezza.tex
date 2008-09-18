@@ -1,8 +1,119 @@
 \chapter{Sicurezza}
 
+\section{Autenticazione}
+L'autenticazione  mediante SSO di ogni applicazione richiede una serie di scambi tra l'applicazione stessa e Cas che sono rappresentati nel grafico seguente e descritti poco dopo:
+
+\begin{figure}[h!]
+  \centering
+    \includegraphics[scale=0.8]{disegno} 
+  \caption[cas]{Processo di autenticazione \label{fig:cas}}
+\end{figure}
+
+\begin{enumerate*}
+\item Quando un browser tenta di accedere per la prima volta ad un'applicazione (d'ora in poi Client) realizzata con Regola kit e protetta con cas il browser viene reindirizzato all'applicazione Cas (d'ora in poi CAS) passandole come parametro una stringa che rappresenta il servizio richiesto. Su CAS attraverso un form HTML l'utente inserisce username e password. A questo punto, se l'autenticazione è andata a buon fine, CAS conosce il netID dell'utente autenticato, ad esempio nicola.santi@unibo.it
+
+\item  CAS ridirige il browser all'applicazione Client passandole come parametro il service ticket, un numero che servirà poi in seguito.
+
+\item  Client richiama CAS passandogli il service ticket appena ricevuto ed una URL chiamata pgt url che CAS userà in seguito. A questa chiamata CAS risponde con il netID dell'utente (nicola.santi@unibo.it) ed un altra stringa, il pgtIOU che servirà in seguito.
+
+\item  CAS richiama il client alla url che aveva ricevuto nella richiesta precedente (la pgt url) ed invia a Client di nuovo lo stesso pgtIOU di prima perché Client verifichi che siano uguali ed inoltre invia un pgt da usare in seguito nell'autenticazione di tipo proxy.
+
+A questo punto l'autenticazione di un utente che voleva accedere a Client tramite browser è terminata. Rimane da spiegare l'autenticazione di tipo proxy, ovvero se Client decide di invocare ad esempio un servizio web di un'altra applicazione, diciamo Server senza doversi riautenticare.
+
+\item Client invia il pgt a CAS che gli risponde con il proxy ticket, una stringa da passare a Server.
+
+\item Client richiama Server e gli passa il proxy ticket.
+
+\item Server contatta CAS passandogli il proxy ticket e la pgt url. A questa chiamata CAS risponde con il netID dell'utente (nicola.santi@unibo.it) ed un altra stringa, il pgtIOU che servirà in seguito. Questo passaggio è del tutto simile a quello numero 3. Seguirà una passaggio simile a 4 in cui CAS chiamerà Server passandogli pgt e pgtIOU.
+\end{enumerate*}
+
+Le url coinvolte nei passaggi precedenti sono configurabili all'interno dell'applicazione Client modificando alcune proprietà nel file  src/main/webapp/WEB-INF/cas.properties. La tabella seguente riporta le url coinvolte per ogni passo unitamente alla proprietà da configurarare ed il suo valore di default:
+
+\begin{center}
+  \begin{tabular}{ | l | l | l |}
+  \hline
+  step  &  URL    & parametro \\ \hline
+  1  &  login url &  cas.loginUrl=/login \\ \hline
+  2  &  service url &  cas.main=/personale/j\_acegi\_cas\_security\_check \\ \hline
+  3,7 & validation url &   cas.validationUrl=/proxyValidate\\ \hline
+  4 & pgt url  & cas.pgtUrl=/casProxy  \\ \hline
+  5 &  proxy url &  cas.proxyUrl=/proxy \\ \hline
+  6 & la url specifica del servizio &  \\ \hline
+  \end{tabular}
+\end{center}
+
+
+\section{Configurazione di Cas}
+Affinché la propria applicazione (Client o Server) possa usufruire del SSO deve registrare presso Cas uno (o più servizi). I servizi sono essenzialmente identificati da una stringa che deve corrispondere (anche solo parzialmente come vedremo) con la service url richiamata da Cas al punto 2. Per non restare nel vago immaginiamo di dover registrare un servizio per un'applicazione che risponde alla url https://tirocini.unibo.it e la cui service url sia https://tirocini.unibo.it/j\_acegi\_cas\_security\_check. Il nome del servizio può coincidere con questa url oppure con una suo sottoparte come ad esempio https://tirocini.unibo.it/* (si prega di notare l'asterisco).
+
+Si rammenta che nel caso di autorizzazione di tipo proxy è necessario utilizzare due servizi distinti, uno per l'autenticare l'applicazione Client da passare nel passo 1 ed quello da utilizzare per l'applicazione Server per il passo 5; da notare che il secondo servizio deve coincidere (anche solo parzialmente) con la url di Server mentre il primo con la url di Client.
+
+\section{Configurazione di Client}
+Nonostante le possibilità di Cas siano particolarmente ampie, la configurazione di default realizzata da Regola kit dovrebbe soddisfare le esigenze più comuni di un'applicazione web. In questo caso la configurazione si limita a modificare il nome del servizio e l'host dove risponde Cas all'interno del file src/main/webapp/WEB-INF/cas.properties.
+
+\begin{xml}
+# servizi registrati per questa applicazione (da riportare sul server CAS) 
+cas.service.proxied=/services/
+cas.main=/personale/j_acegi_cas_security_check
+
+# url di test
+cas.hostUrl=https://localhost:8443/cas
+cas.ourAppUrl=https://localhost:8443/${artifactId}
+
+# url di produzione
+prod.cas.host=https://localhost:8443/cas
+prod.cas.ourAppUrl=https://localhost:8443/${artifactId}
+\end{xml}
+
+
+Nell'esempio abbiamo configurato due servizi, uno per l'autenticazione di tipo proxy ovvero quando la nostra applicazione funziona come Server alla url /services e l'altra per quando l'applicazione nostra funziona come Client. In questo caso conviene usare come nome del servizio la nostra service url, come nell'esempio. Le altre proprietà specificano le url della nostra applicazione e del server Cas sia in produzione sia in test.
+
+La prossima configurazione da modificare si trova del file  src/main/webapp/WEB-INF/security-cas.xml e prevede l'impostazione delle url da proteggere e per ciascuna di esse quale gruppo a titolo per visualizzarle.
+
+\begin{xml}
+  <bean id="filterChainProxy" class="org.acegisecurity.util.FilterChainProxy">
+    <property name="filterInvocationDefinitionSource">
+      <value>
+        CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+        PATTERN_TYPE_APACHE_ANT 
+        /images/**=#NONE#
+        /scripts/**=#NONE# 
+        /styles/**=#NONE#
+        /portal.jsp=httpSessionContextIntegrationFilter,logoutFilterMain,casProcessingFilter,securityContextHolderAwareRequestFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
+        /personale/**=httpSessionContextIntegrationFilter,logoutFilterMain,casProcessingFilterForMain,securityContextHolderAwareRequestFilter,anonymousProcessingFilter,exceptionTranslationFilterMain,filterInvocationInterceptor
+      </value>
+      <!--
+        Put channelProcessingFilter before
+        securityContextHolderAwareRequestFilter to turn on SSL switching
+      -->
+    </property>
+  </bean>
+  
+  <!-- specifica ruoli che possono accedere alle diverse url  -->
+  <bean id="filterInvocationInterceptor"
+    class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
+    <property name="authenticationManager" ref="casAuthenticationManager" />
+    <property name="accessDecisionManager" ref="accessDecisionManager" />
+    <property name="objectDefinitionSource">
+      <value>
+        PATTERN_TYPE_APACHE_ANT
+        /portal.jsp=admin,user
+        /esterni/richiesta*.*=ROLE_ANONYMOUS,admin,user
+        /esterni/loginMigrazione.*=ROLE_ANONYMOUS,admin,user
+        /**/*.htm*=admin,user
+        /**/*.jsp*=admin,user
+      </value>
+    </property>
+  </bean>
+
+\end{xml}
+
+Questo è quanto occorre generalmente per consentire alla propria applicazione di funzionare sia come Client che come Server. Nel resto di questo capitolo mostreremo le altre possibili variazioni che comprendono la modifica del file  src/main/webapp/WEB-INF/security-cas.xml ma richiedono una conoscenza più approfondita di Cas e Acegi Securty.
+
+
 \section{Presentazione}
 
-Il sistema di sicurezza è costruito attorno ad una catena di oggetti chiamati filtri (attenzione, non si tratta di filtri Http) che vengono eseguiti in cascata e cooperano per assolvere i diversi compiti nei quali la funzione della sicurezza si concretizza. Esistono molti filtri standard ma è comunque possibile aggiungerne di personalizzati ad esempio per aggiungere un sistema di autenticazione proprietario o non ancora implementato. L'elenco che segue indica i filtri standard nell'ordine con cui sono eseguiti e per ciascuno il nome della classe che lo implementa ed  un alias per riferirsi ad esso:
+Il sistema di sicurezza è costruito attorno ad una catena di oggetti chiamati filtri che vengono eseguiti in cascata e cooperano per assolvere i diversi compiti nei quali la funzione della sicurezza si concretizza. Esistono molti filtri standard ma è comunque possibile aggiungerne di personalizzati ad esempio per aggiungere un sistema di autenticazione proprietario o non ancora implementato. L'elenco che segue indica i filtri standard nell'ordine con cui sono eseguiti e per ciascuno il nome della classe che lo implementa ed  un alias per riferirsi ad esso:
 
 \begin{tabular}{ | l | l | }
   \hline
@@ -49,7 +160,8 @@ Come si diceva ogni filtro assolve un compito specifico e deve essere configurat
 \begin{xml}
 <bean id="filterInvocationInterceptor"
   class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
-  <property name="authenticationManager" 
+  <property name="authenticationManager"
+ 
                   ref="authenticationManager" />
   <property name="accessDecisionManager"
         ref="accessDecisionManager" />

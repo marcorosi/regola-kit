@@ -110,9 +110,3 @@ Nelle applicazioni web una singola operazione di business può essere completata
 Nei pojo façade la sessione dell'ORM inizia e si conclude all'interno della singola richiesta HTTP, per cui all'interno di una conversazione (che si compone di diverse richiesta HTTP) vengono usate sessioni diverse. Gli oggetti di modello prima di passare al livello di presentazione sono staccati (detached) dal motore di persistenza  e poi riattaccati (reattached) nella richiesta HTTP successiva. Questa modalità operativa prevede quindi transazioni sul database limitate all'interno delle richieste HTTP e dedica molta attenzione alla fase di attach e detach degli oggetti dall'ORM.
 Nel pattern del modello esposto invece si utilizza la stessa sessione dell'ORM per tutta la durata della conversazione. Gli oggetti di modello passati al livello di presentazione non sono mai staccati (detached) ma rimangono sempre nel contesto di persistenza dell'ORM. Le transazioni sul database sono invece aperte e chiuse all'interno delle richieste HTTP per evitare dei lock sulle righe delle tabelle ed il conseguente degrado per tutta l'applicazione. Per assicurare la coerenza dei dati tra le varie transazioni è necessario abilitare un meccanismo per individuare eventuali variazione sui dati trattati, ad esempio una politica di lock ottimistico. 
 
-
-
-
-
-\section{Web Services}
-TODO: esempi di configurazioni già pronte dentro Regola kit
