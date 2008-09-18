@@ -54,6 +54,9 @@ import com.sun.tools.xjc.generator.bean.ObjectFactoryGenerator;
  * non dello schema realtivo, sarà possibile usare il metodo di utilità
  * {@link #generateSchema(Class, String)} per ottenere uno schema di base.
  * 
+ * @see {@link http
+ *      ://www.javaworld.com/javaworld/jw-06-2006/jw-0626-jaxb.html</a>}
+ * 
  * @author nicola
  * 
  */
