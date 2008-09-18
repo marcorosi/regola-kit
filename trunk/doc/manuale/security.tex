@@ -1,0 +1,167 @@
+\chapter{Plitvice Security}
+
+Questo documento è ancora in fase di redazione così come la libreria a cui si riferisce.
+
+\section{Autorizzazioni}
+Si presentano le strutture dai:
+- Ruolo
+- Contesto
+
+\section{Ruolo}
+La classe Ruolo raccoglie principalmente una collezione di diritti di cui parleremo ampiamente tra poco. Ogni ruolo è identificato da un intero unico per tutte le applicazioni e presenta una descrizione per chiarine la finalità; quest'ultima può essere utilizzate nei livelli di presentazione. Ogni ruolo ha validità per un'applicazione, ovvero contiene diritti da utilizzare solo con una specifica applicazione. Le applicazioni sono individuate anch'esse da un intero e sono persistite in un'apposita tabella di database.
+Si diceva che ogni ruolo contiene una collezione di diritti, ovvero di classi del tipo Diritto;  gli elementi comuni ad ogni diritto sono un identificativo unico (un intero) ed un Ambito che rappresenta un ulteriore partizionamento oltre a quello già menzionato dell'applicazione, specificata nel ruolo. Ad esempio esiste l'ambito dei tirocini che raccoglie tutti i diritti relativi alla grande area della gestione dei tirocini. Inoltre tutti i diritti fanno riferimento ad un'entità, ovvero un elemento del modello come indicato del Domain Driven Development. L'elenco delle entità e degli  è persistito su database, in due tabelle,  e a ciascuno è assegnato un identificativo univoco.
+Infine i diritti possono essere di due tipi: di workflow o applicativi.
+
+\subsection{Diritti di workflow}
+ I diritti relativi a workflow  si riferiscono ad un flusso e specificano le autorizzazioni, ovvero  se l'identità assunta dall'utente corrente possa o meno segnalare una transizione oppure ottenere l'elenco di tutti i documenti che si trovino in un certo stato. Di conseguenza ogni diritto di workflow specifica il nome del flusso da utilizzare.
+I diritti di workflow si ripartiscono, per quanto detto, in diritti da applicare agli stati e diritti da applicare alle transizioni. Questi ultimi, se presenti, consentono all'identità corrente di segnalare una transizione. Il default, ovvero in caso di assenza di uno specifico diritto di questo tipo, la transazione non può essere segnalata da nessuno.
+I diritti di workflow che si applicano agli stato consentono di elencare tutti i documenti che si trovino in quello stato. In assenza di un particolare diritto chiunque può richiedere l'elenco completo dei documenti per quel certo stato. Da notare come questo tipo di diritti ammette un meccanismo di eccezione che consente anche ai non aventi diritto di elencare tutti i documenti in un certo stato; si rimanda alla proprietà vincoloLettura di AutorizzazioneUtente e l'interfaccia Visibilità per dettagli in merito.
+
+\subsection{Diritti applicativi}
+
+I diritti applicativi sono delle mere etichette, delle stringhe di caratteri che ricoprono un preciso significato solo per una certa applicazione. Ad esempio il permesso individuato dalla stringa OT\_INS assume un significato solo per l'applicazione dei tirocini (ovvero quella specificata nel ruolo che contiene il diritto)  che conosce quindi come comportarsi; in particolare se il permesso è presente consente l'inserimento di nuove offerte di tirocini.
+
+\section{Contesti}
+I contesti costituiscono un sistema per limitare la visibilità delle entità; ogni applicazione presenta un modello di contesto specifico del problema che devono affrontare. In generale comunque ogni contesto è individuato in modo univoco (per l'applicazione che lo usa) con un intero.
+
+\subsection{Tirocini}
+Qui si illustrano Regole e dei Destinatari.
+
+\subsection{Plitvice}
+Qui si illustrano i contesti di Plitvice.
+
+\section{Insieme delle identità }
+Ad ogni utente autenticato potrebbero essere associabile a diversi ruoli o diversi contesti, ad esempio l'utente con netID nicola.santi@unibo.it potrebbe scegliere tra il contesto di amministratore che consente di vedere ogni entità ed il contesto di operatore della facoltà di Economia che limita le entità visibili a quelle afferenti a tale facoltà. 
+Prima di operare con un'applicazione può essere richiesto all'utente autenticato di scegliere quale identità usare; nell'esempio se entrare come amministratore o come operatore. Questa scelta è definita, usando un po' di insiemistica, scelta di un identità mentre tutte le possibilità tra cui può scegliere è l'insieme di tutte le identità. 
+Come vedremo nel paragrafo successivo esiste un servizio applicativo che consente di ottenere l'insieme delle identità così come strumenti per ottenere una singola identità. Quest'ultima è rappresentata da un oggetto del tipo AutorizzazioneUtente:
+
+\begin{java}
+
+public class AutorizzazioniUtente implements Serializable {
+  
+  protected String nome;
+  
+  protected Long[] idRuoli;
+
+  protected Long[] idContesti;
+
+  protected Long idAmbito;
+
+  protected Long idEsternoSelezionato;
+  
+  private Long idRichiestaRegistrazione;
+  
+  transient protected Visibilita visibilita;
+
+  protected String tipo;
+
+  private Integer vincoloLettura;
+
+}
+
+\end{java}
+
+
+Questa classe è pensata per funzionare come DTO, ovvero come un oggetto da trasferire anche attraverso la rete per specificare l'identità correntemente assunta dall'utente autenticato. Si veda il modulo plitvice workflow per un esempio di funzionamento di questa classe.
+Tra le proprietà spicca nome, che contiene il netID dell'utente. Necessarie le proprietà idRuoli, idContesti ed idAmbito che contengono rispettivamente i ruoli, i contesti e l'ambito scelti tra quelli presenti nell'insieme delle identità per l'utente autenticato.
+Per una discussione delle proprietà visibilità, tipo e vincoloLettura si rimmanda al paragrafo Visibilità. 
+
+\section{Il processo di autorizzazione}
+Definire l'interfaccia da utilizzare
+
+\section{Restrizione di visibilità}
+La classe AutorizzazioneUtente rappresenta, come si è visto, l'identità correntemente scelta dall'utente autenticato. Si tratta di un DTO che il client deve inviare magari attraverso la rete ad un servizio, ad esempio un manager che gestisca un workflow, per consentire a quest'ultimo di applicare correttamente le autorizzazioni.
+
+\begin{java}
+
+public class AutorizzazioniUtente implements Serializable {
+  
+  ...
+  
+  transient protected Visibilita visibilita;
+
+  protected String tipo;
+
+  private Integer vincoloLettura;
+
+}
+\end{java}
+
+Le tre proprietà elencate consentono al servizio (non al client) di implementare un meccanismo molto comodo per limitare la visibilità delle entità del modello mediante l'impiego dell'interfaccia Visibilita.
+
+\begin{java}
+public interface Visibilita extends Serializable {
+
+  void puoGestire(Serializable document);
+
+}
+\end{java}
+
+Il client non dovrà impostare nessuna visibilità (la proprietà rimane a null)  ma si deve limitare ad impostare il tipo che non è altro se non una stringa contenente un valore simbolico con un significato specifico per il client.
+Sarà invece il servizio che riceve l'AutorizzazioneUtente che dovrà provvedere a progettare ead istanziare un'implementazione di Visibilita sulla base della proprietà tipo impostato dal client. Esiste un meccanismo abbastanza comodo per istanziare dei tipi visibilità creando delle classi del tipo VisibilitaFactory:
+
+\begin{java}
+public interface VisibilitaFactory { 
+  
+  public Visibilita create(AutorizzazioniUtente identita) throws TypeUnkonownException;
+
+} 
+\end{java}
+
+
+Tutte le factory create devono poi riunite in una catena del tipo VisibilitaFactoryChain mediante la seguente configurazione di Spring:
+
+\begin{xml}
+    <bean id="visibilitaFactoryChain" class="it.kion.plitvice.autorizzazioni.visibilita.VisibilitaFactoryChain" >
+      <property name="factories">
+        <list>
+          <bean class="EsternoVisibiltaFactory"  />
+        </list>
+      </property>
+    </bean> 
+\end{xml}
+
+La  visibilitaFactoryChain così ottenuta è richiesta come prorpietà da tutti i servizi che aderiscono allo standard per il controllo delle autorizzazioni di Plitvice kit (ad esempio WorkflowManager).
+
+Visto come il server provveda, una volta ricevuto il DTO, a creare una visibilità ed assegnarla allo stesso DTO,  può essere utile capire come utilizzare una gerarchia di classi basate su Visibilita. Ogni servizio o gruppo di servizi può estendere  l'interfaccia di base con dei metodi comuni per restringere le selezioni, ad esempio con dei metodi che prendano come parametro di input un ModelPattern. Ad esempio, nel caso di utenti esterni  che debbano visualizzare solo le richieste della propria azienda sarebbe possibile creare una classe simile a questa:
+
+\begin{java}
+public class AbstractVisibilita implements Visibilita {
+
+  public void limitaRichieste(RichiestaPattern p) {
+    //non faccio nulla
+  }
+      ...
+}
+
+public class VisibilitaEsterni extends AbstractVisibilita {
+
+  private Long idRichiesta;
+  
+  @Override
+  public void limitaRichieste(RichiestaPattern p) {
+    p.setId(idRichiestaRegistrazione);
+  }
+  ...
+}
+
+\end{java}
+
+
+Dal momento che AutorizzazioniUtente è passato ad ogni servizio e contiene all'interno la visibilità dell'utente corrente  è possibile utilizzare in modo conveniente il polimorfismo come nell'esempio seguente:
+
+\begin{java}
+public void faiQualcosa(..., RichiestaPattern p, AutorizzazioniUtente i)
+{
+   AbstractVisibilita v = (AbstractVisibilita) i.getVisibilita();         v.limitaRichieste(p);
+
+  ... 
+}
+
+\end{java}
+
+In questo modo il servizio può ignorare quale sia la classe concreta che implementa la visibilità e limitarsi a chiamare il metodo limitaRichieste() che non farà nulla tranne nel caso di un utente esterno.
+
+
+\section{Condivisione di scelte}
+Dove si spiega il meccanismo per condividere le scelte di un'utente (tra cui Identità) tra un'applicazione e l'altra.
