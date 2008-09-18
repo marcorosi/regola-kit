@@ -13,6 +13,9 @@
 	<name>REGOLA Toolkit :: WS RESTfull support</name>
 	<description>REGOLA Toolkit :: WS RESTfull support</description>
 	
+	<!-- mvn license:check -Dyear=2008 
+	     mvn license:format -Dyear=2008  -->
+	
 	<build>
 		<plugins>
 			<plugin>
