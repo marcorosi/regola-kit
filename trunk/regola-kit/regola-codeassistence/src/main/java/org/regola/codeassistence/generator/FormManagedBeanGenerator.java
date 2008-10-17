@@ -5,7 +5,7 @@ import org.regola.codeassistence.Environment;
 import org.regola.codeassistence.ParameterBuilder;
 
 
-public class FormManagedBeanGenerator implements Generator
+public class FormManagedBeanGenerator extends AbstractGenerator
 {
 	private static final String LIST_TEMPLATE = "formMBean.ftl";
 	private static final String FACES_CONTEXT_TEMPLATE = "formMBeanFacesContextBean.ftl";
@@ -41,6 +41,11 @@ public class FormManagedBeanGenerator implements Generator
 
 	public String getDisplayName() {
 
-		return "jsf managed bean";
+		return "JSF detail managed bean";
+	}
+	
+	public String getDescription() {
+		return "Produces a JSF detail managed bean.";
+
 	}
 }

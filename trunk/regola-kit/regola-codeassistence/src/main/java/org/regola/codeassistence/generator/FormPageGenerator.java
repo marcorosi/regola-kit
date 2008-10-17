@@ -5,7 +5,7 @@ import org.regola.codeassistence.Environment;
 import org.regola.codeassistence.ParameterBuilder;
 
 
-public class FormPageGenerator implements Generator
+public class FormPageGenerator extends AbstractGenerator
 {
 	private static final String TEMPLATE = "form_page.ftl";
 	private static final String FACES_CONFIG_TEMPLATE = "formMBeanFacesContextBean.ftl";
@@ -32,6 +32,10 @@ public class FormPageGenerator implements Generator
 	}
 
 	public String getDisplayName() {
-		return "form page";
+		return "JSF detail page";
+	}
+	
+	public String getDescription() {
+		return "Produces a facelets template for detail page.";
 	}
 }

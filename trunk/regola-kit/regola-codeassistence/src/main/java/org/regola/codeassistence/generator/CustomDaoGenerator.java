@@ -4,7 +4,7 @@ import freemarker.template.Template;
 import org.regola.codeassistence.Environment;
 import org.regola.codeassistence.ParameterBuilder;
 
-public class CustomDaoGenerator implements Generator
+public class CustomDaoGenerator extends AbstractGenerator
 {
 	private static final String IMPL_TEMPLATE = "customDaoImpl.ftl";
 	private static final String INTERFACE_TEMPLATE = "customDaoInterface.ftl";
@@ -39,6 +39,10 @@ public class CustomDaoGenerator implements Generator
 	}
 
 	public String getDisplayName() {
-		return "custom dao";
+		return "Custom DAO";
+	}
+	
+	public String getDescription() {
+		return "Write interface and hibernate implementation for a DAO class.";
 	}
 }

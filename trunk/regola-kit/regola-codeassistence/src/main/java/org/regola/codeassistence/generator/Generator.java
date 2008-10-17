@@ -1,5 +1,7 @@
 package org.regola.codeassistence.generator;
 
+import java.util.Map;
+
 import org.regola.codeassistence.Environment;
 import org.regola.codeassistence.ParameterBuilder;
 
@@ -30,6 +32,12 @@ public interface Generator
 	public String getDisplayName();
 	
 	/**
+	 * Una breve descrizione dell'intervento realizzato
+	 * @return
+	 */
+	public String getDescription();
+	
+	/**
 	 * Crea o modifica dei file realizzando lo scopo per cui il 
 	 * generatore è stato pensato. Ad esempio crea una classe oppure
 	 * modifica in file di configurazione.
@@ -51,5 +59,16 @@ public interface Generator
 	 * @return
 	 */
 	public boolean existsArtifact(Environment env, ParameterBuilder pb);
+	
+	/**
+	 * Effettua una simulazione restituendo una mappa con in chiave i 
+	 * file che il generatore produrrebbe o modificherebbe e come valore
+	 * gli interventi che realizzerebbe.
+	 * 
+	 * @param env
+	 * @param pb
+	 * @return
+	 */
+	public Map<String,String> simulate(Environment env, ParameterBuilder pb);
 
 }

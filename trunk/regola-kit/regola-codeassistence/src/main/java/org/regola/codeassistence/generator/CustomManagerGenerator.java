@@ -5,7 +5,7 @@ import org.regola.codeassistence.ParameterBuilder;
 
 import freemarker.template.Template;
 
-public class CustomManagerGenerator implements Generator
+public class CustomManagerGenerator extends AbstractGenerator
 {
 	private static final String IMPL_TEMPLATE = "customManagerImpl.ftl";
 	private static final String INTERFACE_TEMPLATE = "customManagerInterface.ftl";
@@ -40,6 +40,11 @@ public class CustomManagerGenerator implements Generator
 	}
 
 	public String getDisplayName() {
-		return "custom manager";
+		return "Custom Manager";
+	}
+	
+	public String getDescription() {
+		return "Write interface and hibernate implementation for a Manager class.";
+
 	}
 }
