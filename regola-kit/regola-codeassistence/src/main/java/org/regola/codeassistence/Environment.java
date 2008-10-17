@@ -10,6 +10,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,6 +49,7 @@ public class Environment {
 	private String springDaoFileName = "applicationContext-dao.xml";
 	private String facesConfigFileName = "faces-config.xml";
 	private boolean simulate=false;
+	private Map<String,String> simulationMap = new HashMap<String,String>();
 
 	@SuppressWarnings( { "unchecked", "unchecked" })
 	public Environment() {
@@ -154,11 +156,30 @@ public class Environment {
 		}
 	}
 	
+	public void writeToSimulationMap(String filePath, String fileName, Template template, Object root, boolean append) 
+	{
+		try {
+			String dirPath = getOutputDir() + "/" + filePath;
+			String path = dirPath + fileName;
+
+			StringWriter writer = new StringWriter();
+			writer.append("// file " + path);
+
+			template.process(root, writer);
+			
+			simulationMap.put(fileName, writer.toString());
+
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public void writeFile(String filePath, String fileName, Template template, Object root, boolean append) {
 
 		if (isSimulate())
 		{
 			writeToStandardOut(filePath, fileName, template, root, append);
+			writeToSimulationMap(filePath, fileName, template, root, append);
 			return;
 		}
 		
@@ -419,6 +440,7 @@ public class Environment {
 
 	public void setSimulate(boolean simulate) {
 		this.simulate = simulate;
+		if (simulate) simulationMap.clear();
 	}
 
 	public String getFacesConfigFileName() {
@@ -428,6 +450,14 @@ public class Environment {
 
 	public IClassDescriptor getClassDescriptor(Class<?> type) {
 		return getDescriptorService().getClassDescriptor(type);
+	}
+
+	public void setSimulationMap(Map<String,String> simulationMap) {
+		this.simulationMap = simulationMap;
+	}
+
+	public Map<String,String> getSimulationMap() {
+		return simulationMap;
 	}
 
 }

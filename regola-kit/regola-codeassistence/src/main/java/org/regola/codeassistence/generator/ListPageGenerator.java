@@ -5,7 +5,7 @@ import org.regola.codeassistence.Environment;
 import org.regola.codeassistence.ParameterBuilder;
 
 
-public class ListPageGenerator implements Generator
+public class ListPageGenerator extends AbstractGenerator
 {
 	private static final String TEMPLATE = "list_page.ftl";
 	
@@ -26,6 +26,10 @@ public class ListPageGenerator implements Generator
 	}
 
 	public String getDisplayName() {
-		return "list page";
+		return "JSF list page";
+	}
+	
+	public String getDescription() {
+		return "Produces a facelets template for list page.";
 	}
 }

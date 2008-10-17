@@ -4,8 +4,8 @@ import freemarker.template.Template;
 import org.regola.codeassistence.Environment;
 import org.regola.codeassistence.ParameterBuilder;
 
-
-public class ServiceManagerGenerator implements Generator
+@Deprecated
+public class ServiceManagerGenerator extends AbstractGenerator
 {
 	private static final String IMPL_TEMPLATE = "managerImpl.ftl";
 	private static final String INTERFACE_TEMPLATE = "managerInterface.ftl";

@@ -5,7 +5,7 @@ import org.regola.codeassistence.Environment;
 import org.regola.codeassistence.ParameterBuilder;
 
 
-public class FilterGenerator implements Generator
+public class FilterGenerator extends AbstractGenerator
 {
 	private static final String TEMPLATE = "filter.ftl";
 
@@ -28,6 +28,11 @@ public class FilterGenerator implements Generator
 	}
 
 	public String getDisplayName() {
-		return "model pattern class";
+		return "ModelPattern Class";
+	}
+	
+	public String getDescription() {
+		return "Produces a ModelPattern implementation for the model class.";
+
 	}
 }

@@ -5,7 +5,7 @@ import org.regola.codeassistence.Environment;
 import org.regola.codeassistence.ParameterBuilder;
 
 
-public class ApplicationPropertiesGenerator implements Generator
+public class ApplicationPropertiesGenerator extends AbstractGenerator
 {
 	private static final String TEMPLATE = "application_properties.ftl";
 
@@ -27,6 +27,10 @@ public class ApplicationPropertiesGenerator implements Generator
 	}
 
 	public String getDisplayName() {
-		return "application properties";
+		return "Application Localized Bundles";
+	}
+	
+	public String getDescription() {
+		return "Write application's resource boundles.";
 	}
 }

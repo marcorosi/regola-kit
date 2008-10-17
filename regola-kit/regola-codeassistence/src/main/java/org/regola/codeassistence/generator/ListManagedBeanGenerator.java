@@ -5,7 +5,7 @@ import org.regola.codeassistence.Environment;
 import org.regola.codeassistence.ParameterBuilder;
 
 
-public class ListManagedBeanGenerator implements Generator
+public class ListManagedBeanGenerator extends AbstractGenerator
 {
 	private static final String LIST_TEMPLATE = "listMBean.ftl";
 	private static final String SPRING_BEAN_TEMPLATE = "listMBeanSpringBean.ftl";
@@ -34,6 +34,11 @@ public class ListManagedBeanGenerator implements Generator
 
 	public String getDisplayName() {
 
-		return "jsf managed bean";
+		return "JSF lit managed bean";
+	}
+	
+	public String getDescription() {
+		return "Produces a JSF list managed bean.";
+
 	}
 }
