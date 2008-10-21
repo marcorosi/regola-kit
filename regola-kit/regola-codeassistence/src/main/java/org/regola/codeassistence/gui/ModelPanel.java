@@ -285,6 +285,7 @@ public class ModelPanel extends JPanel {
 
 		File[] roots = new ModelPackagesFinder().find(new File(
 				"./src/main/java"));
+		
 		FileTreeNode rootTreeNode = new FileTreeNode(roots);
 		this.tree = new JTree(rootTreeNode);
 		this.tree.setCellRenderer(new FileTreeCellRenderer());
@@ -305,6 +306,8 @@ public class ModelPanel extends JPanel {
 		if (node == null) return null;
 		
 		String name = FileTreeCellRenderer.decorateName(node.getFile());
+		
+		if (!name.endsWith(".java")) return null;
 		
 		return name.replace(".java", "");
 	}
@@ -337,7 +340,7 @@ public class ModelPanel extends JPanel {
 		protected void handleFile(File file, int depth, Collection results) {
 
 			String parent = file.getParent();
-			if (parent.contains("regola") && file.getName().endsWith(".java")) {
+			if (parent.contains("model") && file.getName().endsWith(".java")) {
 				File parentDir = new File(parent);
 				if (!results.contains(parentDir))
 					results.add(parentDir);
