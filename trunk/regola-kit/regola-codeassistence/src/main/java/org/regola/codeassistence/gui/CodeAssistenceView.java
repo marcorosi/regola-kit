@@ -159,6 +159,30 @@ public class CodeAssistenceView extends FrameView {
         jScrollPane3 = new javax.swing.JScrollPane();
         jEditorDAO = new javax.swing.JEditorPane();
         javax.swing.JLabel jLabel5 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        javax.swing.JLabel jLabel6 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jGeneratosService = new javax.swing.JList();
+        javax.swing.JLabel jLabel7 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel8 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel9 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jEditorService = new javax.swing.JEditorPane();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jFilesService = new javax.swing.JList();
+        javax.swing.JLabel jLabel10 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        javax.swing.JLabel jLabel11 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jGeneratorsPresentation = new javax.swing.JList();
+        javax.swing.JLabel jLabel12 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel13 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel14 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jEditorPresentation = new javax.swing.JEditorPane();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jFilesPresentation = new javax.swing.JList();
+        javax.swing.JLabel jLabel15 = new javax.swing.JLabel();
         jModelTree = new org.regola.codeassistence.gui.ModelPanel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
@@ -217,7 +241,7 @@ public class CodeAssistenceView extends FrameView {
         jScrollPane2.setName("jScrollPane2"); // NOI18N
 
         jFilesDAO.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "Choose a generator" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -274,12 +298,218 @@ public class CodeAssistenceView extends FrameView {
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("DAO", jPanel1);
+
+        jPanel2.setName("jPanel2"); // NOI18N
+
+        jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
+        jLabel6.setName("jLabel6"); // NOI18N
+
+        jScrollPane4.setName("jScrollPane4"); // NOI18N
+
+        jGeneratosService.setName("jGeneratosService"); // NOI18N
+
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${allServicesGeneratos}");
+        jListBinding = org.jdesktop.swingbinding.SwingBindings.createJListBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jGeneratosService);
+        bindingGroup.addBinding(jListBinding);
+
+        jGeneratosService.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jGeneratosServiceValueChanged(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jGeneratosService);
+
+        jLabel7.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel7.setName("jLabel7"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jGeneratosService, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.description}"), jLabel7, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jLabel8.setText(resourceMap.getString("jLabel8.text")); // NOI18N
+        jLabel8.setName("jLabel8"); // NOI18N
+
+        jLabel9.setText(resourceMap.getString("jLabel9.text")); // NOI18N
+        jLabel9.setName("jLabel9"); // NOI18N
+
+        jScrollPane5.setName("jScrollPane5"); // NOI18N
+
+        jEditorService.setBackground(resourceMap.getColor("jEditorService.background")); // NOI18N
+        jEditorService.setName("jEditorService"); // NOI18N
+        jScrollPane5.setViewportView(jEditorService);
+
+        jScrollPane6.setName("jScrollPane6"); // NOI18N
+
+        jFilesService.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Choose a generator" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jFilesService.setName("jFilesService"); // NOI18N
+        jFilesService.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jFilesServiceValueChanged(evt);
+            }
+        });
+        jScrollPane6.setViewportView(jFilesService);
+
+        jLabel10.setText(resourceMap.getString("jLabel10.text")); // NOI18N
+        jLabel10.setName("jLabel10"); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane6)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 329, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab(resourceMap.getString("jPanel2.TabConstraints.tabTitle"), jPanel2); // NOI18N
+
+        jPanel3.setName("jPanel3"); // NOI18N
+
+        jLabel11.setText(resourceMap.getString("jLabel11.text")); // NOI18N
+        jLabel11.setName("jLabel11"); // NOI18N
+
+        jScrollPane7.setName("jScrollPane7"); // NOI18N
+
+        jGeneratorsPresentation.setName("jGeneratorsPresentation"); // NOI18N
+
+        eLProperty = org.jdesktop.beansbinding.ELProperty.create("${allPresentationGeneratos}");
+        jListBinding = org.jdesktop.swingbinding.SwingBindings.createJListBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jGeneratorsPresentation);
+        bindingGroup.addBinding(jListBinding);
+
+        jGeneratorsPresentation.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jGeneratorsPresentationValueChanged(evt);
+            }
+        });
+        jScrollPane7.setViewportView(jGeneratorsPresentation);
+
+        jLabel12.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel12.setName("jLabel12"); // NOI18N
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jGeneratorsPresentation, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.description}"), jLabel12, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jLabel13.setText(resourceMap.getString("jLabel13.text")); // NOI18N
+        jLabel13.setName("jLabel13"); // NOI18N
+
+        jLabel14.setText(resourceMap.getString("jLabel14.text")); // NOI18N
+        jLabel14.setName("jLabel14"); // NOI18N
+
+        jScrollPane8.setName("jScrollPane8"); // NOI18N
+
+        jEditorPresentation.setBackground(resourceMap.getColor("jEditorPresentation.background")); // NOI18N
+        jEditorPresentation.setName("jEditorPresentation"); // NOI18N
+        jScrollPane8.setViewportView(jEditorPresentation);
+
+        jScrollPane9.setName("jScrollPane9"); // NOI18N
+
+        jFilesPresentation.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Choose a generator" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jFilesPresentation.setName("jFilesPresentation"); // NOI18N
+        jFilesPresentation.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jFilesPresentationValueChanged(evt);
+            }
+        });
+        jScrollPane9.setViewportView(jFilesPresentation);
+
+        jLabel15.setText(resourceMap.getString("jLabel15.text")); // NOI18N
+        jLabel15.setName("jLabel15"); // NOI18N
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane9)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane8)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 329, Short.MAX_VALUE)
+            .addGap(0, 329, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab(resourceMap.getString("jPanel3.TabConstraints.tabTitle"), jPanel3); // NOI18N
 
         jSplitPane1.setRightComponent(jTabbedPane1);
 
@@ -295,12 +525,13 @@ public class CodeAssistenceView extends FrameView {
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         menuBar.setName("menuBar"); // NOI18N
 
+        fileMenu.setText(resourceMap.getString("fileMenu.text")); // NOI18N
         fileMenu.setName("fileMenu"); // NOI18N
 
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(org.regola.codeassistence.gui.CodeAssistenceApp.class).getContext().getActionMap(CodeAssistenceView.class, this);
@@ -314,6 +545,7 @@ public class CodeAssistenceView extends FrameView {
 
         menuBar.add(fileMenu);
 
+        helpMenu.setText(resourceMap.getString("helpMenu.text")); // NOI18N
         helpMenu.setName("helpMenu"); // NOI18N
 
         aboutMenuItem.setAction(actionMap.get("showAboutBox")); // NOI18N
@@ -375,16 +607,33 @@ public class CodeAssistenceView extends FrameView {
     @SuppressWarnings("unchecked")
 	private List<Generator> getSelectedGenerators() {
 		List generators = new ArrayList<Generator>();
-    	
+ 
 		generators.addAll(Arrays.asList(jGeneratosDAO.getSelectedValues()));
-		
+
 		return generators;
 	}
+    
+    @SuppressWarnings("unchecked")
+	private List<Generator> getSelectedDAOGenerators() {
+    	List generators = Arrays.asList(jGeneratosDAO.getSelectedValues());
+    	return generators;
+    }
+    
+    @SuppressWarnings("unchecked")
+	private List<Generator> getSelectedPresentationGenerators() {
+    	List generators = Arrays.asList(jGeneratorsPresentation.getSelectedValues());
+    	return generators;
+    }
+    
+    @SuppressWarnings("unchecked")
+	private List<Generator> getSelectedServiceGenerators() {
+    	List generators = Arrays.asList(jGeneratosService.getSelectedValues());
+    	return generators;
+    }
 
 	private void jGeneratosDAOValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jGeneratosDAOValueChanged
     	
-    	Generator generator = (Generator) ((JList) evt.getSource()).getSelectedValue(); ;
-    	
+    	//Generator generator = (Generator) ((JList) evt.getSource()).getSelectedValue(); ;
     	preview();
     	
     }//GEN-LAST:event_jGeneratosDAOValueChanged
@@ -394,27 +643,53 @@ public class CodeAssistenceView extends FrameView {
 		if (!isReadyToGenerate()) return;
 		
 		String modelName = getSelectedModelName();
-    	
+		filesDAO.clear();
+		filesPresentation.clear();
+		filesService.clear();
 		Environment env = new Environment();
 		
-		for (Generator generator : getSelectedGenerators())
+		try 
 		{
-			try {
-				filesDAO = generator.simulate(env, FullStack.instanceParameterBuilder(env, modelName));
-			} catch (Exception e)
+			for (Generator generator : getSelectedDAOGenerators())
 			{
-				showAlert(e.getMessage());
-				return;
+				filesDAO.putAll( generator.simulate(env, FullStack.instanceParameterBuilder(env, modelName)));
 			}
 			
-			jFilesDAO.setModel(new javax.swing.AbstractListModel() {
-				String[] values = (String[]) filesDAO.keySet().toArray();
-				public int getSize() { return values.length; }
-				public Object getElementAt(int i) { return values[i]; }
-			});
+			for (Generator generator : getSelectedServiceGenerators())
+			{
+				filesService.putAll( generator.simulate(env, FullStack.instanceParameterBuilder(env, modelName)));
+			}
+			
+			for (Generator generator : getSelectedPresentationGenerators())
+			{
+				filesPresentation.putAll( generator.simulate(env, FullStack.instanceParameterBuilder(env, modelName)));
+			}
+		} catch (Exception e)
+		{
+			showAlert(e.getMessage());
+			return;
 		}
 		
+		jFilesDAO.setModel(new javax.swing.AbstractListModel() {
+			Object[] values =  filesDAO.keySet().toArray();
+			public int getSize() { return values.length; }
+			public Object getElementAt(int i) { return values[i]; }
+		});
+		
+		jFilesService.setModel(new javax.swing.AbstractListModel() {
+			Object[] values =  filesService.keySet().toArray();
+			public int getSize() { return values.length; }
+			public Object getElementAt(int i) { return values[i]; }
+		});
+		
+		jFilesPresentation.setModel(new javax.swing.AbstractListModel() {
+			Object[] values =  filesPresentation.keySet().toArray();
+			public int getSize() { return values.length; }
+			public Object getElementAt(int i) { return values[i]; }
+		});
 	}
+	
+
 	
 	private void jFilesDAOValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jFilesDAOValueChanged
 		String fileName = (String) ((JList) evt.getSource()).getSelectedValue();
@@ -423,12 +698,37 @@ public class CodeAssistenceView extends FrameView {
 		
 	}//GEN-LAST:event_jFilesDAOValueChanged
 
+	private void jGeneratosServiceValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jGeneratosServiceValueChanged
+		preview();
+	}//GEN-LAST:event_jGeneratosServiceValueChanged
+	
+	private void jFilesServiceValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jFilesServiceValueChanged
+		String fileName = (String) ((JList) evt.getSource()).getSelectedValue();
+		jEditorService.setContentType(fileName.endsWith(".xml") ? "text/xml" : "text/java");
+		jEditorService.setText(filesService.get(fileName));
+
+	}//GEN-LAST:event_jFilesServiceValueChanged
+	
+	private void jGeneratorsPresentationValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jGeneratorsPresentationValueChanged
+		preview();
+	}//GEN-LAST:event_jGeneratorsPresentationValueChanged
+
+	private void jFilesPresentationValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jFilesPresentationValueChanged
+		String fileName = (String) ((JList) evt.getSource()).getSelectedValue();
+		jEditorPresentation.setContentType(fileName.endsWith(".xml") ? "text/xml" : "text/java");
+		jEditorPresentation.setText(filesPresentation.get(fileName));
+
+	}//GEN-LAST:event_jFilesPresentationValueChanged
+	
     private String getSelectedModelName() {
 		return jModelTree.getLastSelectedModelClass();
 	}
 
 	protected Map<String,String> filesDAO = new HashMap<String, String>();
+	protected Map<String,String> filesService = new HashMap<String, String>();
+	protected Map<String,String> filesPresentation = new HashMap<String, String>();
 
+	
 	public List<Generator> getAllDAOGeneratos() {
 		return Arrays.asList(Options.getDAOGenerators());
 	}
@@ -494,14 +794,28 @@ public class CodeAssistenceView extends FrameView {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JEditorPane jEditorDAO;
+    private javax.swing.JEditorPane jEditorPresentation;
+    private javax.swing.JEditorPane jEditorService;
     private javax.swing.JList jFilesDAO;
+    private javax.swing.JList jFilesPresentation;
+    private javax.swing.JList jFilesService;
+    private javax.swing.JList jGeneratorsPresentation;
     private javax.swing.JList jGeneratosDAO;
+    private javax.swing.JList jGeneratosService;
     private javax.swing.JMenuItem jMenuItem1;
     private org.regola.codeassistence.gui.ModelPanel jModelTree;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;

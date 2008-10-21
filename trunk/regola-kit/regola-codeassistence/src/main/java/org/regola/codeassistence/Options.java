@@ -42,11 +42,11 @@ public class Options {
 		return new Generator[] {new CustomDaoGenerator(), new FilterGenerator()} ;
 	}
 	
-	public static Generator[] getPresentationGenerators() {
+	public static Generator[] getServiceGenerators() {
 		return new Generator[] {	new CustomManagerGenerator()} ;
 	}
 	
-	public static Generator[] getServiceGenerators() {
+	public static Generator[] getPresentationGenerators() {
 		return new Generator[] {	new ApplicationPropertiesGenerator(), new ListPageGenerator(), new FormPageGenerator(), new ListManagedBeanGenerator(), new FormManagedBeanGenerator()} ;
 	}
 
