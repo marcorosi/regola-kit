@@ -58,6 +58,15 @@ public class Environment {
 		cfg.setObjectWrapper(new DefaultObjectWrapper());
 		setFreemarkerConfiguration(cfg);
 		setDescriptorService(new RegolaDescriptorService());
+		
+		setProjectDir(".");
+		
+		try {
+			setOutputDir(new File(".").getCanonicalPath());
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		
 	}
 
 	/**

@@ -73,7 +73,7 @@ public class Options {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Generator[] getGeneratorListByNames(String[] names)
+	public static Generator[] getGeneratorListByNames(String[] names)
 	{
 		List<Generator> list = new ArrayList<Generator>();
 		

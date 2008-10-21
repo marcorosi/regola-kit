@@ -45,4 +45,12 @@ public class AbstractGenerator implements Generator {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public String toString() {
+		
+		return getDisplayName();
+	}
+	
+	
+
 }

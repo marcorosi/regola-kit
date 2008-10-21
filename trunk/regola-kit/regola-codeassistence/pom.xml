@@ -126,6 +126,16 @@
             <artifactId>swing-worker</artifactId>
             <version>1.1</version>
         </dependency>
+        <dependency>
+        	<groupId>commons-io</groupId>
+        	<artifactId>commons-io</artifactId>
+        	<version>1.4</version>
+        </dependency>
+        <dependency>
+        	<groupId>jsyntaxpane</groupId>
+        	<artifactId>jsyntaxpane</artifactId>
+        	<version>0.9.1</version>
+        </dependency>
         
     </dependencies>
     
