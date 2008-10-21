@@ -260,6 +260,15 @@ public class Environment {
 		if(!f.exists())
 		{
 			log.info(String.format("Salto la modifica di %s perchè non esiste",xmlfile));
+			
+			if (isSimulate())
+			{
+				String msg = "<!-- file: " + f.getPath() + " -->\n";
+				msg += "<!-- Don't write anything beacuse the file doesn't exists -->";
+				simulationMap.put(xmlfile, msg);
+			}
+			
+			
 			return;
 		}
 		
@@ -267,9 +276,18 @@ public class Environment {
 		{
 			log.info(String.format("Il file %s non è stato modificato perchè il bean %s è già definito"
 					,xmlfile, beanId));
+			
+			if (isSimulate())
+			{
+				String msg = "<!-- file: " + f.getPath() + " -->\n";
+				msg += "<!-- Don't write anything beacuse the bean "+ beanId +" is already defined -->";
+				simulationMap.put(xmlfile, msg);
+			}
+			
 			return;
 		}
 
+		
 		StringWriter sw = new StringWriter();
 		try {
 			template.process(parameters, sw);
@@ -290,6 +308,14 @@ public class Environment {
 		if(!f.exists())
 		{
 			log.info(String.format("Salto la modifica di %s perchè non esiste",xmlfile));
+			
+			if (isSimulate())
+			{
+				String msg = "<!-- file: " + f.getPath() + " -->\n";
+				msg += "<!-- Don't write anything beacuse the file doesn't exists -->";
+				simulationMap.put(xmlfile, msg);
+			}
+			
 			return;
 		}
 		
@@ -297,6 +323,14 @@ public class Environment {
 		{
 			log.info(String.format("Il file %s non è stato modificato perchè il bean %s è già definito"
 					,xmlfile, beanId));
+			
+			if (isSimulate())
+			{
+				String msg = "<!-- file: " + f.getPath() + " -->\n";
+				msg += "<!-- Don't write anything beacuse the file doesn't exists -->";
+				simulationMap.put(xmlfile, msg);
+			}
+			
 			return;
 		}
 
@@ -322,6 +356,7 @@ public class Environment {
 		{
 			log.info("Contenuto da aggiungere al file " + getOutputDir()+"/"+ filePath);
 			System.out.println(content);
+			writeToSimulationMap(filePath, content, append);
 			return;
 		}
 		
@@ -337,6 +372,25 @@ public class Environment {
 			throw new RuntimeException(e);
 		}
 
+	}
+
+	protected void writeToSimulationMap(String filePath, String content,
+			boolean append) {
+		
+		try {
+			filePath = getOutputDir() + "/" + filePath;
+			
+			StringWriter writer = new StringWriter();
+			writer.append("<!-- file: " + filePath + " -->");
+
+			writer.append(content);
+			
+			simulationMap.put(filePath, writer.toString());
+
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		
 	}
 
 	public boolean existsXPath(String acFilePath, String xPathExp) {
