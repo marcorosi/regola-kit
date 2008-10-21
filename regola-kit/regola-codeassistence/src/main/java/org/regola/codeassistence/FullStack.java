@@ -75,17 +75,23 @@ public class FullStack {
 		
 	}
 	
-	private static void generate(Environment env, Options ourOpt, String generatorsString) throws ClassNotFoundException
+	public static ParameterBuilder instanceParameterBuilder(Environment env, String modelName) 
 	{
 		//IClassDescriptor modelDescriptor = env.getDescriptorService()
 		//		.getClassDescriptor(Class.forName(ourOpt.getModelClass()));
-		IClassDescriptor modelDescriptor = env.getClassDescriptor(Class.forName(ourOpt.getModelClass()));	
+		IClassDescriptor modelDescriptor;
+		try {
+			modelDescriptor = env.getClassDescriptor(Class.forName(modelName));
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		}	
 		
 		IPropertyDescriptor idProperty = modelDescriptor.getIdentifierDescriptor(); 
 		if (idProperty==null)
 		{
-			System.out.println("error: the class "+ modelDescriptor.getType().getCanonicalName()  +" doesn't have a property named 'id' ");
-			System.exit(1);
+			String msg = "error: the class "+ modelDescriptor.getType().getCanonicalName()  +" doesn't have a property named 'id' ";
+			System.err.println(msg);
+			throw new RuntimeException(msg);
 		}
 		
 		IClassDescriptor idDescriptor = null;		
@@ -99,16 +105,28 @@ public class FullStack {
 		{
 			//idDescriptor = env.getDescriptorService()
 			//	.getClassDescriptor(Class.forName(ourOpt.getModelClass()+"Id"));
-			idDescriptor = env.getClassDescriptor(Class.forName(ourOpt.getModelClass()+"Id"));
+			try {
+				idDescriptor = env.getClassDescriptor(Class.forName(modelName + "Id"));
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException(e);
+			}
 		}
 		// env.setPackageName(getPackageName(descriptor));
 
-		ParameterBuilder pb = new ParameterBuilder(modelDescriptor,	idDescriptor);
+		return new ParameterBuilder(modelDescriptor,	idDescriptor);
+
+
+	}
+	
+	private static void generate(Environment env, Options ourOpt, String generatorsString) throws ClassNotFoundException
+	{
+		
+		ParameterBuilder pb = instanceParameterBuilder(env, ourOpt.getModelClass());
 		//env.setPackageName((String) pb.getParameters().get("package"));
 		
 		for (Generator generator : ourOpt.getGeneratorListByNames(generatorsString.split(","))) {
 			System.out.println(String.format("process type %s with generator %s",
-					modelDescriptor.getDisplayName(), generator.getDisplayName()));
+					ourOpt.getModelClass(), generator.getDisplayName()));
 
 			generator.generate(env, pb);
 		}
