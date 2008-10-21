@@ -9,6 +9,7 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 import org.regola.codeassistence.generator.Generator;
+import org.regola.codeassistence.gui.CodeAssistenceApp;
 import org.regola.descriptor.IClassDescriptor;
 import org.regola.descriptor.IPropertyDescriptor;
 
@@ -29,6 +30,7 @@ public class FullStack {
 
 		// add t option
 		options.addOption("h", false, "mostra questo aiuto");
+		options.addOption("x", false, "avvia l'interfaccia grafica swing");
 		options.addOption("g", true, "specifica i generatori da utilizzare separati da virgola");
 		options.addOption("c", true, "la classe di modello da utilizzare");
 		options.addOption("d", true, "la directory dove generare i file");
@@ -45,6 +47,13 @@ public class FullStack {
 		} catch (ParseException e) 
 		{
 			usage(options);
+		}
+		
+		if (cmd.hasOption("x"))
+		{
+			//avvia l'interfaccia grafica
+			CodeAssistenceApp.main(args);
+			return;
 		}
 		
 		if (!( cmd.hasOption("g") || cmd.hasOption("m") ) || !cmd.hasOption("c") )
