@@ -368,5 +368,35 @@ public class ModelPanel extends JPanel {
 			tree.collapsePath(parent);
 		}
 	}
+	
+	public void selectModelClass(File model)
+	{
+		TreeNode root = (TreeNode) tree.getModel().getRoot();
+		selectModel(tree, new TreePath(root), model);
+	}
+	
+	private void selectModel(JTree tree, TreePath parent, File model) {
+		// Traverse children
+		TreeNode node = (TreeNode) parent.getLastPathComponent();
+		FileTreeNode fileNode = (FileTreeNode) node;
+		
+		if (fileNode.getFile()!=null && fileNode.getFile().equals(model))
+		{
+			tree.setSelectionPath(parent);
+		}
+		
+		
+		if (node.getChildCount() >= 0) {
+			for (int i=0; i<node.getChildCount(); ++i)  {
+				
+				TreeNode n = node.getChildAt(i);
+				TreePath path = parent.pathByAddingChild(n);
+				selectModel(tree, path, model);
+			}
+		}
+
+
+	}
+
 
 }
