@@ -20,6 +20,7 @@ import org.regola.codeassistence.generator.Generator;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -47,6 +48,14 @@ public class CodeAssistenceView extends FrameView {
         jsyntaxpane.DefaultSyntaxKit.initKit();
 
         initComponents();
+        
+        if (CodeAssistenceApp.getModelClass()!= null)
+        {
+        	String name  = CodeAssistenceApp.getModelClass();
+    		name = name.replaceAll("\\.", "/");
+	       jModelTree.selectModelClass(new File( "./src/main/java/" + name + ".java"  ));
+        }
+        
         
         
         jModelTree.getTree().addTreeSelectionListener(new TreeSelectionListener() {
@@ -186,6 +195,7 @@ public class CodeAssistenceView extends FrameView {
         jModelTree = new org.regola.codeassistence.gui.ModelPanel();
         jToolBar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -525,6 +535,13 @@ public class CodeAssistenceView extends FrameView {
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton1);
 
+        jButton2.setAction(actionMap.get("masterDetails")); // NOI18N
+        jButton2.setFocusable(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setName("jButton2"); // NOI18N
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton2);
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
@@ -814,11 +831,19 @@ public class CodeAssistenceView extends FrameView {
         }
     }
 
-
+    @Action
+    public void masterDetails() {
+    
+    	jGeneratosDAO.setSelectionInterval(0, jGeneratosDAO.getModel().getSize()-1);
+    	jGeneratosService.setSelectionInterval(0, jGeneratosService.getModel().getSize()-1);
+    	jGeneratorsPresentation.setSelectionInterval(0, jGeneratorsPresentation.getModel().getSize()-1);
+    	
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JEditorPane jEditorDAO;
     private javax.swing.JEditorPane jEditorPresentation;
     private javax.swing.JEditorPane jEditorService;
