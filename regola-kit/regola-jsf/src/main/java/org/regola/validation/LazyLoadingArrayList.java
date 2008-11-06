@@ -1,5 +1,6 @@
 package org.regola.validation;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class LazyLoadingArrayList<T, F extends ModelPattern> extends ArrayList<T
 	
 	protected final Log log = LogFactory.getLog(getClass());
 
-	public interface Fetcher<C, F2 extends ModelPattern>
+	public interface Fetcher<C, F2 extends ModelPattern> 
 	{
 		public List<C> fetch(F2 filter);
 	}
