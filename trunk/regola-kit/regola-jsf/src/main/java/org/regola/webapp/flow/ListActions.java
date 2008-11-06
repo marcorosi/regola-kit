@@ -1,7 +1,10 @@
 package org.regola.webapp.flow;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.faces.model.DataModel;
 
 
 import org.regola.model.ModelPattern;
@@ -12,36 +15,48 @@ import org.springframework.faces.model.SerializableListDataModel;
 import org.springframework.webflow.execution.Event;
 import org.springframework.webflow.execution.RequestContext;
 
-public class ListActions<T, ID extends Serializable, F extends ModelPattern>  extends BaseActions {
-
-	GenericManager<T, ID> serviceManager;
+public class ListActions   implements Serializable {
 	
-	public GenericManager<T, ID> getServiceManager() {
-		return serviceManager;
-	}
-
-	public void setServiceManager(GenericManager<T, ID> serviceManager) {
-		this.serviceManager = serviceManager;
-	}
-	
-	public void init() {
-	}
-	
-	public void refresh(StateBean stateBean) {
+	@SuppressWarnings("unchecked")
+	public static DataModel refresh(final GenericManager serviceManager, ModelPattern modelPattern) {
 		
-		F modelPattern = (F) stateBean.getModelPattern();
+		System.out.println("Refresh....");
+		
 		modelPattern.setTotalItems(serviceManager.countFind(modelPattern));
 
-		List<T> modelList = new LazyLoadingArrayList<T, F>(new Fetcher<T, F>()
+//		List modelList = new LazyLoadingArrayList(new Fetcher()
+//		{
+//			public List fetch(ModelPattern filter)
+//			{
+//				return serviceManager.find(filter);
+//			}
+//		}, modelPattern);
+		
+		return new SerializableListDataModel(fetch(serviceManager, modelPattern));
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List fetch(final GenericManager serviceManager, ModelPattern modelPattern)
+	{
+		//List modelList = new ArrayList(modelPattern.getTotalItems());
+		//for (int i=0; i<modelPattern.getTotalItems(); ++i) modelList.add(null);
+		
+		List modelList = new ArrayList(modelPattern.getPageSize());
+		
+		List newEntries = serviceManager.find(modelPattern);
+		
+		int pos=0,offset=modelPattern.getCurrentPage()*modelPattern.getPageSize();
+		
+		offset=0;
+		
+		for (Object newEntry: newEntries)
 		{
-			public List<T> fetch(F filter)
-			{
-				return serviceManager.find(filter);
-			}
-		}, modelPattern);
+			//modelList.set(offset+pos++,newEntry);
+			modelList.add(offset+pos++,newEntry);
+		}
 		
-		stateBean.setModelList(new SerializableListDataModel(modelList));
-		
+		return modelList;
 	}
 	
 	
