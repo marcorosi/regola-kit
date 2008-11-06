@@ -637,7 +637,9 @@ public class CodeAssistenceView extends FrameView {
 		List generators = new ArrayList<Generator>();
  
 		generators.addAll(Arrays.asList(jGeneratosDAO.getSelectedValues()));
-
+		generators.addAll(Arrays.asList(jGeneratosService.getSelectedValues()));
+		generators.addAll(Arrays.asList(jGeneratorsPresentation.getSelectedValues()));
+		
 		return generators;
 	}
     
@@ -803,6 +805,7 @@ public class CodeAssistenceView extends FrameView {
            
             super(app);
         }
+        
         @Override protected Object doInBackground() {
            
         	if (!isReadyToGenerate()) return null;

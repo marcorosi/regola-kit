@@ -47,6 +47,7 @@ public class Environment {
 	private String packageName = "";
 	private String springServiceFileName = "applicationContext-service.xml";
 	private String springDaoFileName = "applicationContext-dao.xml";
+	private String springTestResourcesFileName = "applicationContext-dao-test.xml";
 	private String facesConfigFileName = "faces-config.xml";
 	private boolean simulate=false;
 	private Map<String,String> simulationMap = new HashMap<String,String>();
@@ -140,9 +141,21 @@ public class Environment {
 	public String getWebSrcPath() {
 		return "src/main/webapp";
 	}
-
+	
+	public String getWebInfPath() {
+		return "src/main/webapp/WEB-INF";
+	}
+	
+	public String getFlowPath() {
+		return "src/main/webapp/WEB-INF/flows";
+	}
+	
 	public String getResourcePath() {
 		return "src/main/resources";
+	}
+	
+	public String getTestResourcePath() {
+		return "src/test/resources";
 	}
 
 	public void writeFile(String filePath, String fileName, Template template, Object root) {
@@ -244,6 +257,8 @@ public class Environment {
 		writeJavaSource(packageName, fileName, template, root, null);
 	}
 	
+	
+	
 	public void writeJavaSource(String packageName, String fileName, 
 			Template template, Map<String, Object> root, Object value) 
 	{
@@ -252,11 +267,22 @@ public class Environment {
 
 		writeFile(getJavaSrcPath()+"/"+Utils.getPackagePath(packageName)+"/", fileName+".java", template, root);
 	}
+	
+	public void writeFlowsResource(String flowName, String fileName, 
+			Template template, Map<String, Object> root, Object value) 
+	{
+		ValueReader reader = new ValueReader(value);
+		root.put("reader", reader);
+
+		writeFile(getWebInfPath()+"/flows/"+ flowName  +"/", fileName, template, root);
+	}
 
 
 	public void writeXmlSource(String xmlfile, String beanId, Template template, Map<String, Object> parameters) 
 	{
-		File f = new File(getOutputDir()+"/"+getResourcePath()+"/"+xmlfile);
+		String resource = xmlfile.contains("test") ? getTestResourcePath() :  getResourcePath();
+		
+		File f = new File(getOutputDir()+"/"+resource+"/"+xmlfile);
 		if(!f.exists())
 		{
 			log.info(String.format("Salto la modifica di %s perchè non esiste",xmlfile));
@@ -272,7 +298,7 @@ public class Environment {
 			return;
 		}
 		
-		if(existsBean(getResourcePath()+"/"+xmlfile, beanId))
+		if(existsBean(resource+"/"+xmlfile, beanId))
 		{
 			log.info(String.format("Il file %s non è stato modificato perchè il bean %s è già definito"
 					,xmlfile, beanId));
@@ -296,10 +322,10 @@ public class Environment {
 			throw new RuntimeException(e);
 		}
 		
-		String xml = readFileAsString(getResourcePath()+"/"+xmlfile);
+		String xml = readFileAsString(resource+"/"+xmlfile);
 		xml = xml.replaceFirst("</beans>", sw.toString());
 		
-		writeStringToFile(getResourcePath()+"/"+xmlfile, xml, false);
+		writeStringToFile(resource+"/"+xmlfile, xml, false);
 	}
 	
 	public void writeFacesConfig(String xmlfile, String beanId, Template template, Map<String, Object> parameters) 
@@ -348,6 +374,57 @@ public class Environment {
 		writeStringToFile(getWebSrcPath()+"/WEB-INF/" + xmlfile, xml, false);
 	}
 
+	public void writeFlowConfig( String flowPath, Template template, Map<String, Object> parameters) 
+	{
+		String xmlfile = "webflow-config.xml";
+		String relativePath = getWebInfPath()+ "/config/" + xmlfile;
+		String absolutePath = getOutputDir()+"/" + relativePath;
+		
+		File f = new File(absolutePath);
+		if(!f.exists())
+		{
+			log.info(String.format("Salto la modifica di %s perchè non esiste",xmlfile));
+			
+			if (isSimulate())
+			{
+				String msg = "<!-- file: " + f.getPath() + " -->\n";
+				msg += "<!-- Don't write anything beacuse the file doesn't exists -->";
+				simulationMap.put(xmlfile, msg);
+			}
+			
+			return;
+		}
+		
+		if(existsFlow(relativePath, flowPath))
+		{
+			log.info(String.format("Il file %s non è stato modificato perchè il flusso %s è già definito"
+					,xmlfile, flowPath));
+			
+			if (isSimulate())
+			{
+				String msg = "<!-- file: " + f.getPath() + " -->\n";
+				msg += "<!-- Don't write anything beacuse the flow is alreay registered  -->";
+				simulationMap.put(xmlfile, msg);
+			}
+			
+			return;
+		}
+
+		StringWriter sw = new StringWriter();
+		try {
+			template.process(parameters, sw);
+		} catch (Exception e) 
+		{
+			throw new RuntimeException(e);
+		}
+		
+		String xml = readFileAsString(relativePath);
+		xml = xml.replaceFirst("</webflow:flow-registry>", sw.toString());
+		
+		writeStringToFile(relativePath, xml, false);
+	}
+
+	
 	
 	public void writeStringToFile(String filePath, String content,
 			boolean append) {
@@ -356,6 +433,7 @@ public class Environment {
 		{
 			log.info("Contenuto da aggiungere al file " + getOutputDir()+"/"+ filePath);
 			System.out.println(content);
+			
 			writeToSimulationMap(filePath, content, append);
 			return;
 		}
@@ -385,7 +463,9 @@ public class Environment {
 
 			writer.append(content);
 			
-			simulationMap.put(filePath, writer.toString());
+			String name = new File(filePath).getName();
+			
+			simulationMap.put(name, writer.toString());
 
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -412,6 +492,8 @@ public class Environment {
 					"http://www.springframework.org/schema/beans");
 			xpath.addNamespace("f",
 					"http://java.sun.com/dtd/web-facesconfig_1_1.dtd");
+			xpath.addNamespace("webflow",
+			"http://www.springframework.org/schema/webflow-config");
 			levelNode = (Element) xpath.selectSingleNode(jdomDocument);
 			return levelNode != null;
 
@@ -427,6 +509,10 @@ public class Environment {
 	
 	public boolean existsManagedBean(String acFilePath, String beanId) {
 		return existsXPath(acFilePath, "/f:faces-config/f:navigation-rule/f:from-view-id[text()='" + beanId + "']");
+	}
+	
+	public boolean existsFlow(String acFilePath, String flowPath) {
+		return existsXPath(acFilePath, "/webflow:flow-registry/webflow:flow-location[@path='" + flowPath + "']");
 	}
 
 	public String readFileAsString(String filePath) {
@@ -472,6 +558,13 @@ public class Environment {
 	public String getSpringDaoFileName() {
 		return springDaoFileName;
 	}
+	
+	public String getSpringTestResourcesFileName() {
+		return springTestResourcesFileName;
+	}
+	
+	
+	
 
 	/**
 	 * @param springDaoFileName  the springDaoFileName to set

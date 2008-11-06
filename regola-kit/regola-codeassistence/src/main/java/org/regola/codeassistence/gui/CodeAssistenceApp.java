@@ -50,7 +50,7 @@ public class CodeAssistenceApp extends SingleFrameApplication {
 		//options.addOption("h", false, "mostra questo aiuto");
 		options.addOption("c", true, "la classe di modello da utilizzare");
 
-		System.out.println("Regola kit: graphical code assistence");
+		System.out.println("Regola kit graphical code assistence");
 
 		CommandLineParser parser = new PosixParser();
 		CommandLine cmd = null;
