@@ -10,6 +10,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -36,6 +37,7 @@ public class ParameterBuilder {
 
 		parameters.put("tipo", modelDescriptor);
 		parameters.put("tipoId", idDescriptor);
+		
 
 		parameters.put("package", getPackageName(modelDescriptor));
 		parameters.put("dao_package", getPackageName(modelDescriptor) + ".dao");
@@ -51,6 +53,7 @@ public class ParameterBuilder {
 
 		parameters.put("model_class", modelDescriptor.getType().getName());
 		parameters.put("model_name", modelDescriptor.getType().getSimpleName());
+		parameters.put("flow_name", Utils.lowerFirstLetter(getStringValue("model_name")));
 		parameters.put("id_class", modelDescriptor.getIdentifierDescriptor()
 				.getPropertyType().getName());
 		parameters.put("id_name", modelDescriptor.getIdentifierDescriptor()
@@ -58,6 +61,10 @@ public class ParameterBuilder {
 
 		parameters.put("dao_interface_name", modelDescriptor.getType().getSimpleName()
 				+ "Dao");
+		
+		parameters.put("mock_name", Utils.lowerFirstLetter(modelDescriptor.getType().getSimpleName()
+				+ "Mock"));
+		
 		parameters.put("dao_interface_class", cat("dao_package",
 				"dao_interface_name"));
 		parameters.put("dao_impl_name", modelDescriptor.getType().getSimpleName()
@@ -104,7 +111,6 @@ public class ParameterBuilder {
 		
 		parameters.put("filter_class", cat("pattern_package","filter_name"));
 		
-
 		parameters.put("field", new FieldNameConverter());
 		parameters.put("same", new SameName());
 		parameters.put("guessName", new NameGuesser());
@@ -114,14 +120,43 @@ public class ParameterBuilder {
 		
 		//List<IPropertyDescriptor> idProperties = idDescriptor.getPropertyDescriptors();
 		//List<IPropertyDescriptor> modelProperties = modelDescriptor.getPropertyDescriptors();
-		
+			
+		List<IPropertyDescriptor> collectionsProps = findCollectionsProperties(modelDescriptor, true);
+		parameters.put("collectionsProps", collectionsProps);
+		List<IPropertyDescriptor> notCollectionsProps = findCollectionsProperties(modelDescriptor, false);
+		parameters.put("notCollectionsProps", notCollectionsProps);
 		
 		List<IPropertyDescriptor> allProperties = new ArrayList<IPropertyDescriptor>();
 		allProperties.addAll(idProperties);
 		allProperties.addAll(modelProperties);
+		
 		parameters.put("idProperties", idProperties);
 		parameters.put("modelProperties", modelProperties);
 		parameters.put("allProperties", allProperties);
+		
+		dumpVariables();
+	}
+	
+	public Object getValue(String name)
+	{
+		return getParameters().get(name);
+	}
+	
+	public String getStringValue(String name)
+	{
+		return getValue(name) == null ? "" : getValue(name).toString();
+	}
+	
+	public void dumpVariables()
+	{
+		String[] keys = {};
+		keys= parameters.keySet().toArray(keys);
+		Arrays.sort(keys);
+		for (String key: keys)
+		{
+			System.out.println(String.format("${%s}:%s", key, parameters.get(key)));
+			//System.out.println(String.format("%s : ${%s}", key, key));
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -140,14 +175,38 @@ public class ParameterBuilder {
 			
 			if (descriptor.getName().equals("id")) iter.remove();
 			else if (descriptor.getPropertyType().getName().contains("$")) iter.remove();
+		}
+		
+		return properties;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	private List<IPropertyDescriptor> findCollectionsProperties(
+			IClassDescriptor modelDescriptor, boolean collections) {
+		List<Class> annotazioni = new ArrayList<Class>();
+		//annotazioni.add(Column.class);
+
+		List<IPropertyDescriptor> properties = filterAnnotatedProperties(modelDescriptor, annotazioni);
+		
+		Iterator<IPropertyDescriptor> iter = properties.iterator();
+		
+		while (iter.hasNext())
+		{
+			IPropertyDescriptor descriptor = iter.next();
+			
+			boolean isAColl = descriptor.isCollection() || descriptor.getPropertyType().isArray()  ;
+
+			if (descriptor.getName().equals("id")) iter.remove();
+			else if (descriptor.getPropertyType().getName().contains("$")) iter.remove();
+			else if (isAColl != collections) iter.remove();
 			
 			
 		}
 		
-		
-		
 		return properties;
 	}
+	
 
 	@SuppressWarnings("unchecked")
 	private List<IPropertyDescriptor> filterAnnotatedProperties(

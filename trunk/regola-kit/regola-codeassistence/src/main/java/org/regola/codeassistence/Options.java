@@ -4,12 +4,15 @@ import org.regola.codeassistence.generator.ApplicationPropertiesGenerator;
 import org.regola.codeassistence.generator.CustomDaoGenerator;
 import org.regola.codeassistence.generator.CustomManagerGenerator;
 import org.regola.codeassistence.generator.FilterGenerator;
+import org.regola.codeassistence.generator.FlowMasterDetailsGenerator;
 import org.regola.codeassistence.generator.FormManagedBeanGenerator;
 import org.regola.codeassistence.generator.FormPageGenerator;
 import org.regola.codeassistence.generator.Generator;
 import org.regola.codeassistence.generator.ListManagedBeanGenerator;
 import org.regola.codeassistence.generator.ListPageGenerator;
+import org.regola.codeassistence.generator.MockGenerator;
 import org.regola.codeassistence.generator.ServiceManagerGenerator;
+import org.regola.codeassistence.generator.VariablesListGenerator;
 import org.regola.util.Ognl;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +33,7 @@ public class Options {
 			new CustomDaoGenerator(), new FilterGenerator(),
 			new FormPageGenerator(), new ListManagedBeanGenerator(),
 			new FormManagedBeanGenerator(), new CustomManagerGenerator(),
-			new ListPageGenerator() };
+			new ListPageGenerator(), new MockGenerator(), new VariablesListGenerator(), new FlowMasterDetailsGenerator() };
 	
 	String modelClass;
 	
@@ -39,7 +42,7 @@ public class Options {
 	}
 	
 	public static Generator[] getDAOGenerators() {
-		return new Generator[] {new CustomDaoGenerator(), new FilterGenerator()} ;
+		return new Generator[] {new CustomDaoGenerator(), new FilterGenerator(), new MockGenerator(),new VariablesListGenerator()} ;
 	}
 	
 	public static Generator[] getServiceGenerators() {
@@ -47,7 +50,7 @@ public class Options {
 	}
 	
 	public static Generator[] getPresentationGenerators() {
-		return new Generator[] {	new ApplicationPropertiesGenerator(), new ListPageGenerator(), new FormPageGenerator(), new ListManagedBeanGenerator(), new FormManagedBeanGenerator()} ;
+		return new Generator[] {	new ApplicationPropertiesGenerator(), new ListPageGenerator(), new FormPageGenerator(), new ListManagedBeanGenerator(), new FormManagedBeanGenerator(), new FlowMasterDetailsGenerator()} ;
 	}
 
 	/**
