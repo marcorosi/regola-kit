@@ -83,8 +83,9 @@
 		<module>regola-jsf-archetype</module>
 		<module>regola-validation</module>
 		<module>regola-event-broker</module>
+		<module>regola-rest</module>
 		<module>regola-codeassistence</module>
-		<module>regola-example-simple</module>
+		<!--module>regola-example-simple</module-->
 		<module>regola-maven-plugin</module>
 	</modules>
 	<build>
@@ -323,14 +324,14 @@
 
 	<distributionManagement>
 		<repository>
-			<id>cesia.proxy</id>
+			<id>nexus</id>
 			<name>Kion Distribution Repository</name>
-			<url>http://deposito:8081/artifactory/libs-snapshots@repo</url>
+			<url>http://deposito:8082/nexus/content/repositories/releases</url>
 		</repository>
 		<snapshotRepository>
-			<id>cesia.proxy</id>
+			<id>nexus</id>
 			<name>Kion Development Snapshot Repository</name>
-			<url>http://deposito:8081/artifactory/libs-snapshots@repo</url>
+			<url>http://deposito:8082/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 

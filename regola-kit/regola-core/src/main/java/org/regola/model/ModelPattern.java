@@ -94,6 +94,12 @@ public abstract class ModelPattern implements Serializable{
 
 		return currentPage;
 	}
+	
+	public int getLastPage()
+	{
+		int lastPage = getTotalItems() / getPageSize();
+		return lastPage;
+	}
 
 	public int gotoLastPage() {
 		int lastPage = getTotalItems() / getPageSize();
