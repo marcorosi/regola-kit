@@ -17,6 +17,10 @@
 
 package org.regola.ws;
 
+import static org.regola.ws.RestClient.delete;
+import static org.regola.ws.RestClient.get;
+import static org.regola.ws.RestClient.post;
+import static org.regola.ws.RestClient.put;
 import static org.regola.xml.JAXBMarshaller.fromXml;
 import static org.regola.xml.JAXBMarshaller.toXml;
 import junit.framework.TestCase;
@@ -34,25 +38,27 @@ public class RestTest extends TestCase {
 		super.setUp();
 	}
 
+	public void testURL() throws Throwable {
+		String url = RestClient.buildUrl("http://plitvice.unibo.it?id=1&nome=2", 1, "2");
 
+		assertEquals("http://plitvice.unibo.it/1/2?id=1&nome=2", url);
+	}
 
 	public void testMethodsCall() throws Throwable {
 
-		RestClient client = new RestClient();
-
-		String result1 = client.get(url, 1, "salve!");
+		String result1 = get(url, 1, "salve!");
 		assertEquals("GET di:1:salve!", result1);
 
-		String result2 = client.delete(url, 1, "salve!");
+		String result2 = delete(url, 1, "salve!");
 		assertEquals("DELETE di:1:salve!", result2);
 
 		Dto dto = new Dto("PROVA");
 		String dtoXml = toXml("org.regola.ws", "dto", dto);
 
-		String result3 = client.post(url, dtoXml, 1, "salve!");
+		String result3 = post(url, dtoXml, 1, "salve!");
 		assertEquals("<dto><prova>1:salve!:PROVA</prova><x>0</x></dto>", result3);
 
-		String result4 = client.put(url, dtoXml, 1, "salve!");
+		String result4 = put(url, dtoXml, 1, "salve!");
 		assertEquals("<dto><prova>1:salve!:PROVA</prova><x>0</x></dto>", result4);
 
 		dto = fromXml("org.regola.ws", result4);

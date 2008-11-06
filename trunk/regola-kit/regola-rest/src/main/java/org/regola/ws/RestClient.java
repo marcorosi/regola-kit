@@ -46,22 +46,18 @@ import org.regola.xml.JAXBMarshaller;
  * Ad esempio: <br>
  * 
  * <code><pre>
- * RestClient client = new RestClient(); 
- * String result = client.get(url, param1, param2, ..., paramN);
+ * String result = get(url, param1, param2, ..., paramN);
  * </pre></code> I parametri sono utilizzati per costruire la url che diventa
  * qualcosa di simile ad ( url/param1/param2/.../paramN).<br>
  * 
  * E' anche possibile passare una singola entità nel body della richiesta HTTP,
- * tipicamente una frammento di xml che rappresenta un'instanza di un oggetto.
- * Si veda a questo proposito
- * {@link JAXBMarshaller#toXml(String, String, Object)}.
+ * tipicamente una frammento di xml che rappresenta un'istanza di un oggetto. Si
+ * veda a questo proposito {@link JAXBMarshaller#toXml(String, String, Object)}.
  * 
  * <code> <pre>
- * RestClient client = new RestClient();
- * String result = client.get(url, param1, param2, ..., paramN);
  * Dto dto = new Dto();
  * String dtoXml = toXml("org.regola.ws", "dto", dto);
- * String result = client.post(url, dtoXml, 1, "salve!");
+ * String result = post(url, dtoXml, 1, "salve!");
  * </pre></code>
  * 
  * Infine le stringe restituite dal servizio web possono essere trasformate in
@@ -69,8 +65,8 @@ import org.regola.xml.JAXBMarshaller;
  * 
  * <br>
  * <code> <pre>
- * String result = client.put(url, dtoXml, 1, "salve!");
- * Dto dto = fromXml("org.regola.ws", result4);
+ * String result = put(url, dtoXml, 1, "salve!");
+ * Dto dto = fromXml("org.regola.ws", result);
  * </pre></code> <br>
  * 
  * @see JAXBMarshaller
@@ -89,7 +85,7 @@ public class RestClient {
 	 * @param method
 	 * @return
 	 */
-	protected String call(HttpMethod method) {
+	protected static String call(HttpMethod method) {
 		HttpClient httpclient = new HttpClient();
 
 		try {
@@ -118,19 +114,24 @@ public class RestClient {
 	 *            l'elenco dei parametri
 	 * @return
 	 */
-	protected String buildUrl(String url, Object... params) {
+	static protected String buildUrl(String url, Object... params) {
 
-		if (url == null)
+		if (url == null) 
 			throw new RuntimeException("URL could not be null!");
 
 		if (url.endsWith("/"))
 			throw new RuntimeException("URL could not end with a /");
 
+		String[] split = url.split("\\?");
+		
 		for (Object param : params) {
-			url += "/" + param;
+			split[0] += "/" + param;
 		}
+		
+		if (split.length > 1)
+			split[0] += "?" + split[1];
 
-		return url;
+		return split[0];
 	}
 
 	/**
@@ -146,7 +147,7 @@ public class RestClient {
 	 * @return
 	 * @throws Exception
 	 */
-	public String get(String url, Object... params) throws Exception {
+	public static String get(String url, Object... params) throws Exception {
 		url = buildUrl(url, params);
 
 		URL Url = new URL(url);
@@ -170,7 +171,7 @@ public class RestClient {
 	 * @throws UnsupportedEncodingException
 	 * 
 	 */
-	public String put(String url, String xmlEntity, Object... params) throws JAXBException, UnsupportedEncodingException {
+	public static String put(String url, String xmlEntity, Object... params) throws JAXBException, UnsupportedEncodingException {
 
 		url = buildUrl(url, params);
 
@@ -196,7 +197,7 @@ public class RestClient {
 	 * @throws JAXBException
 	 * @throws UnsupportedEncodingException
 	 */
-	public String delete(String url, Object... params) throws JAXBException, UnsupportedEncodingException {
+	public static String delete(String url, Object... params) throws JAXBException, UnsupportedEncodingException {
 
 		url = buildUrl(url, params);
 
@@ -221,7 +222,7 @@ public class RestClient {
 	 * @throws JAXBException
 	 * @throws UnsupportedEncodingException
 	 */
-	public String post(String url, String xmlEntity, Object... params) throws JAXBException, UnsupportedEncodingException {
+	public static String post(String url, String xmlEntity, Object... params) throws JAXBException, UnsupportedEncodingException {
 
 		url = buildUrl(url, params);
 
