@@ -27,8 +27,8 @@ public class FormPageGenerator extends AbstractGenerator
 		return false;
 	}
 	
-	public String getName() {
-		return "form";
+	public  FormPageGenerator() {
+		name =  "form";
 	}
 
 	public String getDisplayName() {

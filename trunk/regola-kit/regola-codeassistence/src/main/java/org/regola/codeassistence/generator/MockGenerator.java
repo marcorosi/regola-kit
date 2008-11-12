@@ -23,8 +23,8 @@ public class MockGenerator extends AbstractGenerator {
 		return false;
 	}
 	
-	public String getName() {
-		return "springMock";
+	public  MockGenerator() {
+		name =  "springMock";
 	}
 
 	public String getDisplayName() {

@@ -11,8 +11,8 @@ public class CustomManagerGenerator extends AbstractGenerator
 	private static final String INTERFACE_TEMPLATE = "customManagerInterface.ftl";
 	private static final String SPRING_BEAN_TEMPLATE = "customManagerSpringBean.ftl";
 
-	public String getName() {
-		return "manager";
+	public  CustomManagerGenerator() {
+		name =  "manager";
 	}
 
 	public void generate(Environment env, ParameterBuilder pb)

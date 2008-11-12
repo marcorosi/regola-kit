@@ -7,6 +7,8 @@ import org.regola.codeassistence.ParameterBuilder;
 
 public class AbstractGenerator implements Generator {
 
+	protected String name;
+	
 	@Override
 	public boolean existsArtifact(Environment env, ParameterBuilder pb) {
 		throw new UnsupportedOperationException();
@@ -27,8 +29,33 @@ public class AbstractGenerator implements Generator {
 
 	@Override
 	public String getName() {
-		throw new UnsupportedOperationException();
+		return name;
 		
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AbstractGenerator other = (AbstractGenerator) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 
 	@Override

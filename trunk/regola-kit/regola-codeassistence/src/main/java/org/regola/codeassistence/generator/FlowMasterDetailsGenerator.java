@@ -30,8 +30,8 @@ public class FlowMasterDetailsGenerator extends AbstractGenerator {
 		return false;
 	}
 	
-	public String getName() {
-		return "flowMasterDetails";
+	public  FlowMasterDetailsGenerator() {
+		name =  "flowMasterDetails";
 	}
 
 	public String getDisplayName() {

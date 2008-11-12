@@ -35,8 +35,8 @@ public class ServiceManagerGenerator extends AbstractGenerator
 		return false;
 	}
 	
-	public String getName() {
-		return "service";
+	public  ServiceManagerGenerator() {
+		name =  "service";
 	}
 
 	public String getDisplayName() {

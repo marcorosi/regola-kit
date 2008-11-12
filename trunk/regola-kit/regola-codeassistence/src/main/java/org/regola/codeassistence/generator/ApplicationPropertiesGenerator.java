@@ -22,8 +22,8 @@ public class ApplicationPropertiesGenerator extends AbstractGenerator
 		return false;
 	}
 
-	public String getName() {
-		return "properties";
+	public ApplicationPropertiesGenerator() {
+		name = "properties";
 	}
 
 	public String getDisplayName() {

@@ -10,8 +10,9 @@ public class CustomDaoGenerator extends AbstractGenerator
 	private static final String INTERFACE_TEMPLATE = "customDaoInterface.ftl";
 	private static final String SPRING_BEAN_TEMPLATE = "customDaoSpringBean.ftl";
 
-	public String getName() {
-		return "dao";
+	
+	public  CustomDaoGenerator() {
+		name =  "dao";
 	}
 
 	public void generate(Environment env, ParameterBuilder pb)
@@ -28,9 +29,10 @@ public class CustomDaoGenerator extends AbstractGenerator
 				, template
 				, pb.getParameters());
 		
-		template = env.getTemplate(SPRING_BEAN_TEMPLATE);
-		String beanId = (String)pb.getParameters().get("dao_bean_name");
-		env.writeXmlSource(env.getSpringDaoFileName(), beanId, template, pb.getParameters());
+		//Non è più necessario: usiamo le annotazioni @Component
+//		template = env.getTemplate(SPRING_BEAN_TEMPLATE);
+//		String beanId = (String)pb.getParameters().get("dao_bean_name");
+//		env.writeXmlSource(env.getSpringDaoFileName(), beanId, template, pb.getParameters());
 	}
 
 	public boolean existsArtifact(Environment env, ParameterBuilder pb) {
@@ -45,4 +47,6 @@ public class CustomDaoGenerator extends AbstractGenerator
 	public String getDescription() {
 		return "Write interface and hibernate implementation for a DAO class.";
 	}
+	
+	
 }
