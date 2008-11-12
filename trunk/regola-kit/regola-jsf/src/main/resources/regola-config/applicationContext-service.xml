@@ -15,8 +15,9 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
                      pointcut="execution(* *..service.*Manager.*(..))" order="0" />
     </aop:config>
     
-    <!-- Enable @Transactional support -->
-    <tx:annotation-driven />
+	<!-- Instructs Spring to perfrom declarative transaction managemenet on annotated classes -->
+	<tx:annotation-driven />
+
     
     <!-- Enable @AspectJ support -->
     <aop:aspectj-autoproxy proxy-target-class="false" />
@@ -33,7 +34,8 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
             <tx:method name="update*" read-only="false"/>
             <tx:method name="autenticaConPassword*" read-only="false"/>
             <tx:method name="salvaContestoPlitvice*" read-only="false"/>
-            <tx:method name="listaProfili*" read-only="false"/> <!-- Profilo Manager: fa anche un save -->
+            <!-- Profilo Manager: fa anche un save -->
+            <tx:method name="listaProfili*" read-only="false"/> 
             <tx:method name="*" read-only="true" />
         </tx:attributes>
     </tx:advice>

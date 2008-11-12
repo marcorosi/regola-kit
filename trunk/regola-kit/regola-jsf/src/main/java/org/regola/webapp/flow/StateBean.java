@@ -5,6 +5,7 @@ import java.io.Serializable;
 import org.regola.model.ModelPattern;
 import org.springframework.faces.model.SerializableListDataModel;;
 
+@Deprecated
 public class StateBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
