@@ -30,6 +30,7 @@ import java.util.Map;
 import javax.swing.ActionMap;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.ListModel;
 import javax.swing.Timer;
 import javax.swing.Icon;
 import javax.swing.JDialog;
@@ -837,11 +838,30 @@ public class CodeAssistenceView extends FrameView {
     @Action
     public void masterDetails() {
     
-    	jGeneratosDAO.setSelectionInterval(0, jGeneratosDAO.getModel().getSize()-1);
-    	jGeneratosService.setSelectionInterval(0, jGeneratosService.getModel().getSize()-1);
-    	jGeneratorsPresentation.setSelectionInterval(0, jGeneratorsPresentation.getModel().getSize()-1);
+    	jGeneratosDAO.clearSelection();
+    	addSelection(jGeneratosDAO,Options.getGenerator("dao"));
+    	addSelection(jGeneratosDAO,Options.getGenerator("modelPattern"));
+    	
+    	jGeneratosService.clearSelection();
+    	
+    	jGeneratorsPresentation.clearSelection();
+    	addSelection(jGeneratorsPresentation,Options.getGenerator("properties"));
+    	addSelection(jGeneratorsPresentation,Options.getGenerator("flowMasterDetails"));
+    	
+    	//jGeneratosDAO.setSelectionInterval(0, jGeneratosDAO.getModel().getSize()-1);
+    	//jGeneratosService.setSelectionInterval(0, jGeneratosService.getModel().getSize()-1);
+    	//jGeneratorsPresentation.setSelectionInterval(0, jGeneratorsPresentation.getModel().getSize()-1);
     	
     }
+    
+    protected void addSelection(JList list, Object item)
+    {
+    	ListModel dm = list.getModel();	
+    	for(int i=0,c=dm.getSize();i<c;i++)
+    		if(item.equals(dm.getElementAt(i))){
+    			list.addSelectionInterval(i,i);
+    	}		
+     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

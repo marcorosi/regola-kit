@@ -15,7 +15,9 @@ import org.regola.codeassistence.generator.ServiceManagerGenerator;
 import org.regola.codeassistence.generator.VariablesListGenerator;
 import org.regola.util.Ognl;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 
@@ -29,6 +31,7 @@ public class Options {
 	 * @uml.property  name="allGenerators"
 	 * @uml.associationEnd  multiplicity="(0 -1)"
 	 */
+	
 	static Generator[] allGenerators = { new ApplicationPropertiesGenerator(),
 			new CustomDaoGenerator(), new FilterGenerator(),
 			new FormPageGenerator(), new ListManagedBeanGenerator(),
@@ -36,6 +39,20 @@ public class Options {
 			new ListPageGenerator(), new MockGenerator(), new VariablesListGenerator(), new FlowMasterDetailsGenerator() };
 	
 	String modelClass;
+	
+	private static Map<String, Generator> generatorsMap  = new HashMap<String, Generator>();
+	
+	static {
+		for (Generator gen: allGenerators)
+		{
+			getGeneratorsMap().put(gen.getName(), gen);
+		}
+	}
+	
+	public static Generator getGenerator(String name)
+	{
+		return getGeneratorsMap().get(name);
+	}
 	
 	public static Generator[] getAllGenerators() {
 		return allGenerators;
@@ -92,6 +109,10 @@ public class Options {
 		Generator[] gn = {};
 		return list.toArray(gn);
 		
+	}
+
+	public static Map<String, Generator> getGeneratorsMap() {
+		return generatorsMap;
 	}
 
 }

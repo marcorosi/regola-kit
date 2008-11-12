@@ -35,8 +35,8 @@ public class FormManagedBeanGenerator extends AbstractGenerator
 		return false;
 	}
 	
-	public String getName() {
-		return "form-handler";
+	public FormManagedBeanGenerator() {
+		name =  "form-handler";
 	}
 
 	public String getDisplayName() {

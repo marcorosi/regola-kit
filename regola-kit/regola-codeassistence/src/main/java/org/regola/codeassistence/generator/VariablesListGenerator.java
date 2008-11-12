@@ -19,8 +19,8 @@ public class VariablesListGenerator extends AbstractGenerator {
 		return false;
 	}
 	
-	public String getName() {
-		return "variablesList";
+	public  VariablesListGenerator() {
+		name =  "variablesList";
 	}
 
 	public String getDisplayName() {

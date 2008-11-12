@@ -21,8 +21,8 @@ public class ListPageGenerator extends AbstractGenerator
 		return false;
 	}
 	
-	public String getName() {
-		return "list";
+	public  ListPageGenerator() {
+		name =  "list";
 	}
 
 	public String getDisplayName() {

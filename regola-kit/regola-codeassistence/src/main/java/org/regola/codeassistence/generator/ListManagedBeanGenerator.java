@@ -28,8 +28,8 @@ public class ListManagedBeanGenerator extends AbstractGenerator
 		return false;
 	}
 	
-	public String getName() {
-		return "list-handler";
+	public ListManagedBeanGenerator() {
+		name =  "list-handler";
 	}
 
 	public String getDisplayName() {

@@ -23,8 +23,8 @@ public class FilterGenerator extends AbstractGenerator
 		return false;
 	}
 	
-	public String getName() {
-		return "modelPattern";
+	public  FilterGenerator() {
+		name =  "modelPattern";
 	}
 
 	public String getDisplayName() {
