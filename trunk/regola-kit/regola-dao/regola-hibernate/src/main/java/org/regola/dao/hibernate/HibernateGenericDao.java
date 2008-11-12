@@ -5,9 +5,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.Criteria;
 import org.hibernate.NonUniqueObjectException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.regola.dao.GenericDao;
 import org.regola.filter.ModelPatternParser;
 import org.regola.filter.criteria.hibernate.HibernateQueryBuilder;
@@ -15,16 +17,24 @@ import org.regola.filter.criteria.hibernate.support.HQLquery;
 import org.regola.filter.impl.DefaultPatternParser;
 import org.regola.finder.FinderExecutor;
 import org.regola.model.ModelPattern;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
  * @author nicola
  */
-public class HibernateGenericDao<T, ID extends Serializable> extends
-		HibernateDaoSupport implements GenericDao<T, ID>, FinderExecutor<T> {
+public class HibernateGenericDao<T, ID extends Serializable>  implements GenericDao<T, ID>, FinderExecutor<T> {
 
 	private Class<T> persistentClass;
+	
+	private SessionFactory sessionFactory;
+	
+	protected Session getSession()
+	{
+		return getSessionFactory().getCurrentSession();
+	}
 
 	private ModelPatternParser patternParser = new DefaultPatternParser();
 
@@ -34,17 +44,17 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 
 	@SuppressWarnings("unchecked")
 	public T get(ID id) {
-		return (T) getHibernateTemplate().get(persistentClass, id);
+		return (T) getSession().get(persistentClass, id);
 	}
 
 	public void removeEntity(T entity) {
-		getHibernateTemplate().delete(entity);
+		getSession().delete(entity);
 	}
 
 	public void remove(ID id) {
 		T entity = get(id);
 		if (entity != null) {
-			getHibernateTemplate().delete(entity);
+			getSession().delete(entity);
 		}
 	}
 
@@ -58,11 +68,11 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 	 */
 	public T save(T entity) {
 		
-		if (!getHibernateTemplate().contains(entity))
+		if (!getSession().contains(entity))
 		{
 			try 
 			{
-				getHibernateTemplate().saveOrUpdate(entity);
+				getSession().saveOrUpdate(entity);
 				return entity;
 			}
 			catch(RuntimeException e)
@@ -72,41 +82,27 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 			}
 		}
 		
-		getHibernateTemplate().merge(entity);
+		getSession().merge(entity);
 		return entity;
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<T> find(final ModelPattern pattern) {
-		return getHibernateTemplate().executeFind(new HibernateCallback() {
-			public Object doInHibernate(Session session) {
-				// HibernateCriteria criteriaBuilder = new HibernateCriteria(
-				// session.createCriteria(persistentClass));
-				// HibernateCriteria criteriaBuilder = new HibernateCriteria(
-				// session, persistentClass, getSessionFactory());
+		
 				HibernateQueryBuilder criteriaBuilder = new HibernateQueryBuilder(
-						persistentClass, session);
+						persistentClass, getSession());
 				getPatternParser().createQuery(criteriaBuilder, pattern);
 				return criteriaBuilder.getQuery().list();
-			}
-		});
+		
 	}
 
 	public int count(final ModelPattern pattern) {
-		// TODO controllare null result?
-		return ((Number) getHibernateTemplate().execute(
-				new HibernateCallback() {
-					public Object doInHibernate(Session session) {
-						// HibernateCriteria criteriaBuilder = new
-						// HibernateCriteria(
-						// session.createCriteria(persistentClass));
+		
 						HibernateQueryBuilder criteriaBuilder = new HibernateQueryBuilder(
-								persistentClass, session);
+								persistentClass, getSession());
 						getPatternParser().createCountQuery(criteriaBuilder,
 								pattern);
-						return criteriaBuilder.getQuery().uniqueResult();
-					}
-				})).intValue();
+						return ((Number) criteriaBuilder.getQuery().uniqueResult()).intValue();
 	}
 
 	public ModelPatternParser getPatternParser() {
@@ -119,7 +115,13 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 
 	@SuppressWarnings("unchecked")
 	public List<T> getAll() {
-		return getHibernateTemplate().loadAll(persistentClass);
+		Criteria criteria = getSession().createCriteria(persistentClass);
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+		SessionFactoryUtils.applyTransactionTimeout(criteria, getSessionFactory());
+		
+		return criteria.list();
+		
 	}
 
 	public boolean exists(ID id) {
@@ -175,14 +177,14 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 	
 	public HQLquery getClausoleHQL(final ModelPattern pattern) {
 		HibernateQueryBuilder criteriaBuilder = new HibernateQueryBuilder(
-						persistentClass, getHibernateTemplate().getSessionFactory().getCurrentSession());
+						persistentClass, getSession());
 		getPatternParser().createQuery(criteriaBuilder, pattern);
 		return criteriaBuilder.getClausoleHQL();
 	}	
 	
 	public List<T> find(String hql, Map<String, Object> parameters, int firstResult, int maxResults)
 	{
-		Query query = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(hql);
+		Query query = getSession().createQuery(hql);
 		for (String param : parameters.keySet()) {
 			query.setParameter(param, parameters.get(param));
 		}
@@ -196,10 +198,19 @@ public class HibernateGenericDao<T, ID extends Serializable> extends
 	}
 	
 	public int count(String hql, Map<String, Object> parameters) {
-		Query query = getHibernateTemplate().getSessionFactory().getCurrentSession().createQuery(hql);
+		Query query = getSession().createQuery(hql);
 		for (String param : parameters.keySet()) {
 			query.setParameter(param, parameters.get(param));
 		}
 		return ((Number)query.uniqueResult()).intValue();
+	}
+
+	@Autowired
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
 	}		
 }

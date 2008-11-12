@@ -26,7 +26,7 @@
 			</props>
 		</property>
 	</bean>
-
+	
 	<bean id="customerDao"
 		class="org.regola.finder.FinderFactoryBean">
 		<property name="proxyInterfaces"
@@ -40,6 +40,7 @@
 		</property>
 	</bean>
 
+	
 	<bean id="invoiceDao"
 		class="org.regola.dao.hibernate.HibernateGenericDao">
 		<constructor-arg value="org.regola.model.Invoice" />
