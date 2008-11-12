@@ -103,8 +103,8 @@ public abstract class AbstractFinderDaoTest extends AbstractGenericDaoTest {
 		}
 	}
 
-	@IfProfileValue(name = "testExecuteFinder_byAddressCity", value = "enabled")
-	public void testExecuteFinder_byAddressCity() {
+	@IfProfileValue(name = "testExecuteFinder_byAddressCity", value = "disabled")
+	public void NOTtestExecuteFinder_byAddressCity() {
 		Address address = newAddress("unused", "Lyon");
 		List<Customer> customers = customerFinderDao.findByAddressCity(address);
 
