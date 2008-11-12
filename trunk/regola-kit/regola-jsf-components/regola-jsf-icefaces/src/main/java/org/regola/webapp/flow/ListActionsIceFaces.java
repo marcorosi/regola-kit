@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
+import org.regola.dao.UniversalDao;
 import org.regola.model.ModelPattern;
 import org.regola.service.GenericManager;
 import org.regola.util.ELFunction;
@@ -29,6 +30,15 @@ public class ListActionsIceFaces implements Serializable {
 		
 		DataModel dataModel = new  DynamicReadDataModel(modelPattern );
 		dataModel.setWrappedData(ListActions.refresh(serviceManager, modelPattern).getWrappedData());
+		
+		return dataModel;
+		//stateBean.setColumnList( new SerializableListDataModel( stateBean.getModelPattern().getVisibleProperties()));
+	}
+	
+	public static DataModel refresh(final UniversalDao dao, Serializable model, ModelPattern modelPattern) {
+		
+		DataModel dataModel = new  DynamicReadDataModel(modelPattern );
+		dataModel.setWrappedData(ListActions.refresh(dao, model, modelPattern).getWrappedData());
 		
 		return dataModel;
 		//stateBean.setColumnList( new SerializableListDataModel( stateBean.getModelPattern().getVisibleProperties()));

@@ -9,6 +9,7 @@ import org.springframework.faces.model.SerializableListDataModel;
 
 import com.icesoft.faces.component.datapaginator.PaginatorActionEvent;
 
+@Deprecated
 public class IceFacesStateBean extends StateBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;

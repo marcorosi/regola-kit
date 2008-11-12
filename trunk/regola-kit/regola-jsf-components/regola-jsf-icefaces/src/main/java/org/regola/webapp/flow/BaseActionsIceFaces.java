@@ -10,6 +10,7 @@ import com.icesoft.faces.async.render.RenderManager;
 import com.icesoft.faces.context.effects.Effect;
 import com.icesoft.faces.webapp.xmlhttp.PersistentFacesState;
 
+@Deprecated
 public class BaseActionsIceFaces  {
 
 	protected PersistentFacesState state;
