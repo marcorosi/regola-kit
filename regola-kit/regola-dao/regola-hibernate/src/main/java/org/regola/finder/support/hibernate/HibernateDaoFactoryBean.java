@@ -20,7 +20,7 @@ public class HibernateDaoFactoryBean extends AbstractFactoryBean {
 		HibernateGenericDao<T, Serializable> dao = new HibernateGenericDao<T, Serializable>(
 				entityClass);
 		dao.setSessionFactory(sessionFactory);
-		dao.afterPropertiesSet();
+		//dao.afterPropertiesSet();
 		return dao;
 	}
 
