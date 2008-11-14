@@ -29,9 +29,10 @@ public class CustomManagerGenerator extends AbstractGenerator
 				, template
 				, pb.getParameters());
 		
-		template = env.getTemplate(SPRING_BEAN_TEMPLATE);
-		String beanId = (String)pb.getParameters().get("service_bean_name");
-		env.writeXmlSource(env.getSpringServiceFileName(), beanId, template, pb.getParameters());
+		//Now we use Spring @Component annotations
+//		template = env.getTemplate(SPRING_BEAN_TEMPLATE);
+//		String beanId = (String)pb.getParameters().get("service_bean_name");
+//		env.writeXmlSource(env.getSpringServiceFileName(), beanId, template, pb.getParameters());
 	}
 
 	public boolean existsArtifact(Environment env, ParameterBuilder pb) {

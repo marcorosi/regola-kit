@@ -24,11 +24,11 @@
 			<render fragments="${field(model_name)}ListFragment"/>
 		</transition>
 		
-		<transition on="select" to="form">
+		<transition on="select${model_name}" to="form">
 			<set name="flowScope.${field(model_name)}" value="list.selectedRow" />
 		</transition>
 		
-		<transition on="edit" to="form">
+		<transition on="${field(model_name)}New" to="form">
 			<set name="flowScope.${field(model_name)}" value="null" />
 		</transition>
 		

@@ -5,6 +5,9 @@ import ${id_class};
 import ${service_interface_class};
 import ${dao_interface_class};
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
