@@ -42,11 +42,11 @@
 
 					<ice:commandButton value="Salva"
 						styleClass="buttonNew"
-						action="save" />
+						action="save${model_name}" />
 					<ice:commandButton value="Annulla"
 						styleClass="buttonNew"
 						immediate="true"
-						action="cancel" />
+						action="cancel${model_name}" />
 				</ice:panelGrid>
 			</ice:panelGroup>
 		</ice:form>

@@ -18,13 +18,14 @@
     	<evaluate expression="${field(model_name)}Id eq null" />
     	<transition on="yes" to="form" />
     	<transition on="no" to="form" >
+    	    <!-- evaluate expression="${service_bean_name}.get(${field(model_name)}Id)" result="flowScope.${field(model_name)}" /-->
 			<evaluate expression="universalDao.get(${field(model_name)}.class,${field(model_name)}Id)" result="flowScope.${field(model_name)}" />
     	</transition>
 	</action-state>
 	
 	<view-state id="form" >
-		<transition on="cancel" to="cancel"/>
-		<transition on="save" to="saveOrUpdate">
+		<transition on="cancel${model_name}" to="cancel"/>
+		<transition on="save${model_name}" to="saveOrUpdate">
 			<evaluate expression="formActions.validate('${mbean_form_name}Amendments.xml', ${field(model_name)})" />
 		</transition>		
 	</view-state>
@@ -32,6 +33,7 @@
 	<action-state id="saveOrUpdate">
 		<evaluate expression="${field(model_name)}Id == null" />
     	<transition on="yes" to="confirm" >
+    	    <!--evaluate expression="${service_bean_name}.save(${field(model_name)})"  /-->
 			<evaluate expression="universalDao.save(${field(model_name)})"  />
     	</transition>
     	<transition on="no" to="confirm" />

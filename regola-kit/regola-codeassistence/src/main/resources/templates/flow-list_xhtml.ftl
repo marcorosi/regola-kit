@@ -26,7 +26,7 @@
 		
 			<ice:commandLink value="${r"#{"}msg['${field(model_name)}.title']}"
 				  		styleClass="buttonNew"
-				  		action="edit" />
+				  		action="${field(model_name)}New" />
 			
 			<ice:panelGrid styleClass="ptoolbar" columns="100">
 			  
@@ -82,7 +82,7 @@
 				  
 				   <ice:commandLink value="Edita"
 				  		styleClass="buttonNew"
-				  		action="select" />				  
+				  		action="select${model_name}" />				  
 
   				  <ice:commandLink value="Cancella"
 					  styleClass="buttonNew"
@@ -114,7 +114,7 @@
 			
 				<!-- e.g. Righe per pagina [20] -->
 				<ice:outputText value="${r"#{"}msg['paginator.pageSize']}" />
-                <sf:ajaxEvent event="onchange" action="cancelLingua" processIds="*">
+                <sf:ajaxEvent event="onchange"  processIds="*">
 	                <ice:selectOneMenu value="${r"#{"}pattern.pageSize}"  partialSubmit="true">
 	                    <f:selectItem itemValue="10" itemLabel="10"/>
 	                    <f:selectItem itemValue="20" itemLabel="20"/>
