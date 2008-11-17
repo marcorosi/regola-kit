@@ -9,10 +9,10 @@ Un workflow si compone di una serie di stati collegati l'uno a l'altro tramite p
   \caption[workflow]{Grafico di un workflow \label{fig:workflow}}
 \end{figure}
 
-Nel flusso di esempio sono presenti cinque stati: \textit{start}, \textit{iniziale}, \textit{istruzione}, \textit{approvato} e \textit{rifiutato}.  Nella definizione di un nuovo flusso conviene rammentarsi di aderire ad alcune convenizioni stabilite da Plitvice kit: ad esempio conviene di utilizzare come nomi degli stati  
+Nel flusso di esempio sono presenti cinque stati: \textit{start}, \textit{iniziale}, \textit{istruzione}, \textit{approvato} e \textit{rifiutato}.  Nella definizione di un nuovo flusso conviene rammentarsi di aderire ad alcune convenizioni stabilite da Plitvice kit: ad esempio conviene utilizzare come nomi degli stati  
 \begin{inparaenum}[\itshape a\upshape)]
 \item  solo caratteri minuscoli e possibilemente \item preferire gli aggettivi ai sostantivi. 
-Ogni workflow deve necessariamente \item iniziare  con lo stato \textit{start} che deve prevedere  \item un'unica transizione denominata avvia.
+Ogni workflow deve necessariamente \item iniziare  con lo stato \textit{start} che deve prevedere  \item un'unica transizione denominata \textit{avvia}.
 Tornando all'esempio le altre transizioni sono \textit{prendi in carico}, \textit{torna a iniziale}, \textit{approva} e \textit{rifiuta}; da notare la convenzione di utilizzare \item dei verbi in modo imperativo per definire le transizioni. 
 Infine alcuni stati sono detti terminali perché una volta raggiunti non è più possibile lasciarli (nell'esempio \textit{approvato} e \textit{rifiutato}).
 \end{inparaenum}
@@ -54,9 +54,9 @@ Plitvice kit utilizza JBoos jBPM internamente per la gestione dei Workflow. La d
   </state>
 \end{xml}
 
-\item i nomi degli stati devono contenere solo caratteri minuscoli e possibilmente essere espressi medianti aggettivi (tipo iniziale, approvato, ecc.)
+\item i nomi degli stati devono contenere solo caratteri minuscoli e possibilmente essere espressi mediante aggettivi (tipo iniziale, approvato, ecc.)
 
-\item i nome delle transizioni devono contenere solo caratteri minuscoli e possibilmente essere espressi mediante verbi nel modo imperativo (tipo accetta, rifiuta, ecc.)
+\item i nomi delle transizioni devono contenere solo caratteri minuscoli e possibilmente essere espressi mediante verbi nel modo imperativo (tipo accetta, rifiuta, ecc.)
 
 \end{itemize*}
 
@@ -70,10 +70,10 @@ Alternativamente, spesso impiegati per la fase di test, si può creare un reposi
 
 L'autorizzazione su un workflow consiste nello stabilire se l'identità correntemente assunta dell'utente autenticato possa o meno segnalare una certa transizione oppure abbia i permessi per elencare i documenti in un certo stato. Lo schema delle autorizzazioni è quello definito nel modulo plitvice security che prevede il concetto di Ruolo a cui fa capo una collezione di diritti (Diritto); questi ultimi possono essere di natura applicativa oppure relativi ai workflow. Infine questi ultimi si distinguono per occuparsi degli stati oppure delle transizioni.
 
-Gli elementi comuni ad ogni diritto sono un identificativo unico (un intero) ed un Ambito che rappresenta un partizionamento su base applicativa; ad esempio esiste l'ambito dei tirocini che raccoglie tutti i diritti relativi alla grande area della gestione dei tirocini. Inoltre tutti i diritti fanno riferimento ad un'Entità, ovvero un elemento del modello con un ciclo di vita ampio secondo i dettami del Domain Driven Development. L'elenco delle Entità è persistito su database e a ciascuna è assegnato un identificativo univoco. I diritti relativo a workflow contengono invece sempre l'indicazione del flusso.\footnote{Attualmente dato un workflow discende una ed una sola entità per cui basterebbe l'indicazione del flusso per risalire inequivocabilmente all'entità; comunque al momento in cui questo manuale è redatto, sia l'id dell'entità che il nome del flusso devono specificate in modo congruente.}
+Gli elementi comuni ad ogni diritto sono un identificativo unico (un intero) ed un Ambito che rappresenta un partizionamento su base applicativa; ad esempio esiste l'ambito dei tirocini che raccoglie tutti i diritti relativi alla grande area della gestione dei tirocini. Inoltre tutti i diritti fanno riferimento ad un'Entità, ovvero un elemento del modello con un ciclo di vita ampio secondo i dettami del Domain Driven Development. L'elenco delle Entità è persistito su database e a ciascuna è assegnato un identificativo univoco. I diritti relativi a workflow contengono invece sempre l'indicazione del flusso.\footnote{Attualmente dato un workflow discende una ed una sola entità per cui basterebbe l'indicazione del flusso per risalire inequivocabilmente all'entità; comunque al momento in cui questo manuale è redatto, sia l'id dell'entità che il nome del flusso devono essere specificate in modo congruente.}
 
 I diritti di workflow di tipo transazione prevedono la possibilità di segnalare una specifica transazione. Il default, ovvero in caso di assenza di uno specifico diritto, la transazione non può essere segnalata da nessuno.
-I diritti di workflow di tipo stato consentono di elencare tutti i documenti che si trovino in quello stato. In assenza di un particolare diritto chiunque può richiedere l'elenco completo dei documenti per quel certo stato. Esiste comunque un meccanismo che consente anche ad identità che non avrebbero i diritti di accedere all'elenco dei documenti; si rimanda alla proprietà vincoloLettura di AutorizzazioneUtente e l'interfaccia Visibilità per dettagli in merito.
+I diritti di workflow di tipo stato consentono di elencare tutti i documenti che si trovino in quello stato. In assenza di un particolare diritto chiunque può richiedere l'elenco completo dei documenti per quel certo stato. Comunque anche le identità sprovviste di diritti di elencazione possono riuscire ad ottenere gli elenchi dei documenti utilizzando un meccanismo apposito; si rimanda alla proprietà vincoloLettura di AutorizzazioneUtente e l'interfaccia Visibilità per dettagli in merito.
 
 Le autorizzazioni sono abilitate o disabilitate tramite un aspetto di Spring; per attivarle  basta aggiungere le seguenti righe in un file di configurazione di bean:
 \begin{xml}
@@ -121,8 +121,8 @@ public class Accordo implements Serializable {
 }
 \end{java}
 
-Durante la fase di progettazione del documento deve essere tenuta in considerazione la relazione forte che lega  il documento al workflow che lo gestisce; in qualsiasi momento del ciclo di vita del documento deve esistere un modo (un algoritmo)  che partendo da un'istanza del documento sappia determinare il workflow di riferimento unitamente allo stato in cui il workflow si trova.  In altri termini lo stato del workflow deve essere desumibile attraverso il documento stesso, o perché lo contiene direttamente  o perché contiene gli elementi per recuperare da una database lo stato del flusso. 
-Nel nostro semplice esempio lo stato è del flusso è semplicemente una proprietà del documento.
+Durante la fase di progettazione del documento deve essere tenuta in considerazione la relazione forte che lega  il documento al workflow che lo gestisce; in qualsiasi momento del ciclo di vita del documento deve esistere un modo (un algoritmo)  che partendo da un'istanza del documento sappia determinare il workflow di riferimento unitamente allo stato in cui il workflow si trova.  In altri termini lo stato del workflow deve essere desumibile attraverso il documento stesso, o perché lo contiene direttamente  o perché contiene gli elementi per recuperare da un database lo stato del flusso. 
+Nel nostro semplice esempio lo stato del flusso è semplicemente una proprietà del documento.
 
 Il WorkflowManager consentirà di effettuare delle selezioni dalla popolazione di tutti i documenti gestiti tramite flussi: sarà in particolare possibile ottenere l'elenco di tutti i documenti che si trovino in un certo stato oppure gestiti da un certo workflow. Per effettuare questo genere d'interrogazioni è stato esteso il meccanismo di ModelPattern con due annotazioni, @Stati e @Workflow.
 
@@ -250,8 +250,8 @@ implements AccordoWorkflowManager
 \end{java}
 
 
-I metodi di cui occuparsi nell'implementazione sono il costruttore in cui specificare i workflow gestiti da questo WorkflowManager, nell'esempio solo uno di nome \textit{accordo} che per quando indicato nelle convenzioni relativi alle definizioni dei workflow deve trovarsi nella posizione src/main/resources/workflows/accordo/processdefinition.xml.
-Il metodo flowForDocument() consente di individuare a quale flusso sia associato l'istanza del documento; nel nostro esempio ogni istanza è gestita da un solo workflow.
+I metodi di cui occuparsi nell'implementazione sono il costruttore in cui specificare i workflow gestiti da questo WorkflowManager, nell'esempio solo uno di nome \textit{accordo} che per quando indicato nelle convenzioni relative alle definizioni dei workflow deve trovarsi nella posizione src/main/resources/workflows/accordo/processdefinition.xml.
+Il metodo flowForDocument() consente di individuare a quale flusso sia associata l'istanza del documento; nel nostro esempio ogni istanza è gestita da un solo workflow.
 Infine addProcessVariable() consente di inserire delle variabili da utilizzare all'interno delle action durante le segnalazioni. Nell'esempio non è impiegato questo metodo.
 Il file di definizione di Spring per le classi appena create deve assomigliare al seguente frammento:
 
