@@ -176,27 +176,32 @@ La registrazione del servizio in Spring richiede semplicemente qualcosa di simil
   <bean id="testServiceImpl" class="it.kion.service.RestManager" />
 \end{xml}
 
-Per invocare i servizi di tipo REST Regola kit mette a disposizione RestClient,  una piccola classe che dovrebbe rendere agevole l'invocazione di servizi. Ad esempio: per un invocare un servizio col metodo http GET si può procedere come segue:
+Per invocare i servizi di tipo REST Regola kit mette a disposizione RestClient,  una piccola classe che dovrebbe rendere agevole l'invocazione di servizi. Ad esempio:
+ per un invocare un servizio col metodo http GET si può procedere come segue:
 
 \begin{java}
- RestClient client = new RestClient(); 
- String result = client.get(url, param1, param2, ..., paramN);
- \end{java}
+ String result = get(url, param1, param2, ..., paramN);
+ 
+\end{java}
 
-I parametri sono utilizzati per costruire la url che diventa qualcosa di simile ad ( url/param1/param2/.../paramN). E\' anche possibile passare una singola entità nel body della richiesta HTTP, tipicamente una frammento di xml che rappresenta un'istanza di un oggetto (creato con la classe di utilità di Regola kit  JAXBMarshaller):
+I parametri sono utilizzati per costruire la url che diventa qualcosa di simile ad ( url/param1/param2/.../paramN).
+ E\' anche possibile passare una singola entità nel body della richiesta HTTP, tipicamente una frammento di xml che rappresenta un'istanza di un oggetto (creato con la classe di utilità di Regola kit  JAXBMarshaller):
 
 \begin{java}
  Dto dto = new Dto();
  String dtoXml = toXml("org.regola.ws", "dto", dto);
- String result = client.post(url, dtoXml, 1, "salve!");
- \end{java}
+ String result = post(url, dtoXml, 1, "salve!");
  
-Anche il valore di ritorno dei servizi spesso sono dei documenti xml che rappresentano un oggetto; per ottenere l'oggetto di partenza si può ricorrere sempre alla classe  JAXBMarshaller:
+\end{java}
+ 
+Anche il valore di ritorno dei servizi spesso sono dei documenti xml che rappresentano un oggetto; per ottenere l'oggetto di partenza si può ricorrere sempre alla classe 
+ JAXBMarshaller:
 
 \begin{java}
- String result = client.put(url, dtoXml, 1, "salve!");
+ String result = put(url, dtoXml, 1, "salve!");
  Dto dto = fromXml("org.regola.ws", result);
- \end{java} 
+ 
+\end{java} 
 
 Nota bene: prima di effettuare le conversioni oggetto/xml è  necessario utilizzare il compilatore di JAXB per annotare le classi coinvolte e produrre un oggetto del tipo ObjectFactory (si veda la documentazione di JAXB). Ad esempio, partendo da uno schema xml che descrive il documento relativo ad una certa classe, diciamo Dto, bisogna invocare il compilatore di JAXB come segue:
 
@@ -205,7 +210,8 @@ Nota bene: prima di effettuare le conversioni oggetto/xml è  necessario utilizz
 \end{bash}
  
 
-A questo punto tutte le classi coinvolte saranno create nel package it.il.tuo.package unitamente alla classe ObjectFactory.
+
+A questo punto tutte le classi coinvolte saranno create nel package it.il.tuo.package unitamente alla classe ObjectFactory.
 
 Infine se per qualche bizzarra circostanza si disponesse solo della classe e non dello schema relativo, sarà possibile usare il metodo di utilità JAXBMarshaller.generateSchema()  per ottenere uno schema di base.
 
