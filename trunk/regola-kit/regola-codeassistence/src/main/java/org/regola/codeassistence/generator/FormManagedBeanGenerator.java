@@ -2,7 +2,7 @@ package org.regola.codeassistence.generator;
 
 import freemarker.template.Template;
 import org.regola.codeassistence.Environment;
-import org.regola.codeassistence.ParameterBuilder;
+import org.regola.codeassistence.VariablesBuilder;
 
 
 public class FormManagedBeanGenerator extends AbstractGenerator
@@ -12,7 +12,7 @@ public class FormManagedBeanGenerator extends AbstractGenerator
 	private static final String SPRING_BEAN_TEMPLATE = "formMBeanSpringBean.ftl";
 	private static final String VALIDATION_TEMPLATE = "formMBeanValidation.ftl";
         
-	public void generate(Environment env, ParameterBuilder pb)
+	public void generate(Environment env, VariablesBuilder pb)
 	{
 		Template template = env.getTemplate(LIST_TEMPLATE);	  
 		env.writeJavaSource((String) pb.getParameters().get("mbean_package")
@@ -21,7 +21,7 @@ public class FormManagedBeanGenerator extends AbstractGenerator
 				, pb.getParameters());
 		
 		template = env.getTemplate(SPRING_BEAN_TEMPLATE);
-		String beanId = ParameterBuilder.camelNotation((String)pb.getParameters().get("mbean_form_name"));
+		String beanId = VariablesBuilder.camelNotation((String)pb.getParameters().get("mbean_form_name"));
 		env.writeXmlSource(env.getSpringServiceFileName(), beanId, template, pb.getParameters());
 		
                 
@@ -30,7 +30,7 @@ public class FormManagedBeanGenerator extends AbstractGenerator
 		
 	}
 
-	public boolean existsArtifact(Environment env, ParameterBuilder pb) {
+	public boolean existsArtifact(Environment env, VariablesBuilder pb) {
 		// TODO Auto-generated method stub
 		return false;
 	}

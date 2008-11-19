@@ -2,7 +2,7 @@ package org.regola.codeassistence.generator;
 
 import freemarker.template.Template;
 import org.regola.codeassistence.Environment;
-import org.regola.codeassistence.ParameterBuilder;
+import org.regola.codeassistence.VariablesBuilder;
 
 
 public class FormPageGenerator extends AbstractGenerator
@@ -10,7 +10,7 @@ public class FormPageGenerator extends AbstractGenerator
 	private static final String TEMPLATE = "form_page.ftl";
 	private static final String FACES_CONFIG_TEMPLATE = "formMBeanFacesContextBean.ftl";
 	
-	public void generate(Environment env, ParameterBuilder pb)
+	public void generate(Environment env, VariablesBuilder pb)
 	{
 		Template template = env.getTemplate(TEMPLATE);	  
 		env.writeWebSource(pb.getParameters().get("model_name")+"-form", template, pb.getParameters());
@@ -22,7 +22,7 @@ public class FormPageGenerator extends AbstractGenerator
 		
 	}
 
-	public boolean existsArtifact(Environment env, ParameterBuilder pb) {
+	public boolean existsArtifact(Environment env, VariablesBuilder pb) {
 		// TODO Auto-generated method stub
 		return false;
 	}

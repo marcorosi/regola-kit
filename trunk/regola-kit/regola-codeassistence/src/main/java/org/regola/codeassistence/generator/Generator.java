@@ -3,7 +3,7 @@ package org.regola.codeassistence.generator;
 import java.util.Map;
 
 import org.regola.codeassistence.Environment;
-import org.regola.codeassistence.ParameterBuilder;
+import org.regola.codeassistence.VariablesBuilder;
 
 /**
  * Un generatore si occupa di produrre uno o più artefatti
@@ -44,7 +44,7 @@ public interface Generator
 	 * @param env
 	 * @param pb
 	 */
-	public void generate(Environment env, ParameterBuilder pb);
+	public void generate(Environment env, VariablesBuilder pb);
 	
 	/**
 	 * Restituisce true se i file che questo genratore dovrebbe creare
@@ -58,7 +58,7 @@ public interface Generator
 	 * @param pb
 	 * @return
 	 */
-	public boolean existsArtifact(Environment env, ParameterBuilder pb);
+	public boolean existsArtifact(Environment env, VariablesBuilder pb);
 	
 	/**
 	 * Effettua una simulazione restituendo una mappa con in chiave i 
@@ -69,6 +69,6 @@ public interface Generator
 	 * @param pb
 	 * @return
 	 */
-	public Map<String,String> simulate(Environment env, ParameterBuilder pb);
+	public Map<String,String> simulate(Environment env, VariablesBuilder pb);
 
 }

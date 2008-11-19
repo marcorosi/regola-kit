@@ -2,14 +2,14 @@ package org.regola.codeassistence.generator;
 
 import freemarker.template.Template;
 import org.regola.codeassistence.Environment;
-import org.regola.codeassistence.ParameterBuilder;
+import org.regola.codeassistence.VariablesBuilder;
 
 
 public class FilterGenerator extends AbstractGenerator
 {
 	private static final String TEMPLATE = "filter.ftl";
 
-	public void generate(Environment env, ParameterBuilder pb)
+	public void generate(Environment env, VariablesBuilder pb)
 	{
 		Template template = env.getTemplate(TEMPLATE);
 		env.writeJavaSource((String) pb.getParameters().get("pattern_package")
@@ -18,7 +18,7 @@ public class FilterGenerator extends AbstractGenerator
 				, pb.getParameters());
 	}
 
-	public boolean existsArtifact(Environment env, ParameterBuilder pb) {
+	public boolean existsArtifact(Environment env, VariablesBuilder pb) {
 		// TODO Auto-generated method stub
 		return false;
 	}

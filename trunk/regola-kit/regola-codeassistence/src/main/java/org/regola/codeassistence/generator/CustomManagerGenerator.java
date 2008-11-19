@@ -1,21 +1,21 @@
 package org.regola.codeassistence.generator;
 
 import org.regola.codeassistence.Environment;
-import org.regola.codeassistence.ParameterBuilder;
+import org.regola.codeassistence.VariablesBuilder;
 
 import freemarker.template.Template;
 
 public class CustomManagerGenerator extends AbstractGenerator
 {
-	private static final String IMPL_TEMPLATE = "customManagerImpl.ftl";
-	private static final String INTERFACE_TEMPLATE = "customManagerInterface.ftl";
-	private static final String SPRING_BEAN_TEMPLATE = "customManagerSpringBean.ftl";
+	protected   String IMPL_TEMPLATE = "customManagerImpl.ftl";
+	protected   String INTERFACE_TEMPLATE = "customManagerInterface.ftl";
+	//protected   String SPRING_BEAN_TEMPLATE = "customManagerSpringBean.ftl";
 
 	public  CustomManagerGenerator() {
 		name =  "manager";
 	}
 
-	public void generate(Environment env, ParameterBuilder pb)
+	public void generate(Environment env, VariablesBuilder pb)
 	{
 		Template template = env.getTemplate(INTERFACE_TEMPLATE);	  
 		env.writeJavaSource((String) pb.getParameters().get("service_package")
@@ -35,7 +35,7 @@ public class CustomManagerGenerator extends AbstractGenerator
 //		env.writeXmlSource(env.getSpringServiceFileName(), beanId, template, pb.getParameters());
 	}
 
-	public boolean existsArtifact(Environment env, ParameterBuilder pb) {
+	public boolean existsArtifact(Environment env, VariablesBuilder pb) {
 		
 		return false;
 	}
