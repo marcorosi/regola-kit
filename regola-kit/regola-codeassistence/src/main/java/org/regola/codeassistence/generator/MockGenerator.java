@@ -1,7 +1,7 @@
 package org.regola.codeassistence.generator;
 
 import org.regola.codeassistence.Environment;
-import org.regola.codeassistence.ParameterBuilder;
+import org.regola.codeassistence.VariablesBuilder;
 
 import freemarker.template.Template;
 
@@ -10,7 +10,7 @@ public class MockGenerator extends AbstractGenerator {
 	private static final String SPRING_BEAN_TEMPLATE = "mockSpring.ftl";
 
 
-	public void generate(Environment env, ParameterBuilder pb)
+	public void generate(Environment env, VariablesBuilder pb)
 	{
 		Template template = env.getTemplate(SPRING_BEAN_TEMPLATE);
 		
@@ -18,7 +18,7 @@ public class MockGenerator extends AbstractGenerator {
 		env.writeXmlSource(env.getSpringTestResourcesFileName(), beanId, template, pb.getParameters());
 	}
 
-	public boolean existsArtifact(Environment env, ParameterBuilder pb) {
+	public boolean existsArtifact(Environment env, VariablesBuilder pb) {
 		// TODO Auto-generated method stub
 		return false;
 	}

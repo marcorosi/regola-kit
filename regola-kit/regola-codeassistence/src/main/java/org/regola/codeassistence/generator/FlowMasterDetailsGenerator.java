@@ -1,13 +1,13 @@
 package org.regola.codeassistence.generator;
 
 import org.regola.codeassistence.Environment;
-import org.regola.codeassistence.ParameterBuilder;
+import org.regola.codeassistence.VariablesBuilder;
 import org.regola.codeassistence.Utils;
 
 
 public class FlowMasterDetailsGenerator extends AbstractGenerator {
 	
-	public void generate(Environment env, ParameterBuilder pb)
+	public void generate(Environment env, VariablesBuilder pb)
 	{
 		String flowName = pb.getStringValue("flow_name");
         
@@ -25,7 +25,7 @@ public class FlowMasterDetailsGenerator extends AbstractGenerator {
         //bisogna aggiungere il flusso alla lista dei flussi
 	}
 
-	public boolean existsArtifact(Environment env, ParameterBuilder pb) {
+	public boolean existsArtifact(Environment env, VariablesBuilder pb) {
 		// TODO Auto-generated method stub
 		return false;
 	}

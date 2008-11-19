@@ -2,7 +2,7 @@ package org.regola.codeassistence.generator;
 
 import freemarker.template.Template;
 import org.regola.codeassistence.Environment;
-import org.regola.codeassistence.ParameterBuilder;
+import org.regola.codeassistence.VariablesBuilder;
 
 
 public class ListManagedBeanGenerator extends AbstractGenerator
@@ -10,7 +10,7 @@ public class ListManagedBeanGenerator extends AbstractGenerator
 	private static final String LIST_TEMPLATE = "listMBean.ftl";
 	private static final String SPRING_BEAN_TEMPLATE = "listMBeanSpringBean.ftl";
 
-	public void generate(Environment env, ParameterBuilder pb)
+	public void generate(Environment env, VariablesBuilder pb)
 	{
 		Template template = env.getTemplate(LIST_TEMPLATE);	  
 		env.writeJavaSource((String) pb.getParameters().get("mbean_package")
@@ -19,11 +19,11 @@ public class ListManagedBeanGenerator extends AbstractGenerator
 				, pb.getParameters());
 		
 		template = env.getTemplate(SPRING_BEAN_TEMPLATE);
-		String beanId = ParameterBuilder.camelNotation((String)pb.getParameters().get("mbean_list_name"));
+		String beanId = VariablesBuilder.camelNotation((String)pb.getParameters().get("mbean_list_name"));
 		env.writeXmlSource(env.getSpringServiceFileName(), beanId, template, pb.getParameters());
 	}
 
-	public boolean existsArtifact(Environment env, ParameterBuilder pb) {
+	public boolean existsArtifact(Environment env, VariablesBuilder pb) {
 		// TODO Auto-generated method stub
 		return false;
 	}

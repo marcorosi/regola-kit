@@ -12,6 +12,7 @@ import org.regola.codeassistence.generator.ListManagedBeanGenerator;
 import org.regola.codeassistence.generator.ListPageGenerator;
 import org.regola.codeassistence.generator.MockGenerator;
 import org.regola.codeassistence.generator.ServiceManagerGenerator;
+import org.regola.codeassistence.generator.SoapServiceGenerator;
 import org.regola.codeassistence.generator.VariablesListGenerator;
 import org.regola.util.Ognl;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class Options {
 			new CustomDaoGenerator(), new FilterGenerator(),
 			new FormPageGenerator(), new ListManagedBeanGenerator(),
 			new FormManagedBeanGenerator(), new CustomManagerGenerator(),
-			new ListPageGenerator(), new MockGenerator(), new VariablesListGenerator(), new FlowMasterDetailsGenerator() };
+			new ListPageGenerator(), new MockGenerator(), new VariablesListGenerator(), new FlowMasterDetailsGenerator(), new SoapServiceGenerator() };
 	
 	String modelClass;
 	
@@ -63,7 +64,7 @@ public class Options {
 	}
 	
 	public static Generator[] getServiceGenerators() {
-		return new Generator[] {	new CustomManagerGenerator()} ;
+		return new Generator[] {	new CustomManagerGenerator(), new SoapServiceGenerator()} ;
 	}
 	
 	public static Generator[] getPresentationGenerators() {

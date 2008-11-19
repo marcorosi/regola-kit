@@ -277,6 +277,55 @@ public class Environment {
 		writeFile(getWebInfPath()+"/flows/"+ flowName  +"/", fileName, template, root);
 	}
 
+	public void writeServiceEndpoint(String xmlfile, String beanId, Template template, Map<String, Object> parameters) 
+	{
+		String resource = xmlfile.contains("test") ? getTestResourcePath() :  getResourcePath();
+		
+		File f = new File(getOutputDir()+"/"+resource+"/"+xmlfile);
+		if(!f.exists())
+		{
+			log.info(String.format("Salto la modifica di %s perchè non esiste",xmlfile));
+			
+			if (isSimulate())
+			{
+				String msg = "<!-- file: " + f.getPath() + " -->\n";
+				msg += "<!-- Don't write anything beacuse the file doesn't exists -->";
+				simulationMap.put(xmlfile, msg);
+			}
+			
+			
+			return;
+		}
+		
+		if(existsJaxwsEndpoint(resource+"/"+xmlfile, beanId))
+		{
+			log.info(String.format("Il file %s non è stato modificato perchè il bean %s è già definito"
+					,xmlfile, beanId));
+			
+			if (isSimulate())
+			{
+				String msg = "<!-- file: " + f.getPath() + " -->\n";
+				msg += "<!-- Don't write anything beacuse the bean "+ beanId +" is already defined -->";
+				simulationMap.put(xmlfile, msg);
+			}
+			
+			return;
+		}
+
+		
+		StringWriter sw = new StringWriter();
+		try {
+			template.process(parameters, sw);
+		} catch (Exception e) 
+		{
+			throw new RuntimeException(e);
+		}
+		
+		String xml = readFileAsString(resource+"/"+xmlfile);
+		xml = xml.replaceFirst("</beans>", sw.toString());
+		
+		writeStringToFile(resource+"/"+xmlfile, xml, false);
+	}
 
 	public void writeXmlSource(String xmlfile, String beanId, Template template, Map<String, Object> parameters) 
 	{
@@ -494,6 +543,7 @@ public class Environment {
 					"http://java.sun.com/dtd/web-facesconfig_1_1.dtd");
 			xpath.addNamespace("webflow",
 			"http://www.springframework.org/schema/webflow-config");
+			xpath.addNamespace("jaxws", "http://cxf.apache.org/jaxws");
 			levelNode = (Element) xpath.selectSingleNode(jdomDocument);
 			return levelNode != null;
 
@@ -505,6 +555,10 @@ public class Environment {
 
 	public boolean existsBean(String acFilePath, String beanId) {
 		return existsXPath(acFilePath, "/s:beans/s:bean[@id='" + beanId + "']");
+	}
+	
+	public boolean existsJaxwsEndpoint(String acFilePath, String beanId) {
+		return existsXPath(acFilePath, "/s:beans/jaxws:endpoint[@id='" + beanId + "']");
 	}
 	
 	public boolean existsManagedBean(String acFilePath, String beanId) {

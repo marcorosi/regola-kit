@@ -84,7 +84,7 @@ public class FullStack {
 		
 	}
 	
-	public static ParameterBuilder instanceParameterBuilder(Environment env, String modelName) 
+	public static VariablesBuilder instanceParameterBuilder(Environment env, String modelName) 
 	{
 		//IClassDescriptor modelDescriptor = env.getDescriptorService()
 		//		.getClassDescriptor(Class.forName(ourOpt.getModelClass()));
@@ -122,7 +122,7 @@ public class FullStack {
 		}
 		// env.setPackageName(getPackageName(descriptor));
 
-		return new ParameterBuilder(modelDescriptor,	idDescriptor);
+		return new VariablesBuilder(modelDescriptor,	idDescriptor);
 
 
 	}
@@ -130,7 +130,7 @@ public class FullStack {
 	private static void generate(Environment env, Options ourOpt, String generatorsString) throws ClassNotFoundException
 	{
 		
-		ParameterBuilder pb = instanceParameterBuilder(env, ourOpt.getModelClass());
+		VariablesBuilder pb = instanceParameterBuilder(env, ourOpt.getModelClass());
 		//env.setPackageName((String) pb.getParameters().get("package"));
 		
 		for (Generator generator : ourOpt.getGeneratorListByNames(generatorsString.split(","))) {

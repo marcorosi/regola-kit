@@ -2,7 +2,7 @@ package org.regola.codeassistence.generator;
 
 import freemarker.template.Template;
 import org.regola.codeassistence.Environment;
-import org.regola.codeassistence.ParameterBuilder;
+import org.regola.codeassistence.VariablesBuilder;
 
 @Deprecated
 public class ServiceManagerGenerator extends AbstractGenerator
@@ -11,7 +11,7 @@ public class ServiceManagerGenerator extends AbstractGenerator
 	private static final String INTERFACE_TEMPLATE = "managerInterface.ftl";
 	private static final String SPRING_BEAN_TEMPLATE = "managerSpringBean.ftl";
 	
-	public void generate(Environment env, ParameterBuilder pb)
+	public void generate(Environment env, VariablesBuilder pb)
 	{
 		Template template = env.getTemplate(INTERFACE_TEMPLATE);	  
 		env.writeJavaSource((String) pb.getParameters().get("service_package")
@@ -30,7 +30,7 @@ public class ServiceManagerGenerator extends AbstractGenerator
 		env.writeXmlSource(env.getSpringServiceFileName(), beanId, template, pb.getParameters());		
 	}
 
-	public boolean existsArtifact(Environment env, ParameterBuilder pb) {
+	public boolean existsArtifact(Environment env, VariablesBuilder pb) {
 		// TODO Auto-generated method stub
 		return false;
 	}

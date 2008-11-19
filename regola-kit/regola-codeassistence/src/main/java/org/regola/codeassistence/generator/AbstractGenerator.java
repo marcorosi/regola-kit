@@ -3,20 +3,20 @@ package org.regola.codeassistence.generator;
 import java.util.Map;
 
 import org.regola.codeassistence.Environment;
-import org.regola.codeassistence.ParameterBuilder;
+import org.regola.codeassistence.VariablesBuilder;
 
 public class AbstractGenerator implements Generator {
 
 	protected String name;
 	
 	@Override
-	public boolean existsArtifact(Environment env, ParameterBuilder pb) {
+	public boolean existsArtifact(Environment env, VariablesBuilder pb) {
 		throw new UnsupportedOperationException();
 		
 	}
  
 	@Override
-	public void generate(Environment env, ParameterBuilder pb) {
+	public void generate(Environment env, VariablesBuilder pb) {
 		throw new UnsupportedOperationException();
 		
 	}
@@ -59,7 +59,7 @@ public class AbstractGenerator implements Generator {
 	}
 
 	@Override
-	public Map<String, String> simulate(Environment env, ParameterBuilder pb) {
+	public Map<String, String> simulate(Environment env, VariablesBuilder pb) {
 		env.setSimulate(true);
 		this.generate(env, pb);
 		env.setSimulate(false);

@@ -2,7 +2,7 @@ package org.regola.codeassistence.generator;
 
 import freemarker.template.Template;
 import org.regola.codeassistence.Environment;
-import org.regola.codeassistence.ParameterBuilder;
+import org.regola.codeassistence.VariablesBuilder;
 
 public class CustomDaoGenerator extends AbstractGenerator
 {
@@ -15,7 +15,7 @@ public class CustomDaoGenerator extends AbstractGenerator
 		name =  "dao";
 	}
 
-	public void generate(Environment env, ParameterBuilder pb)
+	public void generate(Environment env, VariablesBuilder pb)
 	{
 		Template template = env.getTemplate(INTERFACE_TEMPLATE);	  
 		env.writeJavaSource((String) pb.getParameters().get("dao_package")
@@ -35,7 +35,7 @@ public class CustomDaoGenerator extends AbstractGenerator
 //		env.writeXmlSource(env.getSpringDaoFileName(), beanId, template, pb.getParameters());
 	}
 
-	public boolean existsArtifact(Environment env, ParameterBuilder pb) {
+	public boolean existsArtifact(Environment env, VariablesBuilder pb) {
 		
 		return false;
 	}
