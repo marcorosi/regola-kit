@@ -4,16 +4,18 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
             http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
   
-      <!-- For mail settings and future properties files -->
+  	<!-- For mail settings and future properties files -->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-								<value>classpath:runtime.properties</value>
+				<value>classpath:runtime.properties</value>
             </list>
         </property>
     </bean>
    
    <!-- JNDI DataSource for JEE environments -->
    <jee:jndi-lookup id="dataSource" jndi-name="${jee.datasource}" />
+  
+  
    
 </beans>
