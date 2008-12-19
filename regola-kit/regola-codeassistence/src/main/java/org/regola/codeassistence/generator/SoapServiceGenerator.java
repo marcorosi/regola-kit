@@ -1,6 +1,7 @@
 package org.regola.codeassistence.generator;
 
 import org.regola.codeassistence.Environment;
+import org.regola.codeassistence.Utils;
 import org.regola.codeassistence.VariablesBuilder;
 
 import freemarker.template.Template;
@@ -9,8 +10,8 @@ public class SoapServiceGenerator extends CustomManagerGenerator {
 
 	public SoapServiceGenerator()
 	{
-		IMPL_TEMPLATE = "manager-soap_interface.ftl" ;
-		INTERFACE_TEMPLATE= "manager-soap_impl.ftl";
+		INTERFACE_TEMPLATE = "manager-soap_interface.ftl" ;
+		IMPL_TEMPLATE= "manager-soap_impl.ftl";
 		name =  "soapService";
 	}
 	
@@ -19,7 +20,7 @@ public class SoapServiceGenerator extends CustomManagerGenerator {
 		super.generate(env, pb);
 		
 		Template template = env.getTemplate("manager-soap_spring.ftl");
-		String beanId = (String)pb.getParameters().get("service_bean_name");
+		String beanId = Utils.lowerFirstLetter(pb.getParameters().get("soap_service_name").toString());
 		env.writeServiceEndpoint(env.getSpringServiceFileName(), beanId, template, pb.getParameters());
 	
 		template = env.getTemplate("manager-soap_wssecurity.ftl");
