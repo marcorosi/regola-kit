@@ -137,6 +137,10 @@ public class Environment {
 	public String getJavaSrcPath() {
 		return "src/main/java";
 	}
+	
+	public String getJavaTestSrcPath() {
+		return "src/test/java";
+	}
 
 	public String getWebSrcPath() {
 		return "src/main/webapp";
@@ -257,6 +261,11 @@ public class Environment {
 		writeJavaSource(packageName, fileName, template, root, null);
 	}
 	
+	public void writeJavaTestSource(String packageName, String fileName, Template template,
+			Map<String, Object> root) 
+	{
+		writeJavaTestSource(packageName, fileName, template, root, null);
+	}
 	
 	
 	public void writeJavaSource(String packageName, String fileName, 
@@ -266,6 +275,15 @@ public class Environment {
 		root.put("reader", reader);
 
 		writeFile(getJavaSrcPath()+"/"+Utils.getPackagePath(packageName)+"/", fileName+".java", template, root);
+	}
+	
+	public void writeJavaTestSource(String packageName, String fileName, 
+			Template template, Map<String, Object> root, Object value) 
+	{
+		ValueReader reader = new ValueReader(value);
+		root.put("reader", reader);
+
+		writeFile(getJavaTestSrcPath()+"/"+Utils.getPackagePath(packageName)+"/", fileName+".java", template, root);
 	}
 	
 	public void writeFlowsResource(String flowName, String fileName, 
@@ -469,6 +487,57 @@ public class Environment {
 		
 		String xml = readFileAsString(relativePath);
 		xml = xml.replaceFirst("</webflow:flow-registry>", sw.toString());
+		
+		writeStringToFile(relativePath, xml, false);
+	}
+	
+	public void writeTilesFlowConfig( String tilesPath, Template template, Map<String, Object> parameters) 
+	{
+		String xmlfile = "spring-mvc-servlet.xml";
+		String relativePath = getWebInfPath()+ "/config/" + xmlfile;
+		String absolutePath = getOutputDir()+"/" + relativePath;
+		
+		File f = new File(absolutePath);
+		if(!f.exists())
+		{
+			log.info(String.format("Salto la modifica di %s perchè non esiste",xmlfile));
+			
+			if (isSimulate())
+			{
+				String msg = "<!-- file: " + f.getPath() + " -->\n";
+				msg += "<!-- Don't write anything beacuse the file doesn't exists -->";
+				simulationMap.put(xmlfile, msg);
+			}
+			
+			return;
+		}
+
+		String xml = readFileAsString(relativePath);
+		
+		if(xml.contains(tilesPath))
+		{
+			log.info(String.format("Il file %s non è stato modificato perchè il flusso %s è già definito"
+					,xmlfile, tilesPath));
+			
+			if (isSimulate())
+			{
+				String msg = "<!-- file: " + f.getPath() + " -->\n";
+				msg += "<!-- Don't write anything beacuse the flow is alreay registered  -->";
+				simulationMap.put(xmlfile, msg);
+			}
+			
+			return;
+		}
+
+		StringWriter sw = new StringWriter();
+		try {
+			template.process(parameters, sw);
+		} catch (Exception e) 
+		{
+			throw new RuntimeException(e);
+		}
+		
+		xml = xml.replaceFirst("<!-- NEW TILES DEFS HERE-->", sw.toString());
 		
 		writeStringToFile(relativePath, xml, false);
 	}
