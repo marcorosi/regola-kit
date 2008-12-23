@@ -490,6 +490,107 @@ public class Environment {
 		
 		writeStringToFile(relativePath, xml, false);
 	}
+
+	public void writeWebXmlConfig( String element, Template template, Map<String, Object> parameters) 
+	{
+		String xmlfile = "web.xml";
+		String relativePath = getWebInfPath()+ "/" + xmlfile;
+		String absolutePath = getOutputDir()+"/" + relativePath;
+		
+		File f = new File(absolutePath);
+		if(!f.exists())
+		{
+			log.info(String.format("Salto la modifica di %s perchè non esiste",xmlfile));
+			
+			if (isSimulate())
+			{
+				String msg = "<!-- file: " + f.getPath() + " -->\n";
+				msg += "<!-- Don't write anything beacuse the file doesn't exists -->";
+				simulationMap.put(xmlfile, msg);
+			}
+			
+			return;
+		}
+		
+		String xml = readFileAsString(relativePath);
+		if( xml.contains(element))
+		{
+			log.info(String.format("Il file %s non è stato modificato perchè l'elemento %s è già definita"
+					,xmlfile, element));
+			
+			if (isSimulate())
+			{
+				String msg = "<!-- file: " + f.getPath() + " -->\n";
+				msg += "<!-- Don't write anything beacuse the element is already registered  -->";
+				simulationMap.put(xmlfile, msg);
+			}
+			
+			return;
+		}
+
+		StringWriter sw = new StringWriter();
+		try {
+			template.process(parameters, sw);
+		} catch (Exception e) 
+		{
+			throw new RuntimeException(e);
+		}
+		
+		xml = xml.replaceFirst("</web-app>", sw.toString());
+		
+		writeStringToFile(relativePath, xml, false);
+	}
+	
+	public void writePortletConfig( String portletName, Template template, Map<String, Object> parameters) 
+	{
+		String xmlfile = "portlet.xml";
+		String relativePath = getWebInfPath()+ "/" + xmlfile;
+		String absolutePath = getOutputDir()+"/" + relativePath;
+		
+		File f = new File(absolutePath);
+		if(!f.exists())
+		{
+			log.info(String.format("Salto la modifica di %s perchè non esiste",xmlfile));
+			
+			if (isSimulate())
+			{
+				String msg = "<!-- file: " + f.getPath() + " -->\n";
+				msg += "<!-- Don't write anything beacuse the file doesn't exists -->";
+				simulationMap.put(xmlfile, msg);
+			}
+			
+			return;
+		}
+		
+		String xml = readFileAsString(relativePath);
+		if( xml.contains(portletName))
+		{
+			log.info(String.format("Il file %s non è stato modificato perchè la portlet %s è già definita"
+					,xmlfile, portletName));
+			
+			if (isSimulate())
+			{
+				String msg = "<!-- file: " + f.getPath() + " -->\n";
+				msg += "<!-- Don't write anything beacuse the portlet is already registered  -->";
+				simulationMap.put(xmlfile, msg);
+			}
+			
+			return;
+		}
+
+		StringWriter sw = new StringWriter();
+		try {
+			template.process(parameters, sw);
+		} catch (Exception e) 
+		{
+			throw new RuntimeException(e);
+		}
+		
+		xml = xml.replaceFirst("</portlet-app>", sw.toString());
+		
+		writeStringToFile(relativePath, xml, false);
+	}
+
 	
 	public void writeTilesFlowConfig( String tilesPath, Template template, Map<String, Object> parameters) 
 	{

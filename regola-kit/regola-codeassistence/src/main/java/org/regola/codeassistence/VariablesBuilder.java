@@ -61,6 +61,10 @@ public class VariablesBuilder {
 		parameters.put("model_name", modelDescriptor.getType().getSimpleName());
 		parameters.put("flow_name", Utils
 				.lowerFirstLetter(getStringValue("model_name")));
+		
+		parameters.put("portlet_name", Utils
+				.lowerFirstLetter(getStringValue("model_name"))+ "-portlet");
+		
 		parameters.put("id_class", modelDescriptor.getIdentifierDescriptor()
 				.getPropertyType().getName());
 		parameters.put("id_name", modelDescriptor.getIdentifierDescriptor()
