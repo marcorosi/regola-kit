@@ -5,6 +5,7 @@ import org.regola.codeassistence.generator.CustomDaoGenerator;
 import org.regola.codeassistence.generator.CustomManagerGenerator;
 import org.regola.codeassistence.generator.FilterGenerator;
 import org.regola.codeassistence.generator.FlowMasterDetailsGenerator;
+import org.regola.codeassistence.generator.FlowMvcMasterDetailsGenerator;
 import org.regola.codeassistence.generator.FormManagedBeanGenerator;
 import org.regola.codeassistence.generator.FormPageGenerator;
 import org.regola.codeassistence.generator.Generator;
@@ -37,7 +38,7 @@ public class Options {
 			new CustomDaoGenerator(), new FilterGenerator(),
 			new FormPageGenerator(), new ListManagedBeanGenerator(),
 			new FormManagedBeanGenerator(), new CustomManagerGenerator(),
-			new ListPageGenerator(), new MockGenerator(), new VariablesListGenerator(), new FlowMasterDetailsGenerator(), new SoapServiceGenerator() };
+			new ListPageGenerator(), new MockGenerator(), new VariablesListGenerator(), new FlowMasterDetailsGenerator() , new FlowMvcMasterDetailsGenerator(), new SoapServiceGenerator() };
 	
 	String modelClass;
 	
@@ -68,7 +69,7 @@ public class Options {
 	}
 	
 	public static Generator[] getPresentationGenerators() {
-		return new Generator[] {	new ApplicationPropertiesGenerator(), new ListPageGenerator(), new FormPageGenerator(), new ListManagedBeanGenerator(), new FormManagedBeanGenerator(), new FlowMasterDetailsGenerator()} ;
+		return new Generator[] {	new ApplicationPropertiesGenerator(), new ListPageGenerator(), new FormPageGenerator(), new ListManagedBeanGenerator(), new FormManagedBeanGenerator(), new FlowMasterDetailsGenerator(),  new FlowMvcMasterDetailsGenerator()} ;
 	}
 
 	/**

@@ -42,8 +42,14 @@ public class VariablesBuilder {
 		parameters.put("dao_package", getPackageName(modelDescriptor) + ".dao");
 		parameters.put("pattern_package", getPackageName(modelDescriptor)
 				+ ".model.pattern");
+		
 		parameters.put("dao_impl_package", getPackageName(modelDescriptor)
 				+ ".dao.hibernate");
+		
+		parameters.put("dao_mock_package", getPackageName(modelDescriptor)
+				+ ".dao.mock");
+		
+		
 		parameters.put("service_package", getPackageName(modelDescriptor)
 				+ ".service");
 		parameters.put("service_impl_package", getPackageName(modelDescriptor)
@@ -70,9 +76,16 @@ public class VariablesBuilder {
 
 		parameters.put("dao_interface_class", cat("dao_package",
 				"dao_interface_name"));
+		
 		parameters.put("dao_impl_name", modelDescriptor.getType()
 				.getSimpleName()
 				+ "DaoHibernate");
+		
+		parameters.put("dao_mock_name", modelDescriptor.getType()
+				.getSimpleName()
+				+ "DaoMock");
+		
+		
 		parameters.put("dao_impl_class", cat("dao_impl_package", "dao_name"));
 		parameters.put("dao_bean_name",
 				Utils.lowerFirstLetter((String) parameters

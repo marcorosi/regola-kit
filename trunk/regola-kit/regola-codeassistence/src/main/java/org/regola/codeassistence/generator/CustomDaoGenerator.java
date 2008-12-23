@@ -7,6 +7,7 @@ import org.regola.codeassistence.VariablesBuilder;
 public class CustomDaoGenerator extends AbstractGenerator
 {
 	private static final String IMPL_TEMPLATE = "customDaoImpl.ftl";
+	private static final String MOCK_TEMPLATE = "customDaoMock.ftl";
 	private static final String INTERFACE_TEMPLATE = "customDaoInterface.ftl";
 	private static final String SPRING_BEAN_TEMPLATE = "customDaoSpringBean.ftl";
 
@@ -26,6 +27,12 @@ public class CustomDaoGenerator extends AbstractGenerator
 		template = env.getTemplate(IMPL_TEMPLATE);
 		env.writeJavaSource((String) pb.getParameters().get("dao_impl_package")
 				, (String) pb.getParameters().get("dao_impl_name")
+				, template
+				, pb.getParameters());
+		
+		template = env.getTemplate(MOCK_TEMPLATE);
+		env.writeJavaTestSource((String) pb.getParameters().get("dao_mock_package")
+				, (String) pb.getParameters().get("dao_mock_name")
 				, template
 				, pb.getParameters());
 		
