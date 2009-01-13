@@ -38,9 +38,11 @@
 	</webflow:flow-executor>
 	
 	<!-- The registry of executable flow definitions -->
-	<webflow:flow-registry id="flowRegistry">
+	<webflow:flow-registry id="flowRegistry" flow-builder-services="portletFlowBuilderServices">
 		<webflow:flow-location path="/WEB-INF/flows/${portlet_name}/main.xml" />
 	</webflow:flow-registry>	
+
+    <webflow:flow-builder-services id="portletFlowBuilderServices" development="true" />
 		
 	<!-- Serve per gestire la transazione all'interno di webflow -->
 	<bean id="hibernateFlowExecutionListener" class="org.springframework.webflow.persistence.HibernateFlowExecutionListener">
