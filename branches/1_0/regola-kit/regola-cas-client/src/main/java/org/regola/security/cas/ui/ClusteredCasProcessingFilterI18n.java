@@ -105,49 +105,6 @@ public class ClusteredCasProcessingFilterI18n extends CasProcessingFilter {
 		sendRedirect(request, response, targetUrl);
 	}
 
-	/**
-	 * per motivi di sicurezza invalida la sessione creata prima del login 
-	 */
-	@Override
-	protected void onSuccessfulAuthentication(HttpServletRequest request,
-			HttpServletResponse response, Authentication authResult)
-			throws IOException {
-		HttpSession oldSession = request.getSession(false);
-
-		HashMap<String, Object> tmp = new HashMap<String, Object>();
-
-		if (oldSession != null) {
-
-			Enumeration enumer = oldSession.getAttributeNames();
-
-			while (enumer.hasMoreElements()) {
-
-				String s = (String) enumer.nextElement();
-
-				tmp.put(s, oldSession.getAttribute(s));
-
-			}
-
-			logger.debug("Sessione " + oldSession.getId() + " valida? "
-					+ request.isRequestedSessionIdValid());
-			oldSession.invalidate();
-
-		}
-
-		HttpSession newSession = request.getSession(true);
-
-		logger.debug("E adesso sessione " + newSession.getId() + " valida? "
-				+ request.isRequestedSessionIdValid());
-
-		for (Map.Entry<String, Object> entry : tmp.entrySet()) {
-
-			newSession.setAttribute(entry.getKey(), entry.getValue());
-
-		}
-
-		super.onSuccessfulAuthentication(request, response, authResult);
-	}
-	
 	private String aggiungiParametroLingua(String targetUrl,
 			HttpServletRequest request) {
 		String language = request.getParameter(getLanguageParameter());
