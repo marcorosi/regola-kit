@@ -21,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.xml.bind.JAXBException;
@@ -145,14 +146,19 @@ public class RestClient {
 	 * @param params
 	 *            elenco di tipi primitivi
 	 * @return
-	 * @throws Exception
+	 * @throws RestRequestException
 	 */
-	public static String get(String url, Object... params) throws Exception {
+	public static String get(String url, Object... params) {//throws Exception {
 		url = buildUrl(url, params);
 
-		URL Url = new URL(url);
-		InputStream in = Url.openStream();
-		return getStringFromInputStream(in);
+		URL Url;
+		try {
+			Url = new URL(url);
+			InputStream in = Url.openStream();
+			return getStringFromInputStream(in);
+		} catch (Exception e) {
+			throw new RestRequestException("Error calling a GET for the url "+url,e);
+		}
 	}
 
 	/**
