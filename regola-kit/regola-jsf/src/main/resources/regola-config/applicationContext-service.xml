@@ -18,11 +18,8 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 	<!-- Instructs Spring to perfrom declarative transaction managemenet on annotated classes -->
 	<tx:annotation-driven />
 
-    
     <!-- Enable @AspectJ support -->
     <aop:aspectj-autoproxy proxy-target-class="false" />
-    
-    <bean id="removeFromSessionAspect" class="org.regola.webapp.aspect.RemoveFromSession"></bean>
     
     <tx:advice id="txAdvice">
         <tx:attributes>
