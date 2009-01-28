@@ -29,6 +29,7 @@ import org.aspectj.lang.annotation.Aspect;
  * @author marco
  */
 @Aspect
+@Deprecated
 public class RemoveFromSession {
 
 	private static Log log = LogFactory.getLog(RemoveFromSession.class);
