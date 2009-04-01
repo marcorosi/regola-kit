@@ -14,6 +14,7 @@
 	<description>REGOLA Toolkit :: JSF presentation module</description>
 	<properties>
 		<cxf.version>2.1.1</cxf.version>
+		<swf.version>2.0.6.RELEASE</swf.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -217,30 +218,26 @@
 			<artifactId>cxf-rt-ws-security</artifactId>
 			<version>${cxf.version}</version>
 		</dependency>
-		<!--
-			dependency> <groupId>org.springframework</groupId>
-			<artifactId>spring-webflow</artifactId> <version>1.0.5</version>
-			</dependency
-		-->
+		<!-- Spring WebFlow -->
 		<dependency>
 			<groupId>org.springframework.webflow</groupId>
-			<artifactId>org.springframework.faces</artifactId>
-			<version>2.0.5.RELEASE</version>
+			<artifactId>spring-faces</artifactId>
+			<version>${swf.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.webflow</groupId>
-    			<artifactId>org.springframework.webflow</artifactId>
-    			<version>2.0.5.RELEASE</version>
+    			<artifactId>spring-webflow</artifactId>
+    			<version>${swf.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.webflow</groupId>
-			<artifactId>org.springframework.binding</artifactId>
-			<version>2.0.5.RELEASE</version>
+			<artifactId>spring-binding</artifactId>
+			<version>${swf.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.webflow</groupId>
-			<artifactId>org.springframework.js</artifactId>
-			<version>2.0.5.RELEASE</version>
+			<artifactId>spring-js</artifactId>
+			<version>${swf.version}</version>
 		</dependency>
 		<!--
 			<dependency> <groupId>org.springframework</groupId>
