@@ -14,7 +14,7 @@
 	<description>REGOLA Toolkit :: WS RESTfull support</description>
 	
 	<!-- mvn license:check -Dyear=2008 
-	     mvn license:format -Dyear=2008  -->
+	     mvn license:format -Dyear=2008  
 	
 	<build>
 		<plugins>
@@ -26,11 +26,11 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>
+	</build>-->
 	<dependencies>
 		<dependency>
 			<groupId>org.regola</groupId>
-			<artifactId>regola-jsf-icefaces</artifactId>
+			<artifactId>regola-jsf</artifactId>
 			<version>1.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
