@@ -27,25 +27,25 @@ public class ${dao_mock_name} implements ${dao_interface_name}
 		return false;
 	}
 
-	public List<Lingua> find(ModelPattern pattern) {
-		return new ArrayList<Lingua>();
+	public List<${model_name}> find(ModelPattern pattern) {
+		return new ArrayList<${model_name}>();
 	}
 
-	public Lingua get(Long id) {
+	public ${model_name} get(Long id) {
 		return null;
 	}
 
-	public List<Lingua> getAll() {
-		return new ArrayList<Lingua>();
+	public List<${model_name}> getAll() {
+		return new ArrayList<${model_name}>();
 	}
 
 	public void remove(Long id) {
 	}
 
-	public void removeEntity(Lingua entity) {
+	public void removeEntity(${model_name} entity) {
 	}
 
-	public Lingua save(Lingua entity) {
+	public ${model_name} save(${model_name} entity) {
 		return entity;
 	}
 	
