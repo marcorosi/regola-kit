@@ -10,33 +10,33 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
     <!-- =================================================================== -->
     <!-- AOP: Configuration and Aspects                                      -->
     <!-- =================================================================== -->
+    
+    
+    <!-- 
+    maggio 09: disabilitate le transazioni (ora gestite da webflow)
+    
     <aop:config>
         <aop:advisor id="managerTx" advice-ref="txAdvice"
                      pointcut="execution(* *..service.*Manager.*(..))" order="0" />
     </aop:config>
     
-	<!-- Instructs Spring to perfrom declarative transaction managemenet on annotated classes -->
 	<tx:annotation-driven />
 
-    <!-- Enable @AspectJ support -->
     <aop:aspectj-autoproxy proxy-target-class="false" />
     
     <tx:advice id="txAdvice">
         <tx:attributes>
-            <!-- Read-only commented out to make things easier for end-users -->
-            <!-- http://issues.appfuse.org/browse/APF-556 -->
-            <!--tx:method name="get*" read-only="true"/-->
             <tx:method name="save*" read-only="false"/>
             <tx:method name="remove*" read-only="false"/>
             <tx:method name="update*" read-only="false"/>
             <tx:method name="autenticaConPassword*" read-only="false"/>
             <tx:method name="salvaContestoPlitvice*" read-only="false"/>
-            <!-- Profilo Manager: fa anche un save -->
             <tx:method name="listaProfili*" read-only="false"/> 
             <tx:method name="*" read-only="true" />
         </tx:attributes>
     </tx:advice>
-    
+     -->
+     
     <!--bean id="userCache"
 		class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
 		<property name="cache">

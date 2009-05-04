@@ -16,9 +16,12 @@ import org.regola.model.ModelPattern;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Implementazione dello universal dao senza definizione delle transazioni.
+ * @author marco
+ *
+ */
 @SuppressWarnings("unchecked")
 public class HibernateUniversalDao implements UniversalDao {
 	private ModelPatternParser patternParser = new DefaultPatternParser();
@@ -29,7 +32,6 @@ public class HibernateUniversalDao implements UniversalDao {
 		return getSessionFactory().getCurrentSession();
 	}
 
-	@Transactional(readOnly = true)
 	public int count(final Class clazz, final ModelPattern pattern) {
 		HibernateQueryBuilder criteriaBuilder = new HibernateQueryBuilder(
 				clazz, getSession());
@@ -38,12 +40,10 @@ public class HibernateUniversalDao implements UniversalDao {
 
 	}
 
-	@Transactional(readOnly = true)
 	public boolean exists(Class clazz, Serializable id) {
 		return get(clazz, id) == null ? false : true;
 	}
 
-	@Transactional(readOnly = true)
 	public List find(final Class clazz, final ModelPattern pattern) {
 
 		HibernateQueryBuilder criteriaBuilder = new HibernateQueryBuilder(
@@ -53,12 +53,10 @@ public class HibernateUniversalDao implements UniversalDao {
 
 	}
 
-	@Transactional(readOnly = true)
 	public Object get(Class clazz, Serializable id) {
 		return getSession().get(clazz, id);
 	}
 
-	@Transactional(readOnly = true)
 	public List getAll(Class clazz) {
 		Criteria criteria = getSession().createCriteria(clazz);
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
@@ -69,7 +67,6 @@ public class HibernateUniversalDao implements UniversalDao {
 		return criteria.list();
 	}
 
-	@Transactional(readOnly = false)
 	public void remove(Class clazz, Serializable id) {
 		Object entity = get(clazz, id);
 		if (entity != null) {
@@ -77,12 +74,10 @@ public class HibernateUniversalDao implements UniversalDao {
 		}
 	}
 
-	@Transactional(readOnly = false)
 	public void removeEntity(Object entity) {
 		getSession().delete(entity);
 	}
 
-	@Transactional(readOnly = false)
 	public Object save(Object entity) {
 		if (!getSession().contains(entity)) {
 			try {
