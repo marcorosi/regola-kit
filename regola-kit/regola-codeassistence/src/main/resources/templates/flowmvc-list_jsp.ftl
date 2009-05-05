@@ -2,17 +2,35 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="regola" uri="http://org.regola-kit/mvc"%>
-<table class="iceDataTblOutline"
-	Style="border-collapse: collapse; border-spacing: 0px;">
-	<tr>
+
+<form:form modelAttribute="pattern" method="post" action="${r"${"}flowExecutionUrl}">
+<table summary="filtri" class="toptools">
+<tr>
+ <td class="toolcontent" colspan="2">
+  <table class="tbFiltri">
+    <tr>
+	    <td class="filtro2">
+	    	<label><fmt:message  key="${r"${"}prop.id}" /></label>
+	    	<form:input path="id"/>
+		</td>
+		<td style="vertical-align: bottom;" class="bottonecerca" rowspan="3">
+			<input type="submit" id="filtra" class="button" name="_eventId_search${model_name}" value="Cerca" />
+		</td>
+	</tr>
+  </table>
+ </td>
+</tr>
+</table>
+
+
+<table class="tabellaList">
+	<tr class="header">
 		<c:forEach items="${r"${"}pattern.visibleProperties}" var="prop">
-			<th class="iceTblHeader header1">
-				<span class="iceOutputText">
-					<fmt:message  key="${r"${"}prop.label}" /> 
-				</span>
-			</th>
+			<td>
+				<fmt:message  key="${r"${"}prop.label}" /> 
+			</td>
 		</c:forEach>
-		<th  />
+		<td/>
 	</tr>
 	<c:forEach items="${r"${"}list}" var="row" varStatus="status">
 		<tr class="${r"${"}status.index%2==0 ? 'rigaPari' : 'rigaDispari'}">
@@ -24,10 +42,10 @@
 				</td>
 			</c:forEach>
 			<td class="colonna">
-				<a href="${r"${"}flowExecutionUrl}&_eventId=edit&idx=${r"${"}status.index}" class="buttonNew">Edita</a>
+				<a href="${r"${"}flowExecutionUrl}&_eventId=edit&idx=${r"${"}status.index}" class="button">Edita</a>
 			</td>
 			<td class="colonna">
-				<a href="${r"${"}flowExecutionUrl}&_eventId=cancel${model_name}&idx=${r"${"}status.index}" class="buttonNew">Cancella</a>
+				<a href="${r"${"}flowExecutionUrl}&_eventId=cancel${model_name}&idx=${r"${"}status.index}" class="button">Cancella</a>
 			</td>
 		</tr>
 	</c:forEach>
@@ -46,7 +64,6 @@
 		
 		<!-- e.g. Righe per pagina [20] -->
 		<td>
-		<form:form modelAttribute="pattern" method="post" action="${r"${"}flowExecutionUrl}">
 			<fmt:message key="paginator.pageSize" />
 			<form:select  id="pageSize" path="pageSize">
 					<form:option label="10" value="10"/>
@@ -55,10 +72,8 @@
 					<form:option label="40" value="40"/>
 					<form:option label="50" value="50"/>
 			</form:select>
-			<input class="buttonNew" type="submit" name="_eventId_pageSize" value="Modifica" />
-			<input type="hidden" name="idx" value="1" />
-			<input class="buttonNew" type="submit" name="_eventId_edit" value="Edita" />
-		</form:form></td>
+			<input class="button" type="submit" name="_eventId_pageSize" value="Modifica" />
+		</td>
 	</tr>			
 </table>
- 
+</form:form>
