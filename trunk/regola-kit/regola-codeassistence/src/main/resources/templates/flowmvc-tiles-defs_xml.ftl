@@ -6,12 +6,12 @@
 
 	
 	<definition name="${flow_name}-form" extends="struttura">
-		<put-attribute name="title"	value="Lingua" />
+		<put-attribute name="title"	value="${flow_name}" />
 		<put-attribute name="body" value="/WEB-INF/flows/${flow_name}/form.jsp" />
 	</definition>
 
 	<definition name="${flow_name}-list" extends="struttura">
-		<put-attribute name="title"	value="Lingua" />
+		<put-attribute name="title"	value="${flow_name}" />
 		<put-attribute name="body" value="/WEB-INF/flows/${flow_name}/list.jsp" />
 	</definition>	
 	
