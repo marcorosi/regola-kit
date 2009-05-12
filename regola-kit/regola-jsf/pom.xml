@@ -13,7 +13,7 @@
 	<name>REGOLA Toolkit :: JSF presentation module</name>
 	<description>REGOLA Toolkit :: JSF presentation module</description>
 	<properties>
-		<cxf.version>2.1.1</cxf.version>
+		<cxf.version>2.2.1</cxf.version>
 		<swf.version>2.0.6.RELEASE</swf.version>
 	</properties>
 	<dependencies>
