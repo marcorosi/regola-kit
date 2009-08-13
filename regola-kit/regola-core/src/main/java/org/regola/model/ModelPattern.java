@@ -327,4 +327,14 @@ public abstract class ModelPattern implements Serializable{
 		return true;
 	}
 
+	public int getFirstElementNumber() {
+		return getCurrentPage()*getPageSize()+1;
+	}
+
+	public int getLastElementNumber() {
+		int last = (getCurrentPage()+1)*getPageSize();
+		if(last > getTotalItems())
+			last = getTotalItems();
+		return last;
+	}
 }
