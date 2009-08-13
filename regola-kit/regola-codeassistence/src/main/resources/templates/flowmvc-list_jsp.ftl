@@ -2,8 +2,45 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="regola" uri="http://org.regola-kit/mvc"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <form:form modelAttribute="pattern" method="post" action="${r"${"}flowExecutionUrl}">
+
+	<table summary="Tabella di struttura" class="tb0">
+		<tbody>
+			<tr>
+				<td colspan="2">
+				<table summary="filtri" class="toptabs">
+				 	<tbody><tr><th class="selectedtab">Filtri ricerca</th></tr>
+				</tbody></table>   					
+				<table summary="filtri" class="toptools">
+					<tbody>
+						<tr>
+							<td class="toolcontentt" colspan="2">
+							<table class="tbFiltri">
+								<tbody>
+									<tr>
+										<td class="filtro2">
+									    	<label><fmt:message  key="${r"${"}prop.id}" /></label><br />
+									    	<form:input path="id"/>
+										</td>
+										<td class="bottonecerca" rowspan="2">
+											<input type="submit" id="filtra" class="button" 
+												name="_eventId_search${model_name}" value="Cerca" />
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+
 <table summary="filtri" class="toptools">
 <tr>
  <td class="toolcontent" colspan="2">
@@ -22,8 +59,14 @@
 </tr>
 </table>
 
+<table class="iceDataTblOutline" style="border-collapse: collapse; border-spacing: 0px; width: 95%">
 
-<table class="tabellaList">
+	<tr>
+		<td colspan="${r"${"}fn:length(pattern.visibleProperties)+1}" style="background-color:#EEEEEE; padding: 2px;">
+			<input type="submit" name="nuovo" value="Nuovo" class="button" />
+		</td>
+	</tr>	
+
 	<tr class="header">
 		<c:forEach items="${r"${"}pattern.visibleProperties}" var="prop">
 			<td>
@@ -43,8 +86,6 @@
 			</c:forEach>
 			<td class="colonna">
 				<a href="${r"${"}flowExecutionUrl}&_eventId=edit&idx=${r"${"}status.index}" class="button">Edita</a>
-			</td>
-			<td class="colonna">
 				<a href="${r"${"}flowExecutionUrl}&_eventId=cancel${model_name}&idx=${r"${"}status.index}" class="button">Cancella</a>
 			</td>
 		</tr>
@@ -60,20 +101,21 @@
 		<td><a href="${r"${"}flowExecutionUrl}&_eventId=moveLast" ><img  src="https://starc.unibo.it/images/arrow-last.gif" /></a></td>
 
 		<!-- e.g. Pagina 1 di 2 -->
-		<td class="iceOutputText">Pagina ${r"${"}pattern.currentPage + 1} di ${r"${"}pattern.lastPage+1}</td> 
+		<td class="iceOutputText">Risultati da ${r"${"}pattern.firstElementNumber} a ${r"${"}pattern.lastElementNumber} di ${r"${"}pattern.totalItems}, Pagina ${r"${"}pattern.currentPage + 1}/${r"${"}pattern.lastPage+1}</td> 
 		
-		<!-- e.g. Righe per pagina [20] -->
+		<td class="iceOutputText"><fmt:message key="paginator.pageSize" /></td>
+
 		<td>
-			<fmt:message key="paginator.pageSize" />
-			<form:select  id="pageSize" path="pageSize">
+			<form:select  id="pageSize" path="pageSize" cssClass="paginatore">
 					<form:option label="10" value="10"/>
 					<form:option label="20" value="20"/>
 					<form:option label="30" value="30"/>
 					<form:option label="40" value="40"/>
 					<form:option label="50" value="50"/>
 			</form:select>
-			<input class="button" type="submit" name="_eventId_pageSize" value="Modifica" />
+			<input type="image" name="_eventId_pageSize" title="Imposta dimensione della pagina" src="https://starc.unibo.it/images/arrow-reload.gif" />
 		</td>
+
 	</tr>			
 </table>
 </form:form>
