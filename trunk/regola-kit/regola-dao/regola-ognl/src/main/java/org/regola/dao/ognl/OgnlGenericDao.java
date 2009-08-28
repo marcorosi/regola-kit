@@ -92,6 +92,13 @@ public class OgnlGenericDao<T, ID extends Serializable> implements
 
 	}
 
+	public List<T> find(final ModelPattern pattern, Collection<T> targetz) {
+		criteria = new OgnlQueryBuilder();
+		getPatternParser().createQuery(criteria, pattern);
+		return (List<T>) criteria.executeQuery(targetz);
+
+	}
+
 	public int count(final ModelPattern pattern) {
 		criteria = new OgnlQueryBuilder();
 		
