@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+"http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+
+<faces-config>
+    <application>
+        <view-handler>
+            com.icesoft.faces.facelets.D2DFaceletViewHandler
+        </view-handler>
+        <!-- view-handler>com.sun.facelets.FaceletViewHandler</view-handler-->
+        <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
+        <locale-config>
+            <default-locale>it</default-locale>
+            <supported-locale>en</supported-locale>
+            <supported-locale>it</supported-locale>
+        </locale-config>
+        <message-bundle>ApplicationResources</message-bundle>
+    </application>
+    
+    <!-- converter jsf per i tipi numerici -->
+    <converter>
+		<converter-for-class>java.math.BigDecimal</converter-for-class>
+		<converter-class>
+			org.regola.jsfValidators.SilentNumberConverter
+		</converter-class>
+	</converter>
+	<converter>
+		<converter-for-class>java.math.BigInteger</converter-for-class>
+		<converter-class>
+			org.regola.jsfValidators.SilentNumberConverter
+		</converter-class>
+	</converter>
+	<converter>
+		<converter-for-class>java.lang.Double</converter-for-class>
+		<converter-class>
+			org.regola.jsfValidators.SilentNumberConverter
+		</converter-class>
+	</converter>
+	<converter>
+		<converter-for-class>java.lang.Float</converter-for-class>
+		<converter-class>
+			org.regola.jsfValidators.SilentNumberConverter
+		</converter-class>
+	</converter>
+	<converter>
+		<converter-for-class>java.lang.Integer</converter-for-class>
+		<converter-class>
+			org.regola.jsfValidators.SilentNumberConverter
+		</converter-class>
+	</converter>
+	<converter>
+		<converter-for-class>java.lang.Long</converter-for-class>
+		<converter-class>
+			org.regola.jsfValidators.SilentNumberConverter
+		</converter-class>
+	</converter>
+	<converter>
+		<converter-for-class>java.lang.Short</converter-for-class>
+		<converter-class>
+			org.regola.jsfValidators.SilentNumberConverter
+		</converter-class>
+	</converter>
+    
+
+
+	
+
+</faces-config>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

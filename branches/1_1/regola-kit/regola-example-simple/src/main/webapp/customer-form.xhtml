@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+<body>
+<ui:composition template="/common/anonimo.xhtml">
+	<ui:define name="titolo">
+		<ice:outputText value="#{msg['customer.title']}" />
+	</ui:define>
+	<ui:define name="sottotitolo">
+		<ice:outputText value="#{msg['customer.subtitle']}" />
+	</ui:define>
+	<ui:define name="titolobarra">
+		<ice:outputText value="#{msg['customer.bartitle']}" />
+	</ui:define>
+  
+	<ui:define name="corpo">
+
+		<!-- dialog per invoice -->
+		<ui:insert name="invoiceDlg">
+			<ui:include src="./dialogs/invoiceDialog.xhtml" />
+		</ui:insert>
+
+		<ice:form>
+		<ice:inputText id="originalId" value="#{customerForm.formPage.originalId}" visible="false" />
+		<ice:outputConnectionStatus style="align: right;"/>
+			<ice:panelGroup>
+				<ice:panelGrid columns="4">
+			
+					<!-- firstName -->
+					<ice:outputText value="#{msg['customer.column.firstName']}" />
+					<ice:inputText  value="#{customerForm.formPage.model.firstName}">
+					</ice:inputText>
+					<ice:outputText value=" " />
+					<ice:outputText value="#{customerForm.formPage.errors['firstName']}" />
+			
+					<!-- lastName -->
+					<ice:outputText value="#{msg['customer.column.lastName']}" />
+					<ice:inputText  value="#{customerForm.formPage.model.lastName}">
+					</ice:inputText>
+					<ice:outputText value=" " />
+					<ice:outputText value="#{customerForm.formPage.errors['lastName']}" />
+					
+					<!-- age -->
+					<!-- usato solo per prova conversione-validazione proprietà numeriche 
+					<ice:outputText value="#{msg['customer.column.age']}" />
+					<ice:inputText  value="#{customerForm.formPage.model.age}"/>
+					<ice:outputText value=" " />
+					<ice:outputText value="#{customerForm.formPage.errors['age']}" />
+					-->
+		  
+		           <ice:outputText value="#{customerForm.formPage.errore}" />
+					<ice:outputText value=" " />
+					<ice:outputText value=" " />
+					<ice:outputText value=" " />
+				</ice:panelGrid>
+				<ice:panelGrid columns="1">	
+					<!-- inner list per gestione invoices del customer -->
+					<ui:include src="./innerLists/invoice-innerList.xhtml" />
+					<ice:panelGrid columns="2">	
+						<ice:commandButton value="Salva"
+							styleClass="buttonNew"
+							action="#{customerForm.save}" />
+						<ice:commandButton value="Annulla"
+							styleClass="buttonNew"
+							immediate="true"
+							action="#{customerForm.cancel}" />
+					</ice:panelGrid>
+				</ice:panelGrid>
+			</ice:panelGroup>
+		</ice:form>
+	</ui:define>
+</ui:composition>
+</body>
+</html>

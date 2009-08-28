@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?><metadata>
+  <plugins>
+    <plugin>
+      <name>REGOLA Toolkit :: IceFaces/Hibernate Application Template</name>
+      <prefix>regola-jsf-archetype</prefix>
+      <artifactId>regola-jsf-archetype</artifactId>
+    </plugin>
+    <plugin>
+      <name>regola-maven-plugin Maven Mojo</name>
+      <prefix>regola</prefix>
+      <artifactId>regola-maven-plugin</artifactId>
+    </plugin>
+  </plugins>
+</metadata>

@@ -1,0 +1,2168 @@
+/*
+ * Version: MPL 1.1/GPL 2.0/LGPL 2.1
+ *
+ * "The contents of this file are subject to the Mozilla Public License
+ * Version 1.1 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS"
+ * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+ * License for the specific language governing rights and limitations under
+ * the License.
+ *
+ * The Original Code is ICEfaces 1.5 open source software code, released
+ * November 5, 2006. The Initial Developer of the Original Code is ICEsoft
+ * Technologies Canada, Corp. Portions created by ICEsoft are Copyright (C)
+ * 2004-2006 ICEsoft Technologies Canada, Corp. All Rights Reserved.
+ *
+ * Contributor(s): _____________________.
+ *
+ * Alternatively, the contents of this file may be used under the terms of
+ * the GNU Lesser General Public License Version 2.1 or later (the "LGPL"
+ * License), in which case the provisions of the LGPL License are
+ * applicable instead of those above. If you wish to allow use of your
+ * version of this file only under the terms of the LGPL License and not to
+ * allow others to use your version of this file under the MPL, indicate
+ * your decision by deleting the provisions above and replace them with
+ * the notice and other provisions required by the LGPL License. If you do
+ * not delete the provisions above, a recipient may use your version of
+ * this file under either the MPL or the LGPL License."
+ *
+ */
+
+/* Basic CSS styles This stylesheet is intended to match the style of the default Windows XP UI */
+/* Default CSS styles. These styles override the basic HTML tags on the page  */
+/* Version received from KF Apr 01 2006 v1.2   */
+
+/* Design Time CSS style, the stylesheet is intended to use in design time with IDE. It is based on the run time xp.css.*/
+
+/*
+=================== Font Family, Size and Color ==============
+*/
+
+/* set the attributes for the font family, size and color for ALL elements on the page */
+/* make the fonts inside tables and forms == the default size of the page */
+body, table {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .95em;
+    color: #000000;
+}
+
+/* now set the size and other attributes of the fonts for any of the form elements for non-ICE form elements. (note this will also affect any ICE components that render out any of the following HTML tags  */
+input, textarea, select {
+}
+
+/*
+=================== HTML Form Element Appearence ==============
+*/
+
+/* set the style elements for any of the textarea form elements   */
+textarea {
+
+}
+
+/* set the style elements for any of the select form elements   */
+select {
+
+}
+
+/* set the style elements for any of the input form elements   */
+input {
+
+}
+
+/*
+=================== Style class definitions for ICE Standard Extended Component Appearance ==============
+*/
+.iceInputtext, .iceTextarea {
+    border: 1px solid #ABABAB;
+    background-color: #FFFFFF;
+    margin: 2px;
+    padding: 2px;
+}
+
+.iceCheckbox input, .iceRadioBtn input, .iceBooleanCheckbox {
+    margin: 2px;
+    padding: 2px;
+}
+
+.iceInputtext {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000000;
+    padding: 2px;
+}
+
+.iceSelect {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000000;
+    padding: 2px;
+}
+
+.iceTextarea {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000000;
+    padding: 2px;
+}
+
+.iceLink {
+    text-decoration: none;
+    font-weight: normal;
+    color: #333333;
+}
+
+.iceOutputText {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #000000;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.iceBtn {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*
+=================== ICE Component Appearence ==============
+*/
+/*
+----------- Calendar Component classes
+*/
+.iceCalOutline {
+/* calendar outline & background color */
+    background-color: #FFFFFF;
+    border: 1px solid #ABABAB; /* removed margin from calendar outline - better absolute positioning of popup */
+/*margin:10px;*/
+}
+
+.iceCalInput {
+    width: 150px;
+}
+
+.iceCalOpenPopup {
+    display: block;
+    text-decoration: none;
+    background-color: transparent;
+    background-image: url( "./css-images/cal_button.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    border: none;
+    width: 16px;
+    height: 16px;
+}
+
+.iceCalClosePopup {
+    display: block;
+    text-decoration: none;
+    background-color: transparent;
+    background-image: url( "./css-images/cal_off.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    border: none;
+    width: 16px;
+    height: 16px;
+}
+
+.iceCalMonthYear {
+    background-color: #EFEFEF;
+    background-image: url( "./css-images/table_col_header.gif" );
+    background-position: bottom;
+    background-repeat: repeat-x;
+    font-weight: normal;
+    text-align: center;
+    color: #000000;
+    padding-left: 1px;
+    padding-right: 1px;
+    padding-top: 4px;
+    padding-bottom: 4px; /*border-right:1px solid #CCCCCC;*/
+}
+
+.iceCalMonthYear img {
+    border: none;
+}
+
+.iceCalMovePrev {
+    text-decoration: none;
+    display: block;
+    background-color: transparent;
+    background-image: url( "./css-images/cal_arrow_left.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    border: none;
+    width: 17px;
+    height: 16px;
+}
+
+.iceCalMoveNext {
+    text-decoration: none;
+    display: block;
+    background-color: transparent;
+    background-image: url( "./css-images/cal_arrow_right.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    border: none;
+    width: 17px;
+    height: 16px;
+}
+
+.iceCalWeek {
+/* the days of the week row */
+    font-weight: normal;
+    color: #2A6CC2;
+    text-align: center;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-bottom: 1px solid #000000;
+}
+
+/* set the look for the days of the week backgrounds */
+.iceCalDay, .iceCalCur {
+/* the background & alignment for the days padding: 3px; text-align: center;*/
+    
+    
+}
+
+/* now set the attributes for the numbers for each day of the week */
+.iceCalDay a {
+/* the day text */
+    text-decoration: none;
+    background-color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    color: #000000;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    /* display: block; */
+}
+
+.iceCalCur a {
+    text-decoration: none;
+    background-color: #2A6CC2;
+    border: 1px solid #2A6CC2;
+    color: #FFFFFF;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    /* display: block; */
+}
+
+/* now set the color attributes for the hover effect on non-current days */
+.iceCalDay a:hover {
+/* the day text */
+    text-decoration: none;
+    color: #2A6CC2;
+}
+
+/*
+----------- Data Table Component classes
+*/
+.iceDataTblOutline {
+    background-color: #FFFFFF;
+    border: 1px solid #ABABAB;
+    margin: 10px;
+}
+
+.iceTblHeader {
+/*the header of a data tables */
+    background-color: #EFEFEF;
+    background-image: url( "./css-images/table_col_header.gif" );
+    background-position: bottom;
+    background-repeat: repeat-x;
+    font-weight: normal;
+    text-align: center;
+    color: #000000;
+    border-right: 1px solid #CCCCCC;
+    border-top: 1px solid #CCCCCC;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+/* data tables are rendered with alternating row colors */
+.iceTblRow1 {
+    background-color: #FFFFFF;
+}
+
+.iceTblRow2 {
+    background-color: #FFFFFF;
+}
+
+/* set the common attributes for the column classes */
+.column1, .column2, .column3 {
+    color: #000000;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-right: 1px solid #CCCCCC;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+/* now you can add or override any attributes for the specific columns */
+.column1 {
+    text-align: center;
+}
+
+.iceTblFooter {
+
+}
+
+/* etc */
+
+/*
+----------- Data Scroller Component classes
+*/
+.iceDtdPgrScrOut {
+/* the class for the outside table */
+    background-color: #FFFFFF;
+    margin: 10px;
+}
+
+.iceDtdPgrScrBtn {
+/* the cells behind the scroll buttons */
+    background-color: #FFFFFF;
+    padding: 2px;
+}
+
+.iceDtdPgrTbl {
+/* the container for the pagination*/
+    background-color: #FFFFFF;
+}
+
+/* set the common attributes for the pagination numbers */
+.iceDtdPgrScrCol a, .iceDtdPgrCol a {
+    text-decoration: none;
+    font-weight: normal;
+    background-color: #FFFFFF;
+    color: #666666;
+    display: block;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid #FFFFFF;
+}
+
+* html .iceDtdPgrCol a {
+    width: 1%;
+}
+
+/* override the attributes for the currently selected page */
+.iceDtdPgrScrCol a {
+    color: #FFFFFF;
+    border: 1px solid #2A6CC2;
+    background-color: #2A6CC2;
+}
+
+* html .iceDtdPgrScrCol a {
+    width: 1%;
+}
+
+/* set the attributes for the mouseover on none-current pages */
+.iceDtdPgrCol a:hover {
+    color: #000000;
+    border: 1px solid #2A6CC2;
+}
+
+/*
+----------- File Tree Component classes
+*/
+.fileTreeOutlineClass {
+    background-color: #FFFFFF;
+    border: 1px solid #ABABAB;
+    margin: 10px;
+}
+
+.nodeClass {
+    background-color: #FFFFFF;
+    padding-left: 3px;
+}
+
+.footerClass {
+    border-top: 1px solid #ABABAB;
+    color: #666666;
+    padding: 4px;
+}
+
+.treeTableHeaderClass {
+
+}
+
+/*
+----------- Tabbed Pane Component classes
+*/
+
+/* tabOn style classes */
+
+.iceTabSetTabOn {
+
+}
+
+.iceTabSetTabOn .LeftTop {
+    background-color: transparent;
+    background-image: url( "./css-images/on-left-top.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOn .MiddleTop {
+    background-color: transparent;
+    background-image: url( "./css-images/on-mid-top.gif" );
+    background-repeat: repeat-x;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOn .RightTop {
+    background-color: transparent;
+    background-image: url( "./css-images/on-right-top.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOn .LeftMiddle {
+    background-color: transparent;
+    background-image: url( "./css-images/on-left-mid.gif" );
+    background-repeat: repeat-y;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOn .MiddleMiddle {
+    background-color: transparent;
+    background-image: url( "./css-images/on-mid-mid.gif" );
+    background-repeat: repeat;
+    text-align: center;
+    border: none;
+    white-space: nowrap;
+}
+
+.iceTabSetTabOn .MiddleMiddle a {
+    text-decoration: none;
+    color: #000000;
+    cursor: pointer;
+    display: block;
+    padding-top: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+
+}
+
+/
+/
+RGDM
+
+* html .iceTabSetTabOn .MiddleMiddle a {
+    width: 1%;
+}
+
+.iceTabSetTabOn .RightMiddle {
+    background-color: transparent;
+    background-image: url( "./css-images/on-right-mid.gif" );
+    background-repeat: repeat-y;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOn .LeftBottom {
+    background-color: transparent;
+    background-image: url( "./css-images/on-left-bot.gif" );
+    background-repeat: no-repeat;
+    border: none;
+}
+
+.iceTabSetTabOn .MiddleBottom {
+    background-color: transparent;
+    background-image: url( "./css-images/on-mid-bot.gif" );
+    background-repeat: repeat-x;
+    border: none;
+}
+
+.iceTabSetTabOn .RightBottom {
+    background-color: transparent;
+    background-image: url( "./css-images/on-right-bot.gif" );
+    background-repeat: no-repeat;
+    border: none;
+}
+
+/* tabOff style classes */
+
+.iceTabSetTabOff {
+
+}
+
+.iceTabSetTabOff .LeftTop {
+    background-color: transparent;
+    background-image: url( "./css-images/off-left-top.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOff .MiddleTop {
+    background-color: transparent;
+    background-image: url( "./css-images/off-mid-top.gif" );
+    background-repeat: repeat-x;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOff .RightTop {
+    background-color: transparent;
+    background-image: url( "./css-images/off-right-top.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOff .LeftMiddle {
+    background-color: transparent;
+    background-image: url( "./css-images/off-left-mid.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOff .MiddleMiddle {
+    background-color: transparent;
+    background-image: url( "./css-images/off-mid-mid.gif" );
+    background-repeat: repeat-x;
+    text-align: center;
+    border: none;
+    white-space: nowrap;
+}
+
+.iceTabSetTabOff .MiddleMiddle a {
+    text-decoration: none;
+    color: #000000;
+    cursor: pointer;
+    display: block;
+    padding-top: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+* html .iceTabSetTabOff .MiddleMiddle a {
+    width: 1%;
+}
+
+.iceTabSetTabOff .RightMiddle {
+    background-color: transparent;
+    background-image: url( "./css-images/off-right-mid.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOff .LeftBottom {
+    background-color: transparent;
+    background-image: url( "./css-images/off-left-bot.gif" );
+    background-repeat: no-repeat;
+    border: none;
+}
+
+.iceTabSetTabOff .MiddleBottom {
+    background-color: transparent;
+    background-image: url( "./css-images/off-mid-bot.gif" );
+    background-repeat: repeat-x;
+    border: none;
+}
+
+.iceTabSetTabOff .RightBottom {
+    background-color: transparent;
+    background-image: url( "./css-images/off-right-bot.gif" );
+    background-repeat: no-repeat;
+    border: none;
+}
+
+/* tabOver style classes */
+
+.iceTabSetTabOver {
+
+}
+
+.iceTabSetTabOver .LeftTop {
+    background-color: transparent;
+    background-image: url( "./css-images/over-left-top.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOver .MiddleTop {
+    background-color: transparent;
+    background-image: url( "./css-images/over-mid-top.gif" );
+    background-repeat: repeat-x;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOver .RightTop {
+    background-color: transparent;
+    background-image: url( "./css-images/over-right-top.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOver .LeftMiddle {
+    background-color: transparent;
+    background-image: url( "./css-images/over-left-mid.gif" );
+    background-repeat: repeat-y;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOver .MiddleMiddle {
+    background-color: transparent;
+    background-image: url( "./css-images/over-mid-mid.gif" );
+    background-repeat: repeat;
+    text-align: center;
+    border: none;
+    white-space: nowrap;
+}
+
+.iceTabSetTabOver .MiddleMiddle a {
+    text-decoration: none;
+    color: #000000;
+    cursor: pointer;
+    display: block;
+    padding-top: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+* html .iceTabSetTabOver .MiddleMiddle a {
+    width: 1%;
+}
+
+.iceTabSetTabOver .RightMiddle {
+    background-color: transparent;
+    background-image: url( "./css-images/over-right-mid.gif" );
+    background-repeat: repeat-y;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOver .LeftBottom {
+    background-color: transparent;
+    background-image: url( "./css-images/over-left-bot.gif" );
+    background-repeat: no-repeat;
+    border: none;
+}
+
+.iceTabSetTabOver .MiddleBottom {
+    background-color: transparent;
+    background-image: url( "./css-images/over-mid-bot.gif" );
+    background-repeat: repeat-x;
+    border: none;
+}
+
+.iceTabSetTabOver .RightBottom {
+    background-color: transparent;
+    background-image: url( "./css-images/over-right-bot.gif" );
+    background-repeat: no-repeat;
+    border: none;
+}
+
+/* tabSpacer */
+
+.iceTabSetTabSpacer {
+    width: 100%;
+    border-bottom: 1px solid #ABABAB;
+}
+
+/* tabPanel */
+
+.iceTabSet {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    border-right: 1px solid #ABABAB;
+    border-bottom: 1px solid #ABABAB;
+    border-left: 1px solid #ABABAB;
+    background-color: #FFFFFF;
+}
+
+/* TABS ON BOTTOM STYLE CLASSES */
+/* tabOn style classes */
+
+.iceTabSetTabOnBottom {
+
+}
+
+.iceTabSetTabOnBottom .LeftTop {
+    background-color: transparent;
+    background-image: url( "./css-images/tbot-on-left-top.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    border: none;
+}
+
+.iceTabSetTabOnBottom .MiddleTop {
+    background-color: transparent;
+    background-image: url( "./css-images/tbot-on-mid-top.gif" );
+    background-repeat: repeat-x;
+    text-align: center;
+    border: none;
+}
+
+.iceTabSetTabOnBottom .RightTop {
+    background-color: transparent;
+    background-image: url( "./css-images/tbot-on-right-top.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    border: none;
+}
+
+.iceTabSetTabOnBottom .LeftMiddle {
+    background-color: transparent;
+    background-image: url( "./css-images/on-left-mid.gif" );
+    background-repeat: repeat-y;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOnBottom .MiddleMiddle {
+    background-color: transparent;
+    background-image: url( "./css-images/on-mid-mid.gif" );
+    background-repeat: repeat;
+    text-align: center;
+    border: none;
+    white-space: nowrap;
+}
+
+.iceTabSetTabOnBottom .MiddleMiddle a {
+    text-decoration: none;
+    color: #000000;
+    cursor: pointer;
+    display: block;
+    padding-top: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+* html .iceTabSetTabOnBottom .MiddleMiddle a {
+    width: 1%;
+}
+
+.iceTabSetTabOnBottom .RightMiddle {
+    background-color: transparent;
+    background-image: url( "./css-images/on-right-mid.gif" );
+    background-repeat: repeat-y;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOnBottom .LeftBottom {
+    background-color: transparent;
+    background-image: url( "./css-images/tbot-on-left-bot.gif" );
+    background-repeat: no-repeat;
+    padding-bottom: 5px;
+    border: none;
+}
+
+.iceTabSetTabOnBottom .MiddleBottom {
+    background-color: transparent;
+    background-image: url( "./css-images/tbot-on-mid-bot.gif" );
+    background-repeat: repeat-x;
+    padding-bottom: 5px;
+    border: none;
+}
+
+.iceTabSetTabOnBottom .RightBottom {
+    background-color: transparent;
+    background-image: url( "./css-images/tbot-on-right-bot.gif" );
+    background-repeat: no-repeat;
+    padding-bottom: 5px;
+    border: none;
+}
+
+/* tabOff style classes */
+
+.iceTabSetTabOffBottom {
+
+}
+
+.iceTabSetTabOffBottom .LeftTop {
+    background-color: transparent;
+    background-image: url( "./css-images/tbot-off-left-top.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    border: none;
+}
+
+.iceTabSetTabOffBottom .MiddleTop {
+    background-color: transparent;
+    background-image: url( "./css-images/tbot-off-mid-top.gif" );
+    background-repeat: repeat-x;
+    text-align: center;
+    border: none;
+}
+
+.iceTabSetTabOffBottom .RightTop {
+    background-color: transparent;
+    background-image: url( "./css-images/tbot-off-right-top.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    border: none;
+}
+
+.iceTabSetTabOffBottom .LeftMiddle {
+    background-color: transparent;
+    background-image: url( "./css-images/off-left-mid.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOffBottom .MiddleMiddle {
+    background-color: transparent;
+    background-image: url( "./css-images/off-mid-mid.gif" );
+    background-repeat: repeat-x;
+    text-align: center;
+    border: none;
+    white-space: nowrap;
+}
+
+.iceTabSetTabOffBottom .MiddleMiddle a {
+    text-decoration: none;
+    color: #000000;
+    cursor: pointer;
+    display: block;
+    padding-top: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+* html .iceTabSetTabOffBottom .MiddleMiddle a {
+    width: 1%;
+}
+
+.iceTabSetTabOffBottom .RightMiddle {
+    background-color: transparent;
+    background-image: url( "./css-images/off-right-mid.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOffBottom .LeftBottom {
+    background-color: transparent;
+    background-image: url( "./css-images/tbot-off-left-bot.gif" );
+    background-repeat: no-repeat;
+    padding-bottom: 5px;
+    border: none;
+}
+
+.iceTabSetTabOffBottom .MiddleBottom {
+    background-color: transparent;
+    background-image: url( "./css-images/tbot-off-mid-bot.gif" );
+    background-repeat: repeat-x;
+    padding-bottom: 5px;
+    border: none;
+}
+
+.iceTabSetTabOffBottom .RightBottom {
+    background-color: transparent;
+    background-image: url( "./css-images/tbot-off-right-bot.gif" );
+    background-repeat: no-repeat;
+    padding-bottom: 5px;
+    border: none;
+}
+
+/* tabOver style classes */
+
+.iceTabSetTabOverBottom {
+
+}
+
+.iceTabSetTabOverBottom .LeftTop {
+    background-color: transparent;
+    background-image: url( "./css-images/tbot-over-left-top.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    border: none;
+}
+
+.iceTabSetTabOverBottom .MiddleTop {
+    background-color: transparent;
+    background-image: url( "./css-images/tbot-over-mid-top.gif" );
+    background-repeat: repeat-x;
+    text-align: center;
+    border: none;
+}
+
+.iceTabSetTabOverBottom .RightTop {
+    background-color: transparent;
+    background-image: url( "./css-images/tbot-over-right-top.gif" );
+    background-repeat: no-repeat;
+    text-align: center;
+    border: none;
+}
+
+.iceTabSetTabOverBottom .LeftMiddle {
+    background-color: transparent;
+    background-image: url( "./css-images/over-left-mid.gif" );
+    background-repeat: repeat-y;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOverBottom .MiddleMiddle {
+    background-color: transparent;
+    background-image: url( "./css-images/over-mid-mid.gif" );
+    background-repeat: repeat;
+    text-align: center;
+    border: none;
+    white-space: nowrap;
+}
+
+.iceTabSetTabOverBottom .MiddleMiddle a {
+    text-decoration: none;
+    color: #000000;
+    cursor: pointer;
+    display: block;
+    padding-top: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+* html .iceTabSetTabOverBottom .MiddleMiddle a {
+    width: 1%;
+}
+
+.iceTabSetTabOverBottom .RightMiddle {
+    background-color: transparent;
+    background-image: url( "./css-images/over-right-mid.gif" );
+    background-repeat: repeat-y;
+    text-align: center;
+    padding-top: 5px;
+    border: none;
+}
+
+.iceTabSetTabOverBottom .LeftBottom {
+    background-color: transparent;
+    background-image: url( "./css-images/tbot-over-left-bot.gif" );
+    background-repeat: no-repeat;
+    padding-bottom: 5px;
+    border: none;
+}
+
+.iceTabSetTabOverBottom .MiddleBottom {
+    background-color: transparent;
+    background-image: url( "./css-images/tbot-over-mid-bot.gif" );
+    background-repeat: repeat-x;
+    padding-bottom: 5px;
+    border: none;
+}
+
+.iceTabSetTabOverBottom .RightBottom {
+    background-color: transparent;
+    background-image: url( "./css-images/tbot-over-right-bot.gif" );
+    background-repeat: no-repeat;
+    padding-bottom: 5px;
+    border: none;
+}
+
+/* tabSpacer */
+.iceTabSetTabSpacerBottom {
+    width: 100%;
+    border-top: 1px solid #ABABAB;
+}
+
+/* tabPanel */
+
+.iceTabSetBottom {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    border-right: 1px solid #ABABAB;
+    border-top: 1px solid #ABABAB;
+    border-left: 1px solid #ABABAB;
+    background-color: #FFFFFF;
+}
+
+/*
+------------- BorderLayout
+*/
+.icePageNorth {
+    font-weight: bold;
+    height: 80px;
+    background-color: #CDCDCD;
+    padding: 5px;
+    text-align: center;
+}
+
+.icePageEast {
+    width: 10%;
+    background-color: #DEDEDE;
+    padding: 5px;
+    vertical-align: top;
+}
+
+.icePageWest {
+    width: 20%;
+    background-color: #DEDEDE;
+    vertical-align: top;
+}
+
+.icePageCenter {
+    width: 70%;
+    background-color: #FFFFFF;
+    padding: 5px;
+    vertical-align: top;
+}
+
+.icePageSouth {
+    border-top: 1px solid #ABABAB;
+    color: #666666;
+    padding: 4px;
+}
+
+/*
+------------- PanelLayout
+*/
+
+.pageHeader {
+    font-weight: bold;
+    height: 80px;
+    background-color: #CDCDCD;
+    padding: 5px;
+    text-align: center;
+}
+
+.icePageStyle {
+    background-color: #FFFFFF;
+    border: 1px solid #ABABAB;
+    margin: 10px;
+    width: 97%;
+}
+
+.pageNavigation {
+    width: 20%;
+    background-color: #DEDEDE;
+    padding: 5px;
+    vertical-align: top;
+}
+
+.pageBody {
+    width: 80%;
+    background-color: #FFFFFF;
+    padding: 5px;
+    vertical-align: top;
+}
+
+.pageFooter {
+    border-top: 1px solid #ABABAB;
+    color: #666666;
+    padding: 4px;
+}
+
+/*
+------------ PanelNavigation
+*/
+
+.navFormOutline {
+    background-color: #DEDEDE;
+    margin: 0px;
+    width: 100%;
+    padding: 0px;
+}
+
+.navItem, .navActiveItem, .navOpenItem {
+    color: #333333;
+    text-decoration: none;
+    background-color: #CDCDCD;
+    width: 100%;
+    border: 1px solid #CDCDCD;
+    border-bottom: 1px solid #FFFFFF;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    padding-right: 1px;
+    display: block;
+}
+
+.navItem:hover, .navActiveItem:hover, .navOpenItem:hover {
+    background-color: #FFFFFF;
+    color: #000000;
+    border: 1px solid #2A6CC2;
+}
+
+.navOpenItem {
+    white-space: nowrap;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navActiveItem {
+    width: 100%;
+    background-color: #2A6CC2;
+    color: #FFFFFF;
+    background-image: url( ./css-images/cal_arrow_right.gif );
+    background-position: center right;
+    background-repeat: no-repeat;
+}
+
+.navSeparator {
+    width: 100%;
+    height: 1px;
+    padding: 0px;
+    margin: 0px;
+    background-color: #CDCDCD;
+    border-bottom: 1px solid #DEDEDE;
+}
+
+/*
+--------------- Progress bar
+*/
+.iceOutputProgress {
+    margin: 10px;
+}
+
+.iceOutputProgressBackground {
+    border: 1px solid #ABABAB;
+    width: 300px;
+    height: 13px;
+}
+
+.iceOutputProgressFill {
+    background-color: #026AFF; /* background-image:url(./css-images/window_top.gif);*/
+    background-position: top left;
+    background-repeat: repeat-x;
+    display: block;
+}
+
+.iceOutputProgressText {
+    color: black;
+}
+
+/*
+--------------- autoComplete classes ------
+*/
+
+.iceSelInpText {
+    border: 1px solid #ABABAB;
+    background-color: #FFFFFF;
+    margin: 0px;
+    padding: 2px;
+}
+
+.iceSelInpList {
+    position: absolute;
+    display: block;
+    border-top: 1px solid #ABABAB;
+    border-right: 1px solid #666666;
+    border-left: 1px solid #ABABAB;
+    border-bottom: 1px solid #333333;
+}
+
+.iceSelInpRow {
+    display: block;
+    background-color: #FFFFFF;
+    color: #333333;
+    padding: 2px;
+    padding-left: 10px;
+    border-bottom: 1px solid #DEDEDE;
+    position: relative;
+}
+
+.iceSelInpSelRow {
+    display: block;
+    background-color: #2A6CC2;
+    color: #FFFFFF;
+    padding: 2px;
+    padding-left: 10px;
+    border-bottom: 1px solid #FFFFFF;
+    position: relative;
+}
+
+/*
+--------------- autoComplete disable class ------
+*/
+
+.iceSelInpText-dis {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .95em;
+    color: #ABABAB;
+    border: 1px dotted #CCCCCC;
+    cursor: default;
+}
+
+/*
+----------- FileUpload Component classes
+*/
+.iceFileUploadText {
+    border: 1px solid #ABABAB;
+    background-color: #FFFFFF;
+    margin: 2px;
+    padding: 2px;
+    font-family: Arial, Helvetica, sans-serif;
+
+    color: #000000;
+}
+
+.iceFileUploadButton {
+    border: 1px solid #ABABAB;
+    background-color: #FFFFFF;
+    margin: 2px;
+    padding: 2px;
+    font-family: Arial, Helvetica, sans-serif;
+
+    color: #000000;
+}
+
+/*
+----------- Data Navigation Bar classes
+*/
+
+.tablebg {
+    background-color: #EEF3FB;
+    border: 1px solid #6392C6;
+    width: 70%;
+}
+
+.oddRow {
+    background-color: #FFFFFF;
+}
+
+.evenRow {
+    background-color: #EEF3FB;
+}
+
+.barCol1 {
+    width: 40%;
+    text-align: left;
+}
+
+.barCol2 {
+    width: 15%;
+    text-align: left;
+}
+
+.barCol3 {
+    width: 20%;
+    text-align: left;
+}
+
+.barCol4 {
+    width: 15%;
+    text-align: right;
+}
+
+.barCol5 {
+    width: 15%;
+    text-align: left;
+}
+
+/*
+----------- TreeView component
+*/
+
+.iceTreeRow {
+    white-space: nowrap;
+    padding: 0px;
+}
+
+.iceTreeRow a {
+    text-decoration: none;
+    color: #000000;
+    cursor: pointer;
+    padding: 0px;
+    vertical-align: middle;
+}
+
+.iceTreeRow a:hover {
+    text-decoration: underline;
+}
+
+.iceTreeRow img {
+    border: 0px;
+    vertical-align: middle;
+    background-repeat: repeat-y;
+    padding: 0px;
+}
+
+.iceTreeRow div {
+    display: inline;
+    padding: 0px;
+}
+
+.iceTreeRow a img {
+/* vertical-align: top; - Bug in FF, when img has focus it is not highlighted with a box.*/
+    background-repeat: repeat-y;
+    border: 0px;
+    padding: 0px;
+}
+
+/* ---------------------Menu Classes
+*/
+.iceMenuBar {
+    padding: 0px;
+    white-space: nowrap;
+}
+
+.iceMenu {
+    float: left;
+    padding: 0px;
+    white-space: nowrap;
+}
+
+.iceMenu a {
+    background-color: #DDDDDD;
+    height: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    color: #333333; /* Must be >1.01em to avoid layout artifacts on Macs */
+    font-size: 1.1em;
+    margin: 0px;
+    border-right: 1px solid #FFFFFF;
+    width: auto;
+    float: left;
+    display: block;
+    text-decoration: none;
+}
+
+.iceMenu a:hover {
+    background-color: #2A6CC2;
+    color: #FFFFFF;
+    border-right: 1px solid #FFFFFF;
+}
+
+.iceMenu hr, .subiceMenu hr {
+    border: none 0;
+    border-top: 1px solid #999999;
+    width: 100%;
+    height: 1px;
+    margin-top: 3px;
+    padding: 0px;
+    text-align: left;
+}
+
+/* classes for the vertical version of the iceMenu*/
+.iceMenu_vertical {
+    float: left;
+    padding: 0px;
+    white-space: nowrap;
+}
+
+.iceMenu_verticalItem {
+    width: 160px;
+    display: block;
+}
+
+.iceMenu_verticalItem a {
+    background-color: #DDDDDD;
+    height: auto;
+    padding-left: 3px;
+    padding-right: 3px;    
+    padding-top: 3px;
+    padding-bottom: 3px;
+    color: #333333;
+    font-size: 1.1em;
+    margin-bottom: 1px;
+    float: none;
+    display: block;
+    text-decoration: none;
+    border: 0px solid #FFFFFF;
+    width: 100%;
+}
+
+.iceMenu_verticalItem a:hover {
+    background-color: #2A6CC2;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+
+.iceSubMenu {
+    position: absolute;
+    background-color: #EFEFEF;
+    width: 160px;
+    border-top: 1px solid #999999;
+    border-left: 1px solid #999999;
+    border-bottom: 1px solid #999999;
+    border-right: 1px solid #999999;
+    padding: 1px;
+    height: auto;
+    display: block;
+}
+
+.iceSubMenuRow {
+    padding: 0px;
+    display: block;
+    height: auto;
+}
+
+.iceSubMenuRow a {
+    color: #333333;
+    display: block;
+    text-decoration: none;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;    
+}
+
+.iceSubMenuRow a:hover {
+    background-color: #2A6CC2;
+    color: #FFFFFF;
+}
+
+.iceSubMenuRowImage {
+    display:inline;
+    vertical-align: top;    
+}
+
+.iceSubMenuRowLabel {
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 4px;
+    font-size: 1.0em;
+    display: inline;
+}
+
+.iceSubMenuRowSubMenuIndicator {
+    display:inline;
+    float:right;
+    padding-top: 3px;
+    padding-right: 1px;    
+}
+
+.iceSubMenu_vertical {
+    padding: 1px;
+    width: 160px;
+    background-color: #EFEFEF;
+    border-top: 1px solid #999999;
+    border-right: 1px solid #999999;
+    border-left: 1px solid #999999;
+    border-bottom: 1px solid #999999;
+    position: absolute;
+    height: auto;
+    display: block;
+}
+
+.iceMenu_vertical_subItem a {
+    background-color: #EFEFEF; 
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333333;
+    font-size: 1.1em; 
+    width: auto;
+    display: block;
+    text-decoration: none; 
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 3px;
+    padding-bottom: 3px;    
+}
+
+.iceMenu_vertical_subItem a:hover {
+    background-color: #2A6CC2;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.iceSubMenuDividerVert {
+    height: auto;
+    float: left;
+    width: 100%;
+}
+
+/*
+----------- PanelPopup ----------
+*/
+
+.icePanelPopup {
+    color: #666666;
+    border-right: 2px solid #ABABAB;
+    border-top: 1px solid #ABABAB;
+    border-left: 1px solid #ABABAB;
+    border-bottom: 2px solid #ABABAB;
+    width: auto;
+    background-color: #DDDDDD;
+    padding: 0px;
+    z-index: 1000;
+}
+
+.icePanelPopupHeader {
+    background-color: #DEDEDE;
+    background-image: url( "./css-images/window_top.gif" );
+    background-position: top;
+    background-repeat: repeat-x;
+    height: 2.0em;
+}
+
+.icePanelPopupBody {
+    padding: 10px;
+}
+
+.icePanelPopupFooter {
+    float: right;
+    height: auto;
+    background-color: #DDDDDD;
+}
+
+/*
+   Classes for the output progress bar
+*/
+
+.iceOutputProgressIndeterminateActiveClass {
+    background-color: #EFEFEF;
+    background-image: url( css-images/in_progress.gif );
+    background-position: center;
+    background-repeat: repeat-x;
+}
+
+.iceOutputProgressIndeterminateInactiveClass {
+    background-color: #EFEFEF;
+    background-image: url( css-images/in_progress_inactive.gif );
+    background-position: center;
+    background-repeat: repeat-x;
+}
+
+/*
+    Classes for the connection status indicator
+*/
+
+.iceOutConStat {
+    margin: 10px;
+    width: 25px;
+    height: 25px;
+    border: none;
+    font-size: .5em;
+}
+
+.iceOutConStatInactive {
+    position: absolute;
+    background-image: url( css-images/connect_idle.gif );
+    background-position: top;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+}
+
+.iceOutConStatActive {
+    position: absolute;
+    background-image: url( css-images/connect_active.gif );
+    background-position: top;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+}
+
+.iceOutConStatCaution {
+    position: absolute;
+    background-image: url( css-images/connect_caution.gif );
+    background-position: top;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+}
+
+.iceOutConStatDisconnect {
+    position: absolute;
+    background-image: url( css-images/connect_disconnected.gif );
+    background-position: top;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+}
+
+/* XP Disabled styles CSS Document  v1.0 mar 31 2006 */
+
+.iceBtn-dis {
+}
+
+.iceLink-dis {
+    color: #ABABAB;
+    text-decoration: none;
+    border-bottom: 1px dotted #CCCCCC;
+    cursor: default;
+}
+
+.iceOutputText-dis {
+    color: #ABABAB;
+    text-decoration: none;
+    border-bottom: 1px dotted #CCCCCC;
+    cursor: default;
+}
+
+.iceInputtext-dis {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .95em;
+    color: #ABABAB;
+    border: 1px dotted #CCCCCC;
+    cursor: default;
+    margin: 2px;
+    padding: 2px;
+}
+
+.iceTextarea-dis {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .95em;
+    color: #ABABAB;
+    border: 1px dotted #CCCCCC;
+    cursor: default;
+    margin: 2px;
+    padding: 2px;
+}
+
+.iceCheckbox-dis {
+    background-color: #CCCCCC;
+    padding: 2px;
+    margin: 2px;
+    cursor: default;
+    color: #CCCCCC;
+    border: none;
+}
+
+.iceSelect-dis {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #CCCCCC;
+    padding: 2px;
+    font-size: .95em;
+    cursor: default;
+    border: none;
+}
+
+.iceRadioBtn-dis {
+    background-color: #CCCCCC;
+    padding: 2px;
+    margin: 2px;
+    cursor: default;
+    color: #CCCCCC;
+    border: none;
+}
+
+.iceFileUploadText-dis {
+    border: none;
+    background-color: #FFFFFF;
+    margin: 2px;
+    padding: 2px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #CCCCCC;
+    cursor: default;
+}
+
+.iceFileUploadButton-dis {
+    border: 1px solid #CCCCCC;
+    background-color: #FFFFFF;
+    margin: 2px;
+    padding: 2px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #CCCCCC;
+    cursor: default;
+}
+
+/* panel tabs disabled style classes */
+
+.iceTabSetTabOff {
+
+}
+
+.iceTabSetTabOff .LeftTop-dis {
+    background-color: transparent;
+    background-image: url( "./css-images/off-left-top-dis.gif" );
+    background-repeat: no-repeat;
+    background-position: bottom;
+    text-align: center;
+    padding-top: 1px;
+    border: none;
+    height: 4px;
+}
+
+.iceTabSetTabOff .MiddleTop-dis {
+    background-color: #DEDEDE;
+    background-image: url( './css-images/off-mid-top-dis.gif' );
+    background-repeat: repeat-x;
+    text-align: center;
+    padding-top: 1px;
+    border: none;
+}
+
+.iceTabSetTabOff .RightTop-dis {
+    background-color: transparent;
+    background-image: url( "./css-images/off-right-top-dis.gif" );
+    background-repeat: no-repeat;
+    background-position: bottom;
+    text-align: center;
+    padding-top: 1px;
+    border: none;
+}
+
+.iceTabSetTabOff .LeftMiddle-dis {
+    background-color: #DEDEDE;
+    /*    background-image: url("./css-images/off-left-mid.gif");
+    background-repeat:no-repeat;*/
+    text-align: center;
+    padding-top: 15px;
+    border: none;
+}
+
+.iceTabSetTabOff .MiddleMiddle-dis {
+    background-color: #DEDEDE;
+    /*    background-image: url("./css-images/off-mid-mid.gif");
+    background-repeat:repeat-x;*/
+    text-align: center;
+    padding-top: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border: none;
+    white-space: nowrap;
+    color: #ABABAB;
+}
+
+.iceTabSetTabOff .MiddleMiddle-dis a {
+    text-decoration: none;
+    color: #ABABAB;
+    cursor: default;
+}
+
+.iceTabSetTabOff .RightMiddle-dis {
+    background-color: #DEDEDE;
+    /*    background-image: url("./css-images/off-right-mid.gif");
+    background-repeat:no-repeat;*/
+    text-align: center;
+    padding-top: 15px;
+    border: none;
+}
+
+.iceTabSetTabOff .LeftBottom-dis {
+    background-color: transparent;
+    background-image: url( "./css-images/off-left-bot.gif" );
+    background-repeat: no-repeat;
+    border: none;
+}
+
+.iceTabSetTabOff .MiddleBottom-dis {
+    background-color: transparent;
+    background-image: url( "./css-images/off-mid-bot.gif" );
+    background-repeat: repeat-x;
+    border: none;
+}
+
+.iceTabSetTabOff .RightBottom-dis {
+    background-color: transparent;
+    background-image: url( "./css-images/off-right-bot.gif" );
+    background-repeat: no-repeat;
+    border: none;
+}
+
+/* tab on disabled */
+.iceTabSetTabOn {
+
+}
+
+.iceTabSetTabOn .LeftTop-dis {
+    background-color: transparent;
+    background-image: url( "./css-images/off-left-top-dis.gif" );
+    background-repeat: no-repeat;
+    background-position: bottom;
+    text-align: center;
+    padding-top: 1px;
+    border: none;
+    height: 4px;
+}
+
+.iceTabSetTabOn .MiddleTop-dis {
+    background-color: #DEDEDE;
+    background-image: url( './css-images/off-mid-top-dis.gif' );
+    background-repeat: repeat-x;
+    text-align: center;
+    padding-top: 1px;
+    border: none;
+}
+
+.iceTabSetTabOn .RightTop-dis {
+    background-color: transparent;
+    background-image: url( "./css-images/off-right-top-dis.gif" );
+    background-repeat: no-repeat;
+    background-position: bottom;
+    text-align: center;
+    padding-top: 1px;
+    border: none;
+}
+
+.iceTabSetTabOn .LeftMiddle-dis {
+    background-color: #DEDEDE;
+    /*    background-image: url("./css-images/off-left-mid.gif");
+    background-repeat:no-repeat;*/
+    text-align: center;
+    padding-top: 15px;
+    border: none;
+}
+
+.iceTabSetTabOn .MiddleMiddle-dis {
+    background-color: #DEDEDE;
+    /*    background-image: url("./css-images/off-mid-mid.gif");
+    background-repeat:repeat-x;*/
+    text-align: center;
+    padding-top: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border: none;
+    white-space: nowrap;
+    color: #ABABAB;
+}
+
+.iceTabSetTabOn .MiddleMiddle-dis a {
+    text-decoration: none;
+    color: #ABABAB;
+    cursor: default;
+}
+
+.iceTabSetTabOn .RightMiddle-dis {
+    background-color: #DEDEDE;
+    /*    background-image: url("./css-images/off-right-mid.gif");
+    background-repeat:no-repeat;*/
+    text-align: center;
+    padding-top: 15px;
+    border: none;
+}
+
+.iceTabSetTabOn .LeftBottom-dis {
+    background-color: transparent;
+    background-image: url( "./css-images/off-left-bot.gif" );
+    background-repeat: no-repeat;
+    border: none;
+}
+
+.iceTabSetTabOn .MiddleBottom-dis {
+    background-color: transparent;
+    background-image: url( "./css-images/off-mid-bot.gif" );
+    background-repeat: repeat-x;
+    border: none;
+}
+
+.iceTabSetTabOn .RightBottom-dis {
+    background-color: transparent;
+    background-image: url( "./css-images/off-right-bot.gif" );
+    background-repeat: no-repeat;
+    border: none;
+}
+
+/*
+data scroller classes disabled styles
+*/
+.sclBtnCell-dis {
+/* the cells behind the scroll buttons */
+    background-color: #FFFFFF;
+    padding: 2px;
+}
+
+.sclBtnCell-dis img {
+    cursor: default;
+}
+
+.icePaginatorTbl-dis {
+/* the container for the pagination*/
+    background-color: #FFFFFF;
+}
+
+/* set the common attributes for the pagination numbers */
+.icePaginatorAtvCol-dis a, .icePaginatorCol-dis a {
+    text-decoration: none;
+    font-weight: normal;
+    background-color: #FFFFFF;
+    color: #ABABAB;
+    display: block;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px solid #FFFFFF;
+    cursor: default;
+}
+
+/* override the attributes for the currently selected page */
+.icePaginatorAtvCol-dis a {
+    color: #ABABAB;
+    /*    border:1px solid #2A6CC2;
+        background-color:#2A6CC2;
+    */
+    cursor: default;
+}
+
+/* set the attributes for the mouseover on none-current pages */
+.icePaginatorCol-dis a:hover {
+    /*    color:#000000;
+  border:1px solid #2A6CC2;*/
+}
+
+/*
+Disabled classes for the calendar controls
+*/
+
+.iceCalOutline-dis {
+/* calendar outline & background color */
+    background-color: #FFFFFF;
+    border: 1px solid #DEDEDE; /* removed margin from calendar outline - better absolute positioning of popup */
+/*margin:10px;*/
+}
+
+.iceCalMonthYear-dis {
+    background-color: #EFEFEF;
+    /*    background-image: url("./css-images/table_col_header.gif");
+    background-position:bottom;
+    background-repeat:repeat-x;*/
+    font-weight: normal;
+    text-align: center;
+    color: #999999;
+    padding-left: 1px;
+    padding-right: 1px;
+    padding-top: 4px;
+    padding-bottom: 4px; /*border-right:1px solid #CCCCCC;*/
+}
+
+.iceCalMonthYear-dis img {
+    cursor: default;
+}
+
+.iceCalWeek-dis {
+/* the days of the week row */
+    font-weight: normal;
+    color: #999999;
+    background-color: #EFEFEF;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-bottom: 1px solid #ABABAB;
+}
+
+/* set the look for the days of the week backgrounds */
+.iceCalDay-dis, .iceCalCur-dis {
+/* the background & alignment for the days */
+    padding: 3px;
+    text-align: center;
+}
+
+/* now set the attributes for the numbers for each day of the week */
+.iceCalDay-dis a {
+/* the day text */
+    text-decoration: none;
+    background-color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+    color: #ABABAB;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    display: block;
+    cursor: default;
+}
+
+.iceCalCur-dis a {
+    text-decoration: none;
+    background-color: #ABABAB;
+    border: 1px solid #ABABAB;
+    color: #FFFFFF;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    display: block;
+    cursor: default;
+}
+
+/*
+----------- commandSortHeader ----------
+*/
+.iceCmdSrtHdr {
+    text-decoration: none;
+    border: 1px solid #ABABAB;
+    color: #333333;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    display: block;
+}
+
+.iceCmdSrtHdr-dis {
+    text-decoration: none;
+    border: 1px solid #ABABAB;
+    color: #999999;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    display: block;
+    cursor: default;
+}
+
+/* IE specific CSS to enlarge clickable area of SortHeader links */
+* html .iceCmdSrtHdr {
+    height: 1%;
+}
+
+/*
+----------- form ----------
+*/
+.iceForm {
+
+}
+
+/*
+----------- graphicImage ----------
+*/
+.iceGphImg {
+
+}
+
+/*
+----------- message ----------
+*/
+.iceMsg {
+
+}
+
+.iceMsgFatal {
+
+}
+
+.iceMsgError {
+
+}
+
+.iceMsgWarn {
+
+}
+
+.iceMsgInfo {
+
+}
+
+/*
+----------- messages ----------
+*/
+.iceMsgs {
+
+}
+
+.iceMsgsFatal {
+
+}
+
+.iceMsgsError {
+
+}
+
+.iceMsgsWarn {
+
+}
+
+.iceMsgsInfo {
+
+}
+
+/*
+----------- panelGrid ----------
+*/
+.icePnlGrd {
+
+}
+
+.icePnlGrdHeader {
+
+}
+
+.icePnlGrdFooter {
+
+}
+
+.icePnlGrdRow1 {
+
+}
+
+.icePnlGrdRow2 {
+
+}
+
+.icePnlGrdColumn1 {
+
+}
+
+.icePnlGrdColumn2 {
+
+}
+
+/*
+----------- panelGroup ----------
+*/
+.icePnlGrp {
+
+}
+
+/*
+----------- outputFormat ----------
+*/
+.iceOutputFormat {
+
+}
+
+/*
+----------- tree ----------
+*/
+.iceTree {
+
+}
+
+.iceTreeRow {
+
+}
+
+/*
+----------- panelSeries ----------
+*/
+.icePnlSeries {
+
+}
+
+/*
+----------- positionedPanel ----------
+*/
+.icePosPnl {
+
+}
+
+/*
+----------- panelTab header ----------
+*/
+.iceTabSetHdrIconLeft {
+    width: 14px;
+    height: 14px;
+
+}
+
+.iceTabSetHdrIconRight {
+    width: 14px;
+    height: 14px;
+}
+
+.iceTabSetHdrLabel {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    white-space: nowrap;
+}
+

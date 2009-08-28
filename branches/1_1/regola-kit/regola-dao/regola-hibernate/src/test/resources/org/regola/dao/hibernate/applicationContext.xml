@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<import resource="classpath:org/regola/dao/applicationContext.xml" />
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mappingResources">
+			<list>
+				<value>org/regola/model/Customer.hbm.xml</value>
+				<value>org/regola/model/Invoice.hbm.xml</value>
+				<value>org/regola/model/Product.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.use_sql_comments">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.HSQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="customerDao"
+		class="org.regola.finder.FinderFactoryBean">
+		<property name="proxyInterfaces"
+			value="org.regola.dao.CustomerDao" />
+		<property name="target">
+			<bean id="customerDaoTarget"
+				class="org.regola.dao.hibernate.HibernateGenericDao">
+				<constructor-arg value="org.regola.model.Customer" />
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+		</property>
+	</bean>
+
+	
+	<bean id="invoiceDao"
+		class="org.regola.dao.hibernate.HibernateGenericDao">
+		<constructor-arg value="org.regola.model.Invoice" />
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+</beans>
