@@ -1,0 +1,157 @@
+% modello documentale di nicola santi ego@nicolasanti.it
+
+
+
+\documentclass[pdftex,a4paper,12pt,twoside,openright]{book}
+
+\usepackage[italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{indentfirst}
+
+% decora i titoli dei capitoli
+\usepackage[Lenny]{fncychap}
+
+% inserimento di immagini come effetto indesiderato
+% produce solo pdf come output e non più dvi.
+\usepackage[pdftex]{graphicx}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\graphicspath{{./images/}}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+% floatings, caption laterali
+\usepackage{sidecap}
+
+% immagini avvolte all'interno del testo
+\usepackage{wrapfig}
+
+% citazioni in stile Hardvare
+\usepackage{natbib}
+\bibpunct{(}{)}{;}{a}{,}{,}
+
+% forza LaTeX ad una spaziatura fra parole non inglese
+\frenchspacing 
+
+% per inserire del codice sorgente
+\usepackage{listings}
+\usepackage{color}
+\definecolor{light-gray}{gray}{0.95}
+
+
+\lstnewenvironment{java}[1][]
+{\lstset{language=Java,numbers=left, numberstyle=\tiny, stepnumber=2, numbersep=5pt,backgroundcolor=\color{light-gray},breaklines=true,breakatwhitespace=true,breakindent=0pt,basicstyle=\scriptsize,#1}}
+{}
+
+\lstnewenvironment{bash}[1][]
+{\lstset{language=Bash,numbers=left, numberstyle=\tiny, stepnumber=2, numbersep=5pt,backgroundcolor=\color{light-gray},breaklines=true,breakatwhitespace=true,breakindent=0pt,basicstyle=\scriptsize,#1}}
+{}
+
+\lstnewenvironment{xml}[1][]
+{\lstset{language=Xml,numbers=left, numberstyle=\tiny, stepnumber=2, numbersep=5pt,backgroundcolor=\color{light-gray},breaklines=true,breakatwhitespace=true,breakindent=0pt,basicstyle=\scriptsize,#1}}
+{}
+
+
+
+% indentazione del primo paragrafo
+\setlength{\parindent}{18pt}
+
+% serve per gestire le tabelle
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{booktabs}
+
+% per inserire l'euro
+\usepackage[official]{eurosym}
+
+% liste più compatte
+\usepackage{mdwlist}
+
+% liste inline
+\usepackage{paralist}
+
+% miglioare i riferimenti
+\usepackage[italian]{varioref}
+%\def\reftextfaraway#1{a pagina~\pageref{#1}}%
+%\def\reftextpagerange#1#2{nelle pagine~\pageref{#1}--\pageref{#2}}%
+
+% hyper link in LaTex
+\usepackage{html}
+
+% indici
+\usepackage{makeidx}
+\makeindex
+
+% un simpatico box
+
+\usepackage{dashbox}
+
+\newenvironment{nota}
+{\rule{1ex}{1ex}\hspace{\stretch{1}}}
+{\hspace{\stretch{1}}\rule{1ex}{1ex}}
+
+
+
+\begin{document} 
+
+%-----------TOP MATTER
+
+%\title{Pojo's in action} 
+
+%\author{Nicola Santi\\
+%  Università di Bologna\\
+%  \texttt{ego@nicolasanti.it}}
+%\date{\today}
+
+%\maketitle 
+\input{./title}
+
+% -----------TOC
+\tableofcontents
+%\listoffigures
+%\listoftables
+
+
+
+
+
+\addcontentsline{toc}{subsection}{Prefazione}
+
+\include{prefazione}
+
+% -----------CAPITOLI
+\include{getting-started}
+\include{installazione}
+\include{struttura}
+\include{database}
+\include{persistenza}
+\include{produzione}
+\include{sviluppo}
+\include{dao}
+\include{servizio}
+\include{web}
+\include{portlet}
+\include{sicurezza}
+\include{security}
+\include{workflows}
+
+% -----------BIBLIOGRAFIA
+
+%\begin{thebibliography}{9}
+%\bibitem{lamport94}
+%  Leslie Lamport,
+%  \emph{\LaTeX: A Document Preparation System}.
+%  Addison Wesley, Massachusetts,
+%  2nd Edition,
+%  1994.
+%\end{thebibliography}
+
+\bibliographystyle{alpha}
+\bibliography{main}
+
+
+
+% -----------INDICE
+\printindex
+
+\end{document}

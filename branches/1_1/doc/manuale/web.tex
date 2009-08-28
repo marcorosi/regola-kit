@@ -1,0 +1,152 @@
+\chapter{Presentazione Web}
+
+\section{Scopo}
+TODO: Di cosa si occupa questo livello?
+
+\section{Tecnologie}
+TODO: Panoramica brevissima su JSF, Spring WebFlow e Spring MVC.
+
+\section{Pagina di lista}
+TODO: Partendo da un esempio si provvede a spiegare quali sono i file coinvolti e come devono essere configurati. Si ricorda che esiste un generatore per questo.
+
+\section{Pagina di form}
+TODO: Partendo da un esempio si provvede a spiegare quali sono i file coinvolti e come devono essere configurati. Si ricorda che esiste un generatore per questo.
+
+\section{Componenti aggiuntivi}
+Per sopperire alla mancanza di alcuni componenti nel tool kit di IceFaces (ad esempio di una tabella  in grado di visualizzare una sotto tabella annidata) Regola kit propone alcuni componenti da considerarsi sostituti temporanei, ovvero da utilizzare solo fino a quando non saranno disponibili delle versioni ufficiali con le medesime caratteristiche fornite IceFaces.
+Includere i componenti di Regola kit all'interno di una pagina template di facelets richiede di specificare tra i namespace utilizzati anche http://www.regola-kit.org/jsf, come nell'esempio;
+
+\begin{xml}
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  ...
+  xmlns:regola="http://www.regola-kit.org/jsf">
+...
+\end{xml}
+
+
+\subsection{expandibleTable}\index{componenti!expandibleTable}
+Questo componente espande  HtmlDataTable di IceFaces facendogli disegnare, a richiesta, una riga aggiuntiva subito dopo ogni riga disegnata. Il contenuto di questa riga aggiuntiva è descritto nel facet  innerRow come nell'esempio seguente:
+
+\begin{xml}
+<regola:expandibleTable id="data" var="primo" value="#{dataController.model}">
+
+  <f:facet name="innerRow">
+        <ice:outputText value="Riga aggiuntiva" />
+  </f:facet name="innerRow">  
+
+  <ice:column>...</ice:column>
+  <ice:column>...</ice:column>
+      ...
+
+</regola:expandibleTable>
+\end{xml}
+
+Qualsiasi componente descritto dentro il facet innerRow viene renderizzato nella riga aggiuntiva, per cui può essere utilizzata per disegnare una sotto tabella relativa alla riga precedente, ovvero una tabella nidificata. Ad esempio supponiamo di avere un semplice modello di due classi: Primo che contiene una lista di Secondo.
+
+\begin{java}
+public class Primo {
+  
+  int id;
+  String nome;
+  String cognome;
+  
+  List<Secondo> figli = new ArrayList<Secondo>();
+
+  //accessor
+}
+
+public class Secondo {
+
+  String uno;
+  String due;
+  
+  //accessor
+}
+\end{java}
+
+Il componente expandibleTable  non richiede come modello una lista oggetti del tipo Primo ma una lista della classe di utilità ExpandibleItem che wrappano la classe originale ad aggiungono una proprietà booleana per indicare se la riga aggiuntiva della tabella deve essere disegnato o meno. Per effettuare questo wrapping si può utilizzare il metodo di utilità wrapList.
+
+\begin{java}
+ArrayList<Primo> primi = new ArrayList<Primo>();
+    
+Primo primo;
+    
+primo = new Primo(1,"Adam", "Smith");
+primo.figli.add(new Secondo("1.1","1.2"));
+primo.figli.add(new Secondo("1.3","1.4"));
+primo.figli.add(new Secondo("1.5","1.6"));
+primi.add(primo);
+    
+primo = new Primo(2,"Karl", "Marx");
+primo.figli.add(new Secondo("2.1","2.2"));
+primo.figli.add(new Secondo("2.3","2.4"));
+primo.figli.add(new Secondo("2.5","2.6"));
+primi.add(primo);
+
+...
+
+List model = ExpandibleItem.wrapList(primi);  
+\end{java}
+
+Il modello così trattato deve essere fornito da un managed bean ad esempio dataController:
+
+\begin{java}
+public class DataController {
+
+  List model;
+  
+  public DataController()
+  {
+            ...
+    model = ExpandibleItem.wrapList(primi);
+  }
+
+  //accessor
+  
+}
+\end{java}
+
+L'ultimo tassello del puzzle è il template faceltet da utilizzare che potrebbe essere simile a questo:
+
+\begin{xml}
+<ice:form>
+   <regola:expandibleTable id="data" var="primo" value="#{dataController.model}">
+
+  <f:facet name="innerRow">
+      <ice:dataTable var="figlio" value="#{primo.target.figli}">
+    <ice:column>
+      <f:facet name="header">
+        <ice:outputText value="UNO" />
+      </f:facet>
+          <ice:outputText value="#{figlio.uno}" />
+        </ice:column>
+
+    <ice:column>...</ice:column>
+     </ice:dataTable>
+     </f:facet>
+
+      <ice:column>
+    <f:facet name="header">
+    <ice:outputText value="" />
+    </f:facet>
+    <ice:selectBooleanCheckbox value="#{primo.expanded}"
+            partialSubmit="true" />
+    </ice:column>
+
+    <ice:column>
+       <f:facet name="header">
+          <ice:outputText value="ID" />
+       </f:facet>
+       <ice:outputText value="#{primo.target.id}" />
+    </ice:column>
+
+
+    <ice:column>...</ice:column>
+          
+    </regola:expandibleTable>
+</ice:form>
+\end{xml}
+
+
+Da notare che le espressioni utilizzate per il binding devono tener conto che l'oggetto in lista è del tipo ExpandibleItem  e non del tipo Primo, per cui per accedere alle proprietà di quest'ultimo è necessario passare attraverso la proprietà ExpandibleItem.target. Infine si consideri come la proprietà  ExpandibleItem.expanded determini la visibilità della riga aggiuntiva.

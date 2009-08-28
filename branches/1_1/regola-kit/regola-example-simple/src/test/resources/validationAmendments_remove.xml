@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model class="org.regola.model.Customer">
+	<remove type="org.hibernate.validator.NotEmpty" property="firstName"/>
+	<remove type="org.hibernate.validator.NotEmpty" property="lastName"/>
+</model>
+
+
+
+<!-- OLD list>
+  <AmendedModelClass>
+  	<modelClass>
+  		org.regola.model.Customer
+  	</modelClass>
+  		<amendments>
+  		<Amendment>
+  			<amendmentType> remove </amendmentType>
+			<validationType>
+				org.hibernate.validator.NotEmpty
+			</validationType>
+	 		<modelProperty>firstName
+	 		</modelProperty>
+		</Amendment>
+  		<Amendment>
+  			<amendmentType>remove</amendmentType>
+			<validationType>org.hibernate.validator.NotEmpty</validationType>
+	 		<modelProperty>lastName</modelProperty>
+		</Amendment>
+		</amendments>
+  </AmendedModelClass>
+</list -->
