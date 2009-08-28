@@ -1,5 +1,0 @@
-#!/bin/bash
-
-CMD="mvn exec:java -Dexec.args=\"$@\""
-echo $CMD
-mvn exec:java -Dexec.args="$1 $2 $3 $4 $5 $6"
