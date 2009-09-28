@@ -1,6 +1,6 @@
 package org.regola.dao.jpa;
 
-public class TopLinkJpaGenericDaoTest extends AbstractJpaGenericDaoTest {
+public class TopLinkJpaGenericDaoSkip extends AbstractJpaGenericDaoTest {
 
 	@Override
 	public String getConfigPath() {
