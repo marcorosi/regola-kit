@@ -16,8 +16,8 @@
 
 	<modules>
 		<module>regola-hibernate</module>
-<!--		<module>regola-jpa</module>-->
-<!--		<module>regola-ognl</module>-->
+		<module>regola-jpa</module>
+		<module>regola-ognl</module>
 		<!--module>regola-jdo</module-->
 		<!--module>regola-ibatis</module-->
 	</modules>
