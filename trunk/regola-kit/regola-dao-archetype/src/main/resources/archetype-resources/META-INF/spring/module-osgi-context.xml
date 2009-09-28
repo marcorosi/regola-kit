@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/osgi"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	  http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd">
+
+<!--	<service ref="productDao" interface="${package}.dao.ProductDao">-->
+<!--		<service-properties>-->
+<!--			<beans:entry key="osgi.remote.interfaces" value="*" />-->
+<!--			<beans:entry key="org.apache.cxf.ws.address" value="http://localhost:9090/productDao" />-->
+<!--			<beans:entry key="service.exported.configs" value="org.apache.cxf.ws" />-->
+<!--		</service-properties>-->
+<!--	</service>-->
+	
+
+</beans:beans>
