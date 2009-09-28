@@ -5,90 +5,126 @@
 	<parent>
 		<groupId>org.regola</groupId>
 		<artifactId>regola-dao</artifactId>
-		<version>1.1-SNAPSHOT</version>
+		<version>1.2.0.SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>regola-hibernate</artifactId>
-	<packaging>jar</packaging>
-	<name>REGOLA Toolkit :: DAO :: Hibernate module</name>
-	<description> REGOLA Toolkit :: DAO :: Hibernate module </description>
+	<packaging>bundle</packaging>
+	<name>Regola DAO Hibernate</name>
+	<description> Regola Toolkit DAO Hibernate</description>
+
+	<properties>
+		<hibernate.version>3.3.2.GA</hibernate.version>
+	</properties>
+
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>.</directory>
+				<includes>
+					<include>plugin.xml</include>
+					<include>**/META-INF/*</include>
+				</includes> 
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
 				<configuration>
-					<systemProperties>
-						<property>
-							<name>testExecuteFinder_byAddressCity</name>
-							<value>disabled</value>
-						</property>
-					</systemProperties>
+					<instructions>
+						<Import-Library>org.springframework.spring;version="[${spring.version},${spring.version}]",org.hibernate.ejb;version="[${hibernate.version},${hibernate.version}]"</Import-Library>
+						<Import-Bundle>org.regola.core;version="[${regola.version},${regola.version}]"</Import-Bundle>
+						<Export-Package>org.regola.*hibernate.*</Export-Package>
+						<Import-Package>!org.regola.*,*,javax.transaction,javax.transaction.xa</Import-Package>
+					</instructions>
 				</configuration>
-			</plugin>
+			</plugin> 
 		</plugins>
 	</build>
 	<dependencies>
+		<!-- test -->
+
+		<!--  form DAO parent pom -->
 		<dependency>
 			<groupId>${pom.groupId}</groupId>
 			<artifactId>regola-core</artifactId>
-			<version>${pom.version}</version>
-			<scope>test</scope>
 			<type>test-jar</type>
 		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
+
+		<!--  form DAO parent pom -->
 		<dependency>
 			<groupId>hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 		</dependency>
+
+		<!--  form regola parent pom -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
+			<artifactId>org.springframework.test</artifactId>
 		</dependency>
+
+		<!--  form regola parent pom -->
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
 		</dependency>
+
+		<!--
+			dependency> <groupId>junit</groupId> <artifactId>junit</artifactId>
+			</dependency> <dependency> <groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId> </dependency> <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId> </dependency> <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId> </dependency> <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId> </dependency
+		-->
+
+		<!-- Not test deps -->
+
+		<!--  form DAO parent pom -->
 		<dependency>
 			<groupId>${pom.groupId}</groupId>
 			<artifactId>regola-core</artifactId>
 		</dependency>
+
+		<!--  form regola parent pom -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
+			<artifactId>org.springframework.spring-library</artifactId>
+			<type>libd</type>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aop</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib-nodep</artifactId>
-			<version>2.1_3</version>
-		</dependency>
-		
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate</artifactId>
-			<version>3.2.5.ga</version>
-			<exclusions>
-				<exclusion>
-					<groupId>cglib</groupId>
-					<artifactId>cglib</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>asm</groupId>
-					<artifactId>asm</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>asm</groupId>
-					<artifactId>asm-attrs</artifactId>
-				</exclusion>
-			</exclusions>
+			<artifactId>org.hibernate.ejb-library</artifactId>
+			<type>libd</type>
+			<version>${hibernate.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>com.springsource.javax.transaction</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+
+
+		<!--
+			dependency> <groupId>cglib</groupId>
+			<artifactId>cglib-nodep</artifactId> <version>2.1_3</version>
+			</dependency> <dependency> <groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId> <version>3.2.5.ga</version>
+			<exclusions> <exclusion> <groupId>cglib</groupId>
+			<artifactId>cglib</artifactId> </exclusion> <exclusion>
+			<groupId>asm</groupId> <artifactId>asm</artifactId> </exclusion>
+			<exclusion> <groupId>asm</groupId> <artifactId>asm-attrs</artifactId>
+			</exclusion> </exclusions> </dependency
+		-->
+
 	</dependencies>
 </project>
