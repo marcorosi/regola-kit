@@ -15,6 +15,7 @@ import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.event.authentication.InteractiveAuthenticationSuccessEvent;
 import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
 import org.acegisecurity.ui.cas.CasProcessingFilter;
+import org.regola.security.cas.SessionIdNotFoundException;
 import org.regola.security.cas.util.ClusteredUtils;
 import org.regola.security.cas.util.SessionIdExtractor;
 
@@ -45,8 +46,7 @@ public class ClusteredCasProcessingFilterI18n extends CasProcessingFilter {
 		}
 
 		if (sessionId == null)
-			throw new RuntimeException(
-					"Impossibile ricavare il session id dalla richiesta. Il funzionamento in cluster non è possibile.");
+			throw new SessionIdNotFoundException();
 
 		UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
 				username, ClusteredUtils.encodePassword(password, sessionId));
@@ -109,7 +109,7 @@ public class ClusteredCasProcessingFilterI18n extends CasProcessingFilter {
 			HttpServletRequest request) {
 		String language = request.getParameter(getLanguageParameter());
 
-		if (language == null || language.trim().length() == 0)
+		if (nonServeParametroLingua(targetUrl, language))
 			return targetUrl;
 
 		StringBuilder sb = new StringBuilder();
@@ -121,6 +121,15 @@ public class ClusteredCasProcessingFilterI18n extends CasProcessingFilter {
 		sb.append(getLanguageParameter()).append("=").append(language);
 
 		return sb.toString();
+	}
+
+	private boolean nonServeParametroLingua(String targetUrl, String language) {
+		if(targetUrl==null)
+			return true;
+		
+		return language == null 
+				|| language.trim().length() == 0
+				|| targetUrl.indexOf(getLanguageParameter()) > -1;
 	}
 
 	public String getLanguageParameter() {
