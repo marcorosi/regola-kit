@@ -1,8 +1,45 @@
 Manifest-Version: 1.0
-Import-Library: org.springframework.spring;version="[2.5.6.A,2.5.6.A]"
-Import-Bundle: com.springsource.org.ognl;version="[2.6.9,2.6.9]"
+Export-Package: org.regola.finder.support;uses:="org.springframework.a
+ op,org.regola.finder,org.springframework.util,org.springframework.aop
+ .framework,org.regola.dao,org.springframework.beans.factory",org.rego
+ la.util;uses:="org.springframework.util,org.apache.commons.logging,og
+ nl",org.regola.filter.criteria.criterion;uses:="org.regola.filter.cri
+ teria",org.regola.finder;uses:="org.apache.commons.logging,org.spring
+ framework.aop,org.springframework.util,org.springframework.aop.framew
+ ork,org.springframework.beans.factory.config,org.springframework.aop.
+ support,org.aopalliance.aop,org.aopalliance.intercept",org.regola.fil
+ ter.criteria.impl;uses:="org.regola.filter.criteria,org.apache.common
+ s.logging",org.regola.dao;uses:="org.regola.model",org.regola.filter.
+ impl;uses:="org.regola.model,org.regola.filter,org.regola.filter.crit
+ eria.criterion,org.regola.filter.annotation,org.springframework.beans
+ ,org.regola.filter.criteria,org.regola.filter.handler",org.regola.fil
+ ter.handler;uses:="org.regola.model,org.regola.filter,org.springframe
+ work.util,org.springframework.beans,org.regola.filter.criteria,org.re
+ gola.filter.criteria.criterion,org.regola.filter.annotation",org.rego
+ la.model;uses:="org.regola.util,org.regola.filter.annotation,org.spri
+ ngframework.beans",org.regola.filter;uses:="org.regola.model,org.rego
+ la.filter.criteria",org.regola.filter.annotation,org.regola.dao.impl;
+ uses:="org.regola.model,org.regola.filter,org.regola.finder,org.regol
+ a.dao,org.regola.filter.impl",org.regola.filter.criteria
+Private-Package: target.classes.regola-core.target.classes.META-INF,re
+ gola-core.target.classes.META-INF,target.classes.META-INF
+Ignore-Package: org.regola.finder.support,org.regola.util,org.regola.f
+ ilter.criteria.criterion,org.regola.filter.criteria.impl,org.regola.f
+ inder,org.regola.dao,org.regola.filter.impl,org.regola.filter.handler
+ ,org.regola.model,org.regola.filter,org.regola.filter.annotation,org.
+ regola.dao.impl,org.regola.filter.criteria
 Built-By: nicola
+Tool: Bnd-0.0.311
+Bundle-Name: Regola Core
+Import-Library: org.springframework.spring;version="[2.5.6.A,2.5.6.A]"
 Created-By: Apache Maven Bundle Plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Import-Bundle: com.springsource.org.ognl;version="[2.6.9,2.6.9]"
+Build-Jdk: 1.6.0_07
+Bundle-Version: 1.2.0.SNAPSHOT
+Bnd-LastModified: 1254232731463
+Bundle-ManifestVersion: 2
+Bundle-Description: Regola Toolkit Core
 Bundle-License: http://www.gnu.org/licenses/gpl-3.0.txt
 Import-Package: ognl;version="2.6",org.aopalliance.aop;version="1.0",o
  rg.aopalliance.intercept;version="1.0",org.apache.commons.logging;ver
@@ -11,47 +48,6 @@ Import-Package: ognl;version="2.6",org.aopalliance.aop;version="1.0",o
  2.5",org.springframework.beans;version="2.5",org.springframework.bean
  s.factory;version="2.5",org.springframework.beans.factory.config;vers
  ion="2.5",org.springframework.util;version="2.5"
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Bnd-LastModified: 1253113746063
-Export-Package: org.regola.filter.criteria,org.regola.dao;uses:="org.r
- egola.model",org.regola.finder.support;uses:="org.regola.dao,org.rego
- la.finder,org.springframework.aop.framework,org.springframework.util,
- org.springframework.beans.factory,org.springframework.aop",org.regola
- .filter.criteria.impl;uses:="org.regola.filter.criteria,org.apache.co
- mmons.logging",org.regola.finder;uses:="org.springframework.beans.fac
- tory.config,org.springframework.aop.framework,org.apache.commons.logg
- ing,org.springframework.util,org.springframework.aop,org.springframew
- ork.aop.support,org.aopalliance.aop,org.aopalliance.intercept",org.re
- gola.util;uses:="org.springframework.util,org.apache.commons.logging,
- ognl",org.regola.filter.handler;uses:="org.regola.filter.criteria,org
- .regola.filter,org.springframework.beans,org.springframework.util,org
- .regola.model,org.regola.filter.criteria.criterion,org.regola.filter.
- annotation",org.regola.model;uses:="org.regola.util,org.springframewo
- rk.beans,org.regola.filter.annotation",org.regola.filter.annotation,o
- rg.regola.dao.impl;uses:="org.regola.model,org.regola.dao,org.regola.
- finder,org.regola.filter,org.regola.filter.impl",org.regola.filter.cr
- iteria.criterion;uses:="org.regola.filter.criteria",org.regola.filter
- ;uses:="org.regola.filter.criteria,org.regola.model",org.regola.filte
- r.impl;uses:="org.regola.filter.criteria,org.regola.filter.criteria.c
- riterion,org.regola.filter,org.springframework.beans,org.regola.filte
- r.annotation,org.regola.model,org.regola.filter.handler"
-Bundle-Version: 1.2.0.SNAPSHOT
-Ignore-Package: org.regola.filter.criteria,org.regola.dao,org.regola.f
- ilter.criteria.impl,org.regola.finder.support,org.regola.finder,org.r
- egola.util,org.regola.filter.handler,org.regola.filter.annotation,org
- .regola.model,org.regola.dao.impl,org.regola.filter.criteria.criterio
- n,org.regola.filter,org.regola.filter.impl
-Bundle-Name: Regola Core
-Bundle-Description: Regola Toolkit Core
-Build-Jdk: 1.5.0_16
-Private-Package: target.classes.target.classes.target.classes.META-INF
- ,target.classes.target.classes.target.classes.regola-core.target.clas
- ses.META-INF,regola-core.target.classes.META-INF,target.classes.regol
- a-core.target.classes.META-INF,target.classes.target.classes.regola-c
- ore.target.classes.META-INF,target.classes.META-INF,target.classes.ta
- rget.classes.META-INF
-Originally-Created-By: Apache Maven Bundle Plugin
-Bundle-ManifestVersion: 2
 Bundle-SymbolicName: org.regola.core
-Tool: Bnd-0.0.311
+Originally-Created-By: Apache Maven Bundle Plugin
 
