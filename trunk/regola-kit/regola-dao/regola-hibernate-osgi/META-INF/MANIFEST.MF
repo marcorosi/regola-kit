@@ -1,10 +1,27 @@
 Manifest-Version: 1.0
+Export-Package: org.regola.dao.hibernate.osgi.extender;uses:="org.osgi
+ .framework,org.slf4j,org.hibernate,javax.sql,org.springframework.core
+ .io,org.springframework.beans.factory,org.hibernate.cfg,org.springfra
+ mework.orm.hibernate3.annotation"
+Private-Package: target.classes.target.classes.META-INF,target.classes
+ .META-INF
+Ignore-Package: org.regola.dao.hibernate.osgi.extender
+Built-By: nicola
+Tool: Bnd-0.0.311
+Bundle-Name: Regola DAO Hibernate OSGi Extender
 Import-Library: org.springframework.spring;version="[2.5.6.A,2.5.6.A]"
  ,org.hibernate.ejb;version="[3.3.2.GA,3.3.2.GA]"
+Created-By: Apache Maven Bundle Plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: org.regola.core;bundle-version="1.2.0",org.regola.hibe
+ rnate;version="[1.2.0.SNAPSHOT,1.2.0.SNAPSHOT]"
 Import-Bundle: org.regola.core;version="[1.2.0.SNAPSHOT,1.2.0.SNAPSHOT
  ]"
-Built-By: nicola
-Created-By: Apache Maven Bundle Plugin
+Build-Jdk: 1.6.0_16
+Bundle-Version: 1.2.0.SNAPSHOT
+Bnd-LastModified: 1254222526249
+Bundle-ManifestVersion: 2
+Bundle-Description: Regola DAO Hibernate OSGi Extender
 Bundle-License: http://www.gnu.org/licenses/gpl-3.0.txt
 Import-Package: javax.sql,javax.transaction;version="1.1",javax.transa
  ction.xa;version="1.1",org.hibernate;version="3.3",org.hibernate.cfg;
@@ -12,23 +29,6 @@ Import-Package: javax.sql,javax.transaction;version="1.1",javax.transa
  ",org.springframework.beans.factory;version="2.5",org.springframework
  .core.io;version="2.5",org.springframework.orm.hibernate3.annotation;
  version="2.5"
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Bnd-LastModified: 1253876948113
-Export-Package: org.regola.dao.hibernate.osgi.extender;uses:="org.slf4
- j,org.osgi.framework,org.hibernate,org.springframework.core.io,org.sp
- ringframework.beans.factory,javax.sql,org.hibernate.cfg,org.springfra
- mework.orm.hibernate3.annotation"
-Bundle-Version: 1.2.0.SNAPSHOT
-Ignore-Package: org.regola.dao.hibernate.osgi.extender
-Bundle-Name: Regola DAO Hibernate OSGi Extender
-Bundle-Description: Regola DAO Hibernate OSGi Extender
-Build-Jdk: 1.5.0_16
-Private-Package: target.classes.target.classes.target.classes.META-INF
- ,target.classes.target.classes.META-INF,target.classes.META-INF
-Originally-Created-By: Apache Maven Bundle Plugin
-Bundle-ManifestVersion: 2
 Bundle-SymbolicName: org.regola.hibernate-osgi
-Tool: Bnd-0.0.311
-Require-Bundle: org.regola.core;bundle-version="1.2.0",
- org.regola.hibernate;version="[1.2.0.SNAPSHOT,1.2.0.SNAPSHOT]"
+Originally-Created-By: Apache Maven Bundle Plugin
 
