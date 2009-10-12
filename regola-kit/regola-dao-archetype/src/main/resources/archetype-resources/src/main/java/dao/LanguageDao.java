@@ -9,7 +9,7 @@ import ${package}.model.Language;
 
 
 
-public interface ProductDao extends GenericDao<Language, Integer> {
+public interface LanguageDao extends GenericDao<Language, Integer> {
 
 	public List<Language> readAll();
 	

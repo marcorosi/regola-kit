@@ -9,6 +9,7 @@
 	<configs>
 		<config>META-INF/spring/module-context.xml</config>
 		<config>META-INF/spring/module-osgi-context.xml</config>
+		<config>src/test/resources/module-test-context.xml</config>
 	</configs>
 	<configSets>
 		<configSet>
@@ -17,6 +18,16 @@
 			<incomplete>false</incomplete>
 			<configs>
 				<config>META-INF/spring/module-context.xml</config>
+				<config>src/test/resources/module-test-context.xml</config>
+			</configs>
+		</configSet>
+		<configSet>
+			<name><![CDATA[OSGi]]></name>
+			<allowBeanDefinitionOverriding>true</allowBeanDefinitionOverriding>
+			<incomplete>false</incomplete>
+			<configs>
+				<config>META-INF/spring/module-context.xml</config>
+				<config>META-INF/spring/module-osgi-context.xml</config>
 			</configs>
 		</configSet>
 	</configSets>

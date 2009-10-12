@@ -1,6 +1,6 @@
 package ${package}.dao.internal;
 
-import ${package}.dao.ProductDao;
+import ${package}.dao.LanguageDao;
 import ${package}.model.Language;
 
 import java.util.List;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository("languageDao")
 public class LanguageDaoHibernate extends HibernateGenericDao<Language, Integer>
-		implements ProductDao {
+		implements LanguageDao {
 
-	public ProductDaoHibernate() {
+	public LanguageDaoHibernate() {
 		super(Language.class);
 	}
 
