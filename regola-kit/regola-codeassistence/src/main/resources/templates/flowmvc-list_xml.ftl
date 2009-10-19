@@ -9,63 +9,66 @@
 	<var name="pattern" class="${pattern_package}.${filter_name}" />
 	<var name="model" class="${model_class}" />
 
+	<action-state id="caricaDati">
+		<!--evaluate expression="listActions.refresh(${service_bean_name},pattern)" result="flowScope.list" /-->
+		<evaluate expression="listActions.refresh(universalDao, model, pattern)" result="flowScope.list" />
+		<transition on="*" to="list" />
+	</action-state>
+
 	<view-state id="list" view="${field(model_name)}-list" model="pattern">
-			
-		<on-render>
-			<!--evaluate expression="listActions.refresh(${service_bean_name},pattern)" result="viewScope.list" /-->
-			<evaluate expression="listActions.refresh(universalDao, model ,  pattern)" result="viewScope.list" />			
-		</on-render>
 	
-		<transition on="search${model_name}" >			
+		<transition on="search${model_name}" to="caricaDati">
 		</transition>
 		
-		<transition on="select${model_name}" to="form">
-			<set name="flowScope.${field(model_name)}" value="list.selectedRow" />
+		<transition on="new" to="form">
+			<set name="flowScope.${field(model_name)}Id" value="null" />
 		</transition>
 		
-		<transition on="${field(model_name)}New" to="form">
-			<set name="flowScope.${field(model_name)}" value="null" />
-		</transition>
-		
-		<transition on="cancel${model_name}">
-			<evaluate expression="universalDao.removeEntity(list.selectedRow)" />
-			<render fragments="${field(model_name)}ListFragment"/>
+		<transition on="cancel${model_name}" to="remove">
+			<set name="requestScope.toBeRemoved" value="list.get(requestParameters.idx)" />
 		</transition>
 		
 		<transition on="edit" to="form">
-			<set name="flowScope.${field(model_name)}" value="list.get(requestParameters.idx)" />
+			<set name="flowScope.${field(model_name)}Id" value="list.get(requestParameters.idx).id" />
 		</transition>
 		
-		
 		<!-- Pagination  -->
-		<transition on="moveNext">
+		<transition on="moveNext" to="caricaDati">
 		    <evaluate expression="persistenceContext.clear()" />
 			<evaluate expression="pattern.nextPage()" />
 		</transition>
-		<transition on="movePrevious">
+		<transition on="movePrevious" to="caricaDati">
 			<evaluate expression="persistenceContext.clear()" />
 			<evaluate expression="pattern.previousPage()" />
 		</transition>
-		<transition on="moveFirst">
+		<transition on="moveFirst" to="caricaDati">
 			<evaluate expression="persistenceContext.clear()" />
 			<evaluate expression="pattern.setCurrentPage(0)" />
 		</transition>
-		<transition on="moveLast">
+		<transition on="moveLast" to="caricaDati">
 			<evaluate expression="persistenceContext.clear()" />
 			<evaluate expression="pattern.gotoLastPage()" />
 		</transition>
-		<transition on="pageSize">
+		<transition on="pageSize" to="caricaDati">
 			<evaluate expression="persistenceContext.clear()" />
 			<!--<evaluate expression="pattern.setPageSize(50)" />-->
 		</transition>
-		
-			
+
 	</view-state>
-	
-	<subflow-state id="form" subflow="${field(model_name)}-form" >
-		<input name="${field(model_name)}Id" value="${field(model_name)}.id" />
+
+	<subflow-state id="form" subflow="${field(model_name)}-form">
+		<input name="${field(model_name)}Id" value="${field(model_name)}Id" />		
 		<transition on="cancel" to="list" />
-		<transition on="confirm" to="list" />
+		<transition on="confirm" to="caricaDati">
+			<evaluate expression="persistenceContext.clear()" />
+		</transition>
+	</subflow-state>
+	
+	<subflow-state id="remove" subflow="rimuoviEntita" >
+		<input name="documento" value="toBeRemoved" />
+		<transition on="finish" to="caricaDati">
+			<evaluate expression="persistenceContext.clear()" />
+		</transition>
 	</subflow-state>
 
 	<end-state id="finish" />
