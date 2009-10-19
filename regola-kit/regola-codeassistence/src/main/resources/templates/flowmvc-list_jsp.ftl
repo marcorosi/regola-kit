@@ -4,77 +4,74 @@
 <%@ taglib prefix="regola" uri="http://org.regola-kit/mvc"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<span class="titoloPagina"><fmt:message key="${field(model_name)}.title" /></span>
+<br>
+<br>
+<span class="sottotitoloPagina">
+	<fmt:message key="${field(model_name)}.subtitle" />
+</span>
+<br>
+<br>
+
 <form:form modelAttribute="pattern" method="post" action="${r"${"}flowExecutionUrl}">
 
-	<table summary="Tabella di struttura" class="tb0">
-		<tbody>
-			<tr>
-				<td colspan="2">
-				<table summary="filtri" class="toptabs">
-				 	<tbody><tr><th class="selectedtab">Filtri ricerca</th></tr>
-				</tbody></table>   					
-				<table summary="filtri" class="toptools">
-					<tbody>
-						<tr>
-							<td class="toolcontentt" colspan="2">
-							<table class="tbFiltri">
-								<tbody>
-									<tr>
-										<td class="filtro2">
-									    	<label><fmt:message  key="${r"${"}prop.id}" /></label><br />
-									    	<form:input path="id"/>
-										</td>
-										<td class="bottonecerca" rowspan="2">
-											<input type="submit" id="filtra" class="button" 
-												name="_eventId_search${model_name}" value="Cerca" />
-										</td>
-									</tr>
-								</tbody>
-							</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-
-
-<table summary="filtri" class="toptools">
-<tr>
- <td class="toolcontent" colspan="2">
-  <table class="tbFiltri">
-    <tr>
-	    <td class="filtro2">
-	    	<label><fmt:message  key="${r"${"}prop.id}" /></label>
-	    	<form:input path="id"/>
-		</td>
-		<td style="vertical-align: bottom;" class="bottonecerca" rowspan="3">
-			<input type="submit" id="filtra" class="button" name="_eventId_search${model_name}" value="Cerca" />
-		</td>
-	</tr>
-  </table>
- </td>
-</tr>
+<table summary="Tabella di struttura" class="tb0">
+	<tbody>
+		<tr>
+			<td colspan="2">
+			<table summary="filtri" class="toptabs">
+			 	<tbody><tr><th class="selectedtab">Filtri ricerca</th></tr>
+			</tbody></table>   					
+			<table summary="filtri" class="toptools">
+				<tbody>
+					<tr>
+						<td class="toolcontentt" colspan="2">
+						<table class="tbFiltri">
+							<tbody>
+								<tr>
+									<td class="filtro2" style="vertical-align: middle;">
+								    	<label><fmt:message  key="${r"${"}prop.id}" /></label>
+									</td>								    	
+								    <td class="filtro2" style="vertical-align: middle;">								    	
+								    	<form:input path="id"/>
+									</td>
+									<td class="bottonecerca" rowspan="2">
+										<input type="submit" id="filtra" class="button" 
+											name="_eventId_search${model_name}" value="<fmt:message  key="button.search" />" />
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+	</tbody>
 </table>
 
 <table class="iceDataTblOutline" style="border-collapse: collapse; border-spacing: 0px; width: 95%">
 
 	<tr>
 		<td colspan="${r"${"}fn:length(pattern.visibleProperties)+1}" style="background-color:#EEEEEE; padding: 2px;">
-			<input type="submit" name="nuovo" value="Nuovo" class="button" />
+			<input type="submit" name="_eventId_new" value="<fmt:message  key="button.new" />" class="button" />			
 		</td>
 	</tr>	
 
 	<tr class="header">
 		<c:forEach items="${r"${"}pattern.visibleProperties}" var="prop">
-			<td>
-				<fmt:message  key="${r"${"}prop.label}" /> 
-			</td>
+			<th class="iceTblHeader header1">
+				<span class="iceOutputText"><fmt:message  key="${r"${"}prop.label}" /></span>
+			</th>
 		</c:forEach>
-		<td/>
+		<th class="iceTblHeader header1"/>
 	</tr>
+	<c:if test="${r"${empty list}"}">
+		<tr class="rigaPari">
+			<td colspan="${r"${"}fn:length(pattern.visibleProperties)+1}">Nessun risultato disponibile</td>
+		</tr>
+	</c:if>	
 	<c:forEach items="${r"${"}list}" var="row" varStatus="status">
 		<tr class="${r"${"}status.index%2==0 ? 'rigaPari' : 'rigaDispari'}">
 			<c:forEach items="${r"${"}pattern.visibleProperties}" var="prop">
@@ -85,8 +82,9 @@
 				</td>
 			</c:forEach>
 			<td class="colonna">
-				<a href="${r"${"}flowExecutionUrl}&_eventId=edit&idx=${r"${"}status.index}" class="button">Edita</a>
-				<a href="${r"${"}flowExecutionUrl}&_eventId=cancel${model_name}&idx=${r"${"}status.index}" class="button">Cancella</a>
+				<a href="${r"${"}flowExecutionUrl}&_eventId=edit&idx=${r"${"}status.index}" class="button"><fmt:message  key="button.edit" /></a>
+				<a href="${r"${"}flowExecutionUrl}&_eventId=cancel${model_name}&idx=${r"${"}status.index}" class="button"
+					onclick="return confirm('Confermi la cancellazione?');"><fmt:message  key="button.delete" /></a>
 			</td>
 		</tr>
 	</c:forEach>
