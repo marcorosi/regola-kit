@@ -6,10 +6,7 @@
   	<persistence-context/>
   
 	<var name="${field(model_name)}" class="${model_class}" />
-	
 	<input name="${field(model_name)}Id" required="false"/>
-	
-
 	
 	<action-state id="newOrEdit">
     	<evaluate expression="${field(model_name)}Id eq null" />
@@ -21,14 +18,8 @@
 	</action-state>
 	
 	<view-state id="form" model="${field(model_name)}" view="${field(model_name)}-form">
-		<binder>
-			<binding property="id" required="true" />
-			<binding property="descrizioneInglese" required="true" />
-			<binding property="descrizioneItaliano" required="true" />
-		</binder>
-		<transition on="cancel${model_name}" to="cancel"/>
-		<transition on="save${model_name}" to="saveOrUpdate">
-			<!--<evaluate expression="formActions.validate('${mbean_form_name}Amendments.xml', ${field(model_name)})" />-->
+		<transition on="cancel" to="cancel" validate="false" />
+		<transition on="save" to="saveOrUpdate">
 		</transition>		
 	</view-state>
 	
@@ -40,7 +31,6 @@
     	</transition>
     	<transition on="no" to="confirm" />
 	</action-state>
-	
 	
 	<end-state id="cancel" />
 	<end-state id="confirm" commit="true" />
