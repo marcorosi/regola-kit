@@ -67,7 +67,10 @@ public class CasProxyFilter extends AbstractProcessingFilter {
 				if (name.endsWith(TICKET_ATTRIBUTE_NAME))
 					password = (String) request.getAttribute(name);
 			}
-				
+		}
+		
+		if (password == null) {
+			password = (String) request.getAttribute(TICKET_ATTRIBUTE_NAME);
 		}
 		
 		if (password == null) {
