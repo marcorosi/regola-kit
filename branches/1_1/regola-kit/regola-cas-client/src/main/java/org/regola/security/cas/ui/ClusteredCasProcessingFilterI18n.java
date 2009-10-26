@@ -39,8 +39,9 @@ public class ClusteredCasProcessingFilterI18n extends CasProcessingFilter {
 			throws AuthenticationException {
 		String username = CAS_STATEFUL_IDENTIFIER;
 		String password = request.getParameter("ticket");
-		String sessionId = sessionIdExtractor.getSessionIdFromCookie(request);
-
+		//String sessionId = sessionIdExtractor.getSessionIdFromCookie(request);
+		String sessionId = sessionIdExtractor.getSessionId(request);
+		
 		if (password == null) {
 			password = "";
 		}
@@ -104,7 +105,7 @@ public class ClusteredCasProcessingFilterI18n extends CasProcessingFilter {
 
 		sendRedirect(request, response, targetUrl);
 	}
-
+	
 	private String aggiungiParametroLingua(String targetUrl,
 			HttpServletRequest request) {
 		String language = request.getParameter(getLanguageParameter());

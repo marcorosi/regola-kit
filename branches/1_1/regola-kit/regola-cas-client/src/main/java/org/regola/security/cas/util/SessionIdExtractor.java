@@ -13,6 +13,24 @@ public class SessionIdExtractor {
 		return ";"+sessionIdParamaterName+"=";
 	}
 	
+	/**
+	 * 26/10/09: aggiunto per rendere funzionante anche senza cookie
+	 * (prima si chiamava getSessionIdFromCookie)
+	 * 
+	 *  nota: non è stata testata per la proxy authentication
+	 */
+	public String getSessionId(HttpServletRequest request)
+	{
+		String sessionId = request.getSession().getId();
+		if(sessionId!=null) 
+			return sessionId;
+		else
+			//chiamata a quello che si faceva prima
+			//in realtà nn dovrebbe mai arrivarci perchè la sessione 
+			//se non esiste viene creata
+			return getSessionIdFromCookie(request);
+	}
+	
 	public String getSessionIdFromCookie(HttpServletRequest request) 
 	{
 		if(request.getCookies() != null)
