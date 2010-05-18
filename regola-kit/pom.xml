@@ -5,7 +5,7 @@
 	<groupId>org.regola</groupId>
 	<artifactId>regola-kit</artifactId>
 	<packaging>pom</packaging>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.1</version>
 	<name>REGOLA Toolkit</name>
 	<description>Regola conventional framework</description>
 	<url>http://code.google.com/p/regola-kit/</url>
@@ -75,18 +75,20 @@
 		</mailingList>
 	</mailingLists>
 	<modules>
+		<module>regola-cas-client</module>
+		<module>regola-codeassistence</module>
 		<module>regola-core</module>
 		<module>regola-dao</module>
-		<module>regola-security</module>
-		<module>regola-jsf</module>
-		<module>regola-jsf-components</module>
-		<module>regola-jsf-archetype</module>
-		<module>regola-validation</module>
 		<module>regola-event-broker</module>
-		<module>regola-rest</module>
-		<module>regola-codeassistence</module>
 		<!--module>regola-example-simple</module-->
+		<module>regola-jsf</module>
+		<module>regola-jsf-archetype</module>
+		<module>regola-jsf-components</module>
 		<!--module>regola-maven-plugin</module-->
+		<module>regola-rest</module>
+		<module>regola-security</module>
+		<module>regola-validation</module>
+		<module>regola-webapp-archetype</module>
 	</modules>
 	<build>
 		<plugins>
@@ -123,7 +125,7 @@
 	<properties>
 		<!--spring.version>2.0.7</spring.version-->
 		<spring.version>2.5.6</spring.version>
-		<regola.version>1.1-SNAPSHOT</regola.version>
+		<regola.version>1.1</regola.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>

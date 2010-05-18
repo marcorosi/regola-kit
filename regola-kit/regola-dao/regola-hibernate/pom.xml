@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.regola</groupId>
 		<artifactId>regola-dao</artifactId>
-		<version>1.1-SNAPSHOT</version>
+		<version>1.1</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>regola-hibernate</artifactId>
@@ -55,6 +55,7 @@
 		<dependency>
 			<groupId>${pom.groupId}</groupId>
 			<artifactId>regola-core</artifactId>
+			<version>${pom.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
