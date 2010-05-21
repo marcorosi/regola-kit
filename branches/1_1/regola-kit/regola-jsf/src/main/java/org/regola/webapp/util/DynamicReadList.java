@@ -1,7 +1,7 @@
 package org.regola.webapp.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.regola.model.ModelProperty;
 import org.regola.util.Ognl;
@@ -9,6 +9,8 @@ import org.regola.util.Ognl;
 public class DynamicReadList {
 
 	private static final long serialVersionUID = 1L;
+	
+	private static final String DATE_FORMAT = "dd/MM/yyyy";
 
 	public static String getCellValue(ModelProperty property, Object root) {
 		String column = property.getName();
@@ -19,7 +21,15 @@ public class DynamicReadList {
 		}
 
 		if (value != null)
-			return value.toString();
+		{
+			if(value instanceof Date)
+			{
+				SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+				return sdf.format(value);
+			}
+			else
+				return value.toString();
+		}
 
 		return "-";
 	}
