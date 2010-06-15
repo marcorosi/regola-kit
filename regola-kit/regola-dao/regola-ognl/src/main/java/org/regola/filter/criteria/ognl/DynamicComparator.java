@@ -21,7 +21,12 @@ public class DynamicComparator implements Comparator {
 			c1 = (Comparable) getValue(order.getPropertyName(), o1);
 			c2 = (Comparable) getValue(order.getPropertyName(), o2);
 			
-			int ret = c1.compareTo(c2);
+			int ret;
+			try {
+				ret = c1.compareTo(c2);
+			} catch (Exception e) {
+				ret = 0;
+			}
 			
 			if (!order.isAscending()) ret *=-1;
 			

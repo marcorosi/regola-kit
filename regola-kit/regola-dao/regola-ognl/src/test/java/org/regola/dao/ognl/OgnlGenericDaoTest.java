@@ -356,7 +356,13 @@ public class OgnlGenericDaoTest extends
 		assertEquals(new Integer(3), list.get(0).getId());
 		assertEquals(new Integer(2), list.get(1).getId());
 		assertEquals(new Integer(1), list.get(2).getId());
-		
+	
+		pattern.getVisibleProperties().clear();
+		pattern.addSortedProperty("firstName", Order.asc);
+		list.get(1).setId(null);
+		list.get(1).setFirstName(null);
+		list = customerDao.find(pattern);
+		assertEquals(3, list.size());		
 	}
 	
 	public void testOgnl()
