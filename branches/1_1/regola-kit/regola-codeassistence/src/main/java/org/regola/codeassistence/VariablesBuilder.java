@@ -52,6 +52,10 @@ public class VariablesBuilder {
 		
 		parameters.put("service_package", getPackageName(modelDescriptor)
 				+ ".service");
+		
+		parameters.put("controller_package", getPackageName(modelDescriptor)
+				+ ".controllers");
+		
 		parameters.put("service_impl_package", getPackageName(modelDescriptor)
 				+ ".service.impl");
 		parameters.put("mbean_package", getPackageName(modelDescriptor)
@@ -59,6 +63,9 @@ public class VariablesBuilder {
 
 		parameters.put("model_class", modelDescriptor.getType().getName());
 		parameters.put("model_name", modelDescriptor.getType().getSimpleName());
+		
+		parameters.put("model_package", modelDescriptor.getType().getPackage().getName());
+		
 		parameters.put("flow_name", Utils
 				.lowerFirstLetter(getStringValue("model_name")));
 		
@@ -67,6 +74,10 @@ public class VariablesBuilder {
 		
 		parameters.put("id_class", modelDescriptor.getIdentifierDescriptor()
 				.getPropertyType().getName());
+		
+		parameters.put("id_flex_class", modelDescriptor.getIdentifierDescriptor()
+				.getFlexType());
+		
 		parameters.put("id_name", modelDescriptor.getIdentifierDescriptor()
 				.getPropertyType().getSimpleName());
 
@@ -98,6 +109,11 @@ public class VariablesBuilder {
 		parameters.put("service_interface_name", modelDescriptor.getType()
 				.getSimpleName()
 				+ "Manager");
+		
+		parameters.put("controller_name", modelDescriptor.getType()
+				.getSimpleName()
+				+ "Controller");
+		
 		parameters.put("service_interface_class", cat("service_package",
 				"service_interface_name"));
 		parameters.put("service_impl_name", modelDescriptor.getType()

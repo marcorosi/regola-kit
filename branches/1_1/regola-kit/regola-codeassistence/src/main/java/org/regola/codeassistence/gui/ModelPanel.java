@@ -152,8 +152,12 @@ public class ModelPanel extends JPanel {
 				}
 				
 			});
+      
+      
 			if (this.children == null)
 				this.children = new File[0];
+      
+      Arrays.sort(this.children);
 		}
 
 		/**
