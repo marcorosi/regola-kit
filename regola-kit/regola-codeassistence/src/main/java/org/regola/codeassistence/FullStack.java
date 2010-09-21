@@ -33,7 +33,8 @@ public class FullStack {
 		options.addOption("x", false, "avvia l'interfaccia grafica swing");
 		options.addOption("g", true, "specifica i generatori da utilizzare separati da virgola");
 		options.addOption("c", true, "la classe di modello da utilizzare");
-		options.addOption("d", true, "la directory dove generare i file");
+		options.addOption("d", true, "la directory dove generare i file java");
+		options.addOption("f", true, "la directory dove generare i file flex");
 		options.addOption("s", false, "non scrive su disco: simulazione");
 		options.addOption("m", false, "master/detail, come: -g dao,modelPattern,properties,list-handler,list,form,form-handler");
 
@@ -78,6 +79,11 @@ public class FullStack {
 		else
 		{
 			env.setOutputDir(cmd.getOptionValue("d"));
+		}
+		
+		if (!cmd.hasOption("f"))
+		{
+			env.setFlexOutputDir(cmd.getOptionValue("f"));
 		}
 		
 		generate(env, ourOpt,generatorsString);

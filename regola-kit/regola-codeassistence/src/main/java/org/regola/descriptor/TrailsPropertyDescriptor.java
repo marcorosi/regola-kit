@@ -288,4 +288,34 @@ public class TrailsPropertyDescriptor extends TrailsDescriptor implements IPrope
 		return false;
 	}
 
+	@Override
+	public String getFlexType() {
+
+		if (getPropertyType().getName().endsWith(".String"))
+			return "String";
+		if (getPropertyType().getName().endsWith(".Double"))
+			return "Number";
+		if (getPropertyType().getName().endsWith(".Long"))
+			return "Number";
+		if (getPropertyType().getName().endsWith(".Date"))
+			return "Date";
+		else if (getPropertyType().getName().endsWith(".Integer"))
+			return "int";
+		else if (getPropertyType().getName().endsWith(".Float"))
+			return "Number";
+		else if (getPropertyType().getName().endsWith("double"))
+			return "Number";
+		else if (getPropertyType().getName().endsWith("float"))
+			return "Number";
+		else if (getPropertyType().getName().endsWith(".BigDecimal"))
+			return "Number";
+		else if (getPropertyType().getName().endsWith("boolean"))
+			return "Boolean";
+		else if (getPropertyType().getName().endsWith("char"))
+			return "String";
+		else if (getPropertyType().getName().endsWith(".Byte"))
+			return "uint";
+		else return getPropertyType().getName();
+	}
+
 }

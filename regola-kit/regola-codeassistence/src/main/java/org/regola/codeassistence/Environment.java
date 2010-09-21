@@ -137,6 +137,10 @@ public class Environment {
 	public String getJavaSrcPath() {
 		return "src/main/java";
 	}
+
+	private String getFlexSrcPath() {
+		return "src";
+	}
 	
 	public String getJavaTestSrcPath() {
 		return "src/test/java";
@@ -190,6 +194,8 @@ public class Environment {
 
 			StringWriter writer = new StringWriter();
 			writer.append("// file " + path);
+			
+			writer.append("\n" );
 
 			template.process(root, writer);
 			
@@ -277,6 +283,22 @@ public class Environment {
 		writeFile(getJavaSrcPath()+"/"+Utils.getPackagePath(packageName)+"/", fileName+".java", template, root);
 	}
 	
+	public void writeFlexSource(String packageName, String fileName, Template template,
+			Map<String, Object> root) 
+	{
+		writeFlexSource(packageName, fileName, template, root, null);
+	}
+	
+	public void writeFlexSource(String packageName, String fileName, 
+			Template template, Map<String, Object> root, Object value) 
+	{
+		ValueReader reader = new ValueReader(value);
+		root.put("reader", reader);
+
+		writeFile(getFlexSrcPath()+"/"+Utils.getPackagePath(packageName)+"/", fileName+".as3", template, root);
+	}
+	
+
 	public void writeJavaTestSource(String packageName, String fileName, 
 			Template template, Map<String, Object> root, Object value) 
 	{
@@ -839,5 +861,17 @@ public class Environment {
 	public Map<String,String> getSimulationMap() {
 		return simulationMap;
 	}
+
+	public void setFlexOutputDir(String flexOutputDir) {
+		this.flexOutputDir = flexOutputDir;
+	}
+
+	public String getFlexOutputDir() {
+		return flexOutputDir;
+	}
+
+
+
+	private String flexOutputDir;
 
 }
