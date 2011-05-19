@@ -1,4 +1,4 @@
-package org.regola.util;
+package org.regola.util; 
 
 import java.util.List;
 

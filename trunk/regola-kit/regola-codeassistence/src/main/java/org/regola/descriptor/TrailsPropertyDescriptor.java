@@ -15,265 +15,233 @@ package org.regola.descriptor;
  * Adapetd from org.trails.descriptor.TRailsProperyDescriptor
  */
 
-
 import org.apache.commons.lang.builder.EqualsBuilder;
-
-
 
 /**
  * @author fus8882
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
+ * 
+ *         TODO To change the template for this generated type comment go to
+ *         Window - Preferences - Java - Code Style - Code Templates
  */
 @SuppressWarnings("unchecked")
-public class TrailsPropertyDescriptor extends TrailsDescriptor implements IPropertyDescriptor
-{
-    /**
+public class TrailsPropertyDescriptor extends TrailsDescriptor implements
+		IPropertyDescriptor {
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6647716275043294549L;
 
 	private boolean searchable = true;
-    
-    private boolean required;
-    
-    private boolean readOnly;
-    
-    private String name;
-    
-    private int index = UNDEFINED_INDEX;
-    
-    private int length = DEFAULT_LENGTH;
-    
-    private boolean large;
-    
-    private String format;
 
-    private boolean summary = true;
-    
-    private boolean richText;
-    
-    private Class beanType;
-    
-    public int getIndex()
-    {
-        return index;
-    }
+	private boolean required;
 
-    public void setIndex(int index)
-    {
-        this.index = index;
-    }
+	private boolean readOnly;
 
-    /** 
-     * It's kinda like an old-skool C++ copy constructor
-     *
-     */
-    public TrailsPropertyDescriptor(Class beanType, IPropertyDescriptor descriptor)
-    {
-        this(beanType, descriptor.getPropertyType());
-        copyFrom(descriptor);
-    }
-    
-    public TrailsPropertyDescriptor(Class beanType, Class type)
-    {
-        super(type);
-    	this.beanType = beanType;
-    }
+	private String name;
 
-    public TrailsPropertyDescriptor(Class beanType, String name, Class type)
-    {
-        this(beanType, type);
-        this.name = name;
-        setDisplayName(name);
-    }
-    
-    /**
-     * @return
-     */
-    public Class getPropertyType()
-    {
-        return getType();
-    }
+	private int index = UNDEFINED_INDEX;
 
-    /**
-     * @return
-     */
-    public boolean isNumeric()
-    {
-        return getPropertyType().getName().endsWith("Double") ||
-        getPropertyType().getName().endsWith("Integer") ||
-        getPropertyType().getName().endsWith("Float") ||
-        getPropertyType().getName().endsWith("double") ||
-        getPropertyType().getName().endsWith("int") ||
-        getPropertyType().getName().endsWith("float") ||
-        getPropertyType().getName().endsWith("BigDecimal");
-    }
+	private int length = DEFAULT_LENGTH;
 
-    public boolean isBoolean()
-    {
-        return getPropertyType().getName().endsWith("boolean") ||
-        	getPropertyType().getName().endsWith("Boolean");
-    }
-    /**
-     * @return
-     */
-    public boolean isDate()
-    {
-        // TODO Auto-generated method stub
-        return getPropertyType().getName().endsWith("Date");
-    }
+	private boolean large;
 
-    /**
-     * @return
-     */
-    public boolean isString()
-    {
-        // TODO Auto-generated method stub
-        return getPropertyType().getName().endsWith("String");
-    }
+	private String format;
 
-    /**
-     * @return
-     */
-    public boolean isObjectReference()
-    {
-        return false;
-    }
-    
-    /**
-     * @return Returns the required.
-     */
-    public boolean isRequired()
-    {
-        return required;
-    }
-    
-    /**
-     * @param required The required to set.
-     */
-    public void setRequired(boolean required)
-    {
-        this.required = required;
-    }
+	private boolean summary = true;
 
-    /**
-     * @return
-     */
-    public boolean isReadOnly()
-    {
-        return readOnly;
-    }
-    
-    /**
-     * @param readOnly The readOnly to set.
-     */
-    public void setReadOnly(boolean readOnly)
-    {
-        this.readOnly = readOnly;
-    }
-    
-    /**
-     * @return
-     */
-    public String getName()
-    {
-        return name;
-    }
+	private boolean richText;
 
-    /**
-     * @return Returns the identifier.
-     */
-    public boolean isIdentifier()
-    {
-        return false;
-    }
+	private Class beanType;
 
-    /**
-     * @return Returns the collection.
-     */
-    public boolean isCollection()
-    {
-        return false;
-    }
+	public int getIndex() {
+		return index;
+	}
 
-    public void setName(String name)
-    {
-        this.name = name;
-    }
+	public void setIndex(int index) {
+		this.index = index;
+	}
 
-    @Override
-    public Object clone()
-    {
-        return new TrailsPropertyDescriptor(beanType, this);
-    }
+	/**
+	 * It's kinda like an old-skool C++ copy constructor
+	 * 
+	 */
+	public TrailsPropertyDescriptor(Class beanType,
+			IPropertyDescriptor descriptor) {
+		this(beanType, descriptor.getPropertyType());
+		copyFrom(descriptor);
+	}
 
-    @Override
-	public boolean equals(Object obj)
-    {
-        return EqualsBuilder.reflectionEquals(this, obj);
-    }
+	public TrailsPropertyDescriptor(Class beanType, Class type) {
+		super(type);
+		this.beanType = beanType;
+	}
 
-    public int getLength()
-    {
-        return length;
-    }
+	public TrailsPropertyDescriptor(Class beanType, String name, Class type) {
+		this(beanType, type);
+		this.name = name;
+		setDisplayName(name);
+	}
 
-    public void setLength(int length)
-    {
-        this.length = length;
-    }
+	/**
+	 * @return
+	 */
+	public Class getPropertyType() {
+		return getType();
+	}
 
-    public boolean isLarge()
-    {
-        return large;
-    }
+	/**
+	 * @return
+	 */
+	public boolean isNumeric() {
+		return getPropertyType().getName().endsWith("Double")
+				|| getPropertyType().getName().endsWith("Integer")
+				|| getPropertyType().getName().endsWith("Float")
+				|| getPropertyType().getName().endsWith("double")
+				|| getPropertyType().getName().endsWith("int")
+				|| getPropertyType().getName().endsWith("float")
+				|| getPropertyType().getName().endsWith("BigDecimal");
+	}
 
-    public void setLarge(boolean large)
-    {
-        this.large = large;
-    }
+	public boolean isBoolean() {
+		return getPropertyType().getName().endsWith("boolean")
+				|| getPropertyType().getName().endsWith("Boolean");
+	}
 
-    public String getFormat()
-    {
-        return format;
-    }
+	/**
+	 * @return
+	 */
+	public boolean isDate() {
+		// TODO Auto-generated method stub
+		return getPropertyType().getName().endsWith("Date");
+	}
 
-    public void setFormat(String format)
-    {
-        this.format = format;
-    }
+	/**
+	 * @return
+	 */
+	public boolean isString() {
+		// TODO Auto-generated method stub
+		return getPropertyType().getName().endsWith("String");
+	}
 
-    public boolean isSearchable()
-    {
-        return searchable;
-    }
+	/**
+	 * @return
+	 */
+	public boolean isObjectReference() {
+		return false;
+	}
 
-    public void setSearchable(boolean searchable)
-    {
-        this.searchable = searchable;
-    }
+	/**
+	 * @return Returns the required.
+	 */
+	public boolean isRequired() {
+		return required;
+	}
 
-    public boolean isSummary()
-    {
-        return summary;
-    }
+	/**
+	 * @param required
+	 *            The required to set.
+	 */
+	public void setRequired(boolean required) {
+		this.required = required;
+	}
 
-    public void setSummary(boolean summary)
-    {
-        this.summary = summary;
-    }
+	/**
+	 * @return
+	 */
+	public boolean isReadOnly() {
+		return readOnly;
+	}
 
-    public boolean isRichText()
-    {
-        return richText;
-    }
+	/**
+	 * @param readOnly
+	 *            The readOnly to set.
+	 */
+	public void setReadOnly(boolean readOnly) {
+		this.readOnly = readOnly;
+	}
 
-    public void setRichText(boolean richText)
-    {
-        this.richText = richText;
-    }
+	/**
+	 * @return
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @return Returns the identifier.
+	 */
+	public boolean isIdentifier() {
+		return false;
+	}
+
+	/**
+	 * @return Returns the collection.
+	 */
+	public boolean isCollection() {
+		return false;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public Object clone() {
+		return new TrailsPropertyDescriptor(beanType, this);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+
+	public int getLength() {
+		return length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
+	}
+
+	public boolean isLarge() {
+		return large;
+	}
+
+	public void setLarge(boolean large) {
+		this.large = large;
+	}
+
+	public String getFormat() {
+		return format;
+	}
+
+	public void setFormat(String format) {
+		this.format = format;
+	}
+
+	public boolean isSearchable() {
+		return searchable;
+	}
+
+	public void setSearchable(boolean searchable) {
+		this.searchable = searchable;
+	}
+
+	public boolean isSummary() {
+		return summary;
+	}
+
+	public void setSummary(boolean summary) {
+		this.summary = summary;
+	}
+
+	public boolean isRichText() {
+		return richText;
+	}
+
+	public void setRichText(boolean richText) {
+		this.richText = richText;
+	}
 
 	public Class getBeanType() {
 		return beanType;
@@ -283,9 +251,38 @@ public class TrailsPropertyDescriptor extends TrailsDescriptor implements IPrope
 		this.beanType = beanType;
 	}
 
-	public boolean isEmbedded()
-	{
+	public boolean isEmbedded() {
 		return false;
+	}
+
+	@Override
+	public String getFlexType() {
+
+		if (getPropertyType().getName().endsWith(".String"))
+			return "String";
+		if (getPropertyType().getName().endsWith(".Double"))
+			return "Number";
+		if (getPropertyType().getName().endsWith(".Long"))
+			return "Number";
+		if (getPropertyType().getName().endsWith(".Date"))
+			return "Date";
+		else if (getPropertyType().getName().endsWith(".Integer"))
+			return "int";
+		else if (getPropertyType().getName().endsWith(".Float"))
+			return "Number";
+		else if (getPropertyType().getName().endsWith("double"))
+			return "Number";
+		else if (getPropertyType().getName().endsWith("float"))
+			return "Number";
+		else if (getPropertyType().getName().endsWith(".BigDecimal"))
+			return "Number";
+		else if (getPropertyType().getName().endsWith("boolean"))
+			return "Boolean";
+		else if (getPropertyType().getName().endsWith("char"))
+			return "String";
+		else if (getPropertyType().getName().endsWith(".Byte"))
+			return "uint";
+		else return getPropertyType().getName();
 	}
 
 }
