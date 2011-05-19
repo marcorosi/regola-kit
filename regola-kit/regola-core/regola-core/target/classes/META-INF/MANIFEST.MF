@@ -21,7 +21,11 @@ Export-Package: org.regola.finder.support;uses:="org.springframework.a
  la.filter.criteria",org.regola.filter.annotation,org.regola.dao.impl;
  uses:="org.regola.model,org.regola.filter,org.regola.finder,org.regol
  a.dao,org.regola.filter.impl",org.regola.filter.criteria
-Private-Package: regola-core.target.classes.META-INF
+Private-Package: org.regola.finder.support,org.regola.util,org.regola.
+ filter.criteria.criterion,org.regola.finder,org.regola.filter.criteri
+ a.impl,org.regola.dao,org.regola.filter.impl,org.regola.filter.handle
+ r,org.regola.model,org.regola.filter,org.regola.filter.annotation,org
+ .regola.dao.impl,org.regola.filter.criteria,
 Ignore-Package: org.regola.finder.support,org.regola.util,org.regola.f
  ilter.criteria.criterion,org.regola.filter.criteria.impl,org.regola.f
  inder,org.regola.dao,org.regola.filter.impl,org.regola.filter.handler
@@ -30,17 +34,17 @@ Ignore-Package: org.regola.finder.support,org.regola.util,org.regola.f
 Built-By: nicola
 Tool: Bnd-0.0.311
 Bundle-Name: Regola Core
-Import-Library: org.springframework.spring;version="[2.5.6.A,2.5.6.A]"
+Import-Library: org.springframework.spring;version="[2.5.6,2.5.6]"
 Created-By: Apache Maven Bundle Plugin
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Import-Bundle: com.springsource.org.ognl;version="[2.6.9,2.6.9]"
-Build-Jdk: 1.6.0_24
+Build-Jdk: 1.6.0_07
 Bundle-Version: 1.2.0.SNAPSHOT
-Bnd-LastModified: 1305723127745
+Bnd-LastModified: 1251798922025
 Bundle-ManifestVersion: 2
-Bundle-Description: Regola Toolkit Core
 Bundle-License: http://www.gnu.org/licenses/gpl-3.0.txt
-Import-Package: ognl;version="2.6",org.aopalliance.aop;version="1.0",o
+Bundle-Description: Regola Toolkit Core
+Import-Package: org.aopalliance.aop;version="1.0",o
  rg.aopalliance.intercept;version="1.0",org.apache.commons.logging;ver
  sion="1.1",org.springframework.aop;version="2.5",org.springframework.
  aop.framework;version="2.5",org.springframework.aop.support;version="
@@ -48,5 +52,4 @@ Import-Package: ognl;version="2.6",org.aopalliance.aop;version="1.0",o
  s.factory;version="2.5",org.springframework.beans.factory.config;vers
  ion="2.5",org.springframework.util;version="2.5"
 Bundle-SymbolicName: org.regola.core
-Originally-Created-By: Apache Maven Bundle Plugin
 
