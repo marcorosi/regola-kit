@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:v="http://corejsf.com/validator">
+<ui:composition>      
+<table class="bordoRosso" cellpadding="0" cellspacing="0" width="100%">
+	<tbody>
+		<tr>
+			<td>
+			<table class="redBoxHeader" cellspacing="0" cellpadding="4"
+				width="100%">
+				<tr>
+					<td><ui:insert name="titolobarra">titolo barra</ui:insert></td>
+				</tr>
+			</table>
+			<table class="corpo" cellspacing="0" cellpadding="4"
+				width="100%">
+				<tr>
+					<td><ui:insert name="corpo" /></td>
+				</tr>
+			</table>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</ui:composition>
+</html>

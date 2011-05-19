@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>regola-dao</artifactId>
+		<groupId>org.regola</groupId>
+		<version>1.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>regola-ibatis</artifactId>
+	<name>REGOLA Toolkit :: DAO :: iBATIS module</name>
+	<description>REGOLA Toolkit :: DAO :: iBATIS module</description>
+	
+	<dependencies>
+		<dependency>
+			<groupId>${pom.groupId}</groupId>
+			<artifactId>regola-core</artifactId>
+			<version>${pom.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-mock</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>${pom.groupId}</groupId>
+			<artifactId>regola-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-ibatis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+		</dependency>
+	</dependencies>
+</project>
+

@@ -1,0 +1,121 @@
+% This file was converted to LaTeX by Writer2LaTeX ver. 0.4
+% see http://www.hj-gym.dk/~hj/writer2latex for more info
+\documentclass[12pt,twoside]{article}
+\usepackage[ascii]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+\usepackage{color}
+\usepackage{calc}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, filecolor=blue, pagecolor=blue, urlcolor=blue}
+% Outline numbering
+\setcounter{secnumdepth}{0}
+% List styles
+\newcommand\liststyleLi{%
+\renewcommand\labelitemi{[25CF?]}
+\renewcommand\labelitemii{[25CB?]}
+\renewcommand\labelitemiii{[25A0?]}
+\renewcommand\labelitemiv{[25CF?]}
+}
+% Pages styles (master pages)
+\makeatletter
+\newcommand\ps@Standard{%
+\renewcommand\@oddhead{}%
+\renewcommand\@evenhead{}%
+\renewcommand\@oddfoot{}%
+\renewcommand\@evenfoot{}%
+\setlength\paperwidth{20.999cm}\setlength\paperheight{29.699cm}\setlength\voffset{-1in}\setlength\hoffset{-1in}\setlength\topmargin{2cm}\setlength\headheight{12pt}\setlength\headsep{0cm}\setlength\footskip{12pt+0cm}\setlength\textheight{29.699cm-2cm-2cm-0cm-12pt-0cm-12pt}\setlength\oddsidemargin{2cm}\setlength\textwidth{20.999cm-2cm-2cm}
+\renewcommand\thepage{\arabic{page}}
+\setlength{\skip\footins}{0.101cm}\renewcommand\footnoterule{\vspace*{-0.018cm}\noindent\textcolor{black}{\rule{0.25\columnwidth}{0.018cm}}\vspace*{0.101cm}}
+}
+\makeatother
+\pagestyle{Standard}
+\begin{document}
+\subsection{EJB: la delusione}
+La versione 1.0 \`e stata rilasciata nel 1998. Le versione 2.0 ha
+aggiunto i message driven bean. 
+
+Tra le caratteristiche pi\`u appetibili transazioni e sicurezza definite
+in modo dichiarativo.
+
+
+\bigskip
+
+Ma la delusione era dietro l{\textquotesingle}angolo. Pur risolvendo
+diversi problemi gli EJB aprivano la strada ad altri forse pi\`u grosse
+difficolt\`a tanto che iniziavano a vedersi dei libri che spiegavano
+come risolvere questi nuovi problemi piuttosto che concentrarsi su come
+realizzare un migliore design.
+
+
+\bigskip
+
+I problemi pi\`u grossi e derivati sono:
+
+\liststyleLi
+\begin{enumerate}
+\item richiedono un container per funzionare
+
+\begin{enumerate}
+\item ciclo edit{}-compile{}-debug pi\`u lungo
+\item maggiore difficolt\`a nel testare una parte alla volta
+\end{enumerate}
+\item gli entity hanno limitazioni gravi: (1a) non prevedono
+l{\textquotesingle}ereditariet\`a, (1b) non supportano chiamate
+ricorsive o di loopback, \ (2) non conviene passarli ai client \ e a
+volte \`e impossibile perch\'e sono oggetti transazionali collegati al
+motore di persistenza.)
+
+\begin{enumerate}
+\item impediscono di realizzare un modello ricco
+\item spingono ad uno sviluppo di tipo procedurale, piuttosto che
+orientato agli oggetti
+\item l{\textquotesingle}utilizzo pi\`u comodo porta a realizzare
+modelli anemici
+\item dto per il problema (2)
+\end{enumerate}
+\item richiedono molto codice per funzionare (home interface, component
+interface, remote interface, il bean ed i descrittori)
+\end{enumerate}
+
+\bigskip
+
+
+\bigskip
+
+\liststyleLi
+\begin{enumerate}
+\item[] 
+\bigskip
+
+
+\bigskip
+\end{enumerate}
+
+\bigskip
+
+
+\bigskip
+\end{document}
+
+
+
+\begin{bash}
+La societ aperta e aperta a piu valori, a piu visioni del mondo filosofiche e a piu fedi religiose, ad una molteplicita di proposte per la soluzione di problemi concreti e alla maggior quantita di critica. La societa aperta e aperta al maggior numero possibile di idee e ideali differenti, e magari contrastanti. Ma, pena la sua autodissoluzione, non di tutti: la societ aperta e chiusa solo agli intolleranti.
+(Karl R. Popper, La societa aperta e i suoi nemici, Vol. I, Platone totalitario, dalla IV di copertina.)
+\end{bash}
+
+Non credo sia necessario abbracciare in toto la posizione filosofica nota come Relativismo per cogliere di quanto varino costumi e valori anche solo viaggiando nel spazio oggi: ogni società è unica, ogni costume trova giustificazione nel contesto in cui si è formato ed in questa diversità e di questa diversità  si alimenta e prolifera il sapere umano. Se poi si azzardassero dei viaggi non solo nello spazio ma nelle profondità del tempo il nostro stupore si amplierebbe risalendo controcorrente il fiume dei secoli secoli. Il sistema di valori che assegna un  giudizio positivo di un condottiero militare quale Alessandro Magno come avrebbe giudicato il Mahatma Gandhi? Quale sono le imprese per cui un padre (poté e possa) essere orgoglioso dei propri figli? Quale il modo  etico di legiferare ed il concetto stesso di qualità di una casa od una vita intera come si è modificato attraversando anni di evoluzioni? Quale risposte possiate proporre a queste domande tutte dovranno, se non spiegare, scendere a compromessi con la variazione, la moda, il prendere atto che è tradizione che le cose cambino: è il panta rei di Eraclito, il tema eterno del divenire che procede spesso gradualmente mentre a volte in modo netto, traumatico. Ed è proprio lungo questa linea evanescente e discontinua che separa il nuovo corso (ancora impreciso e difficile da definire) dalla vecchia maniera (ancora presente ma senza più i favori del Tempo)  destinata a scomparire;  lungo questa linea che si dispongono schieramenti di persone in antitesi, a volte in conflitto aperto, cercando di lottare per quello in cui credono. Le une, come le altre senza alcuna garanzia di avere ragione e senza sfere di cristallo che li rinsaldino nelle loro convinzioni: solo passione, l'illuminisme ed il sentimento. Poca cosa, si dirà però è quello che è dato al genere umano ed è quanto basta in mano ad uomini e donne di valore.
+Un esempio di questo genere di confronto si è avuto nel XIV secolo all'interno del mondo letterario nella penisola italica tra lingua latina e lingua volgare. Un intellettuale fiorentino destinato ad una fama mondiale immensa chiamato Dante Alighieri partecipò allo scontro e scrisse un saggio a titolo de vulgari eloquentia. Il testo curiosamente è scritto in latino (perché destinato a dotti ed intellettuali dell'epoca) ma sostiene l'importanza e la dignità della lingua volgare proprio contro il latino (ed il greco). Ecco un passaggio tradotto in volgare del primo libro:
+
+I-i-4 Di queste due lingue la più nobile è la volgare: intanto perché è stata adoperata per prima dal genere umano; poi perché il mondo intero ne fruisce, benché sia differenziata in vocaboli e pronunce diverse; infine per il fatto che ci è naturale, mentre l'altra è, piuttosto, artificiale. 
+
+Una difesa delle lingue apprese in modo naturale, dalle nostre madri, quando ancora bambini muoviamo i primi passi nel mondo ed impariamo a chiamare le cose con il nome che gli uomini hanno attribuito loro. La lingua che utilizziamo tutti i giorni nelle miserie del quotidiano ma anche la lingua con cui ci dichiariamo ai nostri amati, con cui consoliamo i nostri figli e con cui cerchiamo di riempire il silenzio dell'infinito stellato. La lingua che l'Alighieri avrebbe usato poi per scrivere i suoi sonetti e la sua Commedia dimostrando così come il volgare non avesse nulla da invidiare all'accademico latino in quanto ad espressività, completezza: una lingua aulica, forgiata dal basso ed utilizzata da gente comune così come da poeti e letterati per il lavoro quotidiano e la più alta poesia.
+
+Nello sviluppo in Java si è presentata una situazione per diversi tratti simile al panorama letterario italiano del XIV secolo. Fino al 1998 (ed oltre) si utilizzava Java seguendo l'imperante tradizione della progettazione ad oggetti; costrutti linguistici e tecniche come l'ereditarietà ed il polimorfismo venivano utilizzate per affrontare e risolvere in modo eleganti i problemi affrontati. Ogni intervento era realizzato nella cornice teorica di principi come l'Open/Closed, il principio di inversione delle dipendenze, il principio di sostituzione di Liskov ad altri ancora oggi del tutto validi ed accreditati. Con l'esplosione poi del movimento dei design pattern (come riferimento Gof del 1995) la scrittura raggiunse livelli di raffinatezza elevatissimi con architetture complesse ma intuitive e facili da mantenere ed espandere; inoltre la capacità di descrivere problemi e soluzioni in modo universalmente accettato ampliarono la banda di comunicazione tra i le persone coinvolte nello sviluppo in modo inaudito. Annotare una classe come implementazione, ad esempio, del pattern Facade consentiva a chiunque di comprendere il problema affrontato (dare una vista semplificata di un sottosistema complesso) e la soluzione messa in piedi (una classe ritagliata sulle esigenze dei client). Si andava diffondendo un modo di utilizzare Java come linguaggio di pattern e questo consentì di progettare soluzioni incredibili e di spostare il discorso dell'analisi fino ai confini stessi della progettazione ad oggetti, cogliendone i limiti e proponendo soluzioni complementari note poi come progettazione orientata agli aspetti.
+Proprio in questo contesto di ricerca febbrile e risultati poderosi che nel 1998 calano dall'alto delle torri di Sun (l'azienda che Java aveva inventato pochi anni prima) delle specifiche contenenti  le applicazioni serie, quelle destinate alle aziende che si propongono sfide impegnative sia come scalabilità che come manutenzione. Queste specifiche presero il nome di J2EE (ora si chiamano JEE) ed arrivarono come le tavole di pietra della legge di Mosè: ovvero contenevano la verità ed il giusto modo. Tutto quello che si era fatto e si faceva doveva cessare, mutare, adattarsi perché J2EE era la sola via corretta per affrontare problemi complessi. A distanza di 1700 anni si ripresentava aulica ed imposto dall'autorità la scrittura latina: ancora una volta artificiale, ancora una volta appannaggio di pochi intellettuali, ancora una volta scelta imposta.
+In verità, mentre nei corsi universitari fiorivano corsi dedicati a J2EE,  nella pratica quotidiana il numero di applicazioni che lo utilizzava rappresentava un minoranza quasi esoterica. Infatti in pochi erano disposti ad accettare (o permettersi finanziariamente) i limiti che questo stack tecnologico imponeva; ad esempio non è mai stato possibile trovare un buon motivo per rinunciare all'ereditarietà. Così come è sempre parso innaturale la segregazione del modello all'interno dei confini degli EJB server senza poterli passare ai livelli di presentazione se non sotto forma di anemici delegati a nome DTO. Inoltre mentre i tempi di sviluppo salivano a causa delle lunghe attese per i riavvii degli application server si constatava con amarezza come J2EE rendesse difficile se non impossibile una metodologia di sviluppo nota come Test Driven Developement che aveva dato invece buona prova di sé nella creazione di applicazioni robuste.
+A causa di questi, ed altri motivi, apparve di nuovo la linea effimera di separazione tra fazioni apposte e lo schieramento della lingua volgare fece il suo ritorno. Anche questa volta si presentava come un linguaggio naturale, costruito dal basso per risolvere problemi concreti ma capace di accettare e vincere le sfide più complesse delle applicazioni aziendali. Anche questa volta intellettuali capaci si schierarono in difesa del volgare. Tra questi Rod Johson che fornì gli strumenti per affrontare in modo elegante, efficace, sistematico ed economicamente vantaggioso le sfide offerte dalle applicazioni aziendali progettando e rilasciando come open source il framework chiamato Spring. La scelta dell'open source è stata fondamentale per il successo di Spring in quanto ha consentito di integrare assieme tutte le soluzioni che la comunità aveva realizzato in quegli anni come risposta a J2EE tra cui ricordo solo Hibernate ed iBatis ma potrei parlare delle librerie commons, struts, tomcat e molti altri. In contrasto con J2EE Spring si fece chiamare contenitore leggero (o invertito) ed i mattoni di cui si componeva lo sviluppo classi Pojo, ovvero Plain Old Java Object per rimarcarne la semplicità e la tradizione legata alla progettazione ad oggetti.
+Il successo di mercato di Spring fu velocissimo ed imponente: applicazioni finanziarie, aeroportuali, governative, mediche, bancarie furono realizzate in tutto il mondo dimostrando l'efficacia del modello proposto. Il riscontro fu tale che la Sun stessa decise (tardivamente e parzialmente) di riadattare J2EE sottoponendolo ad una clamorosa inversione di orientamento architetturale  per spingerlo ad abbracciare temi come Pojo Programming ed iniezione delle dipendenze. La portata del dietro front fu tale che anche il nome cambio in JEE e tutto lo stack tecnologico ufficiale iniziò il percorso che Spring aveva inaugurato molti anni prima e che forse un giorno poterà i due antagonisti a somigliarsi al punto dal diventare di fatto la stessa cosa. Ma questo solo quando JEE recupererà il tempo perso e solo se Spring dovesse arrestare la sua evoluzione.
+

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mvn hibernate3:hbm2java hibernate3:hbm2hbmxml hibernate3:hbm2cfgxml

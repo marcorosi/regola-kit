@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+<body>
+<ui:composition template="/common/anonimo.xhtml">
+	<ui:define name="titolo">
+		<ice:outputText value="#{msg['invoice.title']}" />
+	</ui:define>
+	<ui:define name="sottotitolo">
+		<ice:outputText value="#{msg['invoice.subtitle']}" />
+	</ui:define>
+	<ui:define name="titolobarra">
+		<ice:outputText value="#{msg['invoice.bartitle']}" />
+	</ui:define>
+  
+	<ui:define name="corpo">
+
+		<!-- dialog per item -->
+		<ui:insert name="itemDlg">
+			<ui:include src="./dialogs/itemDialog.xhtml" />
+		</ui:insert>
+
+		<ice:form id="invFrm">
+		<ice:inputText id="originalId" value="#{invoiceForm.formPage.originalId}" visible="false" />
+		<ice:outputConnectionStatus style="align: right;"/>
+			<ice:panelGroup>
+				<ice:panelGrid columns="4">
+			
+					<!-- customer 
+					<ice:outputText value="#{msg['invoice.column.customer']}" />
+					<ice:inputText  value="#{invoiceForm.formPage.model.customer}">
+					</ice:inputText>
+					<ice:outputText value=" " />
+					<ice:outputText value="#{invoiceForm.formPage.errors['customer']}" />
+					-->	
+					
+					<ice:outputText value="#{msg['customer.column.firstName']}" />
+					<ice:inputText  value="#{invoiceForm.formPage.model.customer.firstName}">
+					</ice:inputText>
+					<ice:outputText value=" " />
+					<ice:outputText value="#{invoiceForm.formPage.errors['firstName']}" />
+					
+					<ice:outputText value="#{msg['customer.column.lastName']}" />
+					<ice:inputText  value="#{invoiceForm.formPage.model.customer.lastName}">
+					</ice:inputText>
+					<ice:outputText value=" " />
+					<ice:outputText value="#{invoiceForm.formPage.errors['lastName']}" />														
+			
+					<!-- total -->
+					<ice:outputText value="#{msg['invoice.column.total']}" />
+					<ice:inputText  value="#{invoiceForm.formPage.model.total}">
+					</ice:inputText>
+					<ice:outputText value=" " />
+					<ice:outputText value="#{invoiceForm.formPage.errors['total']}" />
+		  			
+		           <ice:outputText value="#{invoiceForm.formPage.errore}" />
+					<ice:outputText value=" " />
+					<ice:outputText value=" " />
+					<ice:outputText value=" " />
+				</ice:panelGrid>
+				
+				<ice:panelGrid columns="1">	
+					<!-- inner list per gestione degli items della invoice -->
+					<ui:include src="./innerLists/item-innerList.xhtml" />
+					<ice:panelGrid columns="2">	
+						<ice:commandButton value="Salva"
+							styleClass="buttonNew"
+							action="#{invoiceForm.save}" />
+						<ice:commandButton value="Annulla"
+							styleClass="buttonNew"
+							immediate="true"
+							action="#{invoiceForm.cancel}" />
+					</ice:panelGrid>
+				</ice:panelGrid>				
+				
+			</ice:panelGroup>
+		</ice:form>
+	</ui:define>
+</ui:composition>
+</body>
+</html>

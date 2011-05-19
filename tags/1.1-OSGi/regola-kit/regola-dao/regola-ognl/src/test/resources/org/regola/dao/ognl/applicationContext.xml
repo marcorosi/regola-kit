@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<import resource="classpath:org/regola/dao/applicationContext.xml" />
+
+	<bean id="customer1" class="org.regola.model.Customer">
+	</bean>
+
+
+	<bean id="customerDao" scope="prototype"
+		class="org.regola.finder.FinderFactoryBean">
+		<property name="proxyInterfaces"
+			value="org.regola.dao.MemoryCustomerDao" />
+		<property name="target">
+			<bean id="customerDaoTarget"
+				class="org.regola.dao.ognl.OgnlGenericDao">
+				<constructor-arg value="org.regola.model.Customer" />
+
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="invoiceDao" class="org.regola.dao.ognl.OgnlGenericDao">
+		<constructor-arg value="org.regola.model.Invoice" />
+
+	</bean>
+
+
+</beans>

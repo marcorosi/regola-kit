@@ -1,0 +1,32 @@
+Manifest-Version: 1.0
+Export-Package: ${package}.dao;uses:="org.regola.dao"
+ ,${package}.model
+Private-Package: it.incodice.regola.examples.dao.internal,.
+Ignore-Package: it.incodice.regola.examples.dao,it.incodice.regola.exa
+ mples.model
+Built-By: nicola
+Tool: Bnd-0.0.311
+Import-Library: org.springframework.spring;version="[2.5.6.A,2.5.6.A]"
+ ,org.hibernate.ejb;version="[3.3.2.GA,3.3.2.GA]"
+Bundle-Name: Regola DAO Bundle
+Created-By: Apache Maven Bundle Plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Import-Bundle: org.regola.core;version="[1.2.0.SNAPSHOT,1.2.0.SNAPSHOT
+ ]",org.regola.hibernate;version="[1.2.0.SNAPSHOT,1.2.0.SNAPSHOT]"
+Require-Bundle: org.regola.core;version="[1.2.0.SNAPSHOT,1.2.0.SNAPSHO
+ T]",org.regola.hibernate;version="[1.2.0.SNAPSHOT,1.2.0.SNAPSHOT]",co
+ m.springsource.org.objectweb.asm.attrs;bundle-version="1.5.3",com.spr
+ ingsource.org.apache.commons.dbcp;bundle-version="1.2.2",com.springso
+ urce.net.sf.ehcache;bundle-version="1.5.0",com.springsource.oracle.jd
+ bc;bundle-version="10.2.0",org.springframework.jdbc;bundle-version="2
+ .5.6",com.springsource.edu.emory.mathcs.backport;bundle-version="3.1.
+ 0"
+Build-Jdk: 1.6.0_07
+Bundle-Version: 1.2.0.SNAPSHOT
+Bnd-LastModified: 1253114035535
+Bundle-ManifestVersion: 2
+Import-Package: javax.transaction;version="1.1",javax.transaction.xa;v
+ ersion="1.1",org.regola.dao,org.regola.dao.hibernate,org.springframew
+ ork.stereotype;version="2.5"
+Bundle-SymbolicName: ${package}
+
