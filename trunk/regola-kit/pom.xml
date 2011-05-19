@@ -76,7 +76,9 @@
 	</mailingLists>
 	<modules>
 		<module>regola-core</module>
-		<module>regola-dao</module>
+		<!--module>regola-dao</module-->
+		<!--module>regola-codeassistence</module-->
+
 		<!--		<module>regola-security</module>-->
 		<!--		<module>regola-jsf</module>-->
 		<!--		<module>regola-jsf-components</module>-->
@@ -84,7 +86,6 @@
 		<!--		<module>regola-validation</module>-->
 		<!--		<module>regola-event-broker</module>-->
 		<!--		<module>regola-rest</module>-->
-		<!--		<module>regola-codeassistence</module>-->
 
 		<!--module>regola-maven-plugin</module-->
 	</modules>
