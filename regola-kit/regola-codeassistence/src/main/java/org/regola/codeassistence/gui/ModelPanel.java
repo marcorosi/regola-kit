@@ -152,8 +152,12 @@ public class ModelPanel extends JPanel {
 				}
 				
 			});
+      
+      
 			if (this.children == null)
 				this.children = new File[0];
+      
+      Arrays.sort(this.children);
 		}
 
 		/**
@@ -340,7 +344,7 @@ public class ModelPanel extends JPanel {
 		protected void handleFile(File file, int depth, Collection results) {
 
 			String parent = file.getParent();
-			if (parent.contains("model") && file.getName().endsWith(".java")) {
+			if ( (parent.contains("model") || (parent.contains("dto") )) && file.getName().endsWith(".java")) {
 				File parentDir = new File(parent);
 				if (!results.contains(parentDir))
 					results.add(parentDir);

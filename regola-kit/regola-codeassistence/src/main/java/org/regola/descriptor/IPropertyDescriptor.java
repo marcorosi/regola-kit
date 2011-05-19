@@ -130,4 +130,6 @@ public interface IPropertyDescriptor extends IDescriptor
     
     public void setBeanType(Class beanType);
     
+    public String getFlexType();
+    
 }
