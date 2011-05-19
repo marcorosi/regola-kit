@@ -1,25 +1,25 @@
 Manifest-Version: 1.0
-Import-Library: org.springframework.spring;version="[2.5.6,2.5.6]
-Import-Bundle: org.regola.core;version="[1.2-SNAPSHOT,1.2-SNAPSHOT]"
+Export-Package: org.regola.filter.criteria.ognl;uses:="org.apache.comm
+ ons.logging",org.regola.dao.ognl;uses:="org.regola.filter.criteria.og
+ nl"
+Private-Package: org.regola.filter.criteria.ognl,org.regola.dao.ognl,
+Ignore-Package: org.regola.model,org.regola.util,org.regola.filter.cri
+ teria.ognl,org.regola.filter,org.regola.dao.ognl,org.regola.filter.cr
+ iteria.impl,org.regola.finder,org.regola.dao,org.regola.filter.criter
+ ia,org.regola.filter.impl
 Built-By: nicola
-Created-By: Apache Maven Bundle Plugin
-Bundle-License: http://www.gnu.org/licenses/gpl-3.0.txt
-Import-Package: org.apache.commons.logging;version="1.1"
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Bnd-LastModified: 1254147447623
-Export-Package: org.regola.dao.ognl;uses:="org.regola.filter.criteria.
- ognl",org.regola.filter.criteria.ognl;uses:="org.apache.commons.loggi
- ng"
-Bundle-Version: 1.2.0.SNAPSHOT
-Ignore-Package: org.regola.filter.criteria,org.regola.dao,org.regola.f
- ilter.criteria.impl,org.regola.finder,org.regola.filter,org.regola.ut
- il,org.regola.filter.impl,org.regola.dao.ognl,org.regola.filter.crite
- ria.ognl,org.regola.model
-Bundle-Name: Regola DAO Ognl
-Bundle-Description: Regola Toolkit DAO Ognl
-Build-Jdk: 1.5.0_16
-Private-Package: org.regola.dao.ognl,org.regola.filter.criteria.ognl,
-Bundle-ManifestVersion: 2
-Bundle-SymbolicName: org.regola.ognl
 Tool: Bnd-0.0.311
+Bundle-Name: Regola DAO Ognl
+Import-Library: org.springframework.spring;version="[2.5.6,2.5.6]
+Created-By: Apache Maven Bundle Plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Import-Bundle: org.regola.core;version="[1.2-SNAPSHOT,1.2-SNAPSHOT]"
+Build-Jdk: 1.6.0_07
+Bundle-Version: 1.2.0.SNAPSHOT
+Bnd-LastModified: 1284988168791
+Bundle-ManifestVersion: 2
+Bundle-License: http://www.gnu.org/licenses/gpl-3.0.txt
+Bundle-Description: Regola Toolkit DAO Ognl
+Import-Package: org.apache.commons.logging;version="1.1"
+Bundle-SymbolicName: org.regola.ognl
 
