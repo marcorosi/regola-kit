@@ -16,8 +16,8 @@
 
 	<modules>
 		<module>regola-hibernate</module>
-		<module>regola-jpa</module>
 		<module>regola-ognl</module>
+		<!--module>regola-jpa</module-->
 		<!--module>regola-jdo</module-->
 		<!--module>regola-ibatis</module-->
 	</modules>
@@ -45,61 +45,10 @@
 
 	<dependencyManagement>
 		<dependencies>
-
-			<!-- test -->
-
 			<dependency>
-				<groupId>${pom.groupId}</groupId>
+				<groupId>${project.groupId}</groupId>
 				<artifactId>regola-core</artifactId>
-				<version>${pom.version}</version>
-				<scope>test</scope>
-				<type>test-jar</type>
-			</dependency>
-
-			<dependency>
-				<groupId>hsqldb</groupId>
-				<artifactId>hsqldb</artifactId>
-				<version>1.8.0.7</version>
-				<scope>test</scope>
-			</dependency>
-
-			<!--
-				dependency> <groupId>org.dbunit</groupId>
-				<artifactId>dbunit</artifactId> <version>2.2</version>
-				<scope>test</scope> </dependency> <dependency>
-				<groupId>org.unitils</groupId> <artifactId>unitils</artifactId>
-				<version>1.0-rc-4</version> <scope>test</scope> </dependency
-			-->
-
-			<!--
-				dependency> <groupId>jpox</groupId>
-				<artifactId>jpox-core</artifactId> <exclusions> <exclusion>
-				<groupId>oracle</groupId> <artifactId>ojdbc</artifactId>
-				</exclusion> <exclusion> <groupId>db4o</groupId>
-				<artifactId>db4o</artifactId> </exclusion> </exclusions>
-				<version>${jpox.version}</version> <scope>test</scope> </dependency>
-
-				<dependency> <groupId>jpox</groupId>
-				<artifactId>jpox-enhancer</artifactId>
-				<version>${jpox.version}</version> <scope>test</scope> </dependency>
-
-
-				<dependency> <groupId>bcel</groupId> <artifactId>bcel</artifactId>
-				<version>5.1</version> <scope>test</scope> </dependency>
-
-				<dependency> <groupId>org.hibernate</groupId>
-				<artifactId>hibernate-entitymanager</artifactId>
-				<version>3.2.1.ga</version> <scope>test</scope> </dependency>
-
-				<dependency> <groupId>org.apache.openjpa</groupId>
-				<artifactId>openjpa</artifactId> <version>1.0.0</version>
-				<scope>test</scope> </dependency
-			-->
-
-			<dependency>
-				<groupId>${pom.groupId}</groupId>
-				<artifactId>regola-core</artifactId>
-				<version>${pom.version}</version>
+				<version>${project.version}</version>
 			</dependency>
 
 			<dependency>
@@ -108,18 +57,36 @@
 				<version>${jpox.version}</version>
 			</dependency>
 
+			<dependency>
+				<groupId>javax.persistence</groupId>
+				<artifactId>com.springsource.javax.persistence</artifactId>
+				<version>1.1.0</version>
+			</dependency>
+
 			<!--
 				dependency> <groupId>javax.jdo</groupId>
 				<artifactId>jdo2-api</artifactId> <version>2.0</version>
 				</dependency
 			-->
 
+
+			<!-- test -->
+
 			<dependency>
-				<groupId>javax.persistence</groupId>
-				<artifactId>com.springsource.javax.persistence</artifactId>
-				<version>1.0.0</version>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>regola-core</artifactId>
+				<version>${project.version}</version>
+				<scope>test</scope>
+				<type>test-jar</type>
 			</dependency>
 
+
+			<dependency>
+				<groupId>hsqldb</groupId>
+				<artifactId>hsqldb</artifactId>
+				<version>1.8.0.10</version>
+				<scope>test</scope>
+			</dependency>
 
 		</dependencies>
 	</dependencyManagement>
