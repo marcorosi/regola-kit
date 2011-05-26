@@ -10,31 +10,32 @@
 	</parent>
 
 	<artifactId>regola-ognl</artifactId>
-	<packaging>bundle</packaging>
+	<packaging>jar</packaging>
 	<name>Regola DAO Ognl</name>
 	<description>Regola Toolkit DAO Ognl</description>
 	
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<configuration>
-					<instructions>
-						<Import-Library>org.springframework.spring;version="[${spring.version},${spring.version}]</Import-Library>
-						<Import-Bundle>org.regola.core;version="[${regola.version},${regola.version}]"</Import-Bundle>
-						<Export-Package>org.regola.*ognl.*</Export-Package>
-						<Import-Package>!org.regola.*,*</Import-Package>
-					</instructions>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 	<dependencies>
+			
+	
+		<!--  form DAO parent pom -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>regola-core</artifactId>
+		</dependency>
+
+
+		<!--  form regola parent pom -->
+		
+		<dependency>
+		  <groupId>commons-logging</groupId>
+		  <artifactId>commons-logging</artifactId>
+		  <version>1.1.1</version>	
+		</dependency>
+		
 		<!-- test -->
 		<!--  form DAO parent pom -->
 		<dependency>
-			<groupId>${pom.groupId}</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>regola-core</artifactId>
 			<type>test-jar</type>
 		</dependency>
@@ -48,39 +49,21 @@
 		<!--  form regola parent pom -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.test</artifactId>
+			<artifactId>spring-test</artifactId>
 		</dependency>
-
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
 		<!--  form regola parent pom -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
-
-		<!--
-			dependency> <groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId> </dependency> <dependency>
-			<groupId>${pom.groupId}</groupId>
-			<artifactId>regola-core</artifactId> </dependency> <dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId> </dependency> <dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aop</artifactId> </dependency
-		-->
-
-		<!--  form DAO parent pom -->
-		<dependency>
-			<groupId>${pom.groupId}</groupId>
-			<artifactId>regola-core</artifactId>
-		</dependency>
-
-		<!--  form regola parent pom -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.spring-library</artifactId>
-			<type>libd</type>
-		</dependency>
-
-
 	</dependencies>
+	
+	
 </project>
