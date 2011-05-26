@@ -10,12 +10,12 @@
 	</parent>
 
 	<artifactId>regola-core</artifactId>
-	<packaging>bundle</packaging>
+	<packaging>jar</packaging>
 	<name>Regola Core</name>
 	<description>Regola Toolkit Core</description>
 
 	<properties>
-		<ognl.version>2.6.9</ognl.version>
+		<ognl.version>3.0.1</ognl.version>
 	</properties>
 
 	<build>
@@ -35,7 +35,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.2</version>
 				<executions>
 					<execution>
 						<goals>
@@ -44,27 +43,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<configuration>
-					<instructions>
-						<Import-Library>org.springframework.spring;version="[${spring.version},${spring.version}]"</Import-Library>
-						<Import-Bundle>com.springsource.org.ognl;version="[${ognl.version},${ognl.version}]"</Import-Bundle>
-						<Export-Package>org.regola.*</Export-Package>
-						<Import-Package>!org.regola.*,*</Import-Package>
-					</instructions>
-				</configuration>
-			</plugin>
-			<!--
-				plugin> <groupId>com.springsource.bundlor</groupId>
-				<artifactId>com.springsource.bundlor.maven</artifactId>
-				<version>1.0.0.M5</version> <executions> <execution>
-				<id>bundlor</id> <goals> <goal>transform</goal> </goals>
-				<configuration>
-				<manifestTemplatePath>src/main/java/META-INF/MANIFEST.MF</manifestTemplatePath>
-				</configuration> </execution> </executions> </plugin
-			-->
 		</plugins>
 	</build>
 
@@ -72,34 +50,24 @@
 
 		<!--  form regola parent pom -->
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.spring-library</artifactId>
-			<type>libd</type>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-jdbc</artifactId>
 		</dependency>
-
+			
+		
 		<dependency>
-			<groupId>org.ognl</groupId>
-			<artifactId>com.springsource.org.ognl</artifactId>
+			<groupId>ognl</groupId>
+			<artifactId>ognl</artifactId>
 			<version>${ognl.version}</version>
 		</dependency>
 
-		<!--
-			dependency> <groupId>org.springframework</groupId>
-			<artifactId>spring-beans</artifactId> </dependency> <dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aop</artifactId> </dependency
-		-->
-		<!--
-			non ognl dependency <dependency> <groupId>ognl</groupId>
-			<artifactId>ognl</artifactId> <version>2.6.9</version> </dependency>
-		-->
 
 		<!-- test -->
 
 		<!--  form regola parent pom -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.test</artifactId>
+			<artifactId>spring-test</artifactId>
 		</dependency>
 
 		<!--  form regola parent pom -->
@@ -108,15 +76,6 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 
-		<!--
-			dependency> <groupId>junit</groupId> <artifactId>junit</artifactId>
-			</dependency><dependency> <groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId> <scope>test</scope>
-			</dependency> <dependency> <groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId> <scope>test</scope> </dependency>
-			<dependency> <groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId> <scope>test</scope> </dependency
-		-->
 
 	</dependencies>
 </project>
