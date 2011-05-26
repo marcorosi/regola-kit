@@ -7,16 +7,17 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.security.Authentication;
-import org.springframework.security.AuthenticationException;
-import org.springframework.security.AuthenticationManager;
-import org.springframework.security.context.HttpSessionContextIntegrationFilter;
-import org.springframework.security.context.SecurityContext;
-import org.springframework.security.context.SecurityContextHolder;
-import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
-import org.springframework.security.ui.AbstractProcessingFilter;
-import org.springframework.security.ui.WebAuthenticationDetails;
-import org.springframework.security.ui.webapp.AuthenticationProcessingFilter;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.AbstractProcessingFilter;
+import org.springframework.security.web.authentication.AuthenticationProcessingFilter;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.security.web.context.HttpSessionContextIntegrationFilter;
+
 
 public class AuthenticationUtils
 {
@@ -52,6 +53,8 @@ public class AuthenticationUtils
 
 		return AbstractProcessingFilter.obtainFullSavedRequestUrl(request);
 	}
+	
+
 	
 	/**
 	 * Restituisce il cookie che si chiama nome

@@ -1,8 +1,9 @@
 package org.regola.webapp.security;
 
-import org.springframework.security.AuthenticationServiceException;
-import org.springframework.security.BadCredentialsException;
-import org.springframework.security.userdetails.UserDetails;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
+
+
 
 
 
@@ -26,7 +27,6 @@ public interface AuthenticationDao {
 	 * @throws AuthenticationServiceException if the implementation violate the interface contract
 	 * 
 	 */
-	UserDetails authenticate(String username, String password) 
-		throws DaoAccessException, BadCredentialsException, AuthenticationServiceException;
+	UserDetails authenticate(String username, String password) throws AuthenticationException;
 
 }

@@ -4,11 +4,12 @@ package org.regola.webapp.security;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.dao.DataAccessException;
-import org.springframework.security.AuthenticationException;
-import org.springframework.security.AuthenticationServiceException;
-import org.springframework.security.providers.UsernamePasswordAuthenticationToken;
-import org.springframework.security.providers.dao.AbstractUserDetailsAuthenticationProvider;
-import org.springframework.security.userdetails.UserDetails;
+import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
+
 
 /**
  * autentica i token di tipo UsernamePasswordAuthenticationToken
@@ -17,23 +18,32 @@ import org.springframework.security.userdetails.UserDetails;
  * @author marco
  *
  */
-public class UsernamePasswordAuthenticationProvider extends
-	AbstractUserDetailsAuthenticationProvider
+public class UsernamePasswordAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider
 {
 	private final Log logger = LogFactory.getLog(getClass());
 		
 	private AuthenticationDao authenticationDao;
 	
-	@Override
-	protected void additionalAuthenticationChecks(UserDetails arg0, UsernamePasswordAuthenticationToken arg1) throws AuthenticationException
-	{
+
+	public AuthenticationDao getAuthenticationDao() {
+		return authenticationDao;
+	}
+
+	public void setAuthenticationDao(AuthenticationDao authenticationDao) {
+		this.authenticationDao = authenticationDao;
 	}
 
 	@Override
-	protected UserDetails retrieveUser(String username,
-			UsernamePasswordAuthenticationToken authentication)
-			throws AuthenticationException 
-	{
+	  protected void additionalAuthenticationChecks(UserDetails userDetails,
+	            UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+			
+		}
+
+	@Override
+	protected org.springframework.security.core.userdetails.UserDetails retrieveUser(
+			String username,
+			org.springframework.security.authentication.UsernamePasswordAuthenticationToken authentication)
+			throws org.springframework.security.core.AuthenticationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("Authentication for " + username);
 		}
@@ -51,13 +61,6 @@ public class UsernamePasswordAuthenticationProvider extends
         }
         
         return result;
-	}
 
-	public AuthenticationDao getAuthenticationDao() {
-		return authenticationDao;
-	}
-
-	public void setAuthenticationDao(AuthenticationDao authenticationDao) {
-		this.authenticationDao = authenticationDao;
 	}
 }
