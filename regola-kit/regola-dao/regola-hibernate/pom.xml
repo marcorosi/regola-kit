@@ -9,12 +9,12 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>regola-hibernate</artifactId>
-	<packaging>bundle</packaging>
+	<packaging>jar</packaging>
 	<name>Regola DAO Hibernate</name>
 	<description> Regola Toolkit DAO Hibernate</description>
 
 	<properties>
-		<hibernate.version>3.3.2.GA</hibernate.version>
+		<hibernate.version>3.6.4.Final</hibernate.version>
 	</properties>
 
 	<build>
@@ -30,27 +30,41 @@
 				</includes> 
 			</resource>
 		</resources>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<configuration>
-					<instructions>
-						<Import-Library>org.springframework.spring;version="[${spring.version},${spring.version}]",org.hibernate.ejb;version="[${hibernate.version},${hibernate.version}]"</Import-Library>
-						<Import-Bundle>org.regola.core;version="[${regola.version},${regola.version}]"</Import-Bundle>
-						<Export-Package>org.regola.*hibernate.*</Export-Package>
-						<Import-Package>!org.regola.*,*,javax.transaction,javax.transaction.xa</Import-Package>
-					</instructions>
-				</configuration>
-			</plugin> 
-		</plugins>
 	</build>
 	<dependencies>
+
+	
+
+		<!--  form DAO parent pom -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>regola-core</artifactId>
+		</dependency>
+
+		<!--  form regola parent pom -->
+		<dependency>
+		    <groupId>javax.transaction</groupId>
+		    <artifactId>jta</artifactId>
+		    <version>1.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+		</dependency>
+
+       <dependency> 
+            <groupId>org.hibernate</groupId> 
+            <artifactId>hibernate-entitymanager</artifactId> 
+		    <version>${hibernate.version}</version>
+        </dependency> 
+
+		
 		<!-- test -->
 
 		<!--  form DAO parent pom -->
 		<dependency>
-			<groupId>${pom.groupId}</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>regola-core</artifactId>
 			<type>test-jar</type>
 		</dependency>
@@ -64,67 +78,15 @@
 		<!--  form regola parent pom -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.test</artifactId>
+			<artifactId>spring-test</artifactId>
 		</dependency>
-
+		
 		<!--  form regola parent pom -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
-
-		<!--
-			dependency> <groupId>junit</groupId> <artifactId>junit</artifactId>
-			</dependency> <dependency> <groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId> </dependency> <dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId> </dependency> <dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId> </dependency> <dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aop</artifactId> </dependency
-		-->
-
-		<!-- Not test deps -->
-
-		<!--  form DAO parent pom -->
-		<dependency>
-			<groupId>${pom.groupId}</groupId>
-			<artifactId>regola-core</artifactId>
-		</dependency>
-
-		<!--  form regola parent pom -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.spring-library</artifactId>
-			<type>libd</type>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>org.hibernate.ejb-library</artifactId>
-			<type>libd</type>
-			<version>${hibernate.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.transaction</groupId>
-			<artifactId>com.springsource.javax.transaction</artifactId>
-			<version>1.1.0</version>
-		</dependency>
-
-
-		<!--
-			dependency> <groupId>cglib</groupId>
-			<artifactId>cglib-nodep</artifactId> <version>2.1_3</version>
-			</dependency> <dependency> <groupId>org.hibernate</groupId>
-			<artifactId>hibernate</artifactId> <version>3.2.5.ga</version>
-			<exclusions> <exclusion> <groupId>cglib</groupId>
-			<artifactId>cglib</artifactId> </exclusion> <exclusion>
-			<groupId>asm</groupId> <artifactId>asm</artifactId> </exclusion>
-			<exclusion> <groupId>asm</groupId> <artifactId>asm-attrs</artifactId>
-			</exclusion> </exclusions> </dependency
-		-->
+		
 
 	</dependencies>
 </project>
