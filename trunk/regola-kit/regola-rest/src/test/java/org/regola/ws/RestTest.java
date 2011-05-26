@@ -56,10 +56,10 @@ public class RestTest extends TestCase {
 		String dtoXml = toXml("org.regola.ws", "dto", dto);
 
 		String result3 = post(url, dtoXml, 1, "salve!");
-		assertEquals("<dto><prova>1:salve!:PROVA</prova><x>0</x></dto>", result3);
+		assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><dto><prova>1:salve!:PROVA</prova><x>0</x></dto>", result3);
 
 		String result4 = put(url, dtoXml, 1, "salve!");
-		assertEquals("<dto><prova>1:salve!:PROVA</prova><x>0</x></dto>", result4);
+		assertEquals("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><dto><prova>1:salve!:PROVA</prova><x>0</x></dto>", result4);
 
 		dto = fromXml("org.regola.ws", result4);
 		assertNotNull(dto);
