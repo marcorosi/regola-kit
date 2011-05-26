@@ -5,61 +5,66 @@
 	<parent>
 		<groupId>org.regola</groupId>
 		<artifactId>regola-kit</artifactId>
-		<version>1.1-SNAPSHOT</version>
+		<version>1.2.0.SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>regola-rest</artifactId>
 	<packaging>jar</packaging>
-	<name>REGOLA Toolkit :: WS RESTfull support</name>
-	<description>REGOLA Toolkit :: WS RESTfull support</description>
+	<name>Regola WS RESTfull</name>
+	<description>Regola Toolkit WS RESTfull</description>
 	
-	<!-- mvn license:check -Dyear=2008 
-	     mvn license:format -Dyear=2008  
+	<properties>
+  		<cxf.version>2.2.3</cxf.version>
+	</properties>
 	
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>com.google.code.maven-license-plugin</groupId>
-				<artifactId>maven-license-plugin</artifactId>
-				<configuration>
-					<header>src/etc/header.txt</header>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>-->
 	<dependencies>
+	
 		<dependency>
-			<groupId>org.regola</groupId>
-			<artifactId>regola-jsf</artifactId>
-			<version>1.1-SNAPSHOT</version>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-web</artifactId>
 		</dependency>
+		
+		<dependency>
+    		<groupId>com.sun.xml.bind</groupId>
+    		<artifactId>jaxb-xjc</artifactId>
+    		<version>2.2.2</version>
+		</dependency>
+		
+		
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
-			<version>2.1.1</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework</groupId>
-					<artifactId>spring-core</artifactId>
-				</exclusion>
-			</exclusions>
+			<version>${cxf.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-distribution-manifest</artifactId>
-			<version>2.1.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-transports-http-jetty</artifactId>
-			<version>2.1.1</version>
-			<scope>test</scope>
-		</dependency>
+		
+		
 		<dependency>
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>
-			<version>3.0.1</version>
+			<version>3.1</version>
 		</dependency>
+		
+		<!-- test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		
+		
+	    <dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http-jetty</artifactId>
+			<version>${cxf.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>javax.ws.rs</groupId>
+		    <artifactId>jsr311-api</artifactId>
+		    <version>1.1.1</version>
+		    <scope>test</scope>
+		</dependency>
+			
+		
 	</dependencies>
 </project>
