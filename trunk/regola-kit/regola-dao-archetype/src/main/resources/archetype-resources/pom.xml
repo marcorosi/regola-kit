@@ -11,7 +11,7 @@
 
 	<properties>
 		<spring.version>2.5.6.A</spring.version>
-		<regola.version>1.2.0.SNAPSHOT</regola.version>
+		<regola.version>1.2-SNAPSHOT</regola.version>
 		<spring.osgi.version>1.2.0</spring.osgi.version>
 		<hibernate.version>3.3.2.GA</hibernate.version>
 	</properties>
@@ -91,7 +91,7 @@
 		<dependency>
 			<groupId>org.regola</groupId>
 			<artifactId>regola-hibernate</artifactId>
-			<version>1.2.0.SNAPSHOT</version>
+			<version>1.2-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
