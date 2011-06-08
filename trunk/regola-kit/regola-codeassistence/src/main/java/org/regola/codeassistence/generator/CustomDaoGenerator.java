@@ -19,19 +19,19 @@ public class CustomDaoGenerator extends AbstractGenerator
 	public void generate(Environment env, VariablesBuilder pb)
 	{
 		Template template = env.getTemplate(INTERFACE_TEMPLATE);	  
-		env.writeJavaSource((String) pb.getParameters().get("dao_package")
+		env.addJavaSource((String) pb.getParameters().get("dao_package")
 				, (String) pb.getParameters().get("dao_interface_name")
 				, template
 				, pb.getParameters());
 		
 		template = env.getTemplate(IMPL_TEMPLATE);
-		env.writeJavaSource((String) pb.getParameters().get("dao_impl_package")
+		env.addJavaSource((String) pb.getParameters().get("dao_impl_package")
 				, (String) pb.getParameters().get("dao_impl_name")
 				, template
 				, pb.getParameters());
 		
 		template = env.getTemplate(MOCK_TEMPLATE);
-		env.writeJavaTestSource((String) pb.getParameters().get("dao_mock_package")
+		env.addJavaTestSource((String) pb.getParameters().get("dao_mock_package")
 				, (String) pb.getParameters().get("dao_mock_name")
 				, template
 				, pb.getParameters());

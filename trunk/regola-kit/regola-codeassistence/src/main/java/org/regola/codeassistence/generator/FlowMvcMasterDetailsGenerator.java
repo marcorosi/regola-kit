@@ -12,17 +12,17 @@ public class FlowMvcMasterDetailsGenerator extends AbstractGenerator {
 		String flowName = pb.getStringValue("flow_name");
         
 		 
-        env.writeFlowsResource(flowName, "list.xml", env.getTemplate("flowmvc-list_xml.ftl"),pb.getParameters(), null);
-        env.writeFlowsResource(flowName, "list.jsp", env.getTemplate("flowmvc-list_jsp.ftl"),pb.getParameters(), null);
+        env.addFlowsResource(flowName, "list.xml", env.getTemplate("flowmvc-list_xml.ftl"),pb.getParameters(), null);
+        env.addFlowsResource(flowName, "list.jsp", env.getTemplate("flowmvc-list_jsp.ftl"),pb.getParameters(), null);
         
-        env.writeFlowsResource(flowName, "form.xml", env.getTemplate("flowmvc-form_xml.ftl"),pb.getParameters(), null);
-        env.writeFlowsResource(flowName, "form.jsp", env.getTemplate("flowmvc-form_jsp.ftl"),pb.getParameters(), null);
+        env.addFlowsResource(flowName, "form.xml", env.getTemplate("flowmvc-form_xml.ftl"),pb.getParameters(), null);
+        env.addFlowsResource(flowName, "form.jsp", env.getTemplate("flowmvc-form_jsp.ftl"),pb.getParameters(), null);
         
-        env.writeFlowsResource(flowName, "beans.xml", env.getTemplate("flow-beans_xml.ftl"),pb.getParameters(), null);
-        env.writeFlowsResource(flowName, "tiles-defs.xml", env.getTemplate("flowmvc-tiles-defs_xml.ftl"),pb.getParameters(), null);
+        env.addFlowsResource(flowName, "beans.xml", env.getTemplate("flow-beans_xml.ftl"),pb.getParameters(), null);
+        env.addFlowsResource(flowName, "tiles-defs.xml", env.getTemplate("flowmvc-tiles-defs_xml.ftl"),pb.getParameters(), null);
         
-        env.writeFlowConfig("/WEB-INF/flows/" + flowName + "/list.xml", env.getTemplate("flow-webflow-config_xml.ftl"), pb.getParameters());
-        env.writeTilesFlowConfig("/WEB-INF/flows/" + flowName + "/tiles-defs.xml", env.getTemplate("flowmvc-spring-mvc-servlet_xml.ftl"), pb.getParameters());
+        env.addFlowDefinition("/WEB-INF/flows/" + flowName + "/list.xml", env.getTemplate("flow-webflow-config_xml.ftl"), pb.getParameters());
+        env.addTilesFlowDefinition("/WEB-INF/flows/" + flowName + "/tiles-defs.xml", env.getTemplate("flowmvc-spring-mvc-servlet_xml.ftl"), pb.getParameters());
         //bisogna aggiungere il flusso alla lista dei flussi
 	}
 

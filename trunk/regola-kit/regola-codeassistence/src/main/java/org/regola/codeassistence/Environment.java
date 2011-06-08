@@ -22,6 +22,8 @@ import org.apache.commons.logging.LogFactory;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 import org.jdom.xpath.XPath;
+import org.regola.codeassistence.writers.ChainOfWriters;
+import org.regola.codeassistence.writers.FSWriter;
 import org.regola.descriptor.DescriptorService;
 import org.regola.descriptor.IClassDescriptor;
 import org.regola.descriptor.ReflectionDescriptorFactory;
@@ -45,14 +47,14 @@ public class Environment {
 	private String projectDir = "";
 	private String outputDir = "";
 	private String packageName = "";
-	private String springServiceFileName = "applicationContext-service.xml";
+	
 	private String springDaoFileName = "applicationContext-dao.xml";
 	private String springTestResourcesFileName = "applicationContext-dao-test.xml";
-	private String facesConfigFileName = "faces-config.xml";
-	private boolean simulate=false;
-	private Map<String,String> simulationMap = new HashMap<String,String>();
+	
+	
+	public ChainOfWriters writers = new ChainOfWriters();
 
-	@SuppressWarnings( { "unchecked", "unchecked" })
+	@SuppressWarnings( "unchecked" )
 	public Environment() {
 		Configuration cfg = new Configuration();
 		cfg.setClassForTemplateLoading(getClass(), "/templates");
@@ -146,12 +148,16 @@ public class Environment {
 		return "src/test/java";
 	}
 
-	public String getWebSrcPath() {
+	public String getWebRootPath() {
 		return "src/main/webapp";
 	}
 	
 	public String getWebInfPath() {
 		return "src/main/webapp/WEB-INF";
+	}
+	
+	public String getRegolaConfigPath() {
+		return "src/main/webapp/WEB-INF/config";
 	}
 	
 	public String getFlowPath() {
@@ -166,73 +172,24 @@ public class Environment {
 		return "src/test/resources";
 	}
 
-	public void writeFile(String filePath, String fileName, Template template, Object root) {
-		writeFile(filePath, fileName, template, root, false);
-	}
-	
-	public void writeToStandardOut(String filePath, String fileName, Template template, Object root, boolean append) 
+	public File instanceFile(String relativeToProjectPath, String fileName)
 	{
-		try {
-			String dirPath = getOutputDir() + "/" + filePath;
-			String path = dirPath + fileName;
-
-			log.info("Contenuto da aggiungere al file: " + path);
-
-			template.process(root, new PrintWriter(System.out));
-			
-
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-	
-	public void writeToSimulationMap(String filePath, String fileName, Template template, Object root, boolean append) 
-	{
-		try {
-			String dirPath = getOutputDir() + "/" + filePath;
-			String path = dirPath + fileName;
-
-			StringWriter writer = new StringWriter();
-			writer.append("// file " + path);
-			
-			writer.append("\n" );
-
-			template.process(root, writer);
-			
-			simulationMap.put(fileName, writer.toString());
-
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-	
-	public void writeFile(String filePath, String fileName, Template template, Object root, boolean append) {
-
-		if (isSimulate())
-		{
-			writeToStandardOut(filePath, fileName, template, root, append);
-			writeToSimulationMap(filePath, fileName, template, root, append);
-			return;
-		}
+		String dirPath = getOutputDir() + "/" + relativeToProjectPath;
 		
-		try {
-			String dirPath = getOutputDir() + "/" + filePath;
-			String path = dirPath + fileName;
+		if (!dirPath.endsWith("/"))
+			dirPath += "/";
+		
+		String path = dirPath + fileName;
 
-			log.info("Scrittura del file " + path);
+		return new File(path);
+	}
+	
+	public void writeToFile(File file, Template template, Object variables, boolean append) {
 
-			File dir = new File(dirPath);
-						
-			if(!dir.exists())
-				dir.mkdirs();
+		//log.info("Scrittura del file " + file.getPath());
+		writers.makeDirectory(file);
+		writers.writeToFile(file, template, variables, append);
 			
-			Writer out = new FileWriter(path,append);
-			template.process(root, out);
-			out.close();
-
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	public Template getTemplate(String templateName) {
@@ -243,543 +200,246 @@ public class Environment {
 		}
 	}
 
-	public void writeResource(String fileName, Template template,
-			Map<String, Object> root) 
+	public void addResource(String fileName, Template template,
+			Map<String, Object> variables) 
 	{
-		writeFile(getResourcePath()+"/", fileName, template, root);
+		writeToFile(instanceFile(getResourcePath(), fileName), template, variables,false);
 	}
 
-	public void writeApplicationProperties(Template template, Map<String, Object> root) 
+	public void addApplicationProperties(Template template, Map<String, Object> variables) 
 	{
-		//writeFile(getResourcePath()+"/", "ApplicationResources.properties", template, root, true);
-		writeFile(getResourcePath()+"/", "ApplicationResources_en.properties", template, root, true);
-		writeFile(getResourcePath()+"/", "ApplicationResources_it.properties", template, root, true);
+		//writeFile(getResourcePath()+"/", "ApplicationResources.properties", template, variables, true);
+		writeToFile(instanceFile(getResourcePath(), "ApplicationResources_en.properties"), template, variables, true);
+		writeToFile(instanceFile(getResourcePath(), "ApplicationResources_it.properties"), template, variables, true);
 	}
 	
-	public void writeWebSource(String fileName, Template template, Map<String, Object> parameters) 
+	public void addWebDocument(String fileName, Template template, Map<String, Object> parameters) 
 	{
-		writeFile(getWebSrcPath()+"/", (fileName+".xhtml").toLowerCase(), template, parameters);		
+		writeToFile(instanceFile(getWebRootPath(), (fileName+".xhtml").toLowerCase()), template, parameters, false);		
 	}
 	
-	public void writeJavaSource(String packageName, String fileName, Template template,
-			Map<String, Object> root) 
+	public void addJavaSource(String packageName, String fileName, Template template,
+			Map<String, Object> variables) 
 	{
-		writeJavaSource(packageName, fileName, template, root, null);
+		addJavaSource(packageName, fileName, template, variables, null);
 	}
 	
-	public void writeJavaTestSource(String packageName, String fileName, Template template,
-			Map<String, Object> root) 
+	public void addJavaTestSource(String packageName, String fileName, Template template,
+			Map<String, Object> variables) 
 	{
-		writeJavaTestSource(packageName, fileName, template, root, null);
+		addJavaTestSource(packageName, fileName, template, variables, null);
 	}
 	
 	
-	public void writeJavaSource(String packageName, String fileName, 
-			Template template, Map<String, Object> root, Object value) 
-	{
-		ValueReader reader = new ValueReader(value);
-		root.put("reader", reader);
-
-		writeFile(getJavaSrcPath()+"/"+Utils.getPackagePath(packageName)+"/", fileName+".java", template, root);
-	}
-	
-	public void writeFlexSource(String packageName, String fileName, Template template,
-			Map<String, Object> root) 
-	{
-		writeFlexSource(packageName, fileName, template, root, null);
-	}
-	
-	public void writeFlexSource(String packageName, String fileName, 
-			Template template, Map<String, Object> root, Object value) 
+	public void addJavaSource(String packageName, String fileName, 
+			Template template, Map<String, Object> variables, Object value) 
 	{
 		ValueReader reader = new ValueReader(value);
-		root.put("reader", reader);
+		variables.put("reader", reader);
 
-		writeFile(getFlexSrcPath()+"/"+Utils.getPackagePath(packageName)+"/", fileName+".as3", template, root);
+		writeToFile(instanceFile(getJavaSrcPath()+"/"+Utils.getPackagePath(packageName), fileName+".java"), template, variables,false);
 	}
 	
-
-	public void writeJavaTestSource(String packageName, String fileName, 
-			Template template, Map<String, Object> root, Object value) 
+	public void addFlexSource(String packageName, String fileName, Template template,
+			Map<String, Object> variables) 
+	{
+		addFlexSource(packageName, fileName, template, variables, null);
+	}
+	
+	public void addFlexSource(String packageName, String fileName, 
+			Template template, Map<String, Object> variables, Object value) 
 	{
 		ValueReader reader = new ValueReader(value);
-		root.put("reader", reader);
+		variables.put("reader", reader);
 
-		writeFile(getJavaTestSrcPath()+"/"+Utils.getPackagePath(packageName)+"/", fileName+".java", template, root);
+		writeToFile(instanceFile(getFlexSrcPath()+"/"+Utils.getPackagePath(packageName), fileName+".as3"), template, variables,false);
 	}
 	
-	public void writeFlowsResource(String flowName, String fileName, 
-			Template template, Map<String, Object> root, Object value) 
+
+	public void addJavaTestSource(String packageName, String fileName, 
+			Template template, Map<String, Object> variables, Object value) 
 	{
 		ValueReader reader = new ValueReader(value);
-		root.put("reader", reader);
+		variables.put("reader", reader);
 
-		writeFile(getWebInfPath()+"/flows/"+ flowName  +"/", fileName, template, root);
+		writeToFile(instanceFile(getJavaTestSrcPath()+"/"+Utils.getPackagePath(packageName), fileName+".java"), template, variables,false);
+	}
+	
+	public void addFlowsResource(String flowName, String fileName, 
+			Template template, Map<String, Object> variables, Object value) 
+	{
+		ValueReader reader = new ValueReader(value);
+		variables.put("reader", reader);
+
+		writeToFile(instanceFile( getWebInfPath()+"/flows/"+ flowName  , fileName), template, variables,false);
 	}
 
-	public void writeServiceEndpoint(String xmlfile, String beanId, Template template, Map<String, Object> parameters) 
+	
+	public void addWebXmlConfig( String element, Template template, Map<String, Object> variables) 
 	{
-		String resource = xmlfile.contains("test") ? getTestResourcePath() :  getResourcePath();
-		
-		File f = new File(getOutputDir()+"/"+resource+"/"+xmlfile);
-		if(!f.exists())
-		{
-			log.info(String.format("Salto la modifica di %s perchè non esiste",xmlfile));
-			
-			if (isSimulate())
-			{
-				String msg = "<!-- file: " + f.getPath() + " -->\n";
-				msg += "<!-- Don't write anything beacuse the file doesn't exists -->";
-				simulationMap.put(xmlfile, msg);
-			}
-			
-			
-			return;
-		}
-		
-		if(existsJaxwsEndpoint(resource+"/"+xmlfile, beanId))
-		{
-			log.info(String.format("Il file %s non è stato modificato perchè il bean %s è già definito"
-					,xmlfile, beanId));
-			
-			if (isSimulate())
-			{
-				String msg = "<!-- file: " + f.getPath() + " -->\n";
-				msg += "<!-- Don't write anything beacuse the bean "+ beanId +" is already defined -->";
-				simulationMap.put(xmlfile, msg);
-			}
-			
-			return;
-		}
+		addXmlTags(ConfigFileType.WebXml, element, template, variables);
+	}
+	
+	public void addPortlet( String portletName, Template template, Map<String, Object> variables) 
+	{
+		addXmlTags(ConfigFileType.Portlet, portletName, template, variables);		
+	}
 
+	
+	private enum ConfigFileType { WebXml, Portlet, TilesFlow, 
+		Flow, Faces, ServiceBean, ServiceBeanTest, WS }
+
+	
+	protected void addXmlTags( ConfigFileType configType, String tag, Template template, Map<String, Object> variables) 
+	{
+		File file = new File("");
+		
+		switch (configType) {
+		case WebXml:
+			file = instanceFile(getWebInfPath(), "web.xml");
+			break;
+			
+		case Portlet:
+			file = instanceFile(getWebInfPath(), "portlet.xml");
+			break;
+		
+		case TilesFlow:
+			file = instanceFile(getRegolaConfigPath(), "spring-mvc-servlet.xml");
+			break;
+
+		case Flow:
+			file = instanceFile(getRegolaConfigPath(), "webflow-config.xml");
+			break;
+
+		case Faces:
+			file = instanceFile(getWebInfPath(), "faces-config.xml");
+			break;
+
+		case ServiceBean:
+			file = instanceFile(getResourcePath(), "applicationContext-service.xml");
+			break;
+		
+		case ServiceBeanTest:
+			file = instanceFile(getTestResourcePath(), "applicationContext-service.xml");
+			break;	
+			
+		case WS:
+			file = instanceFile(getResourcePath(), "applicationContext-service.xml");
+			break;
+			
+		default:
+			break;
+		}
+		
+		
+		
+		if(!file.exists())
+		{
+			log.info(String.format("Salto la modifica di %s perchè non esiste ",file.getName()));
+			writers.logNothingToDo(file, String.format("Salto la modifica di %s perchè non esiste",file.getName()));
+			return;
+		}
+		
+		String fileContent = Utils.readFileAsString(file);
 		
 		StringWriter sw = new StringWriter();
 		try {
-			template.process(parameters, sw);
+			template.process(variables, sw);
 		} catch (Exception e) 
 		{
 			throw new RuntimeException(e);
 		}
 		
-		String xml = readFileAsString(resource+"/"+xmlfile);
-		xml = xml.replaceFirst("</beans>", sw.toString());
 		
-		writeStringToFile(resource+"/"+xmlfile, xml, false);
-	}
+		String exists = "";
+		switch (configType) {
+		case WebXml:
+			exists = fileContent.contains(tag) ? String.format("Il file %s non è stato modificato perchè l'elemento %s è già definita"
+					,file.getName(), tag) : "";
+			fileContent = fileContent.replaceFirst("</web-app>", sw.toString());
+			break;
 
-	public void writeXmlSource(String xmlfile, String beanId, Template template, Map<String, Object> parameters) 
+		case Portlet:
+			exists = fileContent.contains(tag) ? String.format("Il file %s non è stato modificato perchè la portlet %s è già definita"
+					,file.getName(), tag) : "";
+			fileContent = fileContent.replaceFirst("</portlet-app>", sw.toString());
+			break;
+		
+		case TilesFlow:
+			exists = fileContent.contains(tag) ? String.format("Il file %s non è stato modificato perchè il flusso %s è già definito"
+					,file.getName(), tag) : "";
+			fileContent = fileContent.replaceFirst("<!-- NEW TILES DEFS HERE-->", sw.toString());
+			break;
+		
+		case Flow:
+			exists = Utils.existsFlow(file, tag) ? String.format("Il file %s non è stato modificato perchè il flusso %s è già definito"
+					,file.getName(), tag) : "";
+			fileContent = fileContent.replaceFirst("</webflow:flow-registry>", sw.toString());
+			break;
+					
+		case Faces:
+			exists = Utils.existsManagedBean(file, tag) ? String.format("Il file %s non è stato modificato perchè il bean %s è già definito"
+					,file.getName(), tag) : "";
+			fileContent = fileContent.replaceFirst("</faces-config>", sw.toString());
+			break;
+		
+		case ServiceBean:
+			exists = Utils.existsBean(file, tag) ? String.format("Il file %s non è stato modificato perchè il bean %s è già definito"	
+					,file.getName(), tag) : "";
+			fileContent = fileContent.replaceFirst("</beans>", sw.toString());
+			break;	
+		
+		case WS:
+			exists = Utils.existsJaxwsEndpoint(file, tag) ? String.format("Il file %s non è stato modificato perchè il bean %s è già definito"
+					,file.getName(), tag) : "";
+			fileContent = fileContent.replaceFirst("</beans>", sw.toString());
+			break;	
+				
+			
+		default:
+			break;
+		}
+				
+		if(exists.length()>0)
+		{
+			log.info(exists);
+			writers.logNothingToDo(file, exists);
+			return;
+		}
+
+		writers.writeToFile( file , fileContent, false);
+
+	}
+	
+	public void addWebServiceBean( String beanId, Template template, Map<String, Object> variables) 
 	{
-		String resource = xmlfile.contains("test") ? getTestResourcePath() :  getResourcePath();
-		
-		File f = new File(getOutputDir()+"/"+resource+"/"+xmlfile);
-		if(!f.exists())
-		{
-			log.info(String.format("Salto la modifica di %s perchè non esiste",xmlfile));
-			
-			if (isSimulate())
-			{
-				String msg = "<!-- file: " + f.getPath() + " -->\n";
-				msg += "<!-- Don't write anything beacuse the file doesn't exists -->";
-				simulationMap.put(xmlfile, msg);
-			}
-			
-			
-			return;
-		}
-		
-		if(existsBean(resource+"/"+xmlfile, beanId))
-		{
-			log.info(String.format("Il file %s non è stato modificato perchè il bean %s è già definito"
-					,xmlfile, beanId));
-			
-			if (isSimulate())
-			{
-				String msg = "<!-- file: " + f.getPath() + " -->\n";
-				msg += "<!-- Don't write anything beacuse the bean "+ beanId +" is already defined -->";
-				simulationMap.put(xmlfile, msg);
-			}
-			
-			return;
-		}
-
-		
-		StringWriter sw = new StringWriter();
-		try {
-			template.process(parameters, sw);
-		} catch (Exception e) 
-		{
-			throw new RuntimeException(e);
-		}
-		
-		String xml = readFileAsString(resource+"/"+xmlfile);
-		xml = xml.replaceFirst("</beans>", sw.toString());
-		
-		writeStringToFile(resource+"/"+xmlfile, xml, false);
+		addXmlTags(ConfigFileType.WS, beanId, template, variables);
 	}
+
 	
-	public void writeFacesConfig(String xmlfile, String beanId, Template template, Map<String, Object> parameters) 
+	public void addSpringBeansToApplicationContext( String beanId, Template template, Map<String, Object> variables) 
 	{
-		File f = new File(getOutputDir()+"/"+getWebSrcPath()+"/WEB-INF/" + xmlfile);
-		if(!f.exists())
-		{
-			log.info(String.format("Salto la modifica di %s perchè non esiste",xmlfile));
-			
-			if (isSimulate())
-			{
-				String msg = "<!-- file: " + f.getPath() + " -->\n";
-				msg += "<!-- Don't write anything beacuse the file doesn't exists -->";
-				simulationMap.put(xmlfile, msg);
-			}
-			
-			return;
-		}
-		
-		if(existsManagedBean(getWebSrcPath()+"/WEB-INF/" + xmlfile, beanId))
-		{
-			log.info(String.format("Il file %s non è stato modificato perchè il bean %s è già definito"
-					,xmlfile, beanId));
-			
-			if (isSimulate())
-			{
-				String msg = "<!-- file: " + f.getPath() + " -->\n";
-				msg += "<!-- Don't write anything beacuse the file doesn't exists -->";
-				simulationMap.put(xmlfile, msg);
-			}
-			
-			return;
-		}
-
-		StringWriter sw = new StringWriter();
-		try {
-			template.process(parameters, sw);
-		} catch (Exception e) 
-		{
-			throw new RuntimeException(e);
-		}
-		
-		String xml = readFileAsString(getWebSrcPath()+"/WEB-INF/" + xmlfile);
-		xml = xml.replaceFirst("</faces-config>", sw.toString());
-		
-		writeStringToFile(getWebSrcPath()+"/WEB-INF/" + xmlfile, xml, false);
+		addXmlTags(ConfigFileType.ServiceBean, beanId, template, variables);
 	}
 
-	public void writeFlowConfig( String flowPath, Template template, Map<String, Object> parameters) 
+	
+	public void addFacesBeans( String beanId, Template template, Map<String, Object> variables) 
 	{
-		String xmlfile = "webflow-config.xml";
-		String relativePath = getWebInfPath()+ "/config/" + xmlfile;
-		String absolutePath = getOutputDir()+"/" + relativePath;
-		
-		File f = new File(absolutePath);
-		if(!f.exists())
-		{
-			log.info(String.format("Salto la modifica di %s perchè non esiste",xmlfile));
-			
-			if (isSimulate())
-			{
-				String msg = "<!-- file: " + f.getPath() + " -->\n";
-				msg += "<!-- Don't write anything beacuse the file doesn't exists -->";
-				simulationMap.put(xmlfile, msg);
-			}
-			
-			return;
-		}
-		
-		if(existsFlow(relativePath, flowPath))
-		{
-			log.info(String.format("Il file %s non è stato modificato perchè il flusso %s è già definito"
-					,xmlfile, flowPath));
-			
-			if (isSimulate())
-			{
-				String msg = "<!-- file: " + f.getPath() + " -->\n";
-				msg += "<!-- Don't write anything beacuse the flow is alreay registered  -->";
-				simulationMap.put(xmlfile, msg);
-			}
-			
-			return;
-		}
-
-		StringWriter sw = new StringWriter();
-		try {
-			template.process(parameters, sw);
-		} catch (Exception e) 
-		{
-			throw new RuntimeException(e);
-		}
-		
-		String xml = readFileAsString(relativePath);
-		xml = xml.replaceFirst("</webflow:flow-registry>", sw.toString());
-		
-		writeStringToFile(relativePath, xml, false);
+		addXmlTags(ConfigFileType.Faces, beanId, template, variables);
 	}
-
-	public void writeWebXmlConfig( String element, Template template, Map<String, Object> parameters) 
+	
+	public void addFlowDefinition( String flowPath, Template template, Map<String, Object> variables) 
 	{
-		String xmlfile = "web.xml";
-		String relativePath = getWebInfPath()+ "/" + xmlfile;
-		String absolutePath = getOutputDir()+"/" + relativePath;
-		
-		File f = new File(absolutePath);
-		if(!f.exists())
-		{
-			log.info(String.format("Salto la modifica di %s perchè non esiste",xmlfile));
-			
-			if (isSimulate())
-			{
-				String msg = "<!-- file: " + f.getPath() + " -->\n";
-				msg += "<!-- Don't write anything beacuse the file doesn't exists -->";
-				simulationMap.put(xmlfile, msg);
-			}
-			
-			return;
-		}
-		
-		String xml = readFileAsString(relativePath);
-		if( xml.contains(element))
-		{
-			log.info(String.format("Il file %s non è stato modificato perchè l'elemento %s è già definita"
-					,xmlfile, element));
-			
-			if (isSimulate())
-			{
-				String msg = "<!-- file: " + f.getPath() + " -->\n";
-				msg += "<!-- Don't write anything beacuse the element is already registered  -->";
-				simulationMap.put(xmlfile, msg);
-			}
-			
-			return;
-		}
-
-		StringWriter sw = new StringWriter();
-		try {
-			template.process(parameters, sw);
-		} catch (Exception e) 
-		{
-			throw new RuntimeException(e);
-		}
-		
-		xml = xml.replaceFirst("</web-app>", sw.toString());
-		
-		writeStringToFile(relativePath, xml, false);
+		addXmlTags(ConfigFileType.Flow, flowPath, template, variables);
 	}
 	
-	public void writePortletConfig( String portletName, Template template, Map<String, Object> parameters) 
+	
+	public void addTilesFlowDefinition( String tilesPath, Template template, Map<String, Object> variables) 
 	{
-		String xmlfile = "portlet.xml";
-		String relativePath = getWebInfPath()+ "/" + xmlfile;
-		String absolutePath = getOutputDir()+"/" + relativePath;
-		
-		File f = new File(absolutePath);
-		if(!f.exists())
-		{
-			log.info(String.format("Salto la modifica di %s perchè non esiste",xmlfile));
-			
-			if (isSimulate())
-			{
-				String msg = "<!-- file: " + f.getPath() + " -->\n";
-				msg += "<!-- Don't write anything beacuse the file doesn't exists -->";
-				simulationMap.put(xmlfile, msg);
-			}
-			
-			return;
-		}
-		
-		String xml = readFileAsString(relativePath);
-		if( xml.contains(portletName))
-		{
-			log.info(String.format("Il file %s non è stato modificato perchè la portlet %s è già definita"
-					,xmlfile, portletName));
-			
-			if (isSimulate())
-			{
-				String msg = "<!-- file: " + f.getPath() + " -->\n";
-				msg += "<!-- Don't write anything beacuse the portlet is already registered  -->";
-				simulationMap.put(xmlfile, msg);
-			}
-			
-			return;
-		}
-
-		StringWriter sw = new StringWriter();
-		try {
-			template.process(parameters, sw);
-		} catch (Exception e) 
-		{
-			throw new RuntimeException(e);
-		}
-		
-		xml = xml.replaceFirst("</portlet-app>", sw.toString());
-		
-		writeStringToFile(relativePath, xml, false);
+		addXmlTags(ConfigFileType.TilesFlow, tilesPath, template, variables);
 	}
 
 	
-	public void writeTilesFlowConfig( String tilesPath, Template template, Map<String, Object> parameters) 
-	{
-		String xmlfile = "spring-mvc-servlet.xml";
-		String relativePath = getWebInfPath()+ "/config/" + xmlfile;
-		String absolutePath = getOutputDir()+"/" + relativePath;
-		
-		File f = new File(absolutePath);
-		if(!f.exists())
-		{
-			log.info(String.format("Salto la modifica di %s perchè non esiste",xmlfile));
-			
-			if (isSimulate())
-			{
-				String msg = "<!-- file: " + f.getPath() + " -->\n";
-				msg += "<!-- Don't write anything beacuse the file doesn't exists -->";
-				simulationMap.put(xmlfile, msg);
-			}
-			
-			return;
-		}
-
-		String xml = readFileAsString(relativePath);
-		
-		if(xml.contains(tilesPath))
-		{
-			log.info(String.format("Il file %s non è stato modificato perchè il flusso %s è già definito"
-					,xmlfile, tilesPath));
-			
-			if (isSimulate())
-			{
-				String msg = "<!-- file: " + f.getPath() + " -->\n";
-				msg += "<!-- Don't write anything beacuse the flow is alreay registered  -->";
-				simulationMap.put(xmlfile, msg);
-			}
-			
-			return;
-		}
-
-		StringWriter sw = new StringWriter();
-		try {
-			template.process(parameters, sw);
-		} catch (Exception e) 
-		{
-			throw new RuntimeException(e);
-		}
-		
-		xml = xml.replaceFirst("<!-- NEW TILES DEFS HERE-->", sw.toString());
-		
-		writeStringToFile(relativePath, xml, false);
-	}
-
-	
-	
-	public void writeStringToFile(String filePath, String content,
-			boolean append) {
-		
-		if (isSimulate())
-		{
-			log.info("Contenuto da aggiungere al file " + getOutputDir()+"/"+ filePath);
-			System.out.println(content);
-			
-			writeToSimulationMap(filePath, content, append);
-			return;
-		}
-		
-		
-		try {
-			log.info("Scrittura del file " + getOutputDir()+"/"+ filePath);
-			
-			FileWriter out = new FileWriter(new File(getOutputDir() + "/"
-					+ filePath), append);
-			out.write(content);
-			out.close();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-
-	}
-
-	protected void writeToSimulationMap(String filePath, String content,
-			boolean append) {
-		
-		try {
-			filePath = getOutputDir() + "/" + filePath;
-			
-			StringWriter writer = new StringWriter();
-			writer.append("<!-- file: " + filePath + " -->");
-
-			writer.append(content);
-			
-			String name = new File(filePath).getName();
-			
-			simulationMap.put(name, writer.toString());
-
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-		
-	}
-
-	public boolean existsXPath(String acFilePath, String xPathExp) {
-		SAXBuilder saxBuilder = new SAXBuilder(
-				"org.apache.xerces.parsers.SAXParser");
-
-		File xmlDocument = new File(getProjectDir() + "/" + acFilePath);
- 
-		if (!xmlDocument.exists())
-		{
-			throw new RuntimeException("Il file xml "+ xmlDocument +" non esiste.");
-		}
-		
-		Element levelNode;
-		try {
-			org.jdom.Document jdomDocument = saxBuilder.build(xmlDocument);
-			XPath xpath = XPath.newInstance(xPathExp);
-			xpath.addNamespace("s",
-					"http://www.springframework.org/schema/beans");
-			xpath.addNamespace("f",
-					"http://java.sun.com/dtd/web-facesconfig_1_1.dtd");
-			xpath.addNamespace("webflow",
-			"http://www.springframework.org/schema/webflow-config");
-			xpath.addNamespace("jaxws", "http://cxf.apache.org/jaxws");
-			levelNode = (Element) xpath.selectSingleNode(jdomDocument);
-			return levelNode != null;
-
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-
-	}
-
-	public boolean existsBean(String acFilePath, String beanId) {
-		return existsXPath(acFilePath, "/s:beans/s:bean[@id='" + beanId + "']");
-	}
-	
-	public boolean existsJaxwsEndpoint(String acFilePath, String beanId) {
-		return existsXPath(acFilePath, "/s:beans/jaxws:endpoint[@id='" + beanId + "']");
-	}
-	
-	public boolean existsManagedBean(String acFilePath, String beanId) {
-		return existsXPath(acFilePath, "/f:faces-config/f:navigation-rule/f:from-view-id[text()='" + beanId + "']");
-	}
-	
-	public boolean existsFlow(String acFilePath, String flowPath) {
-		return existsXPath(acFilePath, "/webflow:flow-registry/webflow:flow-location[@path='" + flowPath + "']");
-	}
-
-	public String readFileAsString(String filePath) {
-		try {
-
-			StringBuffer fileData = new StringBuffer(1000);
-			BufferedReader reader = new BufferedReader(new FileReader(
-					getProjectDir() + "/" + filePath));
-			char[] buf = new char[1024];
-			int numRead = 0;
-			while ((numRead = reader.read(buf)) != -1) {
-				String readData = String.valueOf(buf, 0, numRead);
-				fileData.append(readData);
-				buf = new char[1024];
-			}
-			reader.close();
-			return fileData.toString();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
 
 	/**
 	 * @return  the packageName
@@ -820,47 +480,17 @@ public class Environment {
 		this.springDaoFileName = springDaoFileName;
 	}
 
-	/**
-	 * @return  the springServiceFileName
-	 * @uml.property  name="springServiceFileName"
-	 */
-	public String getSpringServiceFileName() {
-		return springServiceFileName;
-	}
+	
 
-	/**
-	 * @param springServiceFileName  the springServiceFileName to set
-	 * @uml.property  name="springServiceFileName"
-	 */
-	public void setSpringServiceFileName(String springServiceFileName) {
-		this.springServiceFileName = springServiceFileName;
-	}
 
-	public boolean isSimulate() {
-		return simulate;
-	}
 
-	public void setSimulate(boolean simulate) {
-		this.simulate = simulate;
-		if (simulate) simulationMap.clear();
-	}
-
-	public String getFacesConfigFileName() {
-		
-		return facesConfigFileName;
-	}
+	
 
 	public IClassDescriptor getClassDescriptor(Class<?> type) {
 		return getDescriptorService().getClassDescriptor(type);
 	}
 
-	public void setSimulationMap(Map<String,String> simulationMap) {
-		this.simulationMap = simulationMap;
-	}
 
-	public Map<String,String> getSimulationMap() {
-		return simulationMap;
-	}
 
 	public void setFlexOutputDir(String flexOutputDir) {
 		this.flexOutputDir = flexOutputDir;

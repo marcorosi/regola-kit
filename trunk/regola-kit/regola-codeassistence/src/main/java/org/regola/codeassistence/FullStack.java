@@ -68,7 +68,7 @@ public class FullStack {
 		Environment env = new Environment();
 		
 		if (cmd.hasOption("s"))
-		env.setSimulate(true);
+		env.writers.setSimulate(true);
 
 		env.setProjectDir(".");
 		

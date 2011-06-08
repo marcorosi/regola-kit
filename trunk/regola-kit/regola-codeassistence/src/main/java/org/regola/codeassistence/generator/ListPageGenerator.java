@@ -13,7 +13,7 @@ public class ListPageGenerator extends AbstractGenerator
 	public void generate(Environment env, VariablesBuilder pb)
 	{
 		Template template = env.getTemplate(TEMPLATE);	  
-		env.writeWebSource(pb.getParameters().get("model_name")+"-list", template, pb.getParameters());
+		env.addWebDocument(pb.getParameters().get("model_name")+"-list", template, pb.getParameters());
 	}
 
 	public boolean existsArtifact(Environment env, VariablesBuilder pb) {

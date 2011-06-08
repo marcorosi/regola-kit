@@ -18,13 +18,13 @@ public class CustomManagerGenerator extends AbstractGenerator
 	public void generate(Environment env, VariablesBuilder pb)
 	{
 		Template template = env.getTemplate(INTERFACE_TEMPLATE);	  
-		env.writeJavaSource((String) pb.getParameters().get("service_package")
+		env.addJavaSource((String) pb.getParameters().get("service_package")
 				, (String) pb.getParameters().get("service_interface_name")
 				, template
 				, pb.getParameters());
 		
 		template = env.getTemplate(IMPL_TEMPLATE);
-		env.writeJavaSource((String) pb.getParameters().get("service_impl_package")
+		env.addJavaSource((String) pb.getParameters().get("service_impl_package")
 				, (String) pb.getParameters().get("service_impl_name")
 				, template
 				, pb.getParameters());

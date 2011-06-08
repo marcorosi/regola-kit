@@ -12,12 +12,12 @@ public class PortletGenerator extends AbstractGenerator {
 		String flowName = pb.getStringValue("portlet_name");
         
 		 
-        env.writeFlowsResource(flowName, "config.xml", env.getTemplate("portlet-config_xml.ftl"),pb.getParameters(), null);
-        env.writeFlowsResource(flowName, "main.jsp", env.getTemplate("portlet-main_jsp.ftl"),pb.getParameters(), null);
-        env.writeFlowsResource(flowName, "main.xml", env.getTemplate("portlet-main_xml.ftl"),pb.getParameters(), null);
+        env.addFlowsResource(flowName, "config.xml", env.getTemplate("portlet-config_xml.ftl"),pb.getParameters(), null);
+        env.addFlowsResource(flowName, "main.jsp", env.getTemplate("portlet-main_jsp.ftl"),pb.getParameters(), null);
+        env.addFlowsResource(flowName, "main.xml", env.getTemplate("portlet-main_xml.ftl"),pb.getParameters(), null);
                 
-        env.writeWebXmlConfig(flowName , env.getTemplate("portlet-web_xml.ftl"), pb.getParameters());
-        env.writePortletConfig(flowName , env.getTemplate("portlet-portlet_xml.ftl"), pb.getParameters());
+        env.addWebXmlConfig(flowName , env.getTemplate("portlet-web_xml.ftl"), pb.getParameters());
+        env.addPortlet(flowName , env.getTemplate("portlet-portlet_xml.ftl"), pb.getParameters());
         //bisogna aggiungere il flusso alla lista dei flussi
 	}
 

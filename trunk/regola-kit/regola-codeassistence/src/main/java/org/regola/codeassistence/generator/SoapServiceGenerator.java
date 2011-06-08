@@ -21,10 +21,10 @@ public class SoapServiceGenerator extends CustomManagerGenerator {
 		
 		Template template = env.getTemplate("manager-soap_spring.ftl");
 		String beanId = Utils.lowerFirstLetter(pb.getParameters().get("soap_service_name").toString());
-		env.writeServiceEndpoint(env.getSpringServiceFileName(), beanId, template, pb.getParameters());
+		env.addWebServiceBean( beanId, template, pb.getParameters());
 	
 		template = env.getTemplate("manager-soap_wssecurity.ftl");
-		env.writeJavaSource((String) pb.getParameters().get("service_package")
+		env.addJavaSource((String) pb.getParameters().get("service_package")
 				, pb.getParameters().get("service_interface_name") + "PasswordCallBack"
 				, template 
 				, pb.getParameters());

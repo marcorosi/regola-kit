@@ -735,6 +735,9 @@ public class CodeAssistenceView extends FrameView {
 	
 	private void jFilesServiceValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jFilesServiceValueChanged
 		String fileName = (String) ((JList) evt.getSource()).getSelectedValue();
+		
+		if (fileName == null) return;
+		
 		jEditorService.setContentType(fileName.endsWith(".xml") ? "text/xml" : "text/java");
 		jEditorService.setText(filesService.get(fileName));
 
@@ -746,6 +749,9 @@ public class CodeAssistenceView extends FrameView {
 
 	private void jFilesPresentationValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jFilesPresentationValueChanged
 		String fileName = (String) ((JList) evt.getSource()).getSelectedValue();
+		
+		if (fileName == null) return;
+		
 		jEditorPresentation.setContentType(fileName.endsWith(".xml") ? "text/xml" : "text/java");
 		jEditorPresentation.setText(filesPresentation.get(fileName));
 

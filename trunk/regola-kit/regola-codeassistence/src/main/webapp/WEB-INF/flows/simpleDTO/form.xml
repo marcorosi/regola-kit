@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+  
+  	<persistence-context/>
+  
+	<var name="simpleDTO" class="org.regola.dto.SimpleDTO" />
+	<input name="simpleDTOId" required="false"/>
+	
+	<action-state id="newOrEdit">
+    	<evaluate expression="simpleDTOId eq null" />
+    	<transition on="yes" to="form" />
+    	<transition on="no" to="form" >
+    	    <!-- evaluate expression="simpleDTOManager.get(simpleDTOId)" result="flowScope.simpleDTO" /-->
+			<evaluate expression="universalDao.get(simpleDTO.class,simpleDTOId)" result="flowScope.simpleDTO" />
+    	</transition>
+	</action-state>
+	
+	<view-state id="form" model="simpleDTO" view="simpleDTO-form">
+		<transition on="cancel" to="cancel" validate="false" />
+		<transition on="save" to="saveOrUpdate">
+		</transition>		
+	</view-state>
+	
+	<action-state id="saveOrUpdate">
+		<evaluate expression="simpleDTOId == null" />
+    	<transition on="yes" to="confirm" >
+    	    <!--evaluate expression="simpleDTOManager.save(simpleDTO)"  /-->
+			<evaluate expression="universalDao.save(simpleDTO)"  />
+    	</transition>
+    	<transition on="no" to="confirm" />
+	</action-state>
+	
+	<end-state id="cancel" />
+	<end-state id="confirm" commit="true" />
+	
+  	<bean-import resource="beans.xml"/>
+
+</flow>

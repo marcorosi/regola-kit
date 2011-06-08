@@ -14,7 +14,7 @@ public class ApplicationPropertiesGenerator extends AbstractGenerator
 		Template template = env.getTemplate(TEMPLATE);
 		//String fileName = pb.getParameters().get("model_name").toString().toLowerCase();
 		//env.writeResource(fileName+".properties", template, pb.getParameters());
-		env.writeApplicationProperties(template, pb.getParameters());
+		env.addApplicationProperties(template, pb.getParameters());
 	}
 
 	public boolean existsArtifact(Environment env, VariablesBuilder pb) {
