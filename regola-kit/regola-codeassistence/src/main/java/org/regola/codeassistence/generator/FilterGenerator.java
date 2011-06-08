@@ -12,7 +12,7 @@ public class FilterGenerator extends AbstractGenerator
 	public void generate(Environment env, VariablesBuilder pb)
 	{
 		Template template = env.getTemplate(TEMPLATE);
-		env.writeJavaSource((String) pb.getParameters().get("pattern_package")
+		env.addJavaSource((String) pb.getParameters().get("pattern_package")
 				, (String) pb.getParameters().get("filter_name")
 				, template
 				, pb.getParameters());

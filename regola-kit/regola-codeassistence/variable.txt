@@ -1,0 +1,48 @@
+Elenco delle variabili disponibili nei template di Regola kit:
+
+allProperties : 
+  	   proprieta.name : name
+	   proprieta.name : password
+collectionsProps :
+dao_bean_name : simpleModelDao
+dao_impl_class : org.regola.dao.hibernate.null
+dao_impl_name : SimpleModelDaoHibernate
+dao_impl_package : org.regola.dao.hibernate
+dao_interface_class : org.regola.dao.SimpleModelDao
+dao_interface_name : SimpleModelDao
+dao_package : org.regola.dao
+field : funzione
+filter_class : org.regola.model.pattern.SimpleModelPattern
+filter_name : SimpleModelPattern
+guessName : funzione
+idProperties : 
+id_class : java.lang.Integer
+id_name : Integer
+mbean_form_name : SimpleModelForm
+mbean_form_page : simpleModel-form.xhtml
+mbean_form_page_url : simpleModel-form.html
+mbean_list_name : SimpleModelList
+mbean_list_page : simpleModel-list.xhtml
+mbean_list_page_url : simpleModel-list.html
+mbean_package : org.regola.webapp.action
+mock_name : simpleModelMock
+modelProperties :
+	   proprieta.name : name
+	   proprieta.name : password
+model_class : org.regola.model.SimpleModel
+model_name : SimpleModel
+notCollectionsProps : 
+	   proprieta.name : name
+	   proprieta.name : password
+package : org.regola
+pattern_package : org.regola.model.pattern
+same : funzione
+service_bean_name : simpleModelManager
+service_impl_class : org.regola.service.impl.null
+service_impl_name : SimpleModelManagerImpl
+service_impl_package : org.regola.service.impl
+service_interface_class : org.regola.service.SimpleModelManager
+service_interface_name : SimpleModelManager
+service_package : org.regola.service
+tipo : {TrailsClassDescriptor - Type: class org.regola.model.SimpleModel}
+tipoId : {TrailsClassDescriptor - Type: class java.lang.Integer}

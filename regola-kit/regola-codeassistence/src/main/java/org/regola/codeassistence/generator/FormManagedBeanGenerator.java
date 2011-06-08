@@ -15,18 +15,18 @@ public class FormManagedBeanGenerator extends AbstractGenerator
 	public void generate(Environment env, VariablesBuilder pb)
 	{
 		Template template = env.getTemplate(LIST_TEMPLATE);	  
-		env.writeJavaSource((String) pb.getParameters().get("mbean_package")
+		env.addJavaSource((String) pb.getParameters().get("mbean_package")
 				, (String) pb.getParameters().get("mbean_form_name")
 				, template
 				, pb.getParameters());
 		
 		template = env.getTemplate(SPRING_BEAN_TEMPLATE);
 		String beanId = VariablesBuilder.camelNotation((String)pb.getParameters().get("mbean_form_name"));
-		env.writeXmlSource(env.getSpringServiceFileName(), beanId, template, pb.getParameters());
+		env.addSpringBeansToApplicationContext( beanId, template, pb.getParameters());
 		
                 
         template = env.getTemplate(VALIDATION_TEMPLATE);
-		env.writeResource( pb.getParameters().get("mbean_form_name") + "Amendments.xml", template,  pb.getParameters());
+		env.addResource( pb.getParameters().get("mbean_form_name") + "Amendments.xml", template,  pb.getParameters());
 		
 	}
 

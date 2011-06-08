@@ -13,11 +13,11 @@ public class FormPageGenerator extends AbstractGenerator
 	public void generate(Environment env, VariablesBuilder pb)
 	{
 		Template template = env.getTemplate(TEMPLATE);	  
-		env.writeWebSource(pb.getParameters().get("model_name")+"-form", template, pb.getParameters());
+		env.addWebDocument(pb.getParameters().get("model_name")+"-form", template, pb.getParameters());
 
 		template = env.getTemplate(FACES_CONFIG_TEMPLATE);
 		String beanId = "/" + pb.getParameters().get("mbean_form_page");
-		env.writeFacesConfig(env.getFacesConfigFileName(), beanId, template, pb.getParameters());
+		env.addFacesBeans( beanId, template, pb.getParameters());
 		
 		
 	}

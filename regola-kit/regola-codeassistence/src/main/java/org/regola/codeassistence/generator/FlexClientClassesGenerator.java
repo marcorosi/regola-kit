@@ -18,19 +18,19 @@ public class FlexClientClassesGenerator extends AbstractGenerator {
 	public void generate(Environment env, VariablesBuilder pb)
 	{
 		Template template = env.getTemplate(MODEL_PATTERN);
-		env.writeFlexSource((String) pb.getParameters().get("pattern_package")
+		env.addFlexSource((String) pb.getParameters().get("pattern_package")
 				, (String) pb.getParameters().get("filter_name")
 				, template
 				, pb.getParameters());
 		
 		template = env.getTemplate(MODEL);
-		env.writeFlexSource((String) pb.getParameters().get("model_package")
+		env.addFlexSource((String) pb.getParameters().get("model_package")
 				, (String) pb.getParameters().get("model_name")
 				, template
 				, pb.getParameters());
 		
 		template = env.getTemplate(CONTROLLER);	  
-		env.writeFlexSource((String) pb.getParameters().get("controller_package")
+		env.addFlexSource((String) pb.getParameters().get("controller_package")
 				, (String) pb.getParameters().get("controller_name")
 				, template
 				, pb.getParameters());

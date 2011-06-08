@@ -11,7 +11,7 @@ public class VariablesListGenerator extends AbstractGenerator {
 	public void generate(Environment env, VariablesBuilder pb)
 	{
 		Template template = env.getTemplate("variables.ftl");
-		env.writeFile("","variable.txt",  template, pb.getParameters());
+		env.writeToFile(env.instanceFile("","variable.txt"),  template, pb.getParameters(),false);
 	}
 
 	public boolean existsArtifact(Environment env, VariablesBuilder pb) {

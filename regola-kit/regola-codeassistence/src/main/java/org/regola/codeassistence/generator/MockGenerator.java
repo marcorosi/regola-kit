@@ -15,7 +15,7 @@ public class MockGenerator extends AbstractGenerator {
 		Template template = env.getTemplate(SPRING_BEAN_TEMPLATE);
 		
 		String beanId = (String)pb.getParameters().get("mock_name");
-		env.writeXmlSource(env.getSpringTestResourcesFileName(), beanId, template, pb.getParameters());
+		//env.addSpringBeansToTestApplicationContext( beanId, template, pb.getParameters());
 	}
 
 	public boolean existsArtifact(Environment env, VariablesBuilder pb) {

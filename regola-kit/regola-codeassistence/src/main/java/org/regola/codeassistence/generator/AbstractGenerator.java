@@ -60,11 +60,11 @@ public class AbstractGenerator implements Generator {
 
 	@Override
 	public Map<String, String> simulate(Environment env, VariablesBuilder pb) {
-		env.setSimulate(true);
+		env.writers.setSimulate(true);
 		this.generate(env, pb);
-		env.setSimulate(false);
+		env.writers.setSimulate(false);
 		
-		return env.getSimulationMap();
+		return env.writers.getSimulationMap();
 	}
 
 	@Override
