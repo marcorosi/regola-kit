@@ -9,11 +9,11 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.regola.model.Customer;
+import org.regola.model.Customer.Address;
 import org.regola.model.CustomerPattern;
 import org.regola.model.Invoice;
 import org.regola.model.InvoicePattern;
 import org.regola.model.Order;
-import org.regola.model.Customer.Address;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.test.annotation.AbstractAnnotationAwareTransactionalTests;
@@ -283,6 +283,16 @@ public abstract class AbstractGenericDaoTest extends
 		List<Customer> customers = customerDao.find(pattern);
 
 		assertEquals(16, customers.size());
+	}
+	
+	public void testFindByModelPattern_notIn() {
+		CustomerPattern pattern = new CustomerPattern();
+		pattern.setNotInLastNames(new String[] { "Clancy", "Fuller", "Ott" });
+		pattern.disablePaging();
+		
+		List<Customer> customers = customerDao.find(pattern);
+
+		assertEquals(34, customers.size());
 	}
 
 	public void testFindByModelPattern_like() {
