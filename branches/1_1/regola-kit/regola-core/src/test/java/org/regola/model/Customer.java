@@ -12,9 +12,19 @@ public class Customer implements Serializable {
 	private String firstName;
 	private String lastName;
 	private Address address;
-
+	private Boolean withGlasses;
+	private EconomicConditionEnum economicCondition;
+	
 	private Collection<Invoice> invoices = new HashSet<Invoice>();
 
+	public Boolean getWithGlasses() {
+		return withGlasses;
+	}
+
+	public void setWithGlasses(Boolean withGlasses) {
+		this.withGlasses = withGlasses;
+	}	
+	
 	public Collection<Invoice> getInvoices() {
 		return invoices;
 	}
@@ -120,5 +130,13 @@ public class Customer implements Serializable {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public EconomicConditionEnum getEconomicCondition() {
+		return economicCondition;
+	}
+
+	public void setEconomicCondition(EconomicConditionEnum economicCondition) {
+		this.economicCondition = economicCondition;
 	}
 }

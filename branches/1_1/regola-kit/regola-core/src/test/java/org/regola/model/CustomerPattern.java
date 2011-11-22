@@ -131,6 +131,28 @@ public class CustomerPattern extends ModelPattern {
 		this.sexDescription = sex;
 	}
 	
+	@Equals
+	private Boolean withGlasses;
+
+	public Boolean getWithGlasses() {
+		return withGlasses;
+	}
+
+	public void setWithGlasses(Boolean withGlasses) {
+		this.withGlasses = withGlasses;
+	}
+
+	@Equals
+	private EconomicConditionEnum economicCondition;
+
+	public EconomicConditionEnum getEconomicCondition() {
+		return economicCondition;
+	}
+
+	public void setEconomicCondition(EconomicConditionEnum economicCondition) {
+		this.economicCondition = economicCondition;
+	}
+
 	public CustomerPattern() {
 		addProperty("id", null);
 		addProperty("firstName", null);
