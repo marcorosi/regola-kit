@@ -2,6 +2,7 @@ package org.regola.dao.ognl;
 
 import static org.regola.util.Ognl.getValue;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import org.regola.dao.ognl.OgnlGenericDao;
@@ -12,6 +13,7 @@ import org.regola.dao.MemoryCustomerDao;
 import org.regola.dao.MemoryGenericDao;
 import org.regola.model.Customer;
 import org.regola.model.CustomerPattern;
+import org.regola.model.EconomicConditionEnum;
 import org.regola.model.Invoice;
 import org.regola.model.ModelProperty;
 import org.regola.model.Order;
@@ -50,6 +52,8 @@ public class OgnlGenericDaoTest extends
 		customer.getAddress().setStreet("via Giovanni Bormida");
 		customer.getAddress().setCity("Milano");
 		customer.setInvoices(new ArrayList<Invoice>());
+		customer.setWithGlasses(true);
+		customer.setEconomicCondition(EconomicConditionEnum.rich);
 		invoice = new Invoice(); invoice.setId(101);
 		customer.getInvoices().add(invoice);
 		list.add(customer);
@@ -64,6 +68,7 @@ public class OgnlGenericDaoTest extends
 		customer.setInvoices(new ArrayList<Invoice>());
 		invoice = new Invoice(); invoice.setId(201);
 		customer.getInvoices().add(invoice);
+		customer.setEconomicCondition(EconomicConditionEnum.poor);
 		list.add(customer);
 		
 		customer = new Customer();
@@ -76,6 +81,7 @@ public class OgnlGenericDaoTest extends
 		customer.setInvoices(new ArrayList<Invoice>());
 		invoice = new Invoice(); invoice.setId(101);
 		customer.getInvoices().add(invoice);
+		customer.setEconomicCondition(EconomicConditionEnum.poor);
 		list.add(customer);
 
 
@@ -164,6 +170,16 @@ public class OgnlGenericDaoTest extends
 		list = customerDao.find(pattern);
 		assertTrue(list.size() == 0);
 
+		pattern.setInvoiceId(null);
+		pattern.setWithGlasses(true);
+		pattern.setEconomicCondition(EconomicConditionEnum.rich);
+		list = customerDao.find(pattern);
+		
+		assertEquals(1,list.size());
+		assertEquals("Ken", list.get(0).getFirstName());
+		assertTrue(list.get(0).getWithGlasses());
+		
+		assertEquals(1,customerDao.count(pattern));
 		
 	}
 	
@@ -392,5 +408,14 @@ public class OgnlGenericDaoTest extends
 		assertFalse(target.equals(result));
 		assertTrue(target.size() > ((List)result).size());
 	}
-	
+
+	public void testOgnlWithEnum()
+	{
+		List<Customer> target = fixtureCustomer();
+		String ognl = "#root.{?  #this.economicCondition==@org.regola.model.EconomicConditionEnum@rich}";
+		@SuppressWarnings("unchecked")
+		List<Customer> result = (List<Customer>) getValue(ognl, target);
+		assertEquals(1, result.size());
+	}
+
 }
