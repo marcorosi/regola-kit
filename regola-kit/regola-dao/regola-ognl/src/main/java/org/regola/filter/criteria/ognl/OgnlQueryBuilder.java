@@ -423,6 +423,9 @@ public class OgnlQueryBuilder extends AbstractCriteriaBuilder {
 		if (value == null)
 			return "null";
 
+		if(value instanceof Enum)
+			return "@"+value.getClass().getCanonicalName()+"@"+value;
+		
 		if (value instanceof String)
 			return "\"" + value + "\"";
 
