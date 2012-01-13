@@ -10,13 +10,10 @@
 	</parent>
 	<artifactId>regola-hibernate</artifactId>
 	<packaging>jar</packaging>
-	<name>Regola DAO Hibernate</name>
+	<name>Regola DAO::Hibernate</name>
 	<description> Regola Toolkit DAO Hibernate</description>
 
-	<properties>
-		<hibernate.version>3.6.4.Final</hibernate.version>
-	</properties>
-
+	
 	<build>
 		<resources>
 			<resource>
@@ -27,66 +24,86 @@
 				<includes>
 					<include>plugin.xml</include>
 					<include>**/META-INF/*</include>
-				</includes> 
+				</includes>
 			</resource>
 		</resources>
 	</build>
 	<dependencies>
 
-	
 
-		<!--  form DAO parent pom -->
+
+		<!-- form DAO parent pom -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>regola-core</artifactId>
 		</dependency>
 
-		<!--  form regola parent pom -->
+		<!-- form regola parent pom -->
 		<dependency>
-		    <groupId>javax.transaction</groupId>
-		    <artifactId>jta</artifactId>
-		    <version>1.1</version>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
 		</dependency>
 
-       <dependency> 
-            <groupId>org.hibernate</groupId> 
-            <artifactId>hibernate-entitymanager</artifactId> 
-		    <version>${hibernate.version}</version>
-        </dependency> 
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+		</dependency>
 
+		<!-- queste librerie non figurano tra le dipendenze di hibernate
+		     ma secondo la documentazione servono;  -->
+		<!-- <dependency> <groupId>dom4j</groupId> <artifactId>dom4j</artifactId> 
+			<version>1.6.1</version> </dependency> -->
+		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-api</artifactId> 
+			<version>1.6.1</version> </dependency> -->
+		<!-- <dependency> <groupId>log4j</groupId> <artifactId>log4j</artifactId> 
+			<version>1.2.15</version> </dependency> -->
+
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
 		
-		<!-- test -->
+		<dependency> 
+			<groupId>org.slf4j</groupId> 
+			<artifactId>slf4j-api</artifactId> 
+		</dependency>
 
-		<!--  form DAO parent pom -->
+
+		<!-- dipendenze di test -->
+		
+	
+		<!-- form DAO parent pom -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>regola-core</artifactId>
 			<type>test-jar</type>
 		</dependency>
 
-		<!--  form DAO parent pom -->
+		<!-- form DAO parent pom -->
 		<dependency>
 			<groupId>hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 		</dependency>
 
-		<!--  form regola parent pom -->
+		<!-- form regola parent pom -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 		</dependency>
-		
-		<!--  form regola parent pom -->
+
+		<!-- form regola parent pom -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
-		
+
 
 	</dependencies>
 </project>

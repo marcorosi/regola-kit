@@ -69,6 +69,10 @@ public class HibernateCriteria<T> extends AbstractCriteriaBuilder {
 		public void in(Collection<?> value) {
 			criteria.add(Restrictions.in(propertyPath, value));
 		}
+
+		public void notIn(Collection<?> value) {
+			criteria.add(Restrictions.not(Restrictions.in(propertyPath, value)));
+		}
 		
 		public void isNull() {
 			criteria.add(Restrictions.isNull(propertyPath));
@@ -76,7 +80,8 @@ public class HibernateCriteria<T> extends AbstractCriteriaBuilder {
 		
 		public void isNotNull() {
 			criteria.add(Restrictions.isNotNull(propertyPath));
-		}						
+		}
+					
 	}
 
 	/*
@@ -190,6 +195,11 @@ public class HibernateCriteria<T> extends AbstractCriteriaBuilder {
 	@Override
 	public void addIn(String property, Collection<?> value) {
 		getCriteria(property).in(value);
+	}
+	
+	@Override
+	public void addNotIn(String property, Collection<?> value) {
+		getCriteria(property).notIn(value);
 	}
 	
 	@Override
