@@ -42,13 +42,17 @@ public class Restrictions {
 	public static Criterion in(String property, Collection<?> value) {
 		return new Criterion(Operator.IN, property, value);
 	}
-	
+
+	public static Criterion notIn(String property, Collection<?> value) {
+		return new Criterion(Operator.NOTIN, property, value);
+	}
+
 	public static Criterion isNull(String property) {
 		return new Criterion(Operator.ISNULL, property, null);
 	}	
 	
 	public static Criterion isNotNull(String property) {
 		return new Criterion(Operator.ISNOTNULL, property, null);
-	}			
+	}	
 
 }
