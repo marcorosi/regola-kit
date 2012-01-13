@@ -11,7 +11,7 @@
 
 	<artifactId>regola-ognl</artifactId>
 	<packaging>jar</packaging>
-	<name>Regola DAO Ognl</name>
+	<name>Regola DAO::Ognl</name>
 	<description>Regola Toolkit DAO Ognl</description>
 	
 	<dependencies>

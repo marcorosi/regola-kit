@@ -124,6 +124,20 @@ public class OgnlGenericDaoTest extends
 		assertEquals(2,customerDao.count(pattern));
 		
 	}
+	
+	public void testNotIn() {
+
+		customerDao.setTarget(fixtureCustomer());
+
+		CustomerPattern pattern = new CustomerPattern();
+		pattern.setNotInLastNames( new String[] {"Davis", "Smith" });
+		
+		List<Customer> list = customerDao.find(pattern);
+
+		assertTrue(list.size() == 1);
+		assertEquals(1,customerDao.count(pattern));
+		
+	}
 
 	public void testEquals() {
 
