@@ -12,11 +12,7 @@
 	<packaging>jar</packaging>
 	<name>Regola WS RESTfull</name>
 	<description>Regola Toolkit WS RESTfull</description>
-	
-	<properties>
-  		<cxf.version>2.2.3</cxf.version>
-	</properties>
-	
+		
 	<dependencies>
 	
 		<dependency>
@@ -25,24 +21,11 @@
 		</dependency>
 		
 		<dependency>
-    		<groupId>com.sun.xml.bind</groupId>
-    		<artifactId>jaxb-xjc</artifactId>
-    		<version>2.2.2</version>
-		</dependency>
+    		<groupId>org.regola</groupId>
+    		<artifactId>regola-dependencies-ws</artifactId>
+     		<version>${project.version}</version>
+ 		</dependency>
 		
-		
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
-			<version>${cxf.version}</version>
-		</dependency>
-		
-		
-		<dependency>
-			<groupId>commons-httpclient</groupId>
-			<artifactId>commons-httpclient</artifactId>
-			<version>3.1</version>
-		</dependency>
 		
 		<!-- test -->
 		<dependency>
@@ -50,20 +33,20 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 		
-		
-	    <dependency>
+ 		 <dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-transports-http-jetty</artifactId>
-			<version>${cxf.version}</version>
 			<scope>test</scope>
+			
 		</dependency>
 		
 		<dependency>
 		    <groupId>javax.ws.rs</groupId>
 		    <artifactId>jsr311-api</artifactId>
-		    <version>1.1.1</version>
 		    <scope>test</scope>
 		</dependency>
+		
+		
 			
 		
 	</dependencies>
