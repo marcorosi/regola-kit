@@ -11,7 +11,7 @@
 
 	<artifactId>regola-dao</artifactId>
 	<packaging>pom</packaging>
-	<name>Regola Core DAO</name>
+	<name>Regola DAO</name>
 	<description>Regola Toolkit Dao</description>
 
 	<modules>

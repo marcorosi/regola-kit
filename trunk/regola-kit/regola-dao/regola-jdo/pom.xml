@@ -6,13 +6,13 @@
 	<parent>
 		<groupId>org.regola</groupId>
 		<artifactId>regola-dao</artifactId>
-		<version>1.1-SNAPSHOT</version>
+		<version>1.2-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>regola-jdo</artifactId>
 	<packaging>jar</packaging>
-	<name>REGOLA Toolkit :: DAO :: JDO module</name>
+	<name>REGOLA Toolkit :: DAO::JDO module</name>
 	<description>REGOLA Toolkit :: DAO :: JDO module</description>
 
 	<build>
