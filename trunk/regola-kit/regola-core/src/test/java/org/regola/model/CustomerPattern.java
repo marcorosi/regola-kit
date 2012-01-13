@@ -6,6 +6,7 @@ import org.regola.filter.annotation.In;
 import org.regola.filter.annotation.LessThan;
 import org.regola.filter.annotation.Like;
 import org.regola.filter.annotation.NotEquals;
+import org.regola.filter.annotation.NotIn;
 
 public class CustomerPattern extends ModelPattern {
 
@@ -64,6 +65,17 @@ public class CustomerPattern extends ModelPattern {
 		this.lastNames = lastNames;
 	}
 
+	@NotIn("lastName")
+	private String[] notInLastNames;
+
+	public String[] getNotInLastNames() {
+		return notInLastNames;
+	}
+
+	public void setNotInLastNames(String[] lastNames) {
+		this.notInLastNames = lastNames;
+	}
+	
 	@Like(value = "address.street", caseSensitive = true)
 	private String addressStreet;
 

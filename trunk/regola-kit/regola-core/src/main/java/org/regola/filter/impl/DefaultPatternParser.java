@@ -14,6 +14,7 @@ import org.regola.filter.annotation.LessThan;
 import org.regola.filter.annotation.Like;
 import org.regola.filter.annotation.ModelPatternFilter;
 import org.regola.filter.annotation.NotEquals;
+import org.regola.filter.annotation.NotIn;
 import org.regola.filter.criteria.Criteria;
 import org.regola.filter.handler.AbstractAnnotationHandler;
 import org.regola.filter.handler.EqualsHandler;
@@ -23,6 +24,7 @@ import org.regola.filter.handler.IsNullHandler;
 import org.regola.filter.handler.LessThanHandler;
 import org.regola.filter.handler.LikeHandler;
 import org.regola.filter.handler.NotEqualsHandler;
+import org.regola.filter.handler.NotInHandler;
 import org.regola.model.ModelPattern;
 
 public class DefaultPatternParser extends AbstractPatternParser {
@@ -36,6 +38,7 @@ public class DefaultPatternParser extends AbstractPatternParser {
 		addHandler(LessThan.class, new LessThanHandler());
 		addHandler(Like.class, new LikeHandler());
 		addHandler(In.class, new InHandler());
+		addHandler(NotIn.class, new NotInHandler());
 		addHandler(IsNull.class, new IsNullHandler());
 	}
 

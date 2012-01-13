@@ -495,6 +495,12 @@ public class BaseQueryBuilder extends AbstractCriteriaBuilder {
 				+ parametersList(value) + ")");
 	}
 
+	@Override
+	public void addNotIn(String propertyPath, Collection<?> value) {
+		addFilter(propertyReference(getProperty(propertyPath)) + " not in ("
+				+ parametersList(value) + ")");
+	}
+	
 	private String parametersList(Collection<?> values) {
 		StringBuilder text = new StringBuilder();
 		boolean first = true;

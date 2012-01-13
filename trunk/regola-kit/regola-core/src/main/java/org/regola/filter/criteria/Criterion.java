@@ -83,20 +83,12 @@ public class Criterion {
 		},
 		IN("IN") {
 			public void dispatch(Builder builder, String property, Object value) {
-				Collection<?> collection = null;
-				if (value != null) {
-					if (value instanceof Collection) {
-						collection = (Collection<?>) value;
-					} else if (value.getClass().isArray()) {
-						collection = Arrays.asList((Object[]) value);
-					}
-				}
-				if (collection != null) {
-					builder.addIn(property, collection);
-				} else {
-					throw new RuntimeException(
-							"L'operatore IN supporta solo valori di tipo Collection o Array");
-				}
+				builder.addIn(property, IN.getCollectionValue(value));
+			}
+		},
+		NOTIN("NOTIN") {
+			public void dispatch(Builder builder, String property, Object value) {
+				builder.addNotIn(property, NOTIN.getCollectionValue(value));
 			}
 		},
 		ISNULL("ISNULL") {
@@ -125,6 +117,22 @@ public class Criterion {
 
 		public abstract void dispatch(Builder builder, String property,
 				Object value);
+
+		private Collection<?> getCollectionValue(Object value) {
+			Collection<?> collection = null;
+			if (value != null) {
+				if (value instanceof Collection) {
+					collection = (Collection<?>) value;
+				} else if (value.getClass().isArray()) {
+					collection = Arrays.asList((Object[]) value);
+				}
+			}
+			if (collection == null) {
+				throw new RuntimeException("L'operatore " + this
+						+ " supporta solo valori di tipo Collection o Array");
+			}
+			return collection;
+		}
 	}
 
 	public interface Builder {
@@ -145,7 +153,9 @@ public class Criterion {
 		public void addIlike(String property, String value);
 
 		public void addIn(String property, Collection<?> value);
-		
+
+		public void addNotIn(String property, Collection<?> collectionValue);
+
 		public void addIsNull(String property);
 		
 		public void addIsNotNull(String property);		
