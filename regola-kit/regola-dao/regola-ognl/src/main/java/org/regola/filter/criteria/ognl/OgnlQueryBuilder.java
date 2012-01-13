@@ -159,6 +159,15 @@ public class OgnlQueryBuilder extends AbstractCriteriaBuilder {
 	}
 
 	@Override
+	public void addNotIn(String propertyPath, Collection<?> value) {
+		Property property = buildProperty(propertyPath);
+		List<String> filter = property.getListContext().getFilters();
+
+		filter.add(propertyReference(property) + " not in {"
+				+ parametersList(value) + "}");
+	}
+	
+	@Override
 	public void addLessEquals(String propertyPath, Object value) {
 		Property property = buildProperty(propertyPath);
 		List<String> filter = property.getListContext().getFilters();
@@ -436,4 +445,5 @@ public class OgnlQueryBuilder extends AbstractCriteriaBuilder {
 	public void setRowCount() {
 		rowCount = true;
 	}
+
 }
