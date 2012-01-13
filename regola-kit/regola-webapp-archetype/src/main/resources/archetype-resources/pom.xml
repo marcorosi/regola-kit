@@ -167,7 +167,7 @@
 		<dependency>
 			<groupId>org.regola</groupId>
 			<artifactId>regola-jsf-icefaces</artifactId>
-			<version>1.1-SNAPSHOT</version>
+			<version>1.2-SNAPSHOT</version>
 			<exclusions>
 				<!-- escludiamo webflow in attesa di un'integrazione 
 				     funzionante con icefaces --> 	
@@ -192,12 +192,12 @@
 		<dependency>
 			<groupId>org.regola</groupId>
 			<artifactId>regola-hibernate</artifactId>
-			<version>1.1-SNAPSHOT</version>
+			<version>1.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.regola</groupId>
 			<artifactId>regola-codeassistence</artifactId>
-			<version>1.1-SNAPSHOT</version>
+			<version>1.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -267,7 +267,7 @@
 		<dependency>
 			<groupId>org.regola</groupId>
 			<artifactId>regola-codeassistence</artifactId>
-			<version>1.1-SNAPSHOT</version>
+			<version>1.2-SNAPSHOT</version>
 		</dependency>
 		
 		<!--  Per abilitare le transazioni JTA rimuovere i commenti 
