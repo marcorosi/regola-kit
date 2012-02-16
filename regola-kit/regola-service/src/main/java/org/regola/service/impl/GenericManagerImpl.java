@@ -13,6 +13,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.regola.model.ModelPattern;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * This class serves as the Base class for all other Managers - namely to hold
@@ -50,6 +51,7 @@ import org.regola.model.ModelPattern;
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
+@Transactional
 public class GenericManagerImpl<T, PK extends Serializable> implements
 		GenericManager<T, PK> {
 	protected final Log log = LogFactory.getLog(getClass());
