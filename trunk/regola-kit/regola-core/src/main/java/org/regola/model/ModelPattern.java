@@ -16,6 +16,8 @@ import org.springframework.beans.BeanUtils;
 
 public abstract class ModelPattern implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	int pageSize = 20;
 	boolean pagingEnabled = true;
 	int currentPage = 0;
@@ -24,7 +26,11 @@ public abstract class ModelPattern implements Serializable{
 	List<ModelProperty> sortedProperties = new ArrayList<ModelProperty>();
 	List<ModelProperty> allProperties = new ArrayList<ModelProperty>();
 	List<ModelProperty> visibleProperties = new ArrayList<ModelProperty>();
-
+	
+	public ModelPattern(boolean pagingEnabled) {
+		setPagingEnabled(pagingEnabled);
+	}
+	
 	public boolean isPagingEnabled() {
 		return pagingEnabled;
 	}
