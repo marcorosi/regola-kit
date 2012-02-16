@@ -51,9 +51,9 @@ public abstract class AbstractGenericDao<T, ID extends Serializable> implements
 	}
 
 	public List<T> getAll() {
-		ModelPattern pattern = new ModelPattern() {
+		@SuppressWarnings("serial")
+		ModelPattern pattern = new ModelPattern(false) {
 		};
-		pattern.disablePaging();
 		return find(pattern);
 	}
 

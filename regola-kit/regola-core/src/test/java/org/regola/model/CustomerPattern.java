@@ -132,6 +132,7 @@ public class CustomerPattern extends ModelPattern {
 	}
 	
 	public CustomerPattern() {
+		super(true);
 		addProperty("id", null);
 		addProperty("firstName", null);
 		addProperty("lastName", null);

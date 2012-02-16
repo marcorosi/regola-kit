@@ -1,6 +1,7 @@
 package org.regola.filter.impl;
 
 import java.util.List;
+
 import org.regola.filter.annotation.Equals;
 import org.regola.filter.annotation.GreaterThan;
 import org.regola.filter.annotation.In;
@@ -13,6 +14,13 @@ import org.regola.model.ModelPattern;
  * @author nicola
  */
 class MockModelFilter extends ModelPattern {
+	
+	private static final long serialVersionUID = 1L;
+	
+	public MockModelFilter() {
+		super(true);
+	}
+	
 	@Equals(value = "modelName")
 	String name;
 	String surname;
