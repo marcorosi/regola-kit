@@ -95,10 +95,10 @@ public class StringUtil {
      */
     public static String decodeString(String str) {
         Base64 dec = new Base64();
-        try {
+//        try {
             return String.valueOf(dec.decode(str));
-        } catch (DecoderException de) {
-        	throw new RuntimeException(de.getMessage(), de.getCause());
-        }
+//        } catch (DecoderException de) {
+//        	throw new RuntimeException(de.getMessage(), de.getCause());
+//        }
     }
 }
