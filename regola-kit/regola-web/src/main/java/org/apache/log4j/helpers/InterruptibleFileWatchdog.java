@@ -5,12 +5,12 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.util.Date;
 
-public abstract class InterruptableFileWatchdog extends FileWatchdog implements
+public abstract class InterruptibleFileWatchdog extends FileWatchdog implements
 		Closeable {
 
 	private String contextName;
 
-	public InterruptableFileWatchdog(String filename, String contextName) {
+	public InterruptibleFileWatchdog(String filename, String contextName) {
 		super(filename);
 		this.contextName = contextName;
 	}
