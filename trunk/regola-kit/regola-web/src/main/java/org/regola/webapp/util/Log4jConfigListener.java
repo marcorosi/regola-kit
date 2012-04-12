@@ -10,7 +10,7 @@ import javax.servlet.ServletContextListener;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.PropertyConfigurator;
-import org.apache.log4j.helpers.InterruptableFileWatchdog;
+import org.apache.log4j.helpers.InterruptibleFileWatchdog;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.springframework.util.Log4jConfigurer;
 import org.springframework.util.ResourceUtils;
@@ -19,7 +19,7 @@ import org.springframework.web.util.WebUtils;
 
 public class Log4jConfigListener implements ServletContextListener {
 
-	private static InterruptableFileWatchdog watchdog;
+	private static InterruptibleFileWatchdog watchdog;
 
 	//@Override
 	public void contextInitialized(ServletContextEvent sce) {
@@ -110,7 +110,7 @@ public class Log4jConfigListener implements ServletContextListener {
 			throw new FileNotFoundException("Log4j config file [" + resolvedLocation + "] not found");
 		}
 		if (resolvedLocation.toLowerCase().endsWith(XML_FILE_EXTENSION)) {
-			watchdog = new InterruptableFileWatchdog(file.getAbsolutePath(), servletContext.getServletContextName()) {
+			watchdog = new InterruptibleFileWatchdog(file.getAbsolutePath(), servletContext.getServletContextName()) {
 				{
 					setDelay(refreshInterval);
 				}
@@ -122,7 +122,7 @@ public class Log4jConfigListener implements ServletContextListener {
 				}
 			};
 		} else {
-			watchdog = new InterruptableFileWatchdog(file.getAbsolutePath(), servletContext.getServletContextName()) {
+			watchdog = new InterruptibleFileWatchdog(file.getAbsolutePath(), servletContext.getServletContextName()) {
 				{
 					setDelay(refreshInterval);
 				}
