@@ -724,6 +724,9 @@ public class CodeAssistenceView extends FrameView {
 	
 	private void jFilesDAOValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jFilesDAOValueChanged
 		String fileName = (String) ((JList) evt.getSource()).getSelectedValue();
+		
+		if (fileName == null) return;
+		
 		jEditorDAO.setContentType(fileName.endsWith(".xml") ? "text/xml" : "text/java");
 		jEditorDAO.setText(filesDAO.get(fileName));
 		

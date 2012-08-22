@@ -196,7 +196,7 @@ public class VariablesBuilder {
 		parameters.put("modelProperties", modelProperties);
 		parameters.put("allProperties", allProperties);
 
-		dumpVariables();
+		//dumpVariables();
 	}
 
 	public Object getValue(String name) {
