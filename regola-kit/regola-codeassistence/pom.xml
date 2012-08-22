@@ -12,8 +12,8 @@
     
     <artifactId>regola-codeassistence</artifactId>
     <packaging>jar</packaging>
-    <name>REGOLA Toolkit :: Code Assistence module</name>
-    <description>REGOLA Framework :: Code Assistence module</description>
+    <name>Regola Code Assistence</name>
+    <description>Regola Code Assistence</description>
     
     <build> 
         <plugins>

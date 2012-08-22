@@ -70,5 +70,7 @@ public interface Generator
 	 * @return
 	 */
 	public Map<String,String> simulate(Environment env, VariablesBuilder pb);
+	
+	
 
 }
