@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.regola</groupId>
 		<artifactId>regola-dao</artifactId>
-		<version>1.2-SNAPSHOTversion>
+		<version>1.2version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>regola-hibernate-osgi</artifactId>
