@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+<ui:composition>
+		<ice:form>
+		<ice:panelPopup draggable="true" 
+						rendered="#{customerForm.invoiceDialog.visible}"
+						visible="#{customerForm.invoiceDialog.visible}"
+						style="z-index: 100; top: 350px; left: 30px; position: absolute; width: 350px; height: 200px">
+
+			<f:facet name="header">
+			  <ice:panelGrid width="100%" columns="1" styleClass="dialogHeader" title="#{msg['dialog.tooltip.header']}">
+				<ice:outputText value="#{customerForm.invoiceDialog.title}" />
+			  </ice:panelGrid>
+			</f:facet>
+
+			<f:facet name="body">
+			
+			<ice:panelGroup>
+				
+				<ice:panelGrid columns="4">
+			
+					<!-- id -->
+					<ice:outputText value="#{msg['invoice.column.id']}" />
+					<ice:inputText  value="#{customerForm.invoiceDialog.model.id}">
+					</ice:inputText>
+					<ice:outputText value=" " />
+					<ice:outputText value=" " />
+					<!-- ice:outputText value="#{customerForm.invoiceDialog.errors['id']}" / -->
+			
+			
+					<!-- total -->
+					<ice:outputText value="#{msg['invoice.column.total']}" />
+					<ice:inputText  value="#{customerForm.invoiceDialog.model.total}">
+					</ice:inputText>
+					<ice:outputText value=" " />
+					<ice:outputText value=" " />
+					<!-- ice:outputText value="#{customerForm.invoiceDialog.form.errors['total']}" / -->
+					
+				</ice:panelGrid>
+				<ice:panelGrid columns="2">		
+					<ice:commandButton id="OKInvoiceDialog"
+							actionListener="#{customerForm.invoiceDialog.closePopupAfterValidation}" value="Salva"
+							style="z-index:2;" />
+					<ice:commandButton id="CancelInvoiceDialog"
+							actionListener="#{customerForm.invoiceDialog.closePopup}" value="Annulla"
+							style="z-index:2;" />	
+				</ice:panelGrid>
+			</ice:panelGroup>
+			</f:facet>
+
+		</ice:panelPopup>			
+			
+		</ice:form>
+</ui:composition>
+</html>

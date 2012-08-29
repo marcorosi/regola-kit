@@ -1,0 +1,34 @@
+Manifest-Version: 1.0
+Export-Package: org.regola.dao.hibernate.osgi.extender;uses:="org.osgi
+ .framework,org.slf4j,org.hibernate,javax.sql,org.springframework.core
+ .io,org.springframework.beans.factory,org.hibernate.cfg,org.springfra
+ mework.orm.hibernate3.annotation"
+Private-Package: target.classes.target.classes.META-INF,target.classes
+ .META-INF
+Ignore-Package: org.regola.dao.hibernate.osgi.extender
+Built-By: nicola
+Tool: Bnd-0.0.311
+Bundle-Name: Regola DAO Hibernate OSGi Extender
+Import-Library: org.springframework.spring;version="[2.5.6.A,2.5.6.A]"
+ ,org.hibernate.ejb;version="[3.3.2.GA,3.3.2.GA]"
+Created-By: Apache Maven Bundle Plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: org.regola.core;bundle-version="1.2.0",org.regola.hibe
+ rnate;version="[1.2.0.SNAPSHOT,1.2.0.SNAPSHOT]"
+Import-Bundle: org.regola.core;version="[1.2.0.SNAPSHOT,1.2.0.SNAPSHOT
+ ]"
+Build-Jdk: 1.6.0_16
+Bundle-Version: 1.2.0.SNAPSHOT
+Bnd-LastModified: 1254222526249
+Bundle-ManifestVersion: 2
+Bundle-Description: Regola DAO Hibernate OSGi Extender
+Bundle-License: http://www.gnu.org/licenses/gpl-3.0.txt
+Import-Package: javax.sql,javax.transaction;version="1.1",javax.transa
+ ction.xa;version="1.1",org.hibernate;version="3.3",org.hibernate.cfg;
+ version="3.3",org.osgi.framework;version="1.4",org.slf4j;version="1.5
+ ",org.springframework.beans.factory;version="2.5",org.springframework
+ .core.io;version="2.5",org.springframework.orm.hibernate3.annotation;
+ version="2.5"
+Bundle-SymbolicName: org.regola.hibernate-osgi
+Originally-Created-By: Apache Maven Bundle Plugin
+

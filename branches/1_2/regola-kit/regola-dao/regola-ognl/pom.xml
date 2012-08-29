@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.regola</groupId>
+		<artifactId>regola-dao</artifactId>
+		<version>1.2-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>regola-ognl</artifactId>
+	<packaging>jar</packaging>
+	<name>Regola DAO::Ognl</name>
+	<description>Regola Toolkit DAO Ognl</description>
+	
+	<dependencies>
+			
+	
+		<!--  form DAO parent pom -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>regola-core</artifactId>
+		</dependency>
+
+
+		<!--  form regola parent pom -->
+		
+		<dependency>
+		  <groupId>commons-logging</groupId>
+		  <artifactId>commons-logging</artifactId>
+		  <version>1.1.1</version>	
+		</dependency>
+		
+		<!-- test -->
+		<!--  form DAO parent pom -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>regola-core</artifactId>
+			<type>test-jar</type>
+		</dependency>
+
+		<!--  form DAO parent pom -->
+		<dependency>
+			<groupId>hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+		</dependency>
+
+		<!--  form regola parent pom -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<!--  form regola parent pom -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+	</dependencies>
+	
+	
+</project>

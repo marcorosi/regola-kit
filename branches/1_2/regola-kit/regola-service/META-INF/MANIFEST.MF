@@ -1,0 +1,31 @@
+Manifest-Version: 1.0
+Export-Package: org.regola.service.impl;uses:="org.regola.model,org.ap
+ ache.commons.logging,org.regola.dao,org.regola.service",org.regola.se
+ rvice;uses:="org.regola.model"
+Ignore-Package: org.regola.finder.support,org.regola.util,org.regola.f
+ ilter.criteria.criterion,org.regola.service.impl,org.regola.filter.cr
+ iteria.impl,org.regola.finder,org.regola.dao,org.regola.filter.impl,o
+ rg.regola.service,org.regola.filter.handler,org.regola.model,org.rego
+ la.filter,org.regola.filter.annotation,org.regola.dao.impl,org.regola
+ .filter.criteria
+Private-Package: target.classes.target.classes.META-INF,target.classes
+ .META-INF,target.classes.target.classes.target.classes.META-INF
+Built-By: nicola
+Tool: Bnd-0.0.311
+Bundle-Name: Regola Service
+Import-Library: org.springframework.spring;version="[2.5.6.A,2.5.6.A]"
+Created-By: Apache Maven Bundle Plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Import-Bundle: com.springsource.org.ognl;version="[2.6.9,2.6.9]",org.r
+ egola.core;version="[1.2.0.SNAPSHOT,1.2.0.SNAPSHOT]"
+Build-Jdk: 1.6.0_16
+Bundle-Version: 1.2.0.SNAPSHOT
+Bnd-LastModified: 1254816065861
+Bundle-ManifestVersion: 2
+Bundle-License: http://www.gnu.org/licenses/gpl-3.0.txt
+Bundle-Description: Regola Toolkit Service
+Import-Package: org.apache.commons.logging;version="1.1",org.regola.da
+ o,org.regola.model,org.regola.service,org.regola.service.impl
+Bundle-SymbolicName: org.regola.service
+Originally-Created-By: Apache Maven Bundle Plugin
+

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.regola</groupId>
+		<artifactId>regola-kit</artifactId>
+		<version>1.2-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<artifactId>regola-rest</artifactId>
+	<packaging>jar</packaging>
+	<name>Regola WS RESTfull</name>
+	<description>Regola Toolkit WS RESTfull</description>
+		
+	<dependencies>
+	
+		<dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-web</artifactId>
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.regola</groupId>
+    		<artifactId>regola-dependencies-ws</artifactId>
+     		<version>${project.version}</version>
+ 		</dependency>
+		
+		
+		<!-- test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		
+ 		 <dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http-jetty</artifactId>
+			<scope>test</scope>
+			
+		</dependency>
+		
+		<dependency>
+		    <groupId>javax.ws.rs</groupId>
+		    <artifactId>jsr311-api</artifactId>
+		    <scope>test</scope>
+		</dependency>
+		
+		
+			
+		
+	</dependencies>
+</project>

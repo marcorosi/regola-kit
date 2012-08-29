@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/halo" creationComplete="initApp()">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.ModuleEvent;
+			
+			import org.springextensions.actionscript.ioc.autowire.DefaultAutowireProcessor;
+			import org.springextensions.actionscript.context.support.FlexXMLApplicationContext;
+			
+			private var _applicationContext:FlexXMLApplicationContext;
+		
+			private function initApp():void {
+				_applicationContext = new FlexXMLApplicationContext("application-context.xml");
+				_applicationContext.addEventListener(Event.COMPLETE,complete_handler);
+				_applicationContext.load();
+			}
+			
+			private function complete_handler(event:Event):void {
+				
+				_applicationContext.removeEventListener(Event.COMPLETE,complete_handler);
+				loadModules();
+				
+			}
+			
+			protected function loadModules():void
+			{
+				module.applicationDomain = new ApplicationDomain(ApplicationDomain.currentDomain);
+				module.loadModule("TestModule.swf");	
+			}
+			
+			protected function handleModuleError( moduleEvent:ModuleEvent ):void
+			{
+				throw new Error( "Module error loading: " + moduleEvent.module.url );
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<mx:ModuleLoader id="module" width="586" height="206" error="handleModuleError(event)" />
+</s:Application>

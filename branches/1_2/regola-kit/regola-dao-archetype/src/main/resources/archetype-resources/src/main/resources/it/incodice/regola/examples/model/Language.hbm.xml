@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17-set-2009 14.57.14 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="${package}.model.Language" table="DI_LINGUE">
+        <id name="id" type="java.lang.Long">
+            <column name="ID_LINGUA" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="descrizioneItaliano" type="string">
+            <column name="DESCRIZIONE_ITALIANO" length="150" />
+        </property>
+        <property name="descrizioneInglese" type="string">
+            <column name="DESCRIZIONE_INGLESE" length="150" />
+        </property>
+        <property name="codIso" type="string">
+            <column name="COD_ISO" length="3" />
+        </property>
+    </class>
+</hibernate-mapping>

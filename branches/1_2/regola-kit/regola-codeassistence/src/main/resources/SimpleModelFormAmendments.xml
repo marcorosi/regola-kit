@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model class="org.regola.model.SimpleModel">
+    <add type="org.hibernate.validator.NotEmpty" property="id"/>
+    <remove type="org.hibernate.validator.NotEmpty" property="name"/>
+    <remove type="org.hibernate.validator.NotEmpty" property="password"/>
+</model>
