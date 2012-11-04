@@ -5,30 +5,17 @@
 	<parent>
 		<groupId>org.regola</groupId>
 		<artifactId>regola-dao</artifactId>
-		<version>1.2-SNAPSHOTversion>
+		<version>1.3-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>regola-jpa</artifactId>
-	<packaging>bundle</packaging>
+	<packaging>jar</packaging>
 	<name>Regola DAO JPA</name>
 	<description>Regola Toolkit DAO JPA</description>
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<configuration>
-					<instructions>
-						<Import-Library>org.springframework.spring;version="[${spring.version},${spring.version}],com.springsource.javax.persistence;version="[1.0.0,1.0.0]"</Import-Library>
-						<Import-Bundle>org.regola.core;version="[${regola.version},${regola.version}]"</Import-Bundle>
-						<Export-Package>org.regola.*jpa.*</Export-Package>
-						<Import-Package>!org.regola.*,*</Import-Package>
-						<Embed-Dependency>ejb3criteria</Embed-Dependency>
-					</instructions>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -70,7 +57,7 @@
 		<!--  form regola parent pom -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.test</artifactId>
+				<artifactId>spring-test</artifactId>
 		</dependency>
 
 		<!--  form regola parent pom -->
@@ -79,21 +66,25 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>com.oracle.toplink.essentials</groupId>
-			<artifactId>oracle.toplink.essentials-library</artifactId>
-			<type>libd</type>
-			<scope>test</scope>
-			<version>2.0.0.b41-beta2</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>org.hibernate.ejb-library</artifactId>
-			<type>libd</type>
-			<scope>test</scope>
-			<version>3.3.2.GA</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.oracle.toplink.essentials</groupId> -->
+<!-- 			<artifactId>oracle.toplink.essentials-library</artifactId> -->
+<!-- 			<scope>test</scope> -->
+<!-- 			<version>2.0.0.b41-beta2</version> -->
+<!-- 		</dependency> -->
+ 		
+ 		<dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <version>1.0.1.Final</version>
+        </dependency>
+        
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.hibernate</groupId> -->
+<!-- 			<artifactId>org.hibernate.ejb-library</artifactId> -->
+<!-- 			<scope>test</scope> -->
+<!-- 			<version>3.3.2.GA</version> -->
+<!-- 		</dependency> -->
 
 		<dependency>
 			<groupId>org.apache.openjpa</groupId>
@@ -120,23 +111,30 @@
 
 		<!--  form regola parent pom -->
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>com.springsource.org.apache.commons.logging</artifactId>
+			<groupId>commons-logging</groupId>
+		  <artifactId>commons-logging</artifactId>		
 		</dependency>
 
-		<!--  form DAO parent pom -->
-		<dependency>
-			<groupId>javax.persistence</groupId>
-			<artifactId>com.springsource.javax.persistence</artifactId>
-		</dependency>
-
-		<!--  form regola parent pom -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>org.springframework.spring-library</artifactId>
-			<type>libd</type>
+			<artifactId>spring-orm</artifactId>
+			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+
+		<!--  form DAO parent pom -->
+<!--     <dependency> -->
+<!--         <groupId>org.hibernate.javax.persistence</groupId> -->
+<!--         <artifactId>hibernate-jpa-2.0-api</artifactId> -->
+<!--     </dependency> -->
+
+	
 		<!--
 			dependency> <groupId>javax.persistence</groupId>
 			<artifactId>persistence-api</artifactId> </dependency
