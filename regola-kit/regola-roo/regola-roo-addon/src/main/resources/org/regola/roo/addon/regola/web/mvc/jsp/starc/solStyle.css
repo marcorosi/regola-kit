@@ -1,0 +1,498 @@
+
+body{
+    border: 1px solid #DDDDDD;
+    margin: 0 auto;
+    max-width: 1500px;
+    min-width: 960px;
+    width: auto;
+/*     background-image: url("../img/backdrop.png"); */
+}
+
+/* testata */
+
+
+.bgTestataExt {
+    background-color: #FFFFFF;
+    background-position: right top;
+    background-image: none;
+    position: relative;
+    height: 114px;
+    overflow: hidden;
+    margin: 0;
+}
+#leftColumnCell img{
+    border-right: 1px solid #CCCCCC;
+    margin-bottom: 1.5em;
+    margin-left: 1.5em;
+    margin-top: 1.5em;
+    padding: 0 2em 0 0;
+}
+.testata{
+    background-image: url("/sol/starc/header.png");
+    background-position: right top;
+    background-repeat: no-repeat;
+    height: 87px;
+    border-bottom: 5px solid #CC0000;
+}
+
+.testata img{
+    float: left;
+    margin-left: 0;
+    margin-top: 1em;
+    padding-left: 2em;
+}
+
+.logoutSSO {
+/*     background-color: transparent; */
+/*     background-image: url("/sol/starc/grayGradient.png"); */
+/*     background-position: 50% 50%; */
+    border: none;
+    border-bottom: 1px solid #AA0000;
+    display: block;
+    float: none;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: right;
+    padding: 0 0 2px;
+}
+
+/* menu */
+
+div.menuLeft {
+    float: left;
+    width: 25%;
+    max-width: 300px;
+    border: none;
+}
+
+.menuCol .home-link{
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    color: #666666;
+    display: block;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-decoration: none;
+    background-image: url("/sol/starc/grayGradient.png");
+    background-repeat: repeat-x;
+    background-position: top center;
+    padding: 1em;
+}
+
+/* box left */
+
+.menuCol,
+.menuLeftBox{
+    margin: 1em;
+}
+
+.menuLeftBox{
+    border-right: 1px solid #ccc;
+}
+
+.quickInfo{
+    background-image: url("/sol/starc/pattern-carbon.png");
+    padding: 0.1em 1em 0.5em;
+    width: auto;
+    border: none;
+}
+
+.quickInfo p{
+    margin: 0;
+}
+
+.quickInfo h3{
+    margin: 0.5em 0 0.3em;
+}
+
+.menuLeftBox.help,
+.identity{
+    background-color: #F9F9F9;
+    border: medium none;
+    padding: 1em;
+    width: auto;
+}
+
+.identity{
+    margin-top: 1em;
+    border: 1px solid #EEEEEE;
+}
+
+.photo{
+    background-image: url("/sol/starc/ribbon1.png");
+    background-repeat: no-repeat;
+    margin-left: -26px;
+    padding-left: 1em;
+    height: 70px;
+    width: 58px;
+    float: left;
+    margin-right: 1em;
+}
+
+.photo img{
+    width: 54px;
+}
+
+.nome-cell{
+    float: left;
+    font-weight: bold;
+    margin-top: 0.3em;
+}
+
+.nome-cell p{
+    margin: 0.5em 0;
+}
+
+.cell{
+    font-weight: normal;
+}
+
+.email,
+.address{
+    clear: both;
+}
+
+.email{
+    padding-bottom: 1em;
+    padding-top: 0.1em;
+    text-align: center;
+/*     font-size:smaller; */
+}
+
+.email p{
+    margin-bottom: 0.5em;
+    margin-top: 0.3em;
+    word-wrap: break-word;
+}
+
+.email a{
+    border-bottom: 1px dotted #b3a9aa;
+
+}
+
+.address{
+    background-image: url("/sol/starc/content.gif");
+    background-position: top center;
+    background-repeat: repeat-x;
+    border-top: 1px solid #dfdfdf;
+}
+
+.address .label{
+    font-weight: bold;
+    color: #999;
+}
+
+.details{
+    text-align: right;
+    margin-bottom: 0;
+}
+
+.details a{
+    border-bottom: 1px dotted #999;
+}
+
+.menuLeftBox.help{
+    border: 1px solid #eee;
+    border-top: 4px solid #cc0000;
+    padding: 0em 1em 0.5em;
+}
+
+.menuLeftBox.help h3{
+    color: #cc0000;
+}
+
+/* contenuto */
+
+/* tab */
+
+.contenutiCol .tab {
+    margin-top: 2em;
+}
+
+.contenutiCol .tab ul{
+    bottom: -1px;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    
+    z-index: 3;
+	overflow: auto;
+}
+
+.contenutiCol .tab ul li{
+    border: 1px solid #ccc;
+    border-bottom: none;
+    background-color: #F9F9F9;
+    list-style: none outside none;
+    margin-top: 0;
+    padding: 0em 1em;
+    float: left;
+    margin-right: 2px;
+    cursor: pointer;
+    padding-top: 0.4em;
+	padding-bottom: 0.4em;
+	height: 16px;
+	margin-top: 1px;
+}
+
+.contenutiCol .tab ul li.selected{
+    background-color: #FFFFFF;
+    cursor: default;
+    margin-top: 0;
+    position: relative;
+    z-index: 2;
+	padding-bottom: 0.5em;
+	border-bottom: 1px solid #fff;
+}
+
+.notification{
+    background-color: #cc0000;
+    color: #fff;
+    padding: 0 0.3em;
+    border: 1px solid #7a0202;
+    margin-left: 1em;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+/* fine tab */
+
+div.riquadro {
+    background-color: #fff;
+    padding: 1em;
+}
+
+.exam{
+    padding-left: 0.5em;
+    padding-bottom: 1em;
+    padding-top: 1em;
+}
+
+.exam th{
+    text-align: left;
+}
+
+
+#mainContent{
+    overflow: auto
+}
+
+div.contenutiCol {
+    float: left;
+    margin: 0;
+    width: 74%;
+}
+
+.corpo{
+    width: auto;
+    margin: auto;
+    overflow: hidden;
+}
+
+.info{
+    background-color: #D7E9ED;
+    padding: 0.5em 1em;
+    margin-bottom: 2em;
+    background-image: url("/sol/starc/help.png");
+    background-position: 5px center;
+    background-repeat: no-repeat;
+    padding-left: 35px;
+}
+
+
+/* box */
+
+.contenutiCol .box {
+    margin: auto;
+    overflow: auto;
+    
+    text-align: center;
+}
+
+
+.box .services{
+    float: left;
+    width: 24.9%;
+
+}
+
+.box .services div,
+.box ul li{
+    background-color: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    margin: 0.5em;
+    padding: 0.5em;
+    -webkit-box-shadow: 0 2px 4px rgba(50, 50, 50, 0.28);
+    -moz-box-shadow:    0 2px 4px rgba(50, 50, 50, 0.28);
+    box-shadow:         0 2px 4px rgba(50, 50, 50, 0.28);
+}
+
+.box .services a,
+.box li a{
+    display: block;
+    text-decoration: none;
+    color: #555;
+    padding-top: 1px;
+    padding-bottom:1px;
+    margin-top:1px;
+    margin-bottom:1px;
+}
+
+.box .services div:hover p a,
+.box .services div:hover h4 a,
+.box li p:hover a,
+.box li h4:hover a{
+    color: #000;
+    padding-top: 1px;
+    padding-bottom:1px;
+    margin-top:1px;
+    margin-bottom:1px;
+}
+
+.box li h4,
+.box li p {
+    font-size: 1em;
+    padding-top: 1px;
+    padding-bottom:1px;
+    margin-top:1px;
+    margin-bottom:1px;
+}
+/* fine box */
+
+/* footer */
+
+.strutturaFooter{
+    border: 1px solid #CCCCCC;
+    margin: 1em;
+    padding: 1em;
+    background-image: none;
+    background-color: #fff;
+}
+
+
+.box li {
+	list-style: none;
+	width: 150px;
+	float: left;
+	margin-right: 50px;
+	margin-left: 50px;
+	height: 125px;
+	overflow:hidden;
+}
+.box ul {
+	margin:0px;
+	padding:0px;
+	border:0px;
+}
+
+
+div.list-nav {
+	padding: 12px 0 6px;	
+}
+
+.tabBody {
+	border-bottom: 0px;
+	border-top: 0px;
+	background-color: transparent;	
+}
+
+.tabbedBox ul.tab li.active{
+	padding: 0.8em 0.9em;
+}
+
+.descrizione {
+	background-color: #eee;	
+}
+
+.readonly {
+	background-color: #eee;		
+}
+
+div.cornicetoolbar1 {
+    border-bottom: 1px solid #CC0000;
+    height: 23px;
+    padding: 6px 5px 0 8px;
+    border-left:none;
+    border-right: none;
+    border-top: none;
+    background-color: #eee;
+}
+
+div.riquadro p.banner {
+	background-color: #eee;
+}
+
+div.riquadro {
+	padding: 0em;
+}
+
+
+/* altre pagine */
+
+.menuLeftBox .support{
+	background-color: #fff;
+}
+
+.corpo div.riquadro .banner {
+	font-size: 1.1em;
+	background-color: transparent !important;
+	border: none;
+}
+
+.flashMessageWarn,
+.flashMessageError,
+.flashMessageOk,
+.flashMessageInfo{
+	color: #000;
+	border: none;
+}
+
+.flashMessageInfo {
+    background-color: #D7E9ED;
+    
+}
+
+fieldset {
+    background-color: #FFFFFF;
+}
+
+div.cornicetoolbar1 {
+    background: none repeat scroll 0 0 #EAEAEA;
+	border: none;
+    border-bottom: 1px dashed #BBBBBB;
+    height: 30px;
+    margin: 1em 0 0;
+    padding: 1.2em 5px 0 12px;
+}
+
+.elementiAttivi {
+	padding: 10px;	
+}
+
+.lan {
+	color: #0046D5;
+	border: 1px solid #0046D5;
+	width: 20px;
+	font-size: 0.85em;
+	text-align: center;
+	display: inline;
+	padding-right: 2px;
+	padding-left: 2px;
+}
+
+.langSwitch a{
+	color: #0046D5;	
+	padding: 5px;
+	font-size:0.85em;
+	line-height: 20px;
+}
+
+.langSwitch {
+    margin-left: 1em;
+    position: relative;
+    z-index: 2;
+    width: 200px;
+}
+
