@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<model class="org.regola.dto.SimpleDTO">
-    <add type="org.hibernate.validator.NotEmpty" property="id"/>
-</model>
