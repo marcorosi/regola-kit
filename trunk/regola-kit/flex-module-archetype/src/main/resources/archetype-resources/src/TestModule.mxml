@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<mx:Module xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		   xmlns:s="library://ns.adobe.com/flex/spark" 
-		   xmlns:mx="library://ns.adobe.com/flex/halo" layout="absolute" width="232" height="122">
-	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
-	</fx:Declarations>
-	<s:Label x="39" y="33" text="Regola kit test module" width="92" height="31" fontSize="19"/>
-</mx:Module>
