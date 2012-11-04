@@ -73,12 +73,12 @@ public class JpaCriteria extends AbstractCriteriaBuilder {
 	
 	@Override
 	public void addIsNull(String property) {
-		//TODO
+		throw new IllegalArgumentException("Is Null non disponibile tra i criteria JPA.");
 	}	
 	
 	@Override
 	public void addIsNotNull(String property) {
-		//TODO
+		throw new IllegalArgumentException("Is Not Null non disponibile tra i criteria JPA.");
 	}			
 
 	@Override
@@ -121,6 +121,12 @@ public class JpaCriteria extends AbstractCriteriaBuilder {
 		}
 
 		return query;
+	}
+
+	@Override
+	public void addNotIn(String property, Collection<?> value) {
+		throw new IllegalArgumentException("Not In non disponibile tra i criteria JPA.");
+		
 	}
 
 }
