@@ -21,6 +21,7 @@ public class JobContext<T extends Serializable> {
 	private Date started;
 	private Date finished;
 	private String message;
+	private boolean cancelled;
 
 	// stats
 	private int processed;
@@ -99,6 +100,11 @@ public class JobContext<T extends Serializable> {
 
 	public JobContext<T> finishedAt(final Date date) {
 		finished = new Date(date.getTime());
+		return this;
+	}
+
+	public JobContext<T> cancelled() {
+		this.cancelled = true;
 		return this;
 	}
 
@@ -213,6 +219,10 @@ public class JobContext<T extends Serializable> {
 
 	public Date getFinished() {
 		return finished;
+	}
+	
+	public boolean isCancelled() {
+		return cancelled;
 	}
 
 	public String getMessage() {
