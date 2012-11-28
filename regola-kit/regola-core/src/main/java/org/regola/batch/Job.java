@@ -33,7 +33,26 @@ public abstract class Job<T extends Serializable> {
 
 	public interface SkipPolicy<T extends Serializable> {
 
+		/**
+		 * Questa policy viene verificata prima l'elaborazione di un elemento.
+		 */
 		boolean isSatisfiedBy(final JobContext<T> context);
+
+		/**
+		 * Questa policy viene verificata dopo l'elaborazione di un elemento.
+		 */
+		boolean skipRemaining(JobContext<T> context);
+
+		/**
+		 * Questa policy viene verificata dopo l'elaborazione di un elemento.
+		 * 
+		 * @param e
+		 *            eccezione verificatasi durante l'elaborazione
+		 *            dell'elemento.
+		 * @return true se si deve interrompere l'elaborazione degli elementi
+		 *         successivi.
+		 */
+		boolean skipRemaining(JobContext<T> context, RuntimeException e);
 
 	}
 
@@ -67,8 +86,9 @@ public abstract class Job<T extends Serializable> {
 
 	public Job(final JobConfig config) {
 		maxItems = config.getMaxItems();
-		runPolicy = new DefaultRunPolicy<T>(config.isEnabled(), config.getEnvironment(),
-				config.getHostname(), config.getExecutionWindow());
+		runPolicy = new DefaultRunPolicy<T>(config.isEnabled(),
+				config.getEnvironment(), config.getHostname(),
+				config.getExecutionWindow());
 		lockPolicy = new NullLockPolicy<T>();
 		skipPolicy = new NullSkipPolicy<T>();
 		retryPolicy = new DefaultRetryPolicy<T>(config.getMaxTries(),
@@ -104,7 +124,7 @@ public abstract class Job<T extends Serializable> {
 		}
 
 		LOG.info("Inizio esecuzione del job " + context + "...");
-		
+
 		if (!acquireExecution(context)) {
 			LOG.warn("Impossibile ottenere il diritto di esecuzione esclusivo del job");
 			return context.failed().withMessage("Cannot acquire lock")
@@ -115,7 +135,8 @@ public abstract class Job<T extends Serializable> {
 			onStart(context);
 
 			final Set<T> commitQueue = new LinkedHashSet<T>();
-			LOADING: while (true) {
+			boolean abortProcessing = false;
+			LOADING: while (!abortProcessing) {
 				context.loading();
 				LOG.info("Caricamento degli elementi da elaborare, iterazione "
 						+ context.getLoadIteration());
@@ -126,6 +147,11 @@ public abstract class Job<T extends Serializable> {
 					break LOADING;
 				}
 				NEXT_ITEM: for (T item : itemsToProcess) {
+					if (context.getProcessed() >= maxItems) {
+						LOG.warn("Superato il numero massimo di elementi elaborabili: "
+								+ maxItems);
+						break LOADING;
+					}
 					context.startProcessing(item);
 
 					if (!acquireItem(context)) {
@@ -133,37 +159,23 @@ public abstract class Job<T extends Serializable> {
 						continue NEXT_ITEM;
 					}
 					try {
-						T processedItem = null;
-						try {
-							if (skipPolicy.isSatisfiedBy(context)) {
-								context.itemSkipped();
-								LOG.info("Elemento ignorato");
-								continue NEXT_ITEM;
-							}
-							processedItem = retriableProcessing(item, context);
-						} catch (RuntimeException e) {
-							// on processing w/o retry
-							context.itemFailed();
-							LOG.error("Fallita elaborazione dell'elemento");
-							continue NEXT_ITEM;
-						}
-						commit(processedItem, context, commitQueue);
-						context.itemSucceeded();
+						abortProcessing = processAndCommit(item, context,
+								commitQueue);
 					} finally {
 						releaseItem(context);
-						if (context.getProcessed() >= maxItems) {
-							LOG.warn("Superato il numero massimo di elementi elaborabili: "
-									+ maxItems);
-							break LOADING;
-						}
+					}
+					if (abortProcessing) {
+						context.cancelled();
+						LOG.warn("Annullamento: non verranno elaborati altri elementi");
+						break NEXT_ITEM;
 					}
 				}
 			}
-			
+
 			context.succeeded();
-			
+
 		} catch (RuntimeException e) {
-			// on load, commit or release item
+			// on start, load, commit or acquire/release item
 			LOG.error("Impossibile procedere nell'esecuzione del job", e);
 			context.failed();
 		} finally {
@@ -183,8 +195,33 @@ public abstract class Job<T extends Serializable> {
 
 	protected void onFinish(JobContext<T> context) {
 	}
-	
-	private T retriableProcessing(final T item, final JobContext<T> context) {
+
+	/**
+	 * @return true se l'elaborazione degli elementi rimanenti deve
+	 *         interrompersi.
+	 */
+	private boolean processAndCommit(T item, JobContext<T> context,
+			Set<T> commitQueue) {
+		if (skipPolicy.isSatisfiedBy(context)) {
+			context.itemSkipped();
+			LOG.info("Elemento ignorato");
+			return skipPolicy.skipRemaining(context);
+		}
+		T processedItem = null;
+		try {
+			processedItem = processAndRetryOnErrors(item, context);
+		} catch (RuntimeException e) {
+			// on processing w/o retry
+			context.itemFailed();
+			LOG.error("Fallita elaborazione dell'elemento");
+			return skipPolicy.skipRemaining(context, e);
+		}
+		context.itemSucceeded();
+		commit(processedItem, context, commitQueue);
+		return skipPolicy.skipRemaining(context);
+	}
+
+	private T processAndRetryOnErrors(final T item, final JobContext<T> context) {
 		boolean retrying = false;
 		T processedItem = null;
 		do {
@@ -274,7 +311,6 @@ public abstract class Job<T extends Serializable> {
 		private final String hostname;
 		private final RunExpression executionWindow;
 
-
 		public DefaultRunPolicy() {
 			this(true, EnvironmentUtils.current(), EnvironmentUtils.hostname(),
 					RunExpression.anytime());
@@ -343,6 +379,14 @@ public abstract class Job<T extends Serializable> {
 			SkipPolicy<T> {
 
 		public boolean isSatisfiedBy(final JobContext<T> context) {
+			return false;
+		}
+
+		public boolean skipRemaining(JobContext<T> context) {
+			return false;
+		}
+
+		public boolean skipRemaining(JobContext<T> context, RuntimeException e) {
 			return false;
 		}
 
