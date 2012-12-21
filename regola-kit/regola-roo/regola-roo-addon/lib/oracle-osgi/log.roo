@@ -1,0 +1,4 @@
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log opened at 2012-09-13 15:03:06
+addon create wrapper --topLevelPackage com.oracle.roo.JDBC --groupId com.oracle --artifactId ojdbc14 --version 10.2.0.4.0 --vendorName Oracle --licenseUrl http://www.oracle.com
+quit
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log closed at 2012-09-13 15:05:00

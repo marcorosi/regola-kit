@@ -90,7 +90,7 @@ public class RegolaJspOperationsImpl extends AbstractOperations implements
 		// copia stili, immagini, viste, tags, ecc.
 		copyDirectoryContents("starc/*.*", 	pathResolver.getIdentifier(webappPath, "starc"), false);
 		copyDirectoryContents("styles/*.*", 	pathResolver.getIdentifier(webappPath, "styles"), false);
-		copyDirectoryContents("tags/*.*", 	pathResolver.getIdentifier(webappPath, "WEB-INF/tags"), true);
+		copyDirectoryContents("tags/**/*.*", 	pathResolver.getIdentifier(webappPath, "WEB-INF/tags"), true);
 		copyDirectoryContents("layouts/*.*", 	pathResolver.getIdentifier(webappPath, "WEB-INF/layouts"), true);
 		copyDirectoryContents("views/*.*", 	pathResolver.getIdentifier(webappPath, "WEB-INF/views"), true);
 

@@ -3,7 +3,7 @@
 		type="javax.sql.DataSource" /> -->
 	  <Resource  driverClassName="oracle.jdbc.driver.OracleDriver"  
 	  maxActive="100" maxIdle="30" maxWait="10000" name="jdbc/DEVELOPMENT" 
-	  password="DEVELOPMENT" type="javax.sql.DataSource" 
-	  url="jdbc:oracle:thin:@137.204.225.111:1521/D_cesia" username="DEVELOPMENT"/>
+	  password="development" type="javax.sql.DataSource" 
+	  url="jdbc:oracle:thin:@ldap://oid.unibo.it:10389/app_development_dev,cn=OracleContext,dc=tns,dc=it" username="DEVELOPMENT"/>
     	
 </Context>
