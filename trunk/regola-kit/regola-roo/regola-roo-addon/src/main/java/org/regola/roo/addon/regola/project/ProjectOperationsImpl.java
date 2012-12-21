@@ -2,9 +2,11 @@ package org.regola.roo.addon.regola.project;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -17,6 +19,7 @@ import org.springframework.roo.project.DependencyScope;
 import org.springframework.roo.project.DependencyType;
 import org.springframework.roo.project.Path;
 import org.springframework.roo.project.PathResolver;
+import org.springframework.roo.project.Plugin;
 import org.springframework.roo.project.ProjectOperations;
 import org.springframework.roo.project.Property;
 import org.springframework.roo.project.Repository;
@@ -86,6 +89,8 @@ public class ProjectOperationsImpl implements ProjectOperation {
         
         projectOperations.removeDependency(projectOperations.getFocusedModuleName(), dependency);
         
+      
+        
         //update properties path
         updateApplicationCtxXml();
         
@@ -99,6 +104,7 @@ public class ProjectOperationsImpl implements ProjectOperation {
         removeJndiProperties();
     }
 	
+		
     private String getPersistencePathOfFocussedModule() {
         return pathResolver.getFocusedIdentifier(Path.SRC_MAIN_RESOURCES,
                 PERSISTENCE_XML);

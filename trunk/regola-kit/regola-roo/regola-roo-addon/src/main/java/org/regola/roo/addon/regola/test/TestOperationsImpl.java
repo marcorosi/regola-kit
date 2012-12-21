@@ -5,8 +5,10 @@ import static org.springframework.roo.model.SpringJavaType.MOCK_STATIC_ENTITY_ME
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
@@ -35,8 +37,16 @@ import org.springframework.roo.metadata.MetadataService;
 import org.springframework.roo.model.JavaPackage;
 import org.springframework.roo.model.JavaSymbolName;
 import org.springframework.roo.model.JavaType;
+import org.springframework.roo.process.manager.FileManager;
+import org.springframework.roo.project.Dependency;
+import org.springframework.roo.project.DependencyScope;
+import org.springframework.roo.project.DependencyType;
 import org.springframework.roo.project.Path;
+import org.springframework.roo.project.PathResolver;
 import org.springframework.roo.project.ProjectOperations;
+import org.springframework.roo.support.util.XmlUtils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 
@@ -57,6 +67,9 @@ public class TestOperationsImpl implements TestOperations {
 	@Reference private MetadataService metadataService;
 	@Reference private ProjectOperations projectOperations;
 	@Reference private MemberDetailsScanner memberDetailsScanner;
+    @Reference private PathResolver pathResolver;
+    @Reference private FileManager fileManager;
+
 	
     public static final JavaType CONTEXT_CONFIGURATION = new JavaType(
             "org.springframework.test.context.ContextConfiguration");
@@ -102,9 +115,9 @@ public class TestOperationsImpl implements TestOperations {
 	                bodyBuilder.appendFormalLine("int expectedCount = 13;");
 	                bodyBuilder.appendFormalLine(countMethod + ";");
 	                bodyBuilder
-	                        .appendFormalLine("org.springframework.mock.staticmock.AnnotationDrivenStaticEntityMockingControl.expectReturn(expectedCount);");
+	                        .appendFormalLine("org.regola.test.mock.RegolaStaticMethodsMock.expectReturn(expectedCount);");
 	                bodyBuilder
-	                        .appendFormalLine("org.springframework.mock.staticmock.AnnotationDrivenStaticEntityMockingControl.playback();");
+	                        .appendFormalLine("org.regola.test.mock.RegolaStaticMethodsMock.playback();");
 	                bodyBuilder
 	                        .appendFormalLine("Assert.assertEquals(expectedCount, "
 	                                + countMethod + ");");
@@ -189,7 +202,7 @@ public class TestOperationsImpl implements TestOperations {
 	        final List<AnnotationAttributeValue<?>> config = new ArrayList<AnnotationAttributeValue<?>>();
 	        config.add(new ClassAttributeValue(new JavaSymbolName("value"), SPRING_JUNIT));
 	        annotations.add(new AnnotationMetadataBuilder(RUN_WITH, config));
-	        annotations.add(new AnnotationMetadataBuilder(MOCK_STATIC_ENTITY_METHODS));
+	        annotations.add(new AnnotationMetadataBuilder(new JavaType("org.regola.test.mock.RegolaMockStaticEntityMethods") ));
 	        annotations.add(new AnnotationMetadataBuilder(CONFIGURABLE));
 	        
 	        
@@ -238,9 +251,9 @@ public class TestOperationsImpl implements TestOperations {
 	        //queste importazioni statiche non sembrano funzionare :-(
 	        ImportMetadataBuilder playbackImport = new ImportMetadataBuilder(
 	        		declaredByMetadataId, 
-	        		Modifier.PUBLIC | Modifier.STATIC, 
-	        		new JavaPackage("org.springframework.mock.staticmock.AnnotationDrivenStaticEntityMockingControl"), 
-	        		new JavaType("org.springframework.mock.staticmock.AnnotationDrivenStaticEntityMockingControl.playback"), 
+	        		/*Modifier.PUBLIC |*/ Modifier.STATIC, 
+	        		new JavaPackage("org.regola.test.mock.RegolaStaticMethodsMock"), 
+	        		new JavaType("org.regola.test.mock.RegolaStaticMethodsMock.playback"), 
 	        		true, 
 	        		false);
 
@@ -249,10 +262,67 @@ public class TestOperationsImpl implements TestOperations {
 	        
 	        cidBuilder.addImports(Arrays.asList(easyMockImport.build(), junitAssertImport.build()));
 	        
-	        
-
 	        typeManagementService.createOrUpdateTypeOnDisk(cidBuilder.build());
+	        
+	        updateAspectJBuildPlugin();
+	        
 	    }
+
+	 
+	    
+	 
+	 protected void updateAspectJBuildPlugin() {
+			
+		 
+	        Dependency dependency = new Dependency("org.regola", 
+	        		"regola-test", 
+	        		"1.3-SNAPSHOT", 
+	        		DependencyType.JAR, DependencyScope.COMPILE);
+	        
+	        projectOperations.addDependency(projectOperations.getFocusedModuleName(), dependency);
+	    
+		    final String pom = pathResolver
+		                .getFocusedIdentifier(Path.ROOT, "pom.xml");
+	        final Document document = XmlUtils.readXml(fileManager
+	                .getInputStream(pom));
+	        final Collection<String> changes = new ArrayList<String>();
+
+
+	        final Element root = document.getDocumentElement();
+	        final Element aspectLibrariesElement = XmlUtils
+	                .findFirstElement(
+	                        "/project/build/plugins/plugin[artifactId = 'aspectj-maven-plugin']/configuration/aspectLibraries",
+	                        root);
+	        Validate.notNull(aspectLibrariesElement,
+	                "aspectLibraries element of the aspectj-maven-plugin required");
+	       
+	        Element xxx = XmlUtils.findFirstElement("aspectLibrary[artifactId='regola-test']", aspectLibrariesElement);
+	        
+	        //se c'è già non faccio nulla
+	        if (xxx!=null)
+	        	return;
+	        
+	    
+	        Element aspectLibraryElement = document.createElement("aspectLibrary");
+
+	        final Element groupIdElement = document.createElement("groupId");
+	        groupIdElement.setTextContent("org.regola");
+	        aspectLibraryElement.appendChild(groupIdElement);
+	        
+	        final Element artifactIdElement = document.createElement("artifactId");
+	        artifactIdElement.setTextContent("regola-test");
+	        aspectLibraryElement.appendChild(artifactIdElement);
+	        
+	        aspectLibrariesElement.appendChild(aspectLibraryElement);
+	        
+	        changes.add("added regola-test aspectLibrary to aspectj-maven-plugin");
+	         
+	        if (!changes.isEmpty()) {
+	            final String changesMessage = StringUtils.join(changes, "; ");
+	            fileManager.createOrUpdateTextFileIfRequired(pom,
+	                    XmlUtils.nodeToString(document), changesMessage, false);
+	        }
+		}
 
 
      

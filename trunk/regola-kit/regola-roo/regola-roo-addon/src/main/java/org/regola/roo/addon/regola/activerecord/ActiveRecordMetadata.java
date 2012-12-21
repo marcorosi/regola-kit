@@ -2,10 +2,12 @@ package org.regola.roo.addon.regola.activerecord;
 
 import static org.springframework.roo.model.JdkJavaType.LIST;
 
+
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -71,10 +73,23 @@ public class ActiveRecordMetadata extends AbstractItdTypeDetailsProvidingMetadat
         // Adding count method
         builder.addMethod(getCountMethod());
         
+        // Adding queryList method
+        builder.addMethod(getQueryListMethod());
+        
+     // Adding queryListPaged method
+        builder.addMethod(getQueryListPagedMethod());
+        
+        // Adding querySingle
+        builder.addMethod(getQuerySingleMethod());
+        
+        // Adding queryUpdate
+        builder.addMethod(getQueryUpdateMethod());
+        
         // Adding imports
         builder.getImportRegistrationResolver().addImport(new JavaType("org.regola.filter.impl.DefaultPatternParser"));
         builder.getImportRegistrationResolver().addImport(new JavaType("org.regola.filter.criteria.jpa.JpaQueryBuilder"));
-        
+        builder.getImportRegistrationResolver().addImport(new JavaType("javax.persistence.TypedQuery"));
+        builder.getImportRegistrationResolver().addImport(new JavaType("javax.persistence.Query"));
         // Create a representation of the desired output ITD
         itdTypeDetails = builder.build();
     }
@@ -150,7 +165,289 @@ public class ActiveRecordMetadata extends AbstractItdTypeDetailsProvidingMetadat
         
         return methodBuilder.build(); // Build and return a MethodMetadata instance
     }
+    
+    private MethodMetadata getQueryListMethod() {
 
+    	// Specify the desired method name
+        JavaSymbolName methodName = new JavaSymbolName("queryList");
+                
+        
+        List<AnnotatedJavaType> parameterTypes = new ArrayList<AnnotatedJavaType>();
+        parameterTypes.add(AnnotatedJavaType.convertFromJavaType(JavaType.STRING));
+        parameterTypes.add(AnnotatedJavaType.convertFromJavaType(JavaType.OBJECT));
+        
+        // Define method parameter names 
+        List<JavaSymbolName> parameterNames = new ArrayList<JavaSymbolName>();
+        parameterNames.add(new JavaSymbolName("jpql"));
+        parameterNames.add(new JavaSymbolName("...params"));
+        
+        // Check if a method with the same signature already exists in the target type
+        final MethodMetadata method = methodExists(methodName, parameterTypes);
+        if (method != null) {
+            // If it already exists, just return the method and omit its generation via the ITD
+            return method;
+        }
+        
+        // Define method annotations
+        final List<AnnotationMetadataBuilder> annotations = new ArrayList<AnnotationMetadataBuilder>();
+        final AnnotationMetadataBuilder annotationBuilder = new AnnotationMetadataBuilder(
+                new JavaType("java.lang.SuppressWarnings"));
+        annotationBuilder.addStringAttribute("value","unchecked");
+        //annotations.add(annotationBuilder);
+       
+        // Define method throws types (none in this case)
+        List<JavaType> throwsTypes = new ArrayList<JavaType>();
+        
+        // Create the method body
+        InvocableMemberBodyBuilder bodyBuilder = new InvocableMemberBodyBuilder();
+        
+        bodyBuilder.appendFormalLine(
+        		String.format("TypedQuery<%s> query =  entityManager().createQuery(jpql, %s.class);",destination.getSimpleTypeName(), destination.getSimpleTypeName()));
+        
+        bodyBuilder.appendFormalLine("int index = 0;");
+        bodyBuilder.appendFormalLine("for (Object param : params) query.setParameter(++index, param);");
+        bodyBuilder.appendFormalLine("return query.getResultList();");
+        
+        // Create the return type
+        final JavaType returnType = new JavaType(
+                LIST.getFullyQualifiedTypeName(), 0, DataType.TYPE, null,
+                Arrays.asList(destination));
+        
+        // Use the MethodMetadataBuilder for easy creation of MethodMetadata
+        MethodMetadataBuilder methodBuilder = new MethodMetadataBuilder(getId(), Modifier.PUBLIC | Modifier.STATIC, methodName, 
+        		returnType, parameterTypes, parameterNames, bodyBuilder);
+        methodBuilder.setAnnotations(annotations);
+        methodBuilder.setThrowsTypes(throwsTypes);
+        
+        return methodBuilder.build(); // Build and return a MethodMetadata instance
+    }
+
+    private MethodMetadata getQueryListPagedMethod() {
+
+    	// Specify the desired method name
+        JavaSymbolName methodName = new JavaSymbolName("queryListPaged");
+                
+        
+        List<AnnotatedJavaType> parameterTypes = new ArrayList<AnnotatedJavaType>();
+        parameterTypes.add(AnnotatedJavaType.convertFromJavaType(JavaType.STRING));
+        parameterTypes.add(AnnotatedJavaType.convertFromJavaType(JavaType.INT_PRIMITIVE));
+        parameterTypes.add(AnnotatedJavaType.convertFromJavaType(JavaType.INT_PRIMITIVE));
+        parameterTypes.add(AnnotatedJavaType.convertFromJavaType(JavaType.OBJECT));
+        
+        // Define method parameter names 
+        List<JavaSymbolName> parameterNames = new ArrayList<JavaSymbolName>();
+        parameterNames.add(new JavaSymbolName("jpql"));
+        parameterNames.add(new JavaSymbolName("first"));
+        parameterNames.add(new JavaSymbolName("max"));
+        parameterNames.add(new JavaSymbolName("...params"));
+        
+        // Check if a method with the same signature already exists in the target type
+        final MethodMetadata method = methodExists(methodName, parameterTypes);
+        if (method != null) {
+            // If it already exists, just return the method and omit its generation via the ITD
+            return method;
+        }
+        
+        // Define method annotations
+        final List<AnnotationMetadataBuilder> annotations = new ArrayList<AnnotationMetadataBuilder>();
+        final AnnotationMetadataBuilder annotationBuilder = new AnnotationMetadataBuilder(
+                new JavaType("java.lang.SuppressWarnings"));
+        annotationBuilder.addStringAttribute("value","unchecked");
+        //annotations.add(annotationBuilder);
+       
+        // Define method throws types (none in this case)
+        List<JavaType> throwsTypes = new ArrayList<JavaType>();
+        
+        // Create the method body
+        InvocableMemberBodyBuilder bodyBuilder = new InvocableMemberBodyBuilder();
+        
+        bodyBuilder.appendFormalLine(
+        		String.format("TypedQuery<%s> query =  entityManager().createQuery(jpql, %s.class);",destination.getSimpleTypeName(), destination.getSimpleTypeName()));
+        
+        bodyBuilder.appendFormalLine("int index = 0;");
+        bodyBuilder.appendFormalLine("for (Object param : params) query.setParameter(++index, param);");
+        bodyBuilder.appendFormalLine("query.setFirstResult(first);");
+        bodyBuilder.appendFormalLine("query.setMaxResults(max);");
+        bodyBuilder.appendFormalLine("return query.getResultList();");
+        
+        // Create the return type
+        final JavaType returnType = new JavaType(
+                LIST.getFullyQualifiedTypeName(), 0, DataType.TYPE, null,
+                Arrays.asList(destination));
+        
+        // Use the MethodMetadataBuilder for easy creation of MethodMetadata
+        MethodMetadataBuilder methodBuilder = new MethodMetadataBuilder(getId(), Modifier.PUBLIC | Modifier.STATIC, methodName, 
+        		returnType, parameterTypes, parameterNames, bodyBuilder);
+        methodBuilder.setAnnotations(annotations);
+        methodBuilder.setThrowsTypes(throwsTypes);
+        
+        return methodBuilder.build(); // Build and return a MethodMetadata instance
+    }
+
+    
+    
+    private MethodMetadata getQueryUpdateMethod() {
+
+    	// Specify the desired method name
+        JavaSymbolName methodName = new JavaSymbolName("queryUpdate");
+                
+        
+        List<AnnotatedJavaType> parameterTypes = new ArrayList<AnnotatedJavaType>();
+        parameterTypes.add(AnnotatedJavaType.convertFromJavaType(JavaType.STRING));
+        parameterTypes.add(AnnotatedJavaType.convertFromJavaType(JavaType.OBJECT));
+        
+        // Define method parameter names 
+        List<JavaSymbolName> parameterNames = new ArrayList<JavaSymbolName>();
+        parameterNames.add(new JavaSymbolName("jpql"));
+        parameterNames.add(new JavaSymbolName("...params"));
+        
+        // Check if a method with the same signature already exists in the target type
+        final MethodMetadata method = methodExists(methodName, parameterTypes);
+        if (method != null) {
+            // If it already exists, just return the method and omit its generation via the ITD
+            return method;
+        }
+        
+        // Define method annotations
+        final List<AnnotationMetadataBuilder> annotations = new ArrayList<AnnotationMetadataBuilder>();
+        final AnnotationMetadataBuilder annotationBuilder = new AnnotationMetadataBuilder(
+                new JavaType("java.lang.SuppressWarnings"));
+        annotationBuilder.addStringAttribute("value","unchecked");
+        //annotations.add(annotationBuilder);
+       
+        // Define method throws types (none in this case)
+        List<JavaType> throwsTypes = new ArrayList<JavaType>();
+        
+        // Create the method body
+        InvocableMemberBodyBuilder bodyBuilder = new InvocableMemberBodyBuilder();
+        
+        bodyBuilder.appendFormalLine("Query query =  entityManager().createQuery(jpql);");
+        bodyBuilder.appendFormalLine("int index = 0;");
+        bodyBuilder.appendFormalLine("for (Object param : params) query.setParameter(++index, param);");
+        bodyBuilder.appendFormalLine("return query.executeUpdate();");
+        
+        // Create the return type
+        final JavaType returnType = JavaType.INT_PRIMITIVE;
+        
+        // Use the MethodMetadataBuilder for easy creation of MethodMetadata
+        MethodMetadataBuilder methodBuilder = new MethodMetadataBuilder(getId(), Modifier.PUBLIC | Modifier.STATIC, methodName, 
+        		returnType, parameterTypes, parameterNames, bodyBuilder);
+        methodBuilder.setAnnotations(annotations);
+        methodBuilder.setThrowsTypes(throwsTypes);
+        
+        return methodBuilder.build(); // Build and return a MethodMetadata instance
+    }
+
+    
+    
+    private MethodMetadata getQuerySingleMethod() {
+
+    	// Specify the desired method name
+        JavaSymbolName methodName = new JavaSymbolName("querySingle");
+                
+        
+        List<AnnotatedJavaType> parameterTypes = new ArrayList<AnnotatedJavaType>();
+        parameterTypes.add(AnnotatedJavaType.convertFromJavaType(JavaType.STRING));
+        parameterTypes.add(AnnotatedJavaType.convertFromJavaType(JavaType.OBJECT));
+        
+        // Define method parameter names 
+        List<JavaSymbolName> parameterNames = new ArrayList<JavaSymbolName>();
+        parameterNames.add(new JavaSymbolName("jpql"));
+        parameterNames.add(new JavaSymbolName("...params"));
+        
+        // Check if a method with the same signature already exists in the target type
+        final MethodMetadata method = methodExists(methodName, parameterTypes);
+        if (method != null) {
+            // If it already exists, just return the method and omit its generation via the ITD
+            return method;
+        }
+        
+        // Define method annotations
+        final List<AnnotationMetadataBuilder> annotations = new ArrayList<AnnotationMetadataBuilder>();
+        final AnnotationMetadataBuilder annotationBuilder = new AnnotationMetadataBuilder(
+                new JavaType("java.lang.SuppressWarnings"));
+        annotationBuilder.addStringAttribute("value","unchecked");
+        //annotations.add(annotationBuilder);
+       
+        // Define method throws types (none in this case)
+        List<JavaType> throwsTypes = new ArrayList<JavaType>();
+        
+        // Create the method body
+        InvocableMemberBodyBuilder bodyBuilder = new InvocableMemberBodyBuilder();
+        
+        bodyBuilder.appendFormalLine(
+        		String.format("TypedQuery<%s> query =  entityManager().createQuery(jpql, %s.class);",destination.getSimpleTypeName(), destination.getSimpleTypeName()));
+        
+        bodyBuilder.appendFormalLine("int index = 0;");
+        bodyBuilder.appendFormalLine("for (Object param : params) query.setParameter(++index, param);");
+        bodyBuilder.appendFormalLine("return query.getSingleResult();");
+        
+        // Create the return type
+        final JavaType returnType = destination;
+        
+        // Use the MethodMetadataBuilder for easy creation of MethodMetadata
+        MethodMetadataBuilder methodBuilder = new MethodMetadataBuilder(getId(), Modifier.PUBLIC | Modifier.STATIC, methodName, 
+        		returnType, parameterTypes, parameterNames, bodyBuilder);
+        methodBuilder.setAnnotations(annotations);
+        methodBuilder.setThrowsTypes(throwsTypes);
+        
+        return methodBuilder.build(); // Build and return a MethodMetadata instance
+    }
+
+    private MethodMetadata getQueryListMethodOld() {
+
+    	// Specify the desired method name
+        JavaSymbolName methodName = new JavaSymbolName("queryList");
+                
+        
+        List<AnnotatedJavaType> parameterTypes = new ArrayList<AnnotatedJavaType>();
+        parameterTypes.add(AnnotatedJavaType.convertFromJavaType(JavaType.STRING));
+        
+        // Define method parameter names 
+        List<JavaSymbolName> parameterNames = new ArrayList<JavaSymbolName>();
+        parameterNames.add(new JavaSymbolName("jpql"));
+        
+        
+        
+        // Check if a method with the same signature already exists in the target type
+        final MethodMetadata method = methodExists(methodName, parameterTypes);
+        if (method != null) {
+            // If it already exists, just return the method and omit its generation via the ITD
+            return method;
+        }
+        
+        // Define method annotations
+        final List<AnnotationMetadataBuilder> annotations = new ArrayList<AnnotationMetadataBuilder>();
+        final AnnotationMetadataBuilder annotationBuilder = new AnnotationMetadataBuilder(
+                new JavaType("java.lang.SuppressWarnings"));
+        annotationBuilder.addStringAttribute("value","unchecked");
+        //annotations.add(annotationBuilder);
+       
+        // Define method throws types (none in this case)
+        List<JavaType> throwsTypes = new ArrayList<JavaType>();
+        
+        // Create the method body
+        InvocableMemberBodyBuilder bodyBuilder = new InvocableMemberBodyBuilder();
+        
+        bodyBuilder.appendFormalLine(
+        		String.format("return entityManager().createQuery(jpql, %s.class).getResultList();", destination.getSimpleTypeName()));
+        
+        // Create the return type
+        final JavaType returnType = new JavaType(
+                LIST.getFullyQualifiedTypeName(), 0, DataType.TYPE, null,
+                Arrays.asList(destination));
+        
+        // Use the MethodMetadataBuilder for easy creation of MethodMetadata
+        MethodMetadataBuilder methodBuilder = new MethodMetadataBuilder(getId(), Modifier.PUBLIC | Modifier.STATIC, methodName, 
+        		returnType, parameterTypes, parameterNames, bodyBuilder);
+        methodBuilder.setAnnotations(annotations);
+        methodBuilder.setThrowsTypes(throwsTypes);
+        
+        return methodBuilder.build(); // Build and return a MethodMetadata instance
+    }
+
+    
+    
     private MethodMetadata getCountMethod() {
 
     	// Specify the desired method name
