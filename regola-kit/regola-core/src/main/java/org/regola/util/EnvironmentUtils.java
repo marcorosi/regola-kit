@@ -42,6 +42,10 @@ public final class EnvironmentUtils {
 		}
 		return null;
 	}
+	
+	public static String[] all() {
+		return new String[] { DEV_ENV, TEST_ENV, PROD_ENV };
+	}
 
 	public static String hostname() {
 		try {

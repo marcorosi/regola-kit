@@ -13,12 +13,20 @@ import org.regola.util.EnvironmentUtils;
 
 public abstract class Job<T extends Serializable> {
 
+	/**
+	 * @param <T>
+	 *            tipo degli elementi elaborati dal job
+	 */
 	public interface RunPolicy<T extends Serializable> {
 
-		boolean isSatisfiedBy(final JobContext<T> context);
+		boolean isRunnable(final JobContext<T> context);
 
 	}
 
+	/**
+	 * @param <T>
+	 *            tipo degli elementi elaborati dal job
+	 */
 	public interface LockPolicy<T extends Serializable> {
 
 		boolean acquireExecution(final JobContext<T> context);
@@ -31,20 +39,46 @@ public abstract class Job<T extends Serializable> {
 
 	}
 
+	/**
+	 * Policy che determina l'interruzione dell'elaborazione dell'elemento
+	 * corrente (prima che venga processato) e/o degli elementi successivi.
+	 * <p>
+	 * Nel caso l'elaborazione dell'elemento corrente sia fallita, la logica di
+	 * riesecuzione o di abbandono dell'elemnto in errore viene controllata
+	 * dalla {@link RetryPolicy}.
+	 * 
+	 * @param <T>
+	 *            tipo degli elementi elaborati dal job
+	 */
 	public interface SkipPolicy<T extends Serializable> {
 
 		/**
-		 * Questa policy viene verificata prima l'elaborazione di un elemento.
+		 * Deve saltare l'elemento corrente?
+		 * <p>
+		 * NOTA: Questa policy viene verificata PRIMA dell'elaborazione
+		 * dell'elemento.
+		 * 
+		 * @return true se deve saltare l'elaborazione dell'elemento corrente.
 		 */
-		boolean isSatisfiedBy(final JobContext<T> context);
+		boolean skipBeforeProcessing(final JobContext<T> context);
 
 		/**
-		 * Questa policy viene verificata dopo l'elaborazione di un elemento.
+		 * Deve saltare tutti gli elementi successivi a quello corrente?
+		 * <p>
+		 * NOTA: Questa policy viene verificata DOPO l'elaborazione di un
+		 * elemento, nel caso sia stato elaborato con successo oppure sia stato
+		 * ignorato (skipped).
+		 * 
+		 * @return true se si deve interrompere l'elaborazione degli elementi
+		 *         successivi.
 		 */
 		boolean skipRemaining(JobContext<T> context);
 
 		/**
-		 * Questa policy viene verificata dopo l'elaborazione di un elemento.
+		 * Deve saltare tutti gli elementi successivi a quello corrente?
+		 * <p>
+		 * Questa policy viene verificata DOPO l'elaborazione di un elemento,
+		 * nel caso si sia verificata un'eccezione.
 		 * 
 		 * @param e
 		 *            eccezione verificatasi durante l'elaborazione
@@ -52,22 +86,44 @@ public abstract class Job<T extends Serializable> {
 		 * @return true se si deve interrompere l'elaborazione degli elementi
 		 *         successivi.
 		 */
-		boolean skipRemaining(JobContext<T> context, RuntimeException e);
+		boolean onErrorSkipRemaining(JobContext<T> context, RuntimeException e);
 
 	}
 
+	/**
+	 * @param <T>
+	 *            tipo degli elementi elaborati dal job
+	 */
 	public interface RetryPolicy<T extends Serializable> {
 
-		boolean isSatisfiedBy(final JobContext<T> context,
+		boolean retryOnError(final JobContext<T> context,
 				final RuntimeException e);
 
-		void wait(final JobContext<T> context);
+		void onRetrying(final JobContext<T> context);
 
 	}
 
+	/**
+	 * Policy che indica quando effettuare commit della coda di commit.
+	 * <p>
+	 * La coda di commit contiene tutti gli elementi elaborati con successo e
+	 * non ancora persistiti nello store.
+	 * 
+	 * @see Job#store(List)
+	 * @param <T>
+	 *            tipo degli elementi elaborati dal job
+	 */
 	public interface CommitPolicy<T extends Serializable> {
 
-		boolean isSatisfiedBy(final JobContext<T> context);
+		/**
+		 * Deve fare commit degli elementi elaborati con successo e non ancora
+		 * persistiti?
+		 * 
+		 * @see JobConfig#getCommitInterval()
+		 * @see JobConfig#DEFAULT_COMMIT_INTERVAL
+		 * @return true se è tempo di fare commit.
+		 */
+		boolean commitQueued(final JobContext<T> context);
 
 	}
 
@@ -202,7 +258,7 @@ public abstract class Job<T extends Serializable> {
 	 */
 	private boolean processAndCommit(T item, JobContext<T> context,
 			Set<T> commitQueue) {
-		if (skipPolicy.isSatisfiedBy(context)) {
+		if (skipPolicy.skipBeforeProcessing(context)) {
 			context.itemSkipped();
 			LOG.info("Elemento ignorato");
 			return skipPolicy.skipRemaining(context);
@@ -214,7 +270,7 @@ public abstract class Job<T extends Serializable> {
 			// on processing w/o retry
 			context.itemFailed();
 			LOG.error("Fallita elaborazione dell'elemento");
-			return skipPolicy.skipRemaining(context, e);
+			return skipPolicy.onErrorSkipRemaining(context, e);
 		}
 		context.itemSucceeded();
 		commit(processedItem, context, commitQueue);
@@ -228,7 +284,7 @@ public abstract class Job<T extends Serializable> {
 			if (retrying) {
 				LOG.debug("Attesa prossimo tentativo di elaborazione della risorsa...");
 
-				retryPolicy.wait(context);
+				retryPolicy.onRetrying(context);
 				retrying = false;
 			}
 			try {
@@ -236,7 +292,7 @@ public abstract class Job<T extends Serializable> {
 			} catch (RuntimeException e) {
 				LOG.error("Errore nell'elaborazione dell'elemento", e);
 
-				if (retryPolicy.isSatisfiedBy(context, e)) {
+				if (retryPolicy.retryOnError(context, e)) {
 					context.itemRetried();
 					retrying = true;
 					LOG.debug("L'elaborazione dell'elemento verrà ritentata, tentativo "
@@ -258,7 +314,7 @@ public abstract class Job<T extends Serializable> {
 
 		commitQueue.add(processedItem);
 
-		if (commitPolicy.isSatisfiedBy(context)) {
+		if (commitPolicy.commitQueued(context)) {
 			LOG.debug("Salvataggio di " + commitQueue.size()
 					+ " elementi elaborati con successo");
 			store(new ArrayList<T>(commitQueue));
@@ -279,21 +335,23 @@ public abstract class Job<T extends Serializable> {
 	protected abstract T process(final T item);
 
 	protected boolean acquireExecution(final JobContext<T> context) {
-		return true;
+		return lockPolicy.acquireExecution(context);
 	}
 
 	protected void releaseExecution(final JobContext<T> context) {
+		lockPolicy.releaseExecution(context);
 	}
 
 	protected boolean acquireItem(final JobContext<T> context) {
-		return true;
+		return lockPolicy.acquireItem(context);
 	}
 
 	protected void releaseItem(final JobContext<T> context) {
+		lockPolicy.releaseItem(context);
 	}
 
 	protected boolean enabled(final JobContext<T> context) {
-		return runPolicy.isSatisfiedBy(context);
+		return runPolicy.isRunnable(context);
 	}
 
 	/**
@@ -326,7 +384,7 @@ public abstract class Job<T extends Serializable> {
 			this.executionWindow = executionWindow;
 		}
 
-		public boolean isSatisfiedBy(final JobContext<T> context) {
+		public boolean isRunnable(final JobContext<T> context) {
 			if (!enabled) {
 				return false;
 			}
@@ -378,7 +436,7 @@ public abstract class Job<T extends Serializable> {
 	protected static class NullSkipPolicy<T extends Serializable> implements
 			SkipPolicy<T> {
 
-		public boolean isSatisfiedBy(final JobContext<T> context) {
+		public boolean skipBeforeProcessing(final JobContext<T> context) {
 			return false;
 		}
 
@@ -386,7 +444,8 @@ public abstract class Job<T extends Serializable> {
 			return false;
 		}
 
-		public boolean skipRemaining(JobContext<T> context, RuntimeException e) {
+		public boolean onErrorSkipRemaining(JobContext<T> context,
+				RuntimeException e) {
 			return false;
 		}
 
@@ -407,13 +466,13 @@ public abstract class Job<T extends Serializable> {
 			this.delay = delay;
 		}
 
-		public boolean isSatisfiedBy(final JobContext<T> context,
+		public boolean retryOnError(final JobContext<T> context,
 				final RuntimeException e) {
 			return e instanceof RetryableFailureException
 					&& context.getCurrentTry() < tries;
 		}
 
-		public void wait(final JobContext<T> context) {
+		public void onRetrying(final JobContext<T> context) {
 			try {
 				Thread.sleep(delay * context.getCurrentTry());
 			} catch (InterruptedException e) {
@@ -436,7 +495,7 @@ public abstract class Job<T extends Serializable> {
 			this.commitInterval = commitInterval;
 		}
 
-		public boolean isSatisfiedBy(final JobContext<T> context) {
+		public boolean commitQueued(final JobContext<T> context) {
 			commitCounter++;
 			if (commitCounter >= commitInterval) {
 				commitCounter = 0;

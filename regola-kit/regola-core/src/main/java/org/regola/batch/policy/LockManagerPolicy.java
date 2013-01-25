@@ -4,9 +4,8 @@ import java.io.Serializable;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.regola.batch.Job;
-import org.regola.batch.JobContext;
 import org.regola.batch.Job.LockPolicy;
+import org.regola.batch.JobContext;
 import org.regola.lock.LockManager;
 
 public class LockManagerPolicy<T extends Serializable> implements LockPolicy<T> {
