@@ -5,6 +5,15 @@ import java.util.Date;
 
 import org.regola.util.EnvironmentUtils;
 
+/**
+ * Contesto di esecuzione di un job.
+ * <p>
+ * Tiene traccia dell'ambiente e delle varie fasi di elaborazione di una precisa
+ * istanza di esecuzione del job.
+ * 
+ * @param <T>
+ *            tipo degli elementi elaborati dal job
+ */
 public class JobContext<T extends Serializable> {
 	private final String jobName;
 	private final String executionId;
@@ -22,6 +31,7 @@ public class JobContext<T extends Serializable> {
 	private Date finished;
 	private String message;
 	private boolean cancelled;
+	private Throwable lastError;
 
 	// stats
 	private int processed;
@@ -65,12 +75,13 @@ public class JobContext<T extends Serializable> {
 		skipped++;
 	}
 
-	public void itemRetried() {
+	public void itemRetried(RuntimeException e) {
 		retried++;
 		currentTry++;
+		lastError = e;
 	}
 
-	public void itemFailed() {
+	public void itemFailed(Exception e) {
 		failed++;
 	}
 
@@ -119,8 +130,9 @@ public class JobContext<T extends Serializable> {
 		return this;
 	}
 
-	public JobContext<T> failed() {
+	public JobContext<T> failed(Throwable e) {
 		failedAt(now());
+		lastError = e;
 		return this;
 	}
 
@@ -143,6 +155,10 @@ public class JobContext<T extends Serializable> {
 		executed = false;
 		finishedAt(now());
 		return this;
+	}
+
+	public Throwable getLastError() {
+		return lastError;
 	}
 
 	protected Date now() {
@@ -220,7 +236,7 @@ public class JobContext<T extends Serializable> {
 	public Date getFinished() {
 		return finished;
 	}
-	
+
 	public boolean isCancelled() {
 		return cancelled;
 	}

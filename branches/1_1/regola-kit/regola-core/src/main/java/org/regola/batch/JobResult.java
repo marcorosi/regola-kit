@@ -2,6 +2,9 @@ package org.regola.batch;
 
 import java.util.Date;
 
+/**
+ * Value object contenente l'esito dell'esecuzione di un job.
+ */
 public final class JobResult {
 
 	private final boolean executed;

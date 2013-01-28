@@ -12,6 +12,18 @@ import java.util.regex.Pattern;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * Rappresenta un'espressione di intervallo temporale.
+ * <p>
+ * Può essere basata:
+ * <ul>
+ * <li>un orario (time) indicato come cron expression "ora minuti": se l'ora e/o
+ * i minuti non sono presenti, viene applicata l'espressione "*" che rappresenta
+ * ogni possibile valore;
+ * <li>un periodo (date from-to): se non presente, la restrizione per periodo
+ * non viene applicata.
+ * </ul>
+ */
 public class RunExpression implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private static final Log LOG = LogFactory.getLog(RunExpression.class);
