@@ -2,6 +2,9 @@ package org.regola.batch;
 
 import org.regola.util.EnvironmentUtils;
 
+/**
+ * Value holder per i parametri di configurazione del job.
+ */
 public final class JobConfig {
 	public static final int DEFAULT_PAGE_SIZE = 10;
 	public static final int DEFAULT_MAX_ITEMS = Integer.MAX_VALUE;

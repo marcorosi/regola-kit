@@ -8,6 +8,19 @@ import org.regola.batch.Job.LockPolicy;
 import org.regola.batch.JobContext;
 import org.regola.lock.LockManager;
 
+/**
+ * Politica di lock che delega ad un {@link LockManager}.
+ * <p>
+ * Il nome delle risorse da bloccare e del proprietario del lock viene ricavato
+ * dai seguenti metodi:
+ * <ul>
+ * <li>{@link #executionLock(JobContext)}: identificativo dell'esecuzione dal
+ * contesto;
+ * <li>{@link #itemLock(Serializable)}: identificativo dell'elemento
+ * dall'istanza dello stesso;
+ * <li>{@link #lockOwner(JobContext)}: nome del proprietario dal contesto.
+ * </ul>
+ */
 public class LockManagerPolicy<T extends Serializable> implements LockPolicy<T> {
 	protected final Log LOG = LogFactory.getLog(getClass());
 
