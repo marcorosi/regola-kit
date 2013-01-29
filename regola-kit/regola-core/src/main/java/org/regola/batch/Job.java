@@ -436,7 +436,8 @@ public abstract class Job<T extends Serializable> {
 	}
 
 	/**
-	 * Applica la politica di commit e delega a {@link #store(List)}.
+	 * Applica la politica di commit e, se raggiunto il commit interval, delega
+	 * a {@link #store(List)}.
 	 */
 	private void commit(final T processedItem, final JobContext<T> context,
 			final Set<T> commitQueue) {
@@ -571,23 +572,22 @@ public abstract class Job<T extends Serializable> {
 			if (!enabled) {
 				return false;
 			}
-			if (hostname != null) {
-				if (context.getHostname() == null
-						|| !context.getHostname().toLowerCase()
-								.contains(hostname)) {
-					LOG.debug(
-							"Disabilitato per hostname: host={}, richiesto={}",
-							context.getHostname(), hostname);
-					return false;
-				}
+			if (hostname == null) {
+				return false;
 			}
-			if (environment != null) {
-				if (!environment.equalsIgnoreCase(context.getEnvironment())) {
-					LOG.debug(
-							"Disabilitato per environment: env={}, richiesto={}",
-							context.getEnvironment(), environment);
-					return false;
-				}
+			if (context.getHostname() == null
+					|| !context.getHostname().toLowerCase().contains(hostname)) {
+				LOG.debug("Disabilitato per hostname: host={}, richiesto={}",
+						context.getHostname(), hostname);
+				return false;
+			}
+			if (environment == null) {
+				return false;
+			}
+			if (!environment.equalsIgnoreCase(context.getEnvironment())) {
+				LOG.debug("Disabilitato per environment: env={}, richiesto={}",
+						context.getEnvironment(), environment);
+				return false;
 			}
 			return executionWindow.isSatifiedBy(now());
 		}
