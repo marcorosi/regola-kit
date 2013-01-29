@@ -569,22 +569,23 @@ public abstract class Job<T extends Serializable> {
 			if (!enabled) {
 				return false;
 			}
-			if (hostname != null) {
-				if (context.getHostname() == null
-						|| !context.getHostname().toLowerCase()
-								.contains(hostname)) {
-					LOG.debug("Disabilitato per hostname: host="
-							+ context.getHostname() + ", richiesto=" + hostname);
-					return false;
-				}
+			if (hostname == null) {
+				return false;
 			}
-			if (environment != null) {
-				if (!environment.equalsIgnoreCase(context.getEnvironment())) {
-					LOG.debug("Disabilitato per environment: env="
-							+ context.getEnvironment() + ", richiesto="
-							+ environment);
-					return false;
-				}
+			if (context.getHostname() == null
+					|| !context.getHostname().toLowerCase().contains(hostname)) {
+				LOG.debug("Disabilitato per hostname: host="
+						+ context.getHostname() + ", richiesto=" + hostname);
+				return false;
+			}
+			if (environment == null) {
+				return false;
+			}
+			if (!environment.equalsIgnoreCase(context.getEnvironment())) {
+				LOG.debug("Disabilitato per environment: env="
+						+ context.getEnvironment() + ", richiesto="
+						+ environment);
+				return false;
 			}
 			return executionWindow.isSatifiedBy(now());
 		}

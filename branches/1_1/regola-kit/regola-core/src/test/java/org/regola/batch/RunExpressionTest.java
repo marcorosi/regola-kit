@@ -4,7 +4,6 @@ import static java.util.Arrays.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
-
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
