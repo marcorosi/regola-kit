@@ -40,7 +40,7 @@ public final class EnvironmentUtils {
 		if (isDevelopment()) {
 			return DEV_ENV;
 		}
-		return null;
+		return "[unknown environment]";
 	}
 	
 	public static String[] all() {

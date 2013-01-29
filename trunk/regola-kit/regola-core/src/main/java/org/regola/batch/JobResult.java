@@ -85,4 +85,13 @@ public final class JobResult {
 		return message;
 	}
 
+	@Override
+	public String toString() {
+		return "JobResult [executed=" + executed + ", success=" + success
+				+ ", processed=" + processed + ", skipped=" + skipped
+				+ ", retried=" + retried + ", failed=" + failed
+				+ ", succeeded=" + succeeded + ", started=" + started
+				+ ", finished=" + finished + ", message=" + message + "]";
+	}
+
 }
