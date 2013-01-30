@@ -27,8 +27,7 @@ public abstract class DisabledJobSkipPolicy<T extends Serializable> implements
 		return !getJobConfig().isEnabled();
 	}
 
-	public boolean onErrorSkipRemaining(JobContext<T> context,
-			RuntimeException e) {
+	public boolean onErrorSkipRemaining(JobContext<T> context, Exception e) {
 		return !getJobConfig().isEnabled();
 	}
 
