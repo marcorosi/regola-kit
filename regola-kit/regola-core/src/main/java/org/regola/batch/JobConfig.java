@@ -43,7 +43,7 @@ public final class JobConfig {
 		if (EnvironmentUtils.isProduction()) {
 			return defaultConfig(EnvironmentUtils.PROD_ENV, hostname);
 		}
-		return defaultConfig(EnvironmentUtils.current(), null);
+		return defaultConfig(EnvironmentUtils.current(), EnvironmentUtils.hostname());
 	}
 
 	public JobConfig(boolean enabled, String environment, String hostname,
