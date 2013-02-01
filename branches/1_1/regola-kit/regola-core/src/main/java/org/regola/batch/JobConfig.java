@@ -39,11 +39,48 @@ public final class JobConfig {
 				DEFAULT_MAX_TRIES, DEFAULT_RETRY_DELAY, DEFAULT_COMMIT_INTERVAL);
 	}
 
-	public static JobConfig onProductionHost(final String hostname) {
+	/**
+	 * <ol>
+	 * <li>{@link EnvironmentUtils#isProduction()} environment =
+	 * {@link EnvironmentUtils#PROD_ENV} hostname = parameter
+	 * <li>not {@link EnvironmentUtils#isProduction()} environment =
+	 * {@link EnvironmentUtils#current()} hostname =
+	 * {@link EnvironmentUtils#hostname()}
+	 * </ol>
+	 */
+	public static JobConfig alwaysEnabledButOnlyOnOneProductionHost(
+			final String hostname) {
 		if (EnvironmentUtils.isProduction()) {
 			return defaultConfig(EnvironmentUtils.PROD_ENV, hostname);
 		}
-		return defaultConfig(EnvironmentUtils.current(), EnvironmentUtils.hostname());
+		return defaultConfig(EnvironmentUtils.current(),
+				EnvironmentUtils.hostname());
+	}
+
+	/**
+	 * environment = {@link EnvironmentUtils#PROD_ENV} hostname = parameter
+	 */
+	public static JobConfig neverEnabledExceptOnProductionHost(
+			final String hostname) {
+		return defaultConfig(EnvironmentUtils.PROD_ENV, hostname);
+	}
+
+	/**
+	 * <ol>
+	 * <li>{@link EnvironmentUtils#isTest()} environment =
+	 * {@link EnvironmentUtils#current()} hostname =
+	 * {@link EnvironmentUtils#hostname()}
+	 * <li>not {@link EnvironmentUtils#isTest()} environment =
+	 * {@link EnvironmentUtils#PROD_ENV} hostname = parameter
+	 * </ol>
+	 */
+	public static JobConfig enabledOnlyOnTestAndOnOneProductionHost(
+			final String hostname) {
+		if (EnvironmentUtils.isTest()) {
+			return defaultConfig(EnvironmentUtils.current(),
+					EnvironmentUtils.hostname());
+		}
+		return defaultConfig(EnvironmentUtils.PROD_ENV, hostname);
 	}
 
 	public JobConfig(boolean enabled, String environment, String hostname,
