@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
  * elaborazione di un elemento;
  * </ol>
  * 
- * Gli hook opzionali, ove non ridefiniti, delegato alle policy relative:
+ * Gli hook opzionali, ove non ridefiniti, delegano alle policy relative:
  * <ol>
  * <li>{@link #name()}: <i>opzionale</i>, ridefinisce il nome del job;
  * <li>{@link #enabled(JobContext)}: <i>opzionale</i>, ridefinisce il controllo
@@ -336,6 +336,7 @@ public abstract class Job<T extends Serializable> {
 				}
 			}
 
+//			flush(commitQueue);
 			context.succeeded();
 
 		} catch (Throwable e) {
@@ -449,11 +450,15 @@ public abstract class Job<T extends Serializable> {
 		commitQueue.add(processedItem);
 
 		if (commitPolicy.commitQueued(context)) {
-			LOG.debug("Salvataggio di {} elementi elaborati con successo",
-					commitQueue.size());
-			store(new ArrayList<T>(commitQueue));
-			commitQueue.clear();
+			flush(commitQueue);
 		}
+	}
+
+	private void flush(final Set<T> commitQueue) {
+		LOG.debug("Salvataggio di {} elementi elaborati con successo",
+				commitQueue.size());
+		store(new ArrayList<T>(commitQueue));
+		commitQueue.clear();
 	}
 
 	/**
