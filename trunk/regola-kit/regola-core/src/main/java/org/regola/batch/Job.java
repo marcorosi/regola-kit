@@ -336,7 +336,7 @@ public abstract class Job<T extends Serializable> {
 				}
 			}
 
-//			flush(commitQueue);
+			flush(commitQueue);
 			context.succeeded();
 
 		} catch (Throwable e) {
@@ -379,9 +379,10 @@ public abstract class Job<T extends Serializable> {
 	 * 
 	 * @return true se l'elaborazione degli elementi rimanenti deve
 	 *         interrompersi.
+	 * @throws Throwable 
 	 */
 	private boolean processAndCommit(T item, JobContext<T> context,
-			Set<T> commitQueue) {
+			Set<T> commitQueue) throws Throwable {
 		if (skipPolicy.skipBeforeProcessing(context)) {
 			context.itemSkipped();
 			LOG.info("Elemento ignorato");
@@ -395,6 +396,10 @@ public abstract class Job<T extends Serializable> {
 			context.itemFailed(e);
 			LOG.error("Fallita elaborazione dell'elemento");
 			return skipPolicy.onErrorSkipRemaining(context, e);
+		} catch (Throwable e) {
+			context.itemFailed(e);
+			LOG.error("Fallita elaborazione dell'elemento");
+			throw e;
 		}
 		context.itemSucceeded();
 		commit(processedItem, context, commitQueue);
@@ -408,31 +413,31 @@ public abstract class Job<T extends Serializable> {
 	 */
 	private T processAndRetryOnErrors(final T item, final JobContext<T> context)
 			throws Exception {
+		boolean processed = false;
 		boolean retrying = false;
 		T processedItem = null;
 		do {
-			if (retrying) {
-				LOG.debug("Attesa prossimo tentativo di elaborazione della risorsa...");
-
-				retryPolicy.onRetrying(context);
-				retrying = false;
-			}
 			try {
 				processedItem = process(item);
+				processed = true;
 			} catch (RuntimeException e) {
 				LOG.error("Errore nell'elaborazione dell'elemento", e);
 
 				if (retryPolicy.retryOnError(context, e)) {
-					context.itemRetried(e);
-					retrying = true;
+					if (!retrying) { // solo la prima volta
+						context.itemRetried(e);
+						retrying = true;
+					}
 					LOG.debug(
 							"L'elaborazione dell'elemento verrà ritentata, tentativo {}",
 							context.getCurrentTry());
+					context.retrying();
+					retryPolicy.onRetrying(context);
 				} else {
 					throw e;
 				}
 			}
-		} while (retrying);
+		} while (!processed);
 		return processedItem;
 	}
 
@@ -455,6 +460,9 @@ public abstract class Job<T extends Serializable> {
 	}
 
 	private void flush(final Set<T> commitQueue) {
+		if (commitQueue.isEmpty()) {
+			return;
+		}
 		LOG.debug("Salvataggio di {} elementi elaborati con successo",
 				commitQueue.size());
 		store(new ArrayList<T>(commitQueue));
@@ -688,6 +696,7 @@ public abstract class Job<T extends Serializable> {
 		 * ogni tentativo.
 		 */
 		public void onRetrying(final JobContext<T> context) {
+			LOG.debug("Attesa prossimo tentativo di elaborazione della risorsa...");
 			try {
 				Thread.sleep(delay * context.getCurrentTry());
 			} catch (InterruptedException e) {
