@@ -14,21 +14,30 @@ import org.junit.Test;
 
 public class JobTest {
 
+	private static final Serializable DUMMY = Integer.MAX_VALUE;
 	private Job<Serializable> job;
 	private boolean execute;
-	protected StringBuilder lifeCycle;
-	protected boolean acquireExecution;
-	protected boolean acquireItem;
-	protected int loadIterations;
+	private StringBuilder lifeCycle;
+	private boolean acquireExecution;
+	private boolean acquireItem;
+	private Serializable[] items = {};
+	private Serializable[] processings = {};
+	private JobConfig config;
+	private JobContext<Serializable> context;
+	private JobResult result;
 
 	@Before
 	public void setUp() throws Exception {
+		config = JobConfig.defaultConfig();
+		config.setPageSize(2);
+		config.setCommitInterval(3);
+		config.setRetryDelay(0);
 		lifeCycle = new StringBuilder();
 		execute = true;
 		acquireExecution = true;
 		acquireItem = true;
-		loadIterations = 2;
-		job = new Job<Serializable>() {
+		items = new Serializable[] {};
+		job = new Job<Serializable>(config) {
 			@Override
 			protected boolean enabled(JobContext<Serializable> context) {
 				lifeCycle.append(" enabled");
@@ -48,11 +57,18 @@ public class JobTest {
 
 			@Override
 			protected List<Serializable> load(JobContext<Serializable> context) {
-				lifeCycle.append(" load");
-				loadIterations--;
-				if (loadIterations > 0) {
-					return asList((Serializable) null);
+				lifeCycle.append(" load ");
+				int idx = context.getLoadIteration() - 1;
+				final int start = idx * config.getPageSize();
+				if (start < items.length && idx >= 0) {
+					int size = Math.min(config.getPageSize(), items.length
+							- start);
+					lifeCycle.append(size);
+					Serializable[] loaded = new Serializable[size];
+					System.arraycopy(items, start, loaded, 0, size);
+					return asList(loaded);
 				}
+				lifeCycle.append("0");
 				return emptyList();
 			}
 
@@ -65,12 +81,22 @@ public class JobTest {
 			@Override
 			protected Serializable process(Serializable item) throws Exception {
 				lifeCycle.append(" process");
+				final int idx = context.getProcessed() - 1;
+				if (idx < processings.length && idx >= 0) {
+					if (processings[idx] instanceof Exception) {
+						throw (Exception) processings[idx];
+					}
+					if (processings[idx] instanceof Error) {
+						throw (Error) processings[idx];
+					}
+					return processings[idx];
+				}
 				return null;
 			}
 
 			@Override
 			protected void store(List<Serializable> commitQueue) {
-				lifeCycle.append(" store");
+				lifeCycle.append(" store ").append(commitQueue.size());
 			}
 
 			@Override
@@ -88,6 +114,7 @@ public class JobTest {
 				lifeCycle.append(" onFinish");
 			}
 		};
+		context = new JobContext<Serializable>(job.name());
 	}
 
 	@Test
@@ -111,25 +138,101 @@ public class JobTest {
 	}
 
 	@Test
-	public void jobLifeCycleWith2Items() {
-		loadIterations = 3;
-		assertLifeCycle(" enabled acquireExecution onStart load acquireItem process releaseItem load acquireItem process releaseItem load onFinish releaseExecution");
+	public void processing0Items() {
+		items = new Serializable[] {};
+		expectRun(" enabled acquireExecution onStart load 0 onFinish releaseExecution");
+		expectResult(0, 0, 0, 0, 0);
 	}
 
 	@Test
-	public void jobLifeCycleWith1Items() {
-		loadIterations = 2;
-		assertLifeCycle(" enabled acquireExecution onStart load acquireItem process releaseItem load onFinish releaseExecution");
+	public void processing1Item_null() {
+		items = new Serializable[] { null };
+		expectRun(" enabled acquireExecution onStart load 1 acquireItem process releaseItem load 0 onFinish releaseExecution");
+		expectResult(1, 0, 0, 0, 1);
+	}
+	@Test
+	public void processing1Item() {
+		items = new Serializable[] { null };
+		processings = new Serializable[] { DUMMY };
+		expectRun(" enabled acquireExecution onStart load 1 acquireItem process releaseItem load 0 store 1 onFinish releaseExecution");
+		expectResult(1, 0, 0, 0, 1);
 	}
 
 	@Test
-	public void jobLifeCycleWith0Items() {
-		loadIterations = 1;
-		assertLifeCycle(" enabled acquireExecution onStart load onFinish releaseExecution");
+	public void processing2Items_nulls() {
+		items = new Serializable[] { null, null };
+		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem acquireItem process releaseItem load 0 onFinish releaseExecution");
+		expectResult(2, 0, 0, 0, 2);
+	}
+	
+	@Test
+	public void processing2Items() {
+		items = new Serializable[] { null, null };
+		processings = new Serializable[] { DUMMY, DUMMY };
+		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem acquireItem process releaseItem load 0 store 2 onFinish releaseExecution");
+		expectResult(2, 0, 0, 0, 2);
 	}
 
-	protected void assertLifeCycle(String stringSequence) {
-		job.execute();
+	@Test
+	public void processing3Items_nulls() {
+		items = new Serializable[] { null, null, null };
+		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem acquireItem process releaseItem load 1 acquireItem process releaseItem load 0 onFinish releaseExecution");
+		expectResult(3, 0, 0, 0, 3);
+	}
+	
+	@Test
+	public void processing3Items() {
+		items = new Serializable[] { null, null, null };
+		processings = new Serializable[] { DUMMY, DUMMY, DUMMY };
+		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem acquireItem process releaseItem load 1 acquireItem process releaseItem load 0 store 3 onFinish releaseExecution");
+		expectResult(3, 0, 0, 0, 3);
+	}
+
+	@Test
+	public void processing2Items_withRuntimeException() {
+		items = new Serializable[] { null, null };
+		processings = new Serializable[] { new RuntimeException("runtime") };
+		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem acquireItem process releaseItem load 0 onFinish releaseExecution");
+		expectResult(2, 0, 1, 0, 1);
+	}
+
+	@Test
+	public void processing2Items_withCheckedException() {
+		items = new Serializable[] { null, null };
+		processings = new Serializable[] { new Exception("checked") };
+		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem acquireItem process releaseItem load 0 onFinish releaseExecution");
+		expectResult(2, 0, 1, 0, 1);
+	}
+
+	@Test
+	public void processing2Items_withRetryableFailureException() {
+		items = new Serializable[] { null, null };
+		processings = new Serializable[] { new RetryableFailureException(
+				"retryable") };
+		expectRun(" enabled acquireExecution onStart load 2 acquireItem process process process releaseItem acquireItem process releaseItem load 0 onFinish releaseExecution");
+		expectResult(2, 0, 1, 1, 1);
+	}
+
+	@Test
+	public void processing2Items_withError() {
+		items = new Serializable[] { null, null };
+		processings = new Serializable[] { new Error("error") };
+		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem onFinish releaseExecution");
+		expectResult(1, 0, 1, 0, 0);
+	}
+
+	protected void expectRun(String stringSequence) {
+		result = job.execute(context);
 		assertThat(lifeCycle.toString(), is(stringSequence));
 	}
+
+	private void expectResult(int processed, int skipped, int failed,
+			int retried, int succeeded) {
+		assertEquals(processed, result.getProcessed());
+		assertEquals(skipped, result.getSkipped());
+		assertEquals(retried, result.getRetried());
+		assertEquals(failed, result.getFailed());
+		assertEquals(succeeded, result.getSucceeded());
+	}
+
 }

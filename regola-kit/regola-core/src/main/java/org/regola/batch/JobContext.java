@@ -77,11 +77,10 @@ public class JobContext<T extends Serializable> {
 
 	public void itemRetried(RuntimeException e) {
 		retried++;
-		currentTry++;
 		lastError = e;
 	}
 
-	public void itemFailed(Exception e) {
+	public void itemFailed(Throwable e) {
 		failed++;
 	}
 
@@ -93,6 +92,10 @@ public class JobContext<T extends Serializable> {
 		loadIteration++;
 	}
 
+	public void retrying() {
+		currentTry++;
+	}
+	
 	public JobContext<T> started() {
 		startedAt(now());
 		return this;
