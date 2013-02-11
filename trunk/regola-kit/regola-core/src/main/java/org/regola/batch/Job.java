@@ -3,9 +3,7 @@ package org.regola.batch;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.regola.util.EnvironmentUtils;
 import org.slf4j.Logger;
@@ -296,7 +294,7 @@ public abstract class Job<T extends Serializable> {
 		try {
 			onStart(context);
 
-			final Set<T> commitQueue = new LinkedHashSet<T>();
+			final List<T> commitQueue = new ArrayList<T>();
 			boolean abortProcessing = false;
 			LOADING: while (!abortProcessing) {
 				context.loading();
@@ -323,11 +321,12 @@ public abstract class Job<T extends Serializable> {
 						continue NEXT_ITEM;
 					}
 					try {
-						abortProcessing = processAndCommit(item, context,
+						abortProcessing = skipOrProcess(item, context,
 								commitQueue);
 					} finally {
 						releaseItem(context);
 					}
+					commit(context, commitQueue);
 					if (abortProcessing) {
 						context.cancelled();
 						LOG.warn("Annullamento: non verranno elaborati altri elementi");
@@ -374,15 +373,16 @@ public abstract class Job<T extends Serializable> {
 
 	/**
 	 * Applica la politica di skip e delega a
-	 * {@link #processAndRetryOnErrors(Serializable, JobContext)} e a
-	 * {@link #commit(Serializable, JobContext, Set)}.
+	 * {@link #processAndRetryOnErrors(Serializable, JobContext)}.
+	 * <p>
+	 * Se l'elaborazione ha successo l'elemento viene accodato {@link #enqueue(Serializable, List)}.
 	 * 
 	 * @return true se l'elaborazione degli elementi rimanenti deve
 	 *         interrompersi.
 	 * @throws Throwable 
 	 */
-	private boolean processAndCommit(T item, JobContext<T> context,
-			Set<T> commitQueue) throws Throwable {
+	private boolean skipOrProcess(T item, JobContext<T> context,
+			List<T> commitQueue) throws Throwable {
 		if (skipPolicy.skipBeforeProcessing(context)) {
 			context.itemSkipped();
 			LOG.info("Elemento ignorato");
@@ -402,7 +402,7 @@ public abstract class Job<T extends Serializable> {
 			throw e;
 		}
 		context.itemSucceeded();
-		commit(processedItem, context, commitQueue);
+		enqueue(processedItem, commitQueue);
 		return skipPolicy.skipRemaining(context);
 	}
 
@@ -442,35 +442,40 @@ public abstract class Job<T extends Serializable> {
 	}
 
 	/**
-	 * Applica la politica di commit e, se raggiunto il commit interval, delega
-	 * a {@link #store(List)}.
+	 * Aggiunge un elemento (se diverso da <code>null</code>) alla coda di commit.
 	 */
-	private void commit(final T processedItem, final JobContext<T> context,
-			final Set<T> commitQueue) {
-
+	private void enqueue(T processedItem, List<T> commitQueue) {
 		if (processedItem == null) {
 			return;
 		}
 
 		commitQueue.add(processedItem);
-
+    }
+	
+	/**
+	 * Applica la politica di commit e, se raggiunto il commit interval, svuota la coda di commit.
+	 */
+	private void commit(final JobContext<T> context, final List<T> commitQueue) {
 		if (commitPolicy.commitQueued(context)) {
 			flush(commitQueue);
 		}
 	}
 
-	private void flush(final Set<T> commitQueue) {
+	/**
+	 * Delega a {@link #store(List)} se la coda di commit contiene degli elementi.
+	 */
+	private void flush(final List<T> commitQueue) {
 		if (commitQueue.isEmpty()) {
 			return;
 		}
 		LOG.debug("Salvataggio di {} elementi elaborati con successo",
 				commitQueue.size());
-		store(new ArrayList<T>(commitQueue));
+		store(commitQueue);
 		commitQueue.clear();
 	}
 
 	/**
-	 * L'operazione di default non fa nulla: ridefinire per delegare ad un
+	 * L'operazione di default non fa nulla: ridefinire per persistere gli elementi tramite un
 	 * repository transazionale.
 	 */
 	protected void store(final List<T> commitQueue) {
