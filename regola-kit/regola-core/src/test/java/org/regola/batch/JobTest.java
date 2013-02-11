@@ -21,7 +21,7 @@ public class JobTest {
 	private boolean acquireExecution;
 	private boolean acquireItem;
 	private Serializable[] items = {};
-	private Serializable[] processings = {};
+	private Serializable[] returnOrThrow = {};
 	private JobConfig config;
 	private JobContext<Serializable> context;
 	private JobResult result;
@@ -82,14 +82,14 @@ public class JobTest {
 			protected Serializable process(Serializable item) throws Exception {
 				lifeCycle.append(" process");
 				final int idx = context.getProcessed() - 1;
-				if (idx < processings.length && idx >= 0) {
-					if (processings[idx] instanceof Exception) {
-						throw (Exception) processings[idx];
+				if (idx < returnOrThrow.length && idx >= 0) {
+					if (returnOrThrow[idx] instanceof Exception) {
+						throw (Exception) returnOrThrow[idx];
 					}
-					if (processings[idx] instanceof Error) {
-						throw (Error) processings[idx];
+					if (returnOrThrow[idx] instanceof Error) {
+						throw (Error) returnOrThrow[idx];
 					}
-					return processings[idx];
+					return returnOrThrow[idx];
 				}
 				return null;
 			}
@@ -145,7 +145,7 @@ public class JobTest {
 	}
 
 	@Test
-	public void processing1Item_null() {
+	public void processing1Item_nullNotStored() {
 		items = new Serializable[] { null };
 		expectRun(" enabled acquireExecution onStart load 1 acquireItem process releaseItem load 0 onFinish releaseExecution");
 		expectResult(1, 0, 0, 0, 1);
@@ -153,13 +153,13 @@ public class JobTest {
 	@Test
 	public void processing1Item() {
 		items = new Serializable[] { null };
-		processings = new Serializable[] { DUMMY };
+		returnOrThrow = new Serializable[] { DUMMY };
 		expectRun(" enabled acquireExecution onStart load 1 acquireItem process releaseItem load 0 store 1 onFinish releaseExecution");
 		expectResult(1, 0, 0, 0, 1);
 	}
 
 	@Test
-	public void processing2Items_nulls() {
+	public void processing2Items_nullsNotStored() {
 		items = new Serializable[] { null, null };
 		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem acquireItem process releaseItem load 0 onFinish releaseExecution");
 		expectResult(2, 0, 0, 0, 2);
@@ -168,13 +168,13 @@ public class JobTest {
 	@Test
 	public void processing2Items() {
 		items = new Serializable[] { null, null };
-		processings = new Serializable[] { DUMMY, DUMMY };
+		returnOrThrow = new Serializable[] { DUMMY, DUMMY };
 		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem acquireItem process releaseItem load 0 store 2 onFinish releaseExecution");
 		expectResult(2, 0, 0, 0, 2);
 	}
 
 	@Test
-	public void processing3Items_nulls() {
+	public void processing3Items_nullsNotStored() {
 		items = new Serializable[] { null, null, null };
 		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem acquireItem process releaseItem load 1 acquireItem process releaseItem load 0 onFinish releaseExecution");
 		expectResult(3, 0, 0, 0, 3);
@@ -183,15 +183,30 @@ public class JobTest {
 	@Test
 	public void processing3Items() {
 		items = new Serializable[] { null, null, null };
-		processings = new Serializable[] { DUMMY, DUMMY, DUMMY };
-		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem acquireItem process releaseItem load 1 acquireItem process releaseItem load 0 store 3 onFinish releaseExecution");
+		returnOrThrow = new Serializable[] { DUMMY, DUMMY, DUMMY };
+		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem acquireItem process releaseItem load 1 acquireItem process releaseItem store 3 load 0 onFinish releaseExecution");
 		expectResult(3, 0, 0, 0, 3);
 	}
 
 	@Test
+	public void processing4Items_nullsNotStored() {
+		items = new Serializable[] { null, null, null, null };
+		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem acquireItem process releaseItem load 2 acquireItem process releaseItem acquireItem process releaseItem load 0 onFinish releaseExecution");
+		expectResult(4, 0, 0, 0, 4);
+	}
+	
+	@Test
+	public void processing4Items() {
+		items = new Serializable[] { null, null, null, null };
+		returnOrThrow = new Serializable[] { DUMMY, DUMMY, DUMMY, DUMMY };
+		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem acquireItem process releaseItem load 2 acquireItem process releaseItem store 3 acquireItem process releaseItem load 0 store 1 onFinish releaseExecution");
+		expectResult(4, 0, 0, 0, 4);
+	}
+	
+	@Test
 	public void processing2Items_withRuntimeException() {
 		items = new Serializable[] { null, null };
-		processings = new Serializable[] { new RuntimeException("runtime") };
+		returnOrThrow = new Serializable[] { new RuntimeException("runtime") };
 		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem acquireItem process releaseItem load 0 onFinish releaseExecution");
 		expectResult(2, 0, 1, 0, 1);
 	}
@@ -199,7 +214,7 @@ public class JobTest {
 	@Test
 	public void processing2Items_withCheckedException() {
 		items = new Serializable[] { null, null };
-		processings = new Serializable[] { new Exception("checked") };
+		returnOrThrow = new Serializable[] { new Exception("checked") };
 		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem acquireItem process releaseItem load 0 onFinish releaseExecution");
 		expectResult(2, 0, 1, 0, 1);
 	}
@@ -207,7 +222,7 @@ public class JobTest {
 	@Test
 	public void processing2Items_withRetryableFailureException() {
 		items = new Serializable[] { null, null };
-		processings = new Serializable[] { new RetryableFailureException(
+		returnOrThrow = new Serializable[] { new RetryableFailureException(
 				"retryable") };
 		expectRun(" enabled acquireExecution onStart load 2 acquireItem process process process releaseItem acquireItem process releaseItem load 0 onFinish releaseExecution");
 		expectResult(2, 0, 1, 1, 1);
@@ -216,7 +231,7 @@ public class JobTest {
 	@Test
 	public void processing2Items_withError() {
 		items = new Serializable[] { null, null };
-		processings = new Serializable[] { new Error("error") };
+		returnOrThrow = new Serializable[] { new Error("error") };
 		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem onFinish releaseExecution");
 		expectResult(1, 0, 1, 0, 0);
 	}
