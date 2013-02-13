@@ -15,7 +15,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Rappresenta un'espressione di intervallo temporale.
  * <p>
- * Può essere basata:
+ * Può essere basata su:
  * <ul>
  * <li>un orario (time) indicato come cron expression "ora minuti": se l'ora e/o
  * i minuti non sono presenti, viene applicata l'espressione "*" che rappresenta

@@ -26,19 +26,19 @@ public class JobContext<T extends Serializable> {
 	private T lastProcessedItem;
 
 	private boolean executed;
-	private boolean success;
-	private Date started;
-	private Date finished;
-	private String message;
+	private boolean succeeded;
 	private boolean cancelled;
+	private Date startedAt;
+	private Date finishedAt;
+	private String message;
 	private Throwable lastError;
 
 	// stats
-	private int processed;
-	private int skipped;
-	private int retried;
-	private int failed;
-	private int succeeded;
+	private int processedItems;
+	private int skippedItems;
+	private int retriedItems;
+	private int failedItems;
+	private int succeededItems;
 
 	public JobContext(final String jobName) {
 		this(jobName, EnvironmentUtils.current(), EnvironmentUtils.hostname());
@@ -67,25 +67,25 @@ public class JobContext<T extends Serializable> {
 
 	public void startProcessing(T item) {
 		currentTry = 1;
-		processed++;
+		processedItems++;
 		currentItem = item;
 	}
 
 	public void itemSkipped() {
-		skipped++;
+		skippedItems++;
 	}
 
 	public void itemRetried(RuntimeException e) {
-		retried++;
+		retriedItems++;
 		lastError = e;
 	}
 
 	public void itemFailed(Throwable e) {
-		failed++;
+		failedItems++;
 	}
 
 	public void itemSucceeded() {
-		succeeded++;
+		succeededItems++;
 	}
 
 	public void loading() {
@@ -95,7 +95,7 @@ public class JobContext<T extends Serializable> {
 	public void retrying() {
 		currentTry++;
 	}
-	
+
 	public JobContext<T> started() {
 		startedAt(now());
 		return this;
@@ -103,7 +103,7 @@ public class JobContext<T extends Serializable> {
 
 	public JobContext<T> startedAt(final Date date) {
 		executed = true;
-		started = new Date(date.getTime());
+		startedAt = new Date(date.getTime());
 		return this;
 	}
 
@@ -113,7 +113,7 @@ public class JobContext<T extends Serializable> {
 	}
 
 	public JobContext<T> finishedAt(final Date date) {
-		finished = new Date(date.getTime());
+		finishedAt = new Date(date.getTime());
 		return this;
 	}
 
@@ -128,7 +128,7 @@ public class JobContext<T extends Serializable> {
 	}
 
 	public JobContext<T> succeededAt(final Date date) {
-		success = true;
+		succeeded = true;
 		finishedAt(date);
 		return this;
 	}
@@ -140,7 +140,7 @@ public class JobContext<T extends Serializable> {
 	}
 
 	public JobContext<T> failedAt(final Date date) {
-		success = false;
+		succeeded = false;
 		finishedAt(date);
 		return this;
 	}
@@ -151,7 +151,7 @@ public class JobContext<T extends Serializable> {
 	}
 
 	public boolean isFailed() {
-		return !success;
+		return !succeeded;
 	}
 
 	public JobContext<T> disabled() {
@@ -169,8 +169,9 @@ public class JobContext<T extends Serializable> {
 	}
 
 	JobResult buildResult() {
-		return new JobResult(executed, success, processed, skipped, retried,
-				failed, succeeded, started, finished, message);
+		return new JobResult(executed, succeeded, cancelled, processedItems,
+				skippedItems, retriedItems, failedItems, succeededItems,
+				startedAt, finishedAt, message);
 
 	}
 
@@ -194,30 +195,24 @@ public class JobContext<T extends Serializable> {
 		return currentTry;
 	}
 
-	public int getProcessed() {
-		return processed;
+	public int getProcessedItems() {
+		return processedItems;
 	}
 
-	public int getSkipped() {
-		return skipped;
+	public int getSkippedItems() {
+		return skippedItems;
 	}
 
-	public int getRetried() {
-		return retried;
+	public int getRetriedItems() {
+		return retriedItems;
 	}
 
-	public int getFailed() {
-		return failed;
+	public int getFailedItems() {
+		return failedItems;
 	}
 
-	public int getSucceeded() {
-		return succeeded;
-	}
-
-	@Override
-	public String toString() {
-		return jobName + "[" + executionId + "]@" + hostname + "["
-				+ environment + "]";
+	public int getSucceededItems() {
+		return succeededItems;
 	}
 
 	public String getJobName() {
@@ -228,16 +223,16 @@ public class JobContext<T extends Serializable> {
 		return executed;
 	}
 
-	public boolean isSuccess() {
-		return success;
+	public boolean isSucceeded() {
+		return succeeded;
 	}
 
-	public Date getStarted() {
-		return started;
+	public Date getStartedAt() {
+		return startedAt;
 	}
 
-	public Date getFinished() {
-		return finished;
+	public Date getFinishedAt() {
+		return finishedAt;
 	}
 
 	public boolean isCancelled() {
@@ -248,4 +243,9 @@ public class JobContext<T extends Serializable> {
 		return message;
 	}
 
+	@Override
+	public String toString() {
+		return jobName + "[" + executionId + "]@" + hostname + "["
+				+ environment + "]";
+	}
 }

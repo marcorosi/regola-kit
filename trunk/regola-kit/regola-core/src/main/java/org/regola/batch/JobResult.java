@@ -8,41 +8,46 @@ import java.util.Date;
 public final class JobResult {
 
 	private final boolean executed;
-	private final boolean success;
-	private final int processed;
-	private final int skipped;
-	private final int retried;
-	private final int failed;
-	private final int succeeded;
-	private final Date started;
-	private final Date finished;
+	private final boolean successful;
+	private final boolean cancelled;
+	private final int processedItems;
+	private final int skippedItems;
+	private final int retriedItems;
+	private final int failedItems;
+	private final int succeededItems;
+	private final Date startedAt;
+	private final Date finishedAt;
 	private final String message;
 
 	public JobResult(final JobContext<?> context) {
-		this(context.isExecuted(), context.isSuccess(), context.getProcessed(),
-				context.getSkipped(), context.getRetried(),
-				context.getFailed(), context.getSucceeded(), context
-						.getStarted(), context.getFinished(), context
+		this(context.isExecuted(), context.isSucceeded(),
+				context.isCancelled(), context.getProcessedItems(), context
+						.getSkippedItems(), context.getRetriedItems(), context
+						.getFailedItems(), context.getSucceededItems(), context
+						.getStartedAt(), context.getFinishedAt(), context
 						.getMessage());
 	}
 
-	JobResult(boolean executed, boolean success, int processed, int skipped,
-			int retried, int failed, int succeeded, Date started,
-			Date finished, String message) {
+	JobResult(boolean executed, boolean succeeded, boolean cancelled,
+			int processedItems, int skippedItems, int retriedItems,
+			int failedItems, int succeededItems, Date started, Date finished,
+			String message) {
 		this.executed = executed;
-		this.success = success;
-		this.processed = processed;
-		this.skipped = skipped;
-		this.retried = retried;
-		this.failed = failed;
-		this.succeeded = succeeded;
-		this.started = new Date(started.getTime());
-		this.finished = new Date(finished.getTime());
+		this.successful = succeeded;
+		this.cancelled = cancelled;
+		this.processedItems = processedItems;
+		this.skippedItems = skippedItems;
+		this.retriedItems = retriedItems;
+		this.failedItems = failedItems;
+		this.succeededItems = succeededItems;
+		this.startedAt = new Date(started.getTime());
+		this.finishedAt = new Date(finished.getTime());
 		this.message = message;
 	}
 
 	public static JobResult disabled() {
-		return new JobResult(false, false, 0, 0, 0, 0, 0, null, null, null);
+		return new JobResult(false, false, false, 0, 0, 0, 0, 0, null, null,
+				null);
 	}
 
 	public boolean isExecuted() {
@@ -50,35 +55,39 @@ public final class JobResult {
 	}
 
 	public boolean isSuccessful() {
-		return success;
+		return successful;
 	}
 
-	public int getProcessed() {
-		return processed;
+	public boolean isCancelled() {
+		return cancelled;
 	}
 
-	public int getSkipped() {
-		return skipped;
+	public int getProcessedItems() {
+		return processedItems;
 	}
 
-	public int getRetried() {
-		return retried;
+	public int getSkippedItems() {
+		return skippedItems;
 	}
 
-	public int getFailed() {
-		return failed;
+	public int getRetriedItems() {
+		return retriedItems;
 	}
 
-	public int getSucceeded() {
-		return succeeded;
+	public int getFailedItems() {
+		return failedItems;
 	}
 
-	public Date getStarted() {
-		return started;
+	public int getSucceededItems() {
+		return succeededItems;
 	}
 
-	public Date getFinished() {
-		return finished;
+	public Date getStartedAt() {
+		return startedAt;
+	}
+
+	public Date getFinishedAt() {
+		return finishedAt;
 	}
 
 	public String getMessage() {
@@ -87,11 +96,13 @@ public final class JobResult {
 
 	@Override
 	public String toString() {
-		return "JobResult [executed=" + executed + ", success=" + success
-				+ ", processed=" + processed + ", skipped=" + skipped
-				+ ", retried=" + retried + ", failed=" + failed
-				+ ", succeeded=" + succeeded + ", started=" + started
-				+ ", finished=" + finished + ", message=" + message + "]";
+		return "JobResult [executed=" + executed + ", successful=" + successful
+				+ ", cancelled=" + cancelled + ", processedItems="
+				+ processedItems + ", skippedItems=" + skippedItems
+				+ ", retriedItems=" + retriedItems + ", failedItems="
+				+ failedItems + ", succeededItems=" + succeededItems
+				+ ", startedAt=" + startedAt + ", finishedAt=" + finishedAt
+				+ ", message=" + message + "]";
 	}
 
 }
