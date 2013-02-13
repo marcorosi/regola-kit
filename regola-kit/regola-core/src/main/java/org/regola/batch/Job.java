@@ -362,7 +362,7 @@ public abstract class Job<T extends Serializable> {
 					break LOADING;
 				}
 				NEXT_ITEM: for (T item : itemsToProcess) {
-					if (context.getProcessed() >= maxItems) {
+					if (context.getProcessedItems() >= maxItems) {
 						LOG.warn(
 								"Superato il numero massimo di elementi elaborabili: {}",
 								maxItems);
@@ -405,7 +405,7 @@ public abstract class Job<T extends Serializable> {
 		}
 
 		LOG.info("Fine esecuzione del job {}: {}", context,
-				context.isSuccess() ? "riuscito" : "FALLITO!");
+				context.isSucceeded() ? "riuscito" : "FALLITO!");
 		return context.buildResult();
 	}
 

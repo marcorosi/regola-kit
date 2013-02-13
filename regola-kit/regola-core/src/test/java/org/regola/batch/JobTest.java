@@ -81,7 +81,7 @@ public class JobTest {
 			@Override
 			protected Serializable process(Serializable item) throws Exception {
 				lifeCycle.append(" process");
-				final int currentItem = context.getProcessed() - 1;
+				final int currentItem = context.getProcessedItems() - 1;
 				if (currentItem < returnOrThrow.length && currentItem >= 0) {
 					if (returnOrThrow[currentItem] instanceof Exception) {
 						throw (Exception) returnOrThrow[currentItem];
@@ -244,11 +244,11 @@ public class JobTest {
 
 	private void expectResult(int processed, int skipped, int failed,
 			int retried, int succeeded) {
-		assertEquals(processed, result.getProcessed());
-		assertEquals(skipped, result.getSkipped());
-		assertEquals(retried, result.getRetried());
-		assertEquals(failed, result.getFailed());
-		assertEquals(succeeded, result.getSucceeded());
+		assertEquals(processed, result.getProcessedItems());
+		assertEquals(skipped, result.getSkippedItems());
+		assertEquals(retried, result.getRetriedItems());
+		assertEquals(failed, result.getFailedItems());
+		assertEquals(succeeded, result.getSucceededItems());
 	}
 
 }
