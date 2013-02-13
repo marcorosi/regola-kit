@@ -58,9 +58,9 @@ public class JobTest {
 			@Override
 			protected List<Serializable> load(JobContext<Serializable> context) {
 				lifeCycle.append(" load ");
-				int idx = context.getLoadIteration() - 1;
-				final int start = idx * config.getPageSize();
-				if (start < items.length && idx >= 0) {
+				int page = context.getLoadIteration() - 1;
+				final int start = page * config.getPageSize();
+				if (start < items.length && page >= 0) {
 					int size = Math.min(config.getPageSize(), items.length
 							- start);
 					lifeCycle.append(size);
@@ -81,15 +81,15 @@ public class JobTest {
 			@Override
 			protected Serializable process(Serializable item) throws Exception {
 				lifeCycle.append(" process");
-				final int idx = context.getProcessed() - 1;
-				if (idx < returnOrThrow.length && idx >= 0) {
-					if (returnOrThrow[idx] instanceof Exception) {
-						throw (Exception) returnOrThrow[idx];
+				final int currentItem = context.getProcessed() - 1;
+				if (currentItem < returnOrThrow.length && currentItem >= 0) {
+					if (returnOrThrow[currentItem] instanceof Exception) {
+						throw (Exception) returnOrThrow[currentItem];
 					}
-					if (returnOrThrow[idx] instanceof Error) {
-						throw (Error) returnOrThrow[idx];
+					if (returnOrThrow[currentItem] instanceof Error) {
+						throw (Error) returnOrThrow[currentItem];
 					}
-					return returnOrThrow[idx];
+					return returnOrThrow[currentItem];
 				}
 				return null;
 			}
@@ -150,6 +150,7 @@ public class JobTest {
 		expectRun(" enabled acquireExecution onStart load 1 acquireItem process releaseItem load 0 onFinish releaseExecution");
 		expectResult(1, 0, 0, 0, 1);
 	}
+
 	@Test
 	public void processing1Item() {
 		items = new Serializable[] { null };
@@ -164,7 +165,7 @@ public class JobTest {
 		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem acquireItem process releaseItem load 0 onFinish releaseExecution");
 		expectResult(2, 0, 0, 0, 2);
 	}
-	
+
 	@Test
 	public void processing2Items() {
 		items = new Serializable[] { null, null };
@@ -179,7 +180,7 @@ public class JobTest {
 		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem acquireItem process releaseItem load 1 acquireItem process releaseItem load 0 onFinish releaseExecution");
 		expectResult(3, 0, 0, 0, 3);
 	}
-	
+
 	@Test
 	public void processing3Items() {
 		items = new Serializable[] { null, null, null };
@@ -194,7 +195,7 @@ public class JobTest {
 		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem acquireItem process releaseItem load 2 acquireItem process releaseItem acquireItem process releaseItem load 0 onFinish releaseExecution");
 		expectResult(4, 0, 0, 0, 4);
 	}
-	
+
 	@Test
 	public void processing4Items() {
 		items = new Serializable[] { null, null, null, null };
@@ -202,7 +203,7 @@ public class JobTest {
 		expectRun(" enabled acquireExecution onStart load 2 acquireItem process releaseItem acquireItem process releaseItem load 2 acquireItem process releaseItem store 3 acquireItem process releaseItem load 0 store 1 onFinish releaseExecution");
 		expectResult(4, 0, 0, 0, 4);
 	}
-	
+
 	@Test
 	public void processing2Items_withRuntimeException() {
 		items = new Serializable[] { null, null };
