@@ -32,7 +32,7 @@ public class GenericEnumUserType implements UserType, ParameterizedType {
 
     @SuppressWarnings({ "unchecked"})
     public void setParameterValues(Properties parameters) {
-        String enumClassName = parameters.getProperty("enumClass");
+        String enumClassName = parameters.getProperty("enumClassName");
         try {
             enumClass = Class.forName(enumClassName).asSubclass(Enum.class);
         } catch (ClassNotFoundException cfne) {
