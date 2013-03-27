@@ -51,7 +51,6 @@ import org.springframework.transaction.annotation.Transactional;
  * 
  * @author <a href="mailto:matt@raibledesigns.com">Matt Raible</a>
  */
-@Transactional
 public class GenericManagerImpl<T, PK extends Serializable> implements
 		GenericManager<T, PK> {
 	protected final Log log = LogFactory.getLog(getClass());
