@@ -11,6 +11,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.regola.dao.GenericDao;
+import org.regola.dao.GenericDao2;
 import org.regola.filter.ModelPatternParser;
 import org.regola.filter.criteria.hibernate.HibernateQueryBuilder;
 import org.regola.filter.criteria.hibernate.support.HQLquery;
@@ -18,14 +19,13 @@ import org.regola.filter.impl.DefaultPatternParser;
 import org.regola.finder.FinderExecutor;
 import org.regola.model.ModelPattern;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
-import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 /**
  * @author nicola
  */
-public class HibernateGenericDao<T, ID extends Serializable>  implements GenericDao<T, ID>, FinderExecutor<T> {
+public class HibernateGenericDao<T, ID extends Serializable>  
+   implements GenericDao<T, ID>,GenericDao2<T, ID>, FinderExecutor<T> {
 
 	private Class<T> persistentClass;
 	
@@ -182,6 +182,7 @@ public class HibernateGenericDao<T, ID extends Serializable>  implements Generic
 		return criteriaBuilder.getClausoleHQL();
 	}	
 	
+	@SuppressWarnings("unchecked")
 	public List<T> find(String hql, Map<String, Object> parameters, int firstResult, int maxResults)
 	{
 		Query query = getSession().createQuery(hql);
@@ -212,5 +213,58 @@ public class HibernateGenericDao<T, ID extends Serializable>  implements Generic
 
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<T> queryList(String jpql, Object... params) {
+		 Query query =   getSession().createQuery(jpql);
+	      int index = 0;
+	      for (Object param : params) query.setParameter(++index, param);
+	      return query.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<T> queryListPaged(String jpql, int first, int max,
+			Object... params) {
+		 Query query =  getSession().createQuery(jpql);
+	        int index = 0;
+	        for (Object param : params) query.setParameter(++index, param);
+	        query.setFirstResult(first);
+	        query.setMaxResults(max);
+	        return query.list();
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public T querySingle(String jpql, Object... params) {
+		Query query =  getSession().createQuery(jpql);
+        int index = 0;
+        for (Object param : params) query.setParameter(++index, param);
+		List list = query.list();
+        
+        return list != null && list.size()>0 ? (T) list.get(0) : null; 
+	}
+
+	public int queryUpdate(String jpql, Object... params) {
+		Query query =  getSession().createQuery(jpql);
+        int index = 0;
+        for (Object param : params) query.setParameter(++index, param);
+        return query.executeUpdate();
+	}
+
+	public void flush() {
+		getSession().flush();
+		
+	}
+
+	public void clear() {
+		getSession().clear();
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	public T merge(T entity) {
+		T merged =  (T) getSession().merge(entity);
+	    flush();
+	    return merged;
 	}		
 }
