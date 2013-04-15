@@ -8,6 +8,7 @@ import org.hibernate.NonUniqueObjectException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.regola.dao.UniversalDao;
+import org.regola.dao.UniversalDao2;
 import org.regola.filter.ModelPatternParser;
 import org.regola.filter.criteria.hibernate.HibernateQueryBuilder;
 import org.regola.filter.impl.DefaultPatternParser;
@@ -27,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 @SuppressWarnings("unchecked")
-public class HibernateTransactionalUniversalDao extends HibernateUniversalDao implements UniversalDao  
+public class HibernateTransactionalUniversalDao extends HibernateUniversalDao implements UniversalDao, UniversalDao2  
 {
 	@Transactional(readOnly = false)
 	public void remove(Class clazz, Serializable id) {
