@@ -1,8 +1,15 @@
 package org.regola.roo.addon.regola.pattern;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
+import org.regola.roo.addon.regola.procedures.ProceduresOperationsImpl;
+import org.springframework.roo.classpath.details.BeanInfoUtils;
+import org.springframework.roo.classpath.details.annotations.AnnotationMetadataBuilder;
 import org.springframework.roo.model.JavaType;
 import org.springframework.roo.shell.CliAvailabilityIndicator;
 import org.springframework.roo.shell.CliCommand;
@@ -37,7 +44,7 @@ public class PatternCommands implements CommandMarker { // All command types mus
      * 
      * @return true (default) if the command should be visible at this stage, false otherwise
      */
-    @CliAvailabilityIndicator({ "regola pattern", "regola pattern all" })
+    @CliAvailabilityIndicator({ "regola pattern", "regola pattern all"})
     public boolean isCommandAvailable() {
         return operations.isCommandAvailable();
     }
@@ -61,8 +68,5 @@ public class PatternCommands implements CommandMarker { // All command types mus
         operations.annotateAll();
     }
     
-
-
-    
-    
+        
 }

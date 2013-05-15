@@ -1,0 +1,43 @@
+<project name="PROJECT_NAME" buildafterfailed="false">
+
+	<labelincrementer />
+
+	<listeners>
+		<currentbuildstatuslistener file="progetti/PROJECT_NAME/logs/status.txt" />
+	</listeners>
+
+	<!-- Bootstrappers are run every time the build runs,
+		*before* the modification checks -->
+	<bootstrappers></bootstrappers>
+
+	<!-- Defines where cruise looks for changes, to decide
+		whether to run the build -->
+	<modificationset quietperiod="60">
+		<svn localworkingcopy="progetti/PROJECT_NAME/checkout/PROJECT_NAME" />
+	</modificationset>
+
+	<!-- Configures the actual build loop, how often and which
+		build file/target -->
+	<schedule interval="60">
+		<maven2
+			mvnhome="/opt/apache-maven-3.0.4"
+			pomfile="progetti/PROJECT_NAME/checkout/PROJECT_NAME/pom.xml"
+			goal="clean | scm:update | package"
+			flags="-U -P cc"
+		 />
+	</schedule>
+
+	<!-- directory to write build logs to -->
+	<log dir="progetti/PROJECT_NAME/logs">
+		<merge
+			dir="progetti/PROJECT_NAME/checkout/PROJECT_NAME/target/surefire-reports"
+			pattern="TEST-*.xml" />
+	</log>
+
+	<!-- Publishers are run *after* a build completes -->
+	<publishers>
+		<onsuccess>
+			<execute command='sh -c "cp progetti/PROJECT_NAME/checkout/PROJECT_NAME/target/*war progetti/PROJECT_NAME/artifacts"' />
+		</onsuccess>
+	</publishers>
+</project>

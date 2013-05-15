@@ -1,11 +1,13 @@
 package org.regola.roo.addon.regola.project;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.felix.scr.annotations.Component;
@@ -24,6 +26,7 @@ import org.springframework.roo.project.ProjectOperations;
 import org.springframework.roo.project.Property;
 import org.springframework.roo.project.Repository;
 import org.springframework.roo.support.logging.HandlerUtils;
+import org.springframework.roo.support.util.DomUtils;
 import org.springframework.roo.support.util.FileUtils;
 import org.springframework.roo.support.util.XmlUtils;
 import org.w3c.dom.Document;
@@ -62,7 +65,7 @@ public class ProjectOperationsImpl implements ProjectOperation {
 	/* (non-Javadoc)
 	 * @see org.regola.roo.addon.regola.project.ProjectOperation#setup()
 	 */
-	public void setup() {
+	public void setup(String projectName) {
 	     
 		projectOperations.addProperty(projectOperations.getFocusedModuleName(), new Property("regola.version", "1.3-SNAPSHOT"));
 		
@@ -102,6 +105,9 @@ public class ProjectOperationsImpl implements ProjectOperation {
         
         // Remove spring/META-INF/jndi.properties file 
         removeJndiProperties();
+        
+        // Add cruisecontrol config file
+        addCruiseControlConfig(projectName);
     }
 	
 		
@@ -204,6 +210,35 @@ public class ProjectOperationsImpl implements ProjectOperation {
     	  fileManager.createOrUpdateTextFileIfRequired(contextPath,
                   XmlUtils.nodeToString(appCtx), false);
   
+    }
+    
+    
+    private void addCruiseControlConfig(String projectName)
+    {
+    	InputStream inputStream = null;
+    	  try {
+    		  
+    		  final String rootPath = projectOperations.getPathResolver()
+    				  .getFocusedIdentifier(Path.ROOT, "cruisecontrol.xml");
+    		  
+    		  if (fileManager.exists(rootPath)) {
+    			  LOGGER.warning("cruisecontrol.xml already exist!");
+    			  return;
+    		  }
+    		  
+    		  // Use the addon's template file
+    		  inputStream = FileUtils.getInputStream(getClass(),
+    				  "cruisecontrol-template.xml");
+    		   String newContents=IOUtils.toString(inputStream, "utf8");
+               
+    		   newContents = newContents.replaceAll("PROJECT_NAME", projectName);
+    		   
+    		   fileManager.createOrUpdateTextFileIfRequired(rootPath, newContents, false);
+          } catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+              IOUtils.closeQuietly(inputStream);
+          }
     }
     
     private void removeJndiProperties()

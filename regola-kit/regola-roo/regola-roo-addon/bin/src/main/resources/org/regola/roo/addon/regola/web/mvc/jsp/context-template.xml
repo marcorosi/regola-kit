@@ -1,0 +1,9 @@
+<Context>
+	 <!-- <ResourceLink name="jdbc/PagamentiDS" global="jdbc/DEVELOPMENT"
+		type="javax.sql.DataSource" /> -->
+	  <Resource  driverClassName="oracle.jdbc.driver.OracleDriver"  
+	  maxActive="100" maxIdle="30" maxWait="10000" name="jdbc/DEVELOPMENT" 
+	  password="DEVELOPMENT" type="javax.sql.DataSource" 
+	  url="jdbc:oracle:thin:@137.204.225.111:1521/D_cesia" username="DEVELOPMENT"/>
+    	
+</Context>

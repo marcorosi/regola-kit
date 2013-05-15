@@ -1,0 +1,27 @@
+package CHANGE_PACKAGE;
+
+import java.io.Serializable;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
+
+@Component
+public class CHANGE_CLASS_NAME {
+
+	private static Logger log = Logger.getLogger(CHANGE_CLASS_NAME.class);
+
+	protected Logger getLogger() {
+		return log;
+	}
+	
+	public static class Stato implements Serializable
+	{
+		private static final long serialVersionUID = 1L;
+	}
+	
+	public Stato init()
+	{
+		Stato stato = new Stato();
+		return stato;
+	}
+	
+}

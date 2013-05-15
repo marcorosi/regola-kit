@@ -41,15 +41,17 @@ public class ProjectCommands implements CommandMarker {
 	@Reference private ProjectOperation operations;
     @Reference private MavenOperations mavenOperations;
     @Reference private FileManager fileManager;
+    //@Reference private RegolaPackaging regolaPackaging;
 	
     @CliAvailabilityIndicator("regola project setup")
     public boolean isCommandAvailable() {
-    	return operations.isCommandAvailable();
+    	//return operations.isCommandAvailable();
+    	return false;
     }
 	
 	@CliCommand(value = "regola project setup", help = "Setup a Roo application for use with Regola-Kit")
     public void setup() {
-		operations.setup(); 
+		//operations.setup(); 
     }
 	
     @CliAvailabilityIndicator(PROJECT_COMMAND)
@@ -64,10 +66,14 @@ public class ProjectCommands implements CommandMarker {
             @CliOption(key = "jndiDataSource", mandatory = false, help = "The JNDI datasource to use", specifiedDefaultValue ="java:comp/env/jdbc/DEVELOPMENT")   String jndi,
             @CliOption(key = "java", help = "Forces a particular major version of Java to be used (will be auto-detected if unspecified; specify 5 or 6 or 7 only)") final Integer majorJavaVersion,
             @CliOption(key = "parent", help = "The Maven coordinates of the parent POM, in the form \"groupId:artifactId:version\"") final GAV parentPom,
-            @CliOption(key = "packaging", help = "The Maven packaging of this project", unspecifiedDefaultValue = JarPackaging.NAME) final PackagingProvider packaging) {
+            @CliOption(key = "packaging", help = "The Maven packaging of this project", unspecifiedDefaultValue = "regola-war") final PackagingProvider packaging) {
 		
-        mavenOperations.createProject(topLevelPackage, projectName,
+         mavenOperations.createProject(topLevelPackage, projectName,
                 majorJavaVersion, parentPom, packaging);
+        
+        //mavenOperations.createProject(topLevelPackage, projectName,
+        //        majorJavaVersion, parentPom, regolaPackaging);
+               
         
         fileManager.commit();
         
@@ -80,7 +86,8 @@ public class ProjectCommands implements CommandMarker {
 
         fileManager.commit();
         
-        operations.setup(); 
+        
+        operations.setup(projectName); 
     }
 	
     @CliCommand(value = "xxx", help = "Install or updates a JPA persistence provider in your project")

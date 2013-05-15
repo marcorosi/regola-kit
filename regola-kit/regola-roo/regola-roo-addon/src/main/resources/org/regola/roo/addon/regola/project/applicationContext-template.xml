@@ -7,7 +7,7 @@
     <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
         <property name="url" value="jdbc:oracle:thin:@ldap://oid.unibo.it:10389/app_development_dev,cn=OracleContext,dc=tns,dc=it"/>
-        <property name="username" value="DEVELOPMENT"/>
+        <property name="username" value="development"/>
         <property name="password" value="development"/>
  		<property name="testOnBorrow" value="true"/>
         <property name="testOnReturn" value="true"/>
