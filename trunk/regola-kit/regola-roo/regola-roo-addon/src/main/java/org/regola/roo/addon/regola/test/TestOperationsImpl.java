@@ -21,6 +21,7 @@ import org.springframework.roo.classpath.TypeManagementService;
 import org.springframework.roo.classpath.customdata.CustomDataKeys;
 import org.springframework.roo.classpath.details.ClassOrInterfaceTypeDetails;
 import org.springframework.roo.classpath.details.ClassOrInterfaceTypeDetailsBuilder;
+import org.springframework.roo.classpath.details.FieldMetadataBuilder;
 import org.springframework.roo.classpath.details.ImportMetadataBuilder;
 import org.springframework.roo.classpath.details.MemberFindingUtils;
 import org.springframework.roo.classpath.details.MethodMetadata;
@@ -136,6 +137,21 @@ public class TestOperationsImpl implements TestOperations {
 
 	 }
 	 
+	 private FieldMetadataBuilder getField(String declaredByMetadataId, JavaType type) {
+	     
+	        int modifier =  Modifier.PRIVATE ;
+	        
+	        List<AnnotationMetadataBuilder> annotations = new ArrayList<AnnotationMetadataBuilder>();
+	        annotations.add(new AnnotationMetadataBuilder(new JavaType("org.springframework.beans.factory.annotation.Autowired") ));
+	        
+	        // Using the FieldMetadataBuilder to create the field definition. 
+	        return  new FieldMetadataBuilder(declaredByMetadataId, // Metadata ID provided by supertype
+	            Modifier.PRIVATE,
+	            annotations, 
+	            new JavaSymbolName(StringUtils.uncapitalize(type.getSimpleTypeName())), // Field name
+	            type); // Field type
+	}
+	 
 	 private MethodMetadataBuilder getMockMethodTest(String declaredByMetadataId, JavaType entity) {
 		 final List<AnnotationMetadataBuilder> methodAnnotations = new ArrayList<AnnotationMetadataBuilder>();
 	        methodAnnotations.add(new AnnotationMetadataBuilder(TEST));
@@ -196,6 +212,8 @@ public class TestOperationsImpl implements TestOperations {
 	            // The file already exists
 	            return;
 	        }
+	        
+	        
 
 	        // annotazioni
 	        final List<AnnotationMetadataBuilder> annotations = new ArrayList<AnnotationMetadataBuilder>();
@@ -218,7 +236,8 @@ public class TestOperationsImpl implements TestOperations {
             ctxAnnotation.addAttribute(arrayAttributeValue);
             annotations.add(ctxAnnotation);
 	        
-	        
+            final List<FieldMetadataBuilder> fields = new ArrayList<FieldMetadataBuilder>();
+            fields.add(getField(declaredByMetadataId, entity));
 	        
             //metodi
 	        final List<MethodMetadataBuilder> methods = new ArrayList<MethodMetadataBuilder>();
@@ -230,6 +249,7 @@ public class TestOperationsImpl implements TestOperations {
 	                PhysicalTypeCategory.CLASS);
 	        cidBuilder.setAnnotations(annotations);
 	        cidBuilder.setDeclaredMethods(methods);
+	        cidBuilder.setDeclaredFields(fields);
 	        
 	        //imports
 	        ImportMetadataBuilder easyMockImport = new ImportMetadataBuilder(

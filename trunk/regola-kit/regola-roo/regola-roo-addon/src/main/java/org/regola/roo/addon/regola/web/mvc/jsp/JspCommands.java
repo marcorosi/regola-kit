@@ -30,10 +30,7 @@ public class JspCommands implements CommandMarker{
         return jspOperations.isMvcInstallationPossible();
     }
     
-    @CliCommand(value = "regola web mvc xxx", help = "Setup a basic web project structure for a Regola MVC / JSP application")
-    public void regolaMvcSetup() {
-    	regolaOperations.installRegolaMvc();
-    }
+  
     
 
 }

@@ -29,6 +29,7 @@ import org.springframework.roo.project.ProjectOperations;
 import org.springframework.roo.support.osgi.OSGiUtils;
 import org.springframework.roo.support.util.FileUtils;
 import org.springframework.roo.support.util.XmlUtils;
+import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -74,6 +75,12 @@ public class RegolaJspOperationsImpl extends AbstractOperations implements
 		
 		// add context.xml file
 		installContextFile();
+		
+		// add version.properties file
+		installVersionFile();
+		
+		// change display name
+		updateWebXml();
 
 		// create theme in src/main/resource e cancella WEB-INF/classes (ahimè)
 		writeTextFile("standard.properties",
@@ -95,6 +102,65 @@ public class RegolaJspOperationsImpl extends AbstractOperations implements
 		copyDirectoryContents("views/*.*", 	pathResolver.getIdentifier(webappPath, "WEB-INF/views"), true);
 
 	}
+	
+	  private void updateWebXml()
+	  {
+		 	final String appCtxPath = projectOperations.getPathResolver()
+	                  .getFocusedIdentifier(Path.SRC_MAIN_WEBAPP, "WEB-INF/web.xml");
+	    	final InputStream inputStream;
+	        
+	    	if (!fileManager.exists(appCtxPath)) {
+	        	LOGGER.warning("web.xml doesn't exist");
+	        	return;
+	        }
+	        
+	        // There's an existing persistence config file; read it
+	        inputStream = fileManager.getInputStream(appCtxPath);
+	        
+	        final Document webXml = XmlUtils.readXml(inputStream);
+	        final Element root = webXml.getDocumentElement();
+	        
+	        XmlUtils.findFirstElement("/web-app/display-name", root).setTextContent("${project.artifactId} ${project.version} ${build.number} ${build.timestamp}");
+	             
+	        StringBuilder sb = new StringBuilder();
+	        
+	        sb.append("Per aggiornare a runtime la configurazione del log:\n");
+	        sb.append("\n");
+	        
+	        sb.append("    <context-param>\n");
+	        sb.append("        <param-name>log4jConfigLocation</param-name>\n");
+	        sb.append("        <param-value>file:${CONF_DIR}log4j-${project.artifactId}.xml</param-value>\n");
+	        sb.append("    </context-param>\n");
+			
+	        sb.append("    <context-param>\n");
+	        sb.append("        <param-name>log4jRefreshInterval</param-name>\n");
+	        sb.append("        <param-value>60000</param-value>\n");
+	        sb.append("    </context-param>\n");
+		
+	        sb.append("    <context-param>\n");
+	        sb.append("        <param-name>log4jExposeWebAppRoot</param-name>\n");
+	        sb.append("        <param-value>false</param-value>\n");
+	        sb.append("    </context-param>\n");
+		
+	        sb.append("    <context-param>\n");
+	        sb.append("        <param-name>webAppRootKey</param-name>\n");
+	        sb.append("        <param-value>${project.artifactId}</param-value>\n");
+	        sb.append("    </context-param>\n");
+		
+	        sb.append("    <listener>\n");
+	        sb.append("        <listener-class>org.regola.webapp.util.Log4jConfigListener</listener-class>\n");
+	        sb.append("    </listener>\n");
+	        
+	        sb.append("\n");
+	        
+	        Comment comment = webXml.createComment(sb.toString());
+	        root.insertBefore(comment,XmlUtils.findFirstElement("error-page", root));
+	        
+	        fileManager.createOrUpdateTextFileIfRequired(appCtxPath,
+	                XmlUtils.nodeToString(webXml), false);
+	  
+	  }
+	 
 	
 	public void addProperties() 
 	{	
@@ -145,6 +211,9 @@ public class RegolaJspOperationsImpl extends AbstractOperations implements
 		}
 	}
 	
+	
+	
+	
 	  private void installAutodeploy() {
 	       
 	        String destinationFile = "";
@@ -155,6 +224,41 @@ public class RegolaJspOperationsImpl extends AbstractOperations implements
 	        if (!fileManager.exists(destinationFile)) {
 	            final InputStream templateInputStream = FileUtils.getInputStream(
 	                    getClass(), "autodeploy-template.sh");
+	            OutputStream outputStream = null;
+	            try {
+	                // Read template and insert the user's package
+	                String input = IOUtils.toString(templateInputStream);
+//	                input = input.replace("__PROJECT_NAME__",
+//	                        projectName.toLowerCase());
+
+	                // Output the file for the user
+	                final MutableFile mutableFile = fileManager
+	                        .createFile(destinationFile);
+	                outputStream = mutableFile.getOutputStream();
+	                IOUtils.write(input, outputStream);
+	            }
+	            catch (final IOException ioe) {
+	                throw new IllegalStateException("Unable to create '"
+	                        + destinationFile + "'", ioe);
+	            }
+	            finally {
+	                IOUtils.closeQuietly(templateInputStream);
+	                IOUtils.closeQuietly(outputStream);
+	            }
+	        }
+	    }
+
+	  
+	  private void installVersionFile() {
+	       
+	        String destinationFile = "";
+
+	        destinationFile = pathResolver.getFocusedIdentifier(Path.SRC_MAIN_RESOURCES,
+	                   "version.properties");
+	       	        
+	        if (!fileManager.exists(destinationFile)) {
+	            final InputStream templateInputStream = FileUtils.getInputStream(
+	                    getClass(), "version-template.properties");
 	            OutputStream outputStream = null;
 	            try {
 	                // Read template and insert the user's package
