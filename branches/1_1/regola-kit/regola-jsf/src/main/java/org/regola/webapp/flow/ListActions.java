@@ -4,15 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.model.DataModel;
-
-
 import org.regola.dao.UniversalDao;
 import org.regola.model.ModelPattern;
 import org.regola.service.GenericManager;
 import org.regola.validation.LazyLoadingArrayList;
 import org.regola.validation.LazyLoadingArrayList.Fetcher;
-import org.springframework.faces.model.SerializableListDataModel;
 import org.springframework.webflow.execution.Event;
 import org.springframework.webflow.execution.RequestContext;
 
@@ -26,21 +22,21 @@ public class ListActions   implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	@SuppressWarnings("unchecked")
-	public static DataModel refresh(final GenericManager serviceManager, ModelPattern modelPattern) {
-		
-		modelPattern.setTotalItems(serviceManager.countFind(modelPattern));
-		return new SerializableListDataModel(fetch(serviceManager, modelPattern));
-
-	}
-	
-	@SuppressWarnings("unchecked")
-	public static DataModel refresh(final UniversalDao dao, Serializable model, ModelPattern modelPattern) {
-		
-		modelPattern.setTotalItems(dao.count(model.getClass(),modelPattern));
-		return new SerializableListDataModel(fetch(dao,model, modelPattern));
-
-	}
+//	@SuppressWarnings("unchecked")
+//	public static DataModel refresh(final GenericManager serviceManager, ModelPattern modelPattern) {
+//		
+//		modelPattern.setTotalItems(serviceManager.countFind(modelPattern));
+//		return new SerializableListDataModel(fetch(serviceManager, modelPattern));
+//
+//	}
+//	
+//	@SuppressWarnings("unchecked")
+//	public static DataModel refresh(final UniversalDao dao, Serializable model, ModelPattern modelPattern) {
+//		
+//		modelPattern.setTotalItems(dao.count(model.getClass(),modelPattern));
+//		return new SerializableListDataModel(fetch(dao,model, modelPattern));
+//
+//	}
 	
 	@SuppressWarnings("unchecked")
 	public static List fetch(final GenericManager serviceManager, ModelPattern modelPattern)

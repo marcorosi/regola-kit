@@ -3,8 +3,6 @@ package org.regola.webapp.flow.mvc;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.model.DataModel;
-
 import org.regola.dao.UniversalDao;
 import org.regola.model.ModelPattern;
 import org.regola.service.GenericManager;
