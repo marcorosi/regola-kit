@@ -97,7 +97,7 @@ public class Parameter {
 			case Types.BOOLEAN  : return  JavaType.BOOLEAN_OBJECT;
 			
 			case Types.CHAR:
-			case Types.NCHAR : return  JavaType.CHAR_OBJECT;
+			case Types.NCHAR : return  JavaType.STRING;
 			
 			case Types.DATE :
 			case Types.TIME :
@@ -106,7 +106,7 @@ public class Parameter {
 			case Types.DECIMAL:
 			case Types.DOUBLE: 
 			case Types.FLOAT : 
-			case Types.NUMERIC : return JavaType.DOUBLE_OBJECT;
+			case Types.NUMERIC : return JavaType.LONG_OBJECT;
 			
 			case Types.BIGINT: 
 			case Types.INTEGER : return JavaType.INT_OBJECT;
