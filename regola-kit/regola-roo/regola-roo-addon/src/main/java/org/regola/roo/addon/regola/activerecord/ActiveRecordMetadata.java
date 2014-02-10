@@ -478,11 +478,13 @@ public class ActiveRecordMetadata extends AbstractItdTypeDetailsProvidingMetadat
         InvocableMemberBodyBuilder bodyBuilder = new InvocableMemberBodyBuilder();
         bodyBuilder.appendFormalLine("JpaQueryBuilder criteriaBuilder = new JpaQueryBuilder(" +
         destination.getSimpleTypeName() + ".class, entityManager());");
-        bodyBuilder.appendFormalLine("patternParser.createQuery(criteriaBuilder, pattern);");
+        //bodyBuilder.appendFormalLine("patternParser.createQuery(criteriaBuilder, pattern);");
+        bodyBuilder.appendFormalLine("patternParser.createCountQuery(criteriaBuilder, pattern);");
+
         bodyBuilder.appendFormalLine("return ((Number) criteriaBuilder.getQuery().getSingleResult()).intValue();");
         
         // Create the return type
-        final JavaType returnType  = JavaType.LONG_PRIMITIVE;
+        final JavaType returnType  = JavaType.INT_PRIMITIVE;
         
         // Use the MethodMetadataBuilder for easy creation of MethodMetadata
         MethodMetadataBuilder methodBuilder = new MethodMetadataBuilder(getId(), Modifier.PUBLIC | Modifier.STATIC , methodName, 
