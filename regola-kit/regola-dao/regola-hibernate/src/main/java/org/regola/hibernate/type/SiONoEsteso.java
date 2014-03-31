@@ -13,9 +13,12 @@ import org.hibernate.type.descriptor.sql.VarcharTypeDescriptor;
 /**
  * tipo per mappare una colonna varchar contenente "SI"/"NO" in boolean
  * 
+ * NOTA: con hibernate 3.6.9 non funziona usare @see SiONo 
+ * 
  * @author marco
  *
  */
+@Deprecated
 public class SiONoEsteso extends AbstractSingleColumnStandardBasicType<Boolean>
 		implements PrimitiveType<Boolean>, DiscriminatorType<Boolean> 
 {
