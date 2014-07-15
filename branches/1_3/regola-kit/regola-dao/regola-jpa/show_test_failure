@@ -1,0 +1,1 @@
+cat target/surefire-reports/*.txt | grep -A 10 -B 2 FAILURE | less

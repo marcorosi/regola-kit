@@ -1,0 +1,11 @@
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log opened at 2012-09-03 17:39:50
+addon create advanced --topLevelPackage org.regola.roo.addon.regola.pattern --description ""
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log closed at 2012-09-03 17:39:51
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log opened at 2012-09-27 14:26:57
+backup
+quit
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log closed at 2012-09-27 14:27:10
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log opened at 2013-02-15 16:27:03
+osgi ps
+quit
+// Spring Roo 1.2.2.RELEASE [rev 7d75659] log closed at 2013-02-15 16:28:11

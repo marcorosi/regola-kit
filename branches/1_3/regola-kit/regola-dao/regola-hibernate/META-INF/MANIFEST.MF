@@ -1,0 +1,46 @@
+Manifest-Version: 1.0
+Export-Package: org.regola.filter.criteria.hibernate.support,org.regol
+ a.filter.criteria.hibernate;uses:="org.hibernate,org.hibernate.criter
+ ion,org.hibernate.engine,org.apache.commons.logging,org.hibernate.met
+ adata,org.hibernate.type,org.regola.filter.criteria.hibernate.support
+ ",org.regola.finder.support.hibernate;uses:="org.hibernate,org.regola
+ .dao.hibernate",org.regola.dao.hibernate;uses:="org.regola.filter.cri
+ teria.hibernate.support,org.springframework.beans.factory.annotation,
+ org.hibernate.transform,org.hibernate.classic,org.hibernate,org.regol
+ a.filter.criteria.hibernate,org.springframework.orm.hibernate3,org.sp
+ ringframework.transaction.annotation"
+Private-Package: target.classes.target.classes.src.main.java.META-INF,
+ target.classes.target.classes.META-INF,target.classes.META-INF,src.ma
+ in.java.META-INF,target.classes.src.main.java.META-INF
+Ignore-Package: org.regola.finder.support,org.regola.model,org.regola.
+ filter.criteria.hibernate.support,org.regola.filter,org.regola.finder
+ ,org.regola.filter.criteria.impl,org.regola.finder.support.hibernate,
+ org.regola.filter.criteria.hibernate,org.regola.dao,org.regola.filter
+ .criteria,org.regola.filter.impl,org.regola.dao.hibernate
+Built-By: nicola
+Tool: Bnd-0.0.311
+Bundle-Name: Regola DAO Hibernate
+Import-Library: org.springframework.spring;version="[2.5.6.A,2.5.6.A]"
+ ,org.hibernate.ejb;version="[3.3.2.GA,3.3.2.GA]"
+Created-By: Apache Maven Bundle Plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: org.regola.core;bundle-version="1.2.0"
+Import-Bundle: org.regola.core;version="[1.2.0.SNAPSHOT,1.2.0.SNAPSHOT
+ ]"
+Build-Jdk: 1.6.0_07
+Bundle-Version: 1.2.0.SNAPSHOT
+Bnd-LastModified: 1284988159609
+Bundle-ManifestVersion: 2
+Bundle-Description: Regola Toolkit DAO Hibernate
+Bundle-License: http://www.gnu.org/licenses/gpl-3.0.txt
+Import-Package: javax.transaction;version="1.1",javax.transaction.xa;v
+ ersion="1.1",org.apache.commons.logging;version="1.1",org.hibernate;v
+ ersion="3.3",org.hibernate.classic;version="3.2",org.hibernate.criter
+ ion;version="3.2",org.hibernate.engine;version="3.3",org.hibernate.me
+ tadata;version="3.2",org.hibernate.transform;version="3.2",org.hibern
+ ate.type;version="3.3",org.springframework.beans.factory.annotation;v
+ ersion="2.5",org.springframework.orm.hibernate3;version="2.5",org.spr
+ ingframework.transaction.annotation;version="2.5"
+Bundle-SymbolicName: org.regola.hibernate
+Originally-Created-By: Apache Maven Bundle Plugin
+

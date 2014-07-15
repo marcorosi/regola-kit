@@ -1,0 +1,30 @@
+Manifest-Version: 1.0
+Export-Package: org.regola.dao.jpa;uses:="org.regola.filter.criteria.j
+ pa,org.springframework.stereotype,javax.persistence",org.regola.filte
+ r.criteria.jpa;uses:="javax.persistence,org.apache.commons.logging"
+Private-Package: net.bzdyl.ejb3.criteria.restrictions,net.bzdyl.ejb3.c
+ riteria.impl,net.bzdyl.ejb3.criteria,net.bzdyl.ejb3.criteria.projecti
+ ons,net.bzdyl.ejb3.criteria.transformers,.
+Ignore-Package: org.regola.model,org.regola.dao.jpa,org.regola.filter,
+ org.regola.filter.criteria.impl,org.regola.dao.impl,org.regola.filter
+ .criteria.jpa,org.regola.filter.criteria
+Bundle-ClassPath: .,ejb3criteria-0.2-SNAPSHOT.jar
+Built-By: nicola
+Tool: Bnd-0.0.311
+Bundle-Name: Regola DAO JPA
+Import-Library: org.springframework.spring;version="[2.5.6,2.5.6],com.
+ springsource.javax.persistence;version="[1.0.0,1.0.0]"
+Created-By: Apache Maven Bundle Plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Import-Bundle: org.regola.core;version="[1.2-SNAPSHOT,1.2-SNAPSHOT]"
+Build-Jdk: 1.6.0_07
+Bundle-Version: 1.2.0.SNAPSHOT
+Bnd-LastModified: 1284988166427
+Bundle-ManifestVersion: 2
+Bundle-Description: Regola Toolkit DAO JPA
+Bundle-License: http://www.gnu.org/licenses/gpl-3.0.txt
+Embed-Dependency: ejb3criteria
+Import-Package: javax.persistence;version="1.0",org.apache.commons.log
+ ging;version="1.1",org.springframework.stereotype;version="2.5"
+Bundle-SymbolicName: org.regola.jpa
+

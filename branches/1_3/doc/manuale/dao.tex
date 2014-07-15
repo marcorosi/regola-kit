@@ -1,0 +1,253 @@
+\chapter{Dao}
+
+\section{Scopo}
+TODO: A cosa serve DAO?
+
+\section{GenericDao}
+TODO: Se ne descrivono interfacce e si presentano esempi d'uso (dei test d'unità) che si snodano tra i vari paragrafi.
+
+\section{Creare un custom dao}
+TODO: l'interfaccia, l'implementazione ed infine la configurazione di Spring. Si ricorda che esiste un generatore per questo.
+
+\section{Ricerche con Model Pattern}\label{sec:modelpattern}
+Nel paragrafo \vref{sec:modelpatternTeoria} è stato presentato in modo formale un nuovo design pattern chiamato Model Pattern; è stato spiegato come intenda risolvere il probema dell'estrazione di un sottoinsieme di oggetti e di come intenda fornire una rappresentazione sintetica di questo oggetto. La soluzione proposta, si è visto, prevede l'utilizzo di una classe che svolga il ruolo di ModelPattern, ovvero sia contemporaneamente in grado di individuare quali elementi estrarre e di rappresentarli senza però contenere al suo interno né il sottoinsieme né la logica per l'estrazione. La discussione è rimasta però a livello astratto rimandando la descrizione di come Model Pattern possa essere utilizzato concretamente all'interno di un'applicazione Regola kit; nei prossimi paragrafi vedremo quindi l'implementazione di riferimento di Model Pattern contenuta in Regola kit (precisamente nei moduli regola-core, regola-dao e sottomoduli) per scoprire come progettare un classe ModelPattern con diversi criteri di filtraggio e ordinamento e la utilizzeremo lungo i diversi livelli applicativi, dal DAO alla presentazione. Per maggiore concretezza immagineremo di doverci occupare, diciamo, della classe Prodotto riportata di seguito.
+
+\begin{java}
+class Prodotto {
+    Integer id;
+    String  descrizione;
+
+    //seguono getter/setter per ogni campo
+    ...
+}
+\end{java}
+
+\subsection{ModelPattern}
+Regola kit fornisce una classe di base org.regola.model.ModelPattern da cui derivare il nostro ModelPattern; questa classe presenta alcune facilitazioni per specificare gli ordinamenti e la paginazione ed è accettata quasi in ogni livello applicativo, dai GenericDao fino a controllori web che si occupano di disegnare la tabella con il sottoinsieme. Tenendo a mente la classe Prodotto una prima versione del nostro ModelPattern potrebbe essere la seguente:
+
+\begin{java}
+class ProdottoPattern extends org.regola.model.ModelPattern 
+    implements Serializable {
+    
+    Integer  chiave;
+
+    @Equals("id")
+    public Integer getChiave() {
+        return chiave;
+    }
+
+    ...
+}
+\end{java}
+
+Soffermiamoci un attimo su alcuni elementi che trasformano la nostra classe in un ModelPattern utilizzabile con Regola kit:
+
+\begin{description*}
+  \item[nome della classe] una convenzione di Regola kit prevede che ogni ModelPatter dovrebbe chiamarsi col nome della classe di modello a cui si riferisce (nel nostro caso Prodotto) seguito dal suffisso Pattern, per cui ProdottoPattern
+  \item[derivazione] la nostra classe deve derivare dalla classe org.regola.model.ModelPattern fornita con Regola kit
+\item[serilizzazione] la nostra classe deve essere progettata per la serializzazione e quindi necessariamente implementare l'interfaccia di marker java.io.Serializable
+\end{description*}
+
+La classe ProdottoPattern così realizzata è predisposta per individuare particolari sottoinsiemi di instanze Prodotto che presentano particolari valori della proprietà id, in particolare tutte le istanze di Prodotto che hanno id uguale alla proprietà chiave di ProdottoPattern. Il legame tra chiave ed id è realizzato mediante l'annotazione @Equals (alla riga 6) che, posta sul getter della proprietà chiave di ProdottoPattern, unisce quest'ultima alla proprietà dell'oggetto di modello specificata dentro l'annotazione stessa (in questo caso id).
+\\
+Bisogna chiarire da subito che non è la classe ModelPattern ad individuare un sottoinsieme ma ogni sua istanza per cui, tornando al nostro esempio, bisogna istanziare un oggetto del tipo ProdottoPattern. 
+
+\begin{java}
+ProdottoPattern pattern = new ProdottoPattern();
+
+pattern.setChiave(234532); //ora pattern rappresenta un sottoinsieme
+\end{java}
+
+Dopo l'assegnazione pattern (l'oggetto) e non ProdottoPattern (la classe) è in grado di individuare un sottoinsieme di oggetti Prodotto aventi la proprietà id uguale a 234532 (essendo id una chiave primaria il sottoinsieme conterrà al più un elemento). Da notare come l'oggetto pattern non contenga in sé il sottoinsieme ma solo la descrizione sintetica di questo; per ottenere il sottoinsieme bisogna rivolgersi alla classe ProdottoDao invocando il metodo find.
+
+\begin{java}
+ProdottoPattern pattern = new ProdottoPattern();
+
+pattern.setChiave(234532); 
+
+List<Prodotto> prodotti = prodottoDao.find(pattern);
+\end{java}
+
+Ora che abbiamo visto concretamente come creare ed utilizzare una classe ModelPattern possiamo scendere nel dettaglio ricordando che Model Pattern deve individuare con esattezza il sottoinsieme, in particolare deve occuparsi di ordinamento, paginazione e proiezione. Nei prossimi paragrafi quindi scopriremo come specificare:
+
+\begin{enumerate*}
+  \item la selezione da effettuare
+  \item i criteri di ordinarmento
+  \item la paginazione da effettuare 
+  \item le proprietà da comprendere nella proiezione
+  \item fornire rappresentazioni sintetiche del sottoinsieme indicato
+\end{enumerate*}
+
+\subsection{La selezione}
+La selezione avviene impostando alcuni criteri di filtraggio sul ModelPattern. Ogni criterio è caratterizzato da:
+
+\begin{enumerate*}
+  \item la proprietà del modello a cui si applica
+  \item il tipo di criterio (ad esempio ugualianza, appartenenza, ecc.) 
+  \item il valore da utilizzare per il confronto
+\end{enumerate*}
+
+Riprendendo l'esempio del paragrafo precedente troviamo un unico criterio di filtraggio, di tipo ugualianza, che confronta la proprietà di modello id con il valore della proprietà chiave di ProdottoPattern.
+
+\begin{java}
+class ProdottoPattern extends org.regola.model.ModelPattern 
+    implements Serializable {
+    
+    Integer  chiave;
+
+    @Equals("id")
+    public Integer getChiave() {
+        return chiave;
+    }
+
+    ...
+}
+\end{java}
+
+La proprietà di modello può trovarsi direttamente sulla classe radice, ovvero quella a cui riferisce ModelPattern (nell'esempio Prodotto) oppure su classi a questa collegate tramite associazioni del tipo uno-a-uno, molti-a-uno od uno-a-molti. In generale si navigano le associazioni utilizzando come separatore il punto tranne che per relazioni uno-a-molti (collezioni) dove si utilizza il simbolo [] postfisso. Nel dettaglio:
+
+\begin{center}
+{
+  \begin{tabular}{ | l | l | l  | }
+  \hline
+  radice  & il nome della proprietà & id \\   
+                                    & & nome \\   \hline
+  uno-a-uno  & il punto    & indirizzo.via \\   
+                         & & categoria.descrizione \\   \hline
+  molti-a-uno  & il punto    & cliente.nome \\   
+                           & & fattura.progressivo \\   \hline
+  uno-a-molti  & [] postfisso ed il punto    & elmenti[].nome \\   
+                                           & & elementi[].dettagli[].progressivo \\   \hline
+  \end{tabular}
+}
+\end{center}
+
+Il tipo del criterio è impostato scegliendo l'annotazione tra quelle presenti in Regola kit. Attualmente è possibile scegliere tra le annotazioni seguenti:
+
+\begin{center}
+{
+  \begin{tabular}{ | l | l  | }
+  \hline
+    Equals & ugualianza \\ \hline
+    NotEquals & disugualianza \\ \hline
+    Like & il like \\ \hline
+    GreatherThan & maggiore \\ \hline 
+    LessThan & minore \\ \hline
+    In & appartenenza \\ \hline
+  \end{tabular}
+}
+\end{center}
+
+Il valore di ogni criterio una proprietà di ModelPattern individuata annotandone il getter. Il tipo di questa proprietà deve corrispondere a quello del modello tranne per il criterio In per cui è necessario specificare un'array. L'esempio seguente fornisce una rappresentazione piuttosto completa di quando esposto:
+
+\begin{java}
+public class CustomerPattern extends ModelPattern 
+   implements Serializable {
+  
+  private Integer id;
+
+  @Equals("id")
+  public .Integer getId()
+  {
+    return id;
+  }
+  
+  private String firstName;
+  
+  @Like(value = "firstName", caseSensitive = true)
+  public String getFirstName()
+  {
+    return firstName;
+  }
+    
+  private String[] lastNames;
+  
+  @In("lastName")
+  public String[] getLastNames() {
+    return lastNames;
+  }
+
+  private Integer invoiceId;
+ 
+  @Equals("invoices[].id")
+  public Integer getInvoiceId() {
+    return invoiceId;
+  }
+
+}
+\end{java}
+
+\subsection{Ordinamento}
+Sugli oggetti selezionati è possibile impostare criteri di ordinamento in base alle proprietà della radice del modello o sugli oggetti ad essa associati. L'implementazione di Model Pattern presente in Regola kit utilizza per specificare gli ordinamenti (così come le proiezioni) la classe ModelProperty, una specie di descrittore di una generica proprietà. Si instazia così:
+
+\begin{java}
+   ModelProperty mp =  new ModelProperty("id","customer.column.",Order.asc);   
+\end{java}
+
+ModelProperty contiene il nome della proprietà (in base a cui ordinare), un prefisso da utilizzare per individuare in modo univoco la proprietà all'interno di tutta l'applicazione ed, infine, la direzione dell'ordinamento (acendente o discendente). 
+Nell'esempio si esprime un ordinamento ascentente sulla proprietà id, individuata nell'applicazione come "customer.column.id".
+\\
+Per speficiare l'ordinamento basta popolare la lista sortedProperties di ModelPattern con tante istanze di ModelProperty in base all'ordinamento da realizzare. Ad esempio:
+
+\begin{java}
+   ModelProperty id =  new ModelProperty("id","customer.column.",Order.asc);
+   ModelProperty street =  new ModelProperty("address.street","customer.column.",Order.desc);
+
+   modelPattern.getSortedProperties.clear();
+   modelPattern.getSortedProperties.add(id);
+   modelPattern.getSortedProperties.add(street);
+\end{java}
+
+In questo caso si impone un ordinamento crescente per id e descrescente per la proprietà strret dell'oggetto associato address.
+
+
+\subsection{Paginazione}
+Sugli oggetti così selezionati ed ordinati è possibile effettuare un'olteriore selezione dividendolo in blocchi contigui dette pagine contenenti al più $n$ elementi. ModelPattern consente di impostare la dimensione delle pagine così come impostare la pagina da selezionare. Ad esempio:
+
+\begin{java}
+  modelPattern.setPageSize(20);
+  modelPattern.setCurrentPage(0);
+\end{java}
+
+Qui si suddivide l'insieme ordinato in pagina con al più di 20 oggetti, il primo blocco comprende gli oggetti da $[0,19]$, il secondo da $[20,39]$ e così via. Inoltre si seleziona la prima pagina (la numerazione delle pagine parte da 0), ovvero gli oggetti da $[0,19]$.
+
+\subsection{Proiezione}
+Fino a qui abbiamo visto come effettuare la selezione, ordinarla e limitarla ad un certo numero di elementi. \'{E} inoltre possibile limitare non solo il numero ma anche le proprietà del singolo oggetto del sottoinisieme. Ad esempio può essere conveniente limitarsi a considerare solo la proprietà id e name piuttosto che il complesso di tutte le proprietà della radice del modello e/o degli oggetti associati. Questo genere di limitazione si chiama proiezione.
+Il meccanismo per specificare le proiezione dentro Regola kit si basa sempre sugli oggetti ModelProperty, basta popolare la lista visibleProperties di ModelPattern con le proprietà che si intende proiettare.
+
+
+\begin{java}
+   ModelProperty id =  new ModelProperty("id","customer.column.",Order.asc);
+   ModelProperty street =  new ModelProperty("address.street","customer.column.",Order.desc);
+
+   modelPattern.getVisibleProperties.clear();
+   modelPattern.getVisibleProperties.add(id);
+   modelPattern.getVisibleProperties.add(street);
+\end{java}
+
+Nell'esempio si effettua una proiezione comprendente esclusivamente le proprietà id e strett dell'oggetto associato street.
+
+\subsection{Rappresentazione}
+TODO:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

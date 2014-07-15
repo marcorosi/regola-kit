@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD Sql Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Product">
+
+	<typeAlias alias="Product" type="org.regola.model.Product" />
+
+	<resultMap class="Product" id="productMap">
+		<result property="id" column="ID" />
+		<result property="name" column="NAME" />
+		<result property="price" column="PRICE" />
+	</resultMap>
+
+	<select id="get" parameterClass="int"
+		resultMap="productMap">
+		<![CDATA[
+			SELECT ID, NAME, PRICE
+			FROM PRODUCT
+            WHERE ID = #id#
+		]]>
+	</select>
+</sqlMap>
