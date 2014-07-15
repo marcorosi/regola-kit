@@ -5,7 +5,7 @@
 	<groupId>org.regola</groupId>
 	<artifactId>regola-kit</artifactId>
 	<packaging>pom</packaging>
-	<version>1.3-SNAPSHOT</version>
+	<version>1.3</version>
 	<name>Regola Toolkit</name>
 	<description>Regola Conventional Toolkit</description>
 	<url>http://code.google.com/p/regola-kit/</url>
