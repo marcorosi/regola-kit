@@ -296,7 +296,7 @@ public class TestOperationsImpl implements TestOperations {
 		 
 	        Dependency dependency = new Dependency("org.regola", 
 	        		"regola-test", 
-	        		"1.3-SNAPSHOT", 
+	        		"1.3", 
 	        		DependencyType.JAR, DependencyScope.COMPILE);
 	        
 	        projectOperations.addDependency(projectOperations.getFocusedModuleName(), dependency);

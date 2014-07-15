@@ -67,7 +67,7 @@ public class ProjectOperationsImpl implements ProjectOperation {
 	 */
 	public void setup(String projectName) {
 	     
-		projectOperations.addProperty(projectOperations.getFocusedModuleName(), new Property("regola.version", "1.3-SNAPSHOT"));
+		projectOperations.addProperty(projectOperations.getFocusedModuleName(), new Property("regola.version", "1.3"));
 		
 		// Install code repository needed to get the annotation 
 		projectOperations.addRepository("", new Repository("nexus", "Maven Proxy interno ad UniBo", "http://deposito:8082/nexus/content/groups/public"));

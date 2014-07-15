@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.regola</groupId>
 		<artifactId>regola-kit</artifactId>
-		<version>1.3-SNAPSHOT</version>
+		<version>1.3</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -15,7 +15,7 @@
 	<description>Regola Toolkit Dao</description>
 
 	<modules>
-		<module>regola-roo-addon</module>
+		<!--module>regola-roo-addon</module-->
 		<module>regola-roo-annotations</module>
 	</modules>
 
