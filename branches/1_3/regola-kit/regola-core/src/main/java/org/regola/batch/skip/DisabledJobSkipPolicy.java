@@ -1,10 +1,10 @@
-package org.regola.batch.policy;
+package org.regola.batch.skip;
 
 import java.io.Serializable;
 
-import org.regola.batch.Job.SkipPolicy;
 import org.regola.batch.JobConfig;
 import org.regola.batch.JobContext;
+import org.regola.batch.policy.SkipPolicy;
 
 /**
  * Politica di skip che salta l'esecuzione di qualsiasi elemento (corrente e

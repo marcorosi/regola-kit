@@ -245,7 +245,11 @@ public class JobContext<T extends Serializable> {
 
 	@Override
 	public String toString() {
-		return jobName + "[" + executionId + "]@" + hostname + "["
-				+ environment + "]";
+		return getId();
+	}
+
+	public String getId() {
+		return String.format("%s[%s]@%s[%s]", jobName, executionId, hostname,
+				environment);
 	}
 }
